@@ -8,6 +8,8 @@
 import Foundation
 
 class RiskProfileViewModel: ObservableObject {
+    @Inject var calculateUserRiskProfile: CalculateUserRiskProfile
+    
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
@@ -19,21 +21,29 @@ class RiskProfileViewModel: ObservableObject {
     @Published var userSelectedAnswers = Array(repeating: "", count: RiskProfileQuestionsAndOptions.allCases.count)
     
     
-    func calculateRiskProfile() -> RiskProfileType {
-        // add logic to calculate risk profile from the 'userSelectedAnswers' variable
-        
-        return .conservative
+    func getUserRiskProfile() {
+        do {
+            let userRiskProfile = try calculateUserRiskProfile.execute(userSelectedAnswers)
+            
+            resultState = userRiskProfile
+        } catch {
+            debugPrint("Failed to get user risk profile: \(error.localizedDescription)")
+        }
     }
     
     func goToNextPage(router: any AppRouterProtocol) {
         if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
+            if currentTab == (RiskProfilePageState.pageRiskResult.rawValue - 1) {
+                getUserRiskProfile()
+            }
+            
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
             }
         } else {
-            router.popToRoot()
             router.startScreen = .main
+            router.popToRoot()
         }
     }
     

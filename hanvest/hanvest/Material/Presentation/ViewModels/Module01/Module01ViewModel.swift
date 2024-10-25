@@ -44,7 +44,7 @@ class Module01ViewModel: ObservableObject {
     
     func updateProgressBarValue() {
         if plantingViewVisibility == .isHidden {
-            progressBarCurrValue += (progressBarMaxValue / (lastPage + 1))
+            progressBarCurrValue += (progressBarMaxValue / (lastPage + 2))
         }
     }
 }
