@@ -46,15 +46,15 @@ struct SimulationBuyingConfirmationCard: View {
     }
 }
 
-#Preview {
-    SimulationBuyingConfirmationCard(
-        viewModel: BuyingStockDataViewModel(),
-        cancelAction: {
-            print("Cancel Action Pressed")
-        },
-        confirmAction: {
-            print("Confirm Action Pressed")
-        }
-    )
-}
-
+//#Preview {
+//    SimulationBuyingConfirmationCard(
+//        viewModel: BuyingStockDataViewModel(),
+//        cancelAction: {
+//            print("Cancel Action Pressed")
+//        },
+//        confirmAction: {
+//            print("Confirm Action Pressed")
+//        }
+//    )
+//}
+//
