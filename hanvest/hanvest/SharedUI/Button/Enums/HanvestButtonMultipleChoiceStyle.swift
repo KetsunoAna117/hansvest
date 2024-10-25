@@ -10,6 +10,8 @@ import SwiftUI
 enum HanvestButtonMultipleChoiceStyle {
     case selected
     case unselected
+    case filledCorrect
+    case filledIncorrect
     
     var backgroundColor: Color {
         switch self {
@@ -17,12 +19,16 @@ enum HanvestButtonMultipleChoiceStyle {
                 return .seagull400
             case .unselected:
                 return .mineShaft50
+            case .filledCorrect:
+                return  .blizzardBlue400
+            case .filledIncorrect:
+                return .sundown500
         }
     }
     
     var fontColor: Color {
         switch self {
-            case .selected:
+            case .selected, .filledCorrect, .filledIncorrect:
                 return .mineShaft50
             case .unselected:
                 return .seagull500
@@ -35,6 +41,8 @@ enum HanvestButtonMultipleChoiceStyle {
                 return .seagull400
             case .unselected:
                 return .seagull300
+            case .filledCorrect, .filledIncorrect:
+                return .blizzardBlue400
         }
     }
     
@@ -44,6 +52,21 @@ enum HanvestButtonMultipleChoiceStyle {
                 return .seagull500
             case .unselected:
                 return .seagull300
+            case .filledCorrect:
+                return .blizzardBlue500
+            case .filledIncorrect:
+                return .sundown600
+        }
+    }
+    
+    var image: Image? {
+        switch self {
+            case .filledCorrect:
+                return Image(systemName: "checkmark")
+            case .filledIncorrect:
+                return Image(systemName: "xmark")
+            case .selected, .unselected:
+                    return nil
         }
     }
 }
