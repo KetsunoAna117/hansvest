@@ -150,7 +150,12 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    Text("Hello from transaction complete Stage")
+                    MaterialTransactionStatusView(
+                        moduleRouter: self,
+                        profileViewModel: profileViewModel,
+                        simulationViewModel: simulationViewModel,
+                        transaction: transactionViewModel
+                    )
                 }
             }
             .navigationBarBackButtonHidden()
