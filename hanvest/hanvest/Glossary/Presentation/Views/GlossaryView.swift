@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct GlossaryView: View {
-    // Viewmodel dibikin disini semua (StateObject)
-    // Abis itu dipassing ke components
     let router: any AppRouterProtocol
     
     @StateObject var glossaryViewModel = GlossaryViewModel()
