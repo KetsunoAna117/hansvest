@@ -98,15 +98,29 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .confirmBuy:
+        case .confirmBuy(
+            let profileViewModel,
+            let simulationViewModel
+        ):
             ZStack {
                 Color.background.ignoresSafeArea()
-                VStack {
-                    Text("Hello from confirm Buy Stage")
-
-                }
+                MaterialSimulationConfirmationBuyView(
+                    moduleRouter: self,
+                    profileViewModel: profileViewModel,
+                    simulationViewModel: simulationViewModel
+                )
             }
             .navigationBarBackButtonHidden()
+            .overlay {
+                if let popup = overlay {
+                    ZStack {
+                        self.build(popup)
+                    }
+                    // Apply transition and animation
+                    .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                    .animation(.easeInOut(duration: 0.3), value: self.overlay)
+                }
+            }
             
         case .confirmSell:
             ZStack {
@@ -117,6 +131,16 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 }
             }
             .navigationBarBackButtonHidden()
+            .overlay {
+                if let popup = overlay {
+                    ZStack {
+                        self.build(popup)
+                    }
+                    // Apply transition and animation
+                    .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                    .animation(.easeInOut(duration: 0.3), value: self.overlay)
+                }
+            }
             
         case .transactionComplete(
             let profileViewModel,

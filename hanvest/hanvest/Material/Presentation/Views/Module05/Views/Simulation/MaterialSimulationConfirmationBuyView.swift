@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MaterialConfirmationBuyView: View {
+struct MaterialSimulationConfirmationBuyView: View {
     let moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
