@@ -23,11 +23,11 @@ struct GlossaryView: View {
                 label: "Glossary",
                 leadingIcon: Image(systemName: "chevron.left"),
                 leadingAction: {
-//                    router.pop()
+                    router.pop()
                 },
                 trailingIcon: Image(systemName: "magnifyingglass"),
                 trailingAction: {
-//                    router.push(.searchGlossary)
+                    router.push(.searchGlossary)
                 }
             )
             
