@@ -11,6 +11,7 @@ import SwiftUI
 protocol AppRouterProtocol: ObservableObject {
     var path: NavigationPath { get set }
     var popup: Popup? { get set }
+    var startScreen: Screen? { get set }
 
     func push(_ screen:  Screen)
     func pop()

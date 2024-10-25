@@ -10,6 +10,7 @@ import SwiftUI
 class AppRouter: AppRouterProtocol, ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
+    @Published var startScreen: Screen?
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -45,12 +46,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .onboarding:
             ZStack {
                 Color.background.ignoresSafeArea()
-                VStack {
-                    Text("Not yet Implemented!")
-                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                        self.pop()
-                    })
-                }
+                RiskProfileView(router: self)
             }
             .navigationBarBackButtonHidden()
             
