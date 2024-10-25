@@ -61,6 +61,7 @@ class BuyingStockDataViewModel: ObservableObject{
         
         self.initialStockPrice = initialStockPrice
         self.currentStockPrice = currentStockPrice
+        
         validateStockBuyAmount()
     }
     
@@ -93,7 +94,13 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     func calculateStockBuyAmountPercentage() -> String {
-        let percentage = Double(stockBuyAmount) / Double(tradingBalance) * 100
+        var percentage: Double = 0
+        
+        if tradingBalance == 0 {
+            percentage = 0
+        } else {
+            percentage = Double(stockBuyAmount) / Double(tradingBalance) * 100
+        }
         return String(format: "%.2f", percentage)
     }
     

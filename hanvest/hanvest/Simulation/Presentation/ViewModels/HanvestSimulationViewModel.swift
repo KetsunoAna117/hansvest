@@ -18,7 +18,7 @@ class HanvestSimulationViewModel: ObservableObject {
         }
     }
     
-    @Published var selectedStockID: String = "" {
+    @Published var selectedStockID: String {
         didSet {
             updateSelectedStock()
         }
@@ -33,24 +33,27 @@ class HanvestSimulationViewModel: ObservableObject {
     
     @Published var displayActiveStockInitialPrice: Int
     @Published var displayActiveStockCurrentPrice: Int
-    
+
     var timer: Timer?
     
     init(){
         stockList = []
+        selectedStockID = ""
         displayActiveStockInitialPrice = 0
         displayActiveStockCurrentPrice = 0
-        
-        setup()
+        testPriceUpdate()
     }
     
     func setup(){
         self.stockList = getStockList.execute()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
-//        testPriceUpdate()
     }
     
-    private func updateSelectedStock() {
+    func onAppear(){
+        self.selectedStockID = stockList.first?.stockIDName ?? ""
+    }
+    
+    func updateSelectedStock() {
         if selectedStock == nil {
             if let stock = stockList.first {
                 self.selectedStock = stock
@@ -75,7 +78,7 @@ class HanvestSimulationViewModel: ObservableObject {
         
         timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             let random = Int.random(in: 1...100)
-            let randomPriceIncrease = random % 2 == 0 ? 1 : -1
+            let randomPriceIncrease = random % 2 == 0 ? 10 : -5
             
             let randomStockIncrease = Int.random(in: 0...(self.stockList.count - 1))
             

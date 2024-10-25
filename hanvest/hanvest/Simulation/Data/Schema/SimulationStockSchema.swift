@@ -10,12 +10,12 @@ import SwiftData
 
 @Model final class SimulationStockSchema {
     @Attribute(.unique) var stockIDName: String
-    var stockName: String?
-    var stockImageName: String?
-    var stockDescription: String?
-    var stockPriceID: [String]?
+    var stockName: String
+    var stockImageName: String
+    var stockDescription: String
+    var stockPriceID: [String]
     
-    init(stockIDName: String, stockName: String? = nil, stockImageName: String? = nil, stockDescription: String? = nil, stockPriceID: [String]? = nil) {
+    init(stockIDName: String, stockName: String, stockImageName: String, stockDescription: String, stockPriceID: [String]) {
         self.stockIDName = stockIDName
         self.stockName = stockName
         self.stockImageName = stockImageName
@@ -48,9 +48,9 @@ import SwiftData
     ) -> SimulationStockEntity {
         return SimulationStockEntity(
             stockIDName: self.stockIDName,
-            stockName: self.stockName ?? "",
-            stockImageName: self.stockImageName ?? "",
-            stockDescription: self.stockDescription ?? "",
+            stockName: self.stockName,
+            stockImageName: self.stockImageName,
+            stockDescription: self.stockDescription,
             stockPrice: productPriceSchema.map({ $0.mapToEntity() }).sorted(by: {$0.time < $1.time})
         )
     }

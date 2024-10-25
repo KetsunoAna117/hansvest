@@ -10,13 +10,13 @@ import SwiftData
 
 @Model final class SimulationNewsSchema {
     @Attribute(.unique) var newsID: String
-    var stockIDName: String?
-    var newsTitle: String?
-    var newsReleasedTime: Date?
-    var newsContent: String?
-    var stockFluksPercentage: Int?
+    var stockIDName: String
+    var newsTitle: String
+    var newsReleasedTime: Date
+    var newsContent: String
+    var stockFluksPercentage: Int
     
-    init(newsID: String, stockIDName: String? = nil, newsTitle: String? = nil, newsReleasedTime: Date? = nil, newsContent: String? = nil, stockFluksPercentage: Int? = nil) {
+    init(newsID: String, stockIDName: String, newsTitle: String, newsReleasedTime: Date, newsContent: String, stockFluksPercentage: Int) {
         self.newsID = newsID
         self.stockIDName = stockIDName
         self.newsTitle = newsTitle
@@ -57,11 +57,11 @@ import SwiftData
     func mapToEntity() -> SimulationNewsEntity {
         return SimulationNewsEntity(
             newsID: self.newsID,
-            stockIDName: self.stockIDName ?? "",
-            newsTitle: self.newsTitle ?? "",
-            newsReleasedTime: self.newsReleasedTime ?? Date.now,
-            newsContent: self.newsContent ?? "",
-            stockFluksPercentage: self.stockFluksPercentage ?? 0
+            stockIDName: self.stockIDName,
+            newsTitle: self.newsTitle,
+            newsReleasedTime: self.newsReleasedTime,
+            newsContent: self.newsContent,
+            stockFluksPercentage: self.stockFluksPercentage
         )
     }
 }

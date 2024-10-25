@@ -100,7 +100,13 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func calculateStockSellAmountPercentage() -> String {
-        let percentage = Double(stockSellLot) / Double(availableLot) * 100
+        var percentage: Double = 0
+        
+        if availableLot == 0 {
+            percentage = 0
+        } else{
+            percentage = Double(stockSellLot) / Double(availableLot) * 100
+        }
         return String(format: "%.2f", percentage)
     }
     

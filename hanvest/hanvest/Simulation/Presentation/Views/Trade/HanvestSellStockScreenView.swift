@@ -32,7 +32,7 @@ struct HanvestSellStockScreenView: View {
                         currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
-                    SimulationSellingCard(viewModel: viewmodel)
+                    SimulationSellingCard(viewModel: viewmodel, currentPrice: $simulationViewModel.displayActiveStockCurrentPrice)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
@@ -81,25 +81,25 @@ struct HanvestSellStockScreenView: View {
     }
 }
 
-#Preview {
-    @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? =
-        .simulationSellingConfirmation
-    
-    NavigationStack(path: $appRouter.path) {
-        if let startScreen = startScreen {
-            appRouter.build(startScreen)
-                .navigationDestination(for: Screen.self) { screen in
-                    appRouter.build(screen)
-                }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                        
-                    }
-                }
-        }
-    }
-}
+//#Preview {
+//    @Previewable @StateObject var appRouter = AppRouter()
+//    @Previewable @State var startScreen: Screen? =
+//        .simulationSellingConfirmation
+//    
+//    NavigationStack(path: $appRouter.path) {
+//        if let startScreen = startScreen {
+//            appRouter.build(startScreen)
+//                .navigationDestination(for: Screen.self) { screen in
+//                    appRouter.build(screen)
+//                }
+//                .overlay {
+//                    if let popup = appRouter.popup {
+//                        ZStack {
+//                            appRouter.build(popup)
+//                        }
+//                        
+//                    }
+//                }
+//        }
+//    }
+//}

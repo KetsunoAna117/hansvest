@@ -9,10 +9,7 @@ struct HanvestStockOption: View {
     // Bind to the parent selection
     @Binding var selectedStockID: String
     
-    // Styling Variable (Initialized Before)
-    var initialState: HanvestStockOptionDefaultState
-    
-    @State private var state: HanvestStockOptionDefaultState = .unselected
+    @State var state: HanvestStockOptionDefaultState = .unselected
     
     // Button Content
     var id: String
@@ -48,9 +45,6 @@ struct HanvestStockOption: View {
                 state = .unselected
             }
         }
-        .onAppear(){
-            state = initialState
-        }
     }
     
     func getPressedStatus() -> Bool {
@@ -65,7 +59,7 @@ struct HanvestStockOption: View {
     VStack {
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .selected,
+            state: .selected,
             id: "Stock-1",
             imageName: "Amazon-logo"
         ) {
@@ -74,7 +68,7 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            state: .unselected,
             id: "Stock-2",
             imageName: "BBRI-logo"
         ) {
@@ -83,7 +77,7 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            state: .unselected,
             id: "Stock-3",
             imageName: "Apple-logo"
         ) {
@@ -92,7 +86,7 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            state: .unselected,
             id: "Stock-4",
             imageName: "BBCA-logo"
         ) {
@@ -101,7 +95,7 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            initialState: .unselected,
+            state: .unselected,
             id: "Stock-5",
             imageName: "GOTO-logo"
         ) {

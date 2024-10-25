@@ -10,23 +10,17 @@ import SwiftUI
 struct Module01View: View {
     let router: any AppRouterProtocol
     
-    // Constants
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    let lastPage = ContentOfModule01Material.page02.rawValue
-    
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 4
-    @State private var plantingViewVisibility: PlantingViewVisibility = .isVisible
+    // View Models
+    @StateObject var viewModel = Module01ViewModel()
     
     var body: some View {
         ZStack {
             Color.background
             
-            if plantingViewVisibility == .isVisible {
+            if viewModel.plantingViewVisibility == .isVisible {
                 Module01PlantingView() {
-                    plantingViewVisibility = .isHidden
-                    updateProgressBarValue()
+                    viewModel.plantingViewVisibility = .isHidden
+                    viewModel.updateProgressBarValue()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -34,23 +28,24 @@ struct Module01View: View {
             ZStack {
                 VStack(spacing: 49) {
                     ProgressBarWithXMarkView(
-                        progressBarMinValue: progressBarMinValue,
-                        progressBarMaxValue: progressBarMaxValue,
+                        progressBarMinValue: viewModel.progressBarMinValue,
+                        progressBarMaxValue: viewModel.progressBarMaxValue,
                         action: {
                             router.popToRoot()
                         },
-                        progressBarCurrValue: $progressBarCurrValue
+                        progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
                     
-                    if plantingViewVisibility == .isHidden {
+                    if viewModel.plantingViewVisibility == .isHidden {
                         VStack(spacing: 48) {
-                            TabView(selection: $currentTab) {
+                            TabView(selection: $viewModel.currentTab) {
                                 
                                 ForEach(Array(ContentOfModule01Material.allCases.enumerated()), id: \.offset) { index, content in
                                         
                                         HanvestMaterialnformationView(
                                             title: Text(content.headerContent).font(.nunito(.title2)),
-                                            detailText: content.detailContent
+                                            detailText:
+                                                content.detailContent
                                         )
                                         .tag(content.rawValue)
                                         .transition(.slide)
@@ -70,8 +65,11 @@ struct Module01View: View {
                                 HanvestButtonDefault(
                                     title: "Continue"
                                 ) {
-                                    goToNextPage()
-                                    updateProgressBarValue()
+                                    viewModel.goToNextPage(
+                                        router: self.router,
+                                        specificModule: .module01
+                                    )
+                                    viewModel.updateProgressBarValue()
                                 }
                             }
                             .frame(maxWidth: .infinity)
@@ -88,20 +86,6 @@ struct Module01View: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-    
-    private func goToNextPage() {
-        if currentTab < lastPage {
-            currentTab += 1
-        } else {
-            router.push(.moduleCompletion(completionItem: .module01))
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        if plantingViewVisibility == .isHidden {
-            progressBarCurrValue += (progressBarMaxValue / (lastPage + 1))
-        }
     }
     
 }

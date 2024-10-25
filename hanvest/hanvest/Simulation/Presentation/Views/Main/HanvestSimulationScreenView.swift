@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestSimulationView: View {
     let router: any AppRouterProtocol
-    @EnvironmentObject private var viewmodel: HanvestSimulationViewModel
+    @ObservedObject var viewmodel: HanvestSimulationViewModel
     
     var body: some View {
         ZStack {
@@ -19,7 +19,7 @@ struct HanvestSimulationView: View {
                         selectedStockID: $viewmodel.selectedStockID,
                         simulationStockList: viewmodel.stockList,
                         onPressed: { data in
-                            print("[!] Selected Stock: \(data)")
+                            
                         }
                     )
                     
@@ -40,13 +40,17 @@ struct HanvestSimulationView: View {
                                 size: .medium,
                                 style: .filledIncorrect(isDisabled: false),
                                 title: "Sell") {
-                                    router.push(.simulationSellingConfirmation)
+                                    router.push(
+                                        .simulationSellingConfirmation(viewModel: viewmodel)
+                                    )
                                 }
                             HanvestButtonDefault(
                                 size: .medium,
                                 style: .filledCorrect(isDisabled: false),
                                 title: "Buy") {
-                                    router.push(.simulationBuyingConfirmation)
+                                    router.push(
+                                        .simulationBuyingConfirmation(viewModel: viewmodel)
+                                    )
                                 }
                         }
                     }

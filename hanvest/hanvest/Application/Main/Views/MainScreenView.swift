@@ -11,7 +11,7 @@ struct MainScreenView: View {
     let router: any AppRouterProtocol
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
-    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
+    @StateObject var simulationViewModel: HanvestSimulationViewModel = .init()
     
     var body: some View {
         VStack {
@@ -47,8 +47,10 @@ struct MainScreenView: View {
                 ) {
                     ZStack {
                         Color.background.ignoresSafeArea()
-                        HanvestSimulationView(router: router)
-                            .environmentObject(simulationViewModel)
+                        HanvestSimulationView(
+                            router: router,
+                            viewmodel: simulationViewModel
+                        )
                     }
                 }
                 
@@ -66,10 +68,8 @@ struct MainScreenView: View {
             .animation(.easeInOut, value: selectionTab)
         }
         .onAppear(){
-            @Inject var getUserData: GetUserData
-            
-            if let user = getUserData.execute() {
-                print("[!] Current User Progress: \(user.moduleCompletionList)")
+            if simulationViewModel.stockList.isEmpty {
+                simulationViewModel.setup()
             }
         }
     }

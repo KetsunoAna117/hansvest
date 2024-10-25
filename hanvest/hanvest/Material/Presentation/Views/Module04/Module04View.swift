@@ -10,16 +10,6 @@ import SwiftUI
 struct Module04View: View {
     let router: any AppRouterProtocol
     
-    // Constants
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    let lastPage = Module04NumberedListContent.page11.rawValue
-    
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 4
-    @State private var pageState: Module04PageState = .pageStartQuiz
-    @State private var showingAnswer: Module04ShowingCorrectOrWrongAnswer = .isNotShowing
-    
     // View Model
     @StateObject private var viewModel = Module04ViewModel()
     
@@ -30,17 +20,17 @@ struct Module04View: View {
             ZStack {
                 VStack(spacing: 49) {
                     ProgressBarWithXMarkView(
-                        progressBarMinValue: progressBarMinValue,
-                        progressBarMaxValue: progressBarMaxValue,
+                        progressBarMinValue: viewModel.progressBarMinValue,
+                        progressBarMaxValue: viewModel.progressBarMaxValue,
                         action: {
                             router.popToRoot()
                         },
-                        progressBarCurrValue: $progressBarCurrValue
+                        progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
-                    .padding(.horizontal, (showingAnswer == .isShowing) ? 20 : 0)
+                    .padding(.horizontal, (viewModel.showingAnswer == .isShowing) ? 20 : 0)
                     
                     VStack(spacing: 48) {
-                        TabView(selection: $currentTab) {
+                        TabView(selection: $viewModel.currentTab) {
                             
                             ForEach(Array(Module04MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
@@ -61,8 +51,8 @@ struct Module04View: View {
                                     question: page.questions,
                                     options: page.options,
                                     image: page.image,
-                                    correctAnswer: (showingAnswer == .isShowing) ? page.answers : nil,
-                                    wrongAnswer: (showingAnswer == .isShowing) ? viewModel.parseUserAnswerIfIsWrong(page: page) : nil,
+                                    correctAnswer: (viewModel.showingAnswer == .isShowing) ? page.answers : nil,
+                                    wrongAnswer: (viewModel.showingAnswer == .isShowing) ? viewModel.parseUserAnswerIfIsWrong(page: page) : nil,
                                     onSelectAnswer: { answer in
                                         viewModel.userSelectedAnswer = answer
                                     }
@@ -92,24 +82,34 @@ struct Module04View: View {
                         }
                         
                         ZStack {
-                            if showingAnswer == .isNotShowing {
+                            if viewModel.showingAnswer == .isNotShowing {
                                 HanvestButtonDefault(
-                                    style: .filled(isDisabled: checkIsDisabled()),
-                                    title: pageState.buttonStringValue
+                                    style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                    title: viewModel.pageState.buttonStringValue
                                 ) {
-                                    if checkIsCurrentPageAQuestion() {
-                                        toggleShowingAnswer()
+                                    if viewModel.checkIsCurrentPageAQuestion() {
+                                        viewModel.toggleShowingAnswer()
                                     } else {
-                                        goToNextPage()
-                                        changePageState()
+                                        viewModel.goToNextPage(
+                                            router: self.router,
+                                            specificModule: .module04
+                                        )
+                                        viewModel.changePageState()
                                     }
                                 }
                             } else {
                                 HanvestConfirmationFeedbackView(
-                                    state: (viewModel.checkUserAnswerTrueOrFalse(currentTab: currentTab)) ? .correct : .incorrect, action: {
-                                        toggleShowingAnswer()
-                                        goToNextPage()
-                                        changePageState()
+                                    state: (
+                                        viewModel.checkUserAnswerTrueOrFalse(
+                                            currentTab: viewModel.currentTab
+                                        )
+                                    ) ? .correct : .incorrect, action: {
+                                        viewModel.toggleShowingAnswer()
+                                        viewModel.goToNextPage(
+                                            router: self.router,
+                                            specificModule: .module04
+                                        )
+                                        viewModel.changePageState()
                                     }
                                 )
                             }
@@ -121,48 +121,14 @@ struct Module04View: View {
                 }
             }
             .padding(.top, 71)
-            .padding(.bottom, (showingAnswer == .isNotShowing) ? 54 : 0)
-            .padding(.horizontal, (showingAnswer == .isNotShowing) ? 20 : 0)
+            .padding(.bottom, (viewModel.showingAnswer == .isNotShowing) ? 54 : 0)
+            .padding(.horizontal, (viewModel.showingAnswer == .isNotShowing) ? 20 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func goToNextPage() {
-        if currentTab < lastPage {
-            if !checkIsDisabled() {
-                currentTab += 1
-                updateProgressBarValue()
-                viewModel.resetUserSelectedAnswer()
-            }
-        } else {
-            router.push(.moduleCompletion(completionItem: .module04))
-        }
-    }
-    
-    private func changePageState() {
-        switch currentTab {
-            default:
-                pageState = .pageContinue
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / lastPage)
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        return (viewModel.userSelectedAnswer.isEmpty && checkIsCurrentPageAQuestion())
-    }
-    
-    private func checkIsCurrentPageAQuestion() -> Bool {
-        return (Module04MultipleChoice.allCases.contains { $0.rawValue == currentTab })
-    }
-    
-    private func toggleShowingAnswer() {
-        showingAnswer.toggle()
-    }
 }
 
 #Preview {
