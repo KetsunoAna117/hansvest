@@ -33,26 +33,25 @@ struct Module03View: View {
                             
                             HanvestMultipleChoice(
                                 question: Module03MultipleChoice.page01.question,
-                                options: Module03MultipleChoice.page01.options){ answer in
+                                options: Module03MultipleChoice.page01.options
+                            ){ answer in
                                     viewModel.checkSelectedProductIndex(answer: answer)
                             }
                             .tag(Module03MultipleChoice.page01.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
                             
-                            if viewModel.selectedProductIndex != -1 {
-                                ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
-                                    
-                                    HanvestModule03AllProductOfInvestmentView(
-                                        title: page.title,
-                                        selectedProductIndex: viewModel.selectedProductIndex,
-                                        productStage: page.rawValue - 1
-                                    )
-                                    .tag(page.rawValue)
-                                    .transition(.slide)
-                                    .frame(maxHeight: .infinity, alignment: .top)
-                                    
-                                }
+                            ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
+                                
+                                HanvestModule03AllProductOfInvestmentView(
+                                    title: page.title,
+                                    selectedProductIndex: (viewModel.selectedProductIndex != -1) ? viewModel.selectedProductIndex : 0,
+                                    productStage: page.rawValue - 1
+                                )
+                                .tag(page.rawValue)
+                                .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                
                             }
                             
                             ForEach(Array(Module03MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in

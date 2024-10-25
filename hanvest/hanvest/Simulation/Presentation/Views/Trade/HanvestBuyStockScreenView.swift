@@ -33,7 +33,7 @@ struct HanvestBuyStockScreenView: View {
                             $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
-                    SimulationBuyingCard(viewModel: viewmodel)
+                    SimulationBuyingCard(viewModel: viewmodel, currentPrice: $simulationViewModel.displayActiveStockCurrentPrice)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
