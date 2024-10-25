@@ -6,11 +6,11 @@
 //
 
 enum Module05ContentView: Equatable, Hashable, Identifiable {
-    case buyStage(profileViewModel: Module05ProfileViewModel)
-    case sellStage
-    case confirmBuy
-    case confirmSell
-    case transactionComplete
+    case buyStage(profileViewModel: Module05ProfileViewModel, simulationViewModel: HanvestSimulationViewModel)
+    case sellStage(profileViewModel: Module05ProfileViewModel, simulationViewModel: HanvestSimulationViewModel)
+    case confirmBuy(profileViewModel: Module05ProfileViewModel, simulationViewModel: HanvestSimulationViewModel)
+    case confirmSell(profileViewModel: Module05ProfileViewModel, simulationViewModel: HanvestSimulationViewModel)
+    case transactionComplete(profileViewModel: Module05ProfileViewModel, simulationViewModel: HanvestSimulationViewModel)
     
     var id: Self { return self }
 }

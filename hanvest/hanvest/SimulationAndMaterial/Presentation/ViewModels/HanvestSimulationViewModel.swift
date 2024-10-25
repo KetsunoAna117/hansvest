@@ -65,5 +65,13 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
             self.selectedStock = nil
         }
     }
+    
+    func getSelectedStockIdx(selectedStockID: String) -> Int {
+        guard let stockUpdateIdx = stockList.firstIndex(where: {
+            $0.stockIDName == selectedStockID
+        }) else { return 0 }
+        
+        return stockUpdateIdx
+    }
 
 }

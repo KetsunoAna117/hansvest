@@ -45,7 +45,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
     @ViewBuilder
     func build(_ content: Module05ContentView) -> some View {
         switch content {
-        case .buyStage(let profileViewModel):
+        case .buyStage(let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
@@ -61,20 +61,40 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                             // User can't use this button in this module, hence this will do nothing.
                         }
                     )
+                    MaterialSimulationView(
+                        moduleRouter: self,
+                        profileViewModel: profileViewModel,
+                        simulationViewModel: simulationViewModel
+                    )
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
             }
             .navigationBarBackButtonHidden()
             
-        case .sellStage:
+        case .sellStage(let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    Text("Hello from sell Stage")
-                    Button("Action", action: {
-                        self.push(.confirmSell)
-                    })
+                    ModuleHeaderView(
+                        viewmodel: profileViewModel,
+                        bookIconTappedAction: {
+                            // User can't use this button in this module, hence this will do nothing.
+                        },
+                        bellIconTappedAction: {
+                            // User can't use this button in this module, hence this will do nothing.
+                        },
+                        profileIconTappedAction: {
+                            // User can't use this button in this module, hence this will do nothing.
+                        }
+                    )
+                    MaterialSimulationView(
+                        moduleRouter: self,
+                        profileViewModel: profileViewModel,
+                        simulationViewModel: simulationViewModel
+                    )
                 }
+                .frame(maxHeight: .infinity, alignment: .top)
+
             }
             .navigationBarBackButtonHidden()
             
@@ -83,9 +103,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 VStack {
                     Text("Hello from confirm Buy Stage")
-                    Button("Action", action: {
-                        self.push(.sellStage)
-                    })
+
                 }
             }
             .navigationBarBackButtonHidden()
@@ -95,9 +113,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 VStack {
                     Text("Hello from confirm sell Stage")
-                    Button("Action", action: {
-                        self.push(.transactionComplete)
-                    })
+  
                 }
             }
             .navigationBarBackButtonHidden()
@@ -107,9 +123,6 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 VStack {
                     Text("Hello from transaction complete Stage")
-                    Button("Action", action: {
-                        self.popToRoot()
-                    })
                 }
             }
             .navigationBarBackButtonHidden()

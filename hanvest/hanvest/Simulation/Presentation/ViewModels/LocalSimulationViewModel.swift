@@ -20,14 +20,6 @@ class LocalSimulationViewModel: HanvestSimulationViewModel {
 }
 
 extension LocalSimulationViewModel {
-    private func getSelectedStockIdx(selectedStockID: String) -> Int {
-        guard let stockUpdateIdx = stockList.firstIndex(where: {
-            $0.stockIDName == selectedStockID
-        }) else { return 0 }
-        
-        return stockUpdateIdx
-    }
-    
     func simulatePrice(){
         print("[TEST] Timer to Update Stock Price Started!")
         if timer != nil {

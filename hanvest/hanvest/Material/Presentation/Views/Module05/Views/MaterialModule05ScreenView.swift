@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct MaterialModule05ScreenView: View {
+    // CONSTANT
+    let MIN_PROGRESS = 0
+    let MAX_PROGRESS = 6
+    
     let appRouter: any AppRouterProtocol
     
     @StateObject private var contentRouter = Module05Router()
-    @StateObject private var simulationViewModel = Module05ViewModel()
+    @StateObject private var simulationViewModel = Module05SimulationViewModel()
     @StateObject private var profileViewModel = Module05ProfileViewModel()
     
     var body: some View {
         VStack {
             ProgressBarWithXMarkView(
-                progressBarMinValue: simulationViewModel.MIN_PROGRESS,
-                progressBarMaxValue: simulationViewModel.MAX_PROGRESS,
+                progressBarMinValue: MIN_PROGRESS,
+                progressBarMaxValue: MAX_PROGRESS,
                 action: {
                     appRouter.popToRoot()
                 },
@@ -34,8 +38,19 @@ struct MaterialModule05ScreenView: View {
             .onAppear(){
                 if contentRouter.content.count <= 0 {
                     contentRouter.content.append(
-                        .buyStage(profileViewModel: profileViewModel)
+                        .buyStage(
+                            profileViewModel: profileViewModel,
+                            simulationViewModel: simulationViewModel
+                        )
                     )
+                }
+                
+                if simulationViewModel.stockList.count <= 0 {
+                    simulationViewModel.setup()
+                }
+                
+                if profileViewModel.userData == nil {
+                    profileViewModel.setup()
                 }
             }
             

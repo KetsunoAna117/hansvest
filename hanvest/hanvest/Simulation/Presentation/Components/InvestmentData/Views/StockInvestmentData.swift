@@ -26,7 +26,7 @@ struct StockInvestmentData: View {
                     Rectangle()
                         .foregroundStyle(.tertiary)
                         .frame(maxWidth: 1, maxHeight: 36)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, 4)
                     
                     VStack(alignment: .trailing) {
                         Text("Total Equity in \(selectedStock.stockIDName)")
