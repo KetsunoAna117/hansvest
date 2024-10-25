@@ -6,9 +6,15 @@
 //
 
 protocol LoadOnboarding {
-    
+    func execute()
 }
 
 struct LoadOnboardingImpl: LoadOnboarding {
+    let userRepo: UserRepository
     
+    func execute() {
+        if userRepo.fetch() != nil {
+            
+        }
+    }
 }
