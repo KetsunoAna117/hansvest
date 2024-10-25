@@ -13,8 +13,7 @@ class RiskProfileViewModel: ObservableObject {
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
     
-    var resultState: RiskProfileType = .conservative // will be implemented later
-    
+    @Published var resultState: RiskProfileType = .conservative ///will be used for segmenting user based on risk profile
     @Published var pageState: RiskProfilePageState = .pageOpening
     @Published var currentTab: Int = 0
     @Published var progressBarCurrValue: Int = 4
@@ -33,13 +32,10 @@ class RiskProfileViewModel: ObservableObject {
     
     func goToNextPage(router: any AppRouterProtocol) {
         if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
-            if currentTab == (RiskProfilePageState.pageRiskResult.rawValue - 1) {
-                getUserRiskProfile()
-            }
-            
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
+                changePageState()
             }
         } else {
             router.startScreen = .main

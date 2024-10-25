@@ -37,6 +37,7 @@ class Module01ViewModel: ObservableObject {
     func goToNextPage(router: any AppRouterProtocol, specificModule: CompletionEntityType) {
         if currentTab < lastPage {
             currentTab += 1
+            updateProgressBarValue()
         } else {
             directToCompletionPage(router: router, specificModule: specificModule)
         }

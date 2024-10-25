@@ -40,6 +40,7 @@ class Module03ViewModel: ObservableObject {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
+                changePageState()
             }
         } else {
             directToCompletionPage(router: router, specificModule: specificModule)
@@ -63,7 +64,7 @@ class Module03ViewModel: ObservableObject {
         return (selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
     }
     
-    func checkSelectedProductIndex(answer: String) {
+    func setSelectedProductIndex(answer: String) {
         for optionCase in Module03MultipleChoice.allCases {
             if let index = optionCase.options.firstIndex(of: answer) {
                 self.selectedProductIndex = index

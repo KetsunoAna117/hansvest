@@ -40,6 +40,7 @@ class Module02ViewModel: ObservableObject {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
+                changePageState()
             }
         } else {
             directToCompletionPage(router: router, specificModule: specificModule)

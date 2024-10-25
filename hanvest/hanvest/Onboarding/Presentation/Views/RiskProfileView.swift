@@ -59,6 +59,9 @@ struct RiskProfileView: View {
                             .tag(RiskProfilePageState.pageRiskResult.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
+                            .onAppear {
+                                viewModel.getUserRiskProfile()
+                            }
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -68,15 +71,12 @@ struct RiskProfileView: View {
                         }
                         ZStack {
                             HanvestButtonDefault(
-                                style:
-                                    .filled(isDisabled: viewModel.checkIsDisabled()),
-                                title:
-                                    viewModel.pageState.buttonStringValue
+                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                title: viewModel.pageState.buttonStringValue
                             ) {
                                 viewModel.goToNextPage(
                                     router: self.router
                                 )
-                                viewModel.changePageState()
                             }
                         }
                         .frame(maxWidth: .infinity)

@@ -41,6 +41,7 @@ class Module04ViewModel: ObservableObject {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
+                changePageState()
                 resetUserSelectedAnswer()
             }
         } else {
