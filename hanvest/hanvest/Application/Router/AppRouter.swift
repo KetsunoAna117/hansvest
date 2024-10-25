@@ -141,12 +141,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .glossary:
             ZStack {
                 Color.background.ignoresSafeArea()
-                VStack {
-                    Text("Not yet Implemented!")
-                    HanvestButtonDefault(size: .medium, title: "Go Back", action: {
-                        self.pop()
-                    })
-                }
+                GlossaryView(router: self)
             }
             .navigationBarBackButtonHidden()
             
@@ -180,6 +175,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 CompletionPageView(router: self, completionItem: completionItem)
+            }
+            .navigationBarBackButtonHidden()
+            
+        case .searchGlossary:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                SearchView(router: self, viewModel: SearchViewModel(viewModel: GlossaryViewModel()))
             }
             .navigationBarBackButtonHidden()
         }
