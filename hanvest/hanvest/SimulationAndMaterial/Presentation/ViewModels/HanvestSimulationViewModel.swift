@@ -31,18 +31,22 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
     
     @Published var displayActiveStockCurrentPrice: Int
     
+    @Published var stagesCompleted: [Module05Stage]
+    
     init(
         stockList: [SimulationStockEntity] = [],
         selectedStockID: String = "",
         selectedStock: SimulationStockEntity? = nil,
         displayActiveStockInitialPrice: Int = 0,
-        displayActiveStockCurrentPrice: Int = 0
+        displayActiveStockCurrentPrice: Int = 0,
+        stagesCompleted: [Module05Stage] = []
     ) {
         self.stockList = stockList
         self.selectedStockID = selectedStockID
         self.selectedStock = selectedStock
         self.displayActiveStockInitialPrice = displayActiveStockInitialPrice
         self.displayActiveStockCurrentPrice = displayActiveStockCurrentPrice
+        self.stagesCompleted = stagesCompleted
     }
     
     func setup(){

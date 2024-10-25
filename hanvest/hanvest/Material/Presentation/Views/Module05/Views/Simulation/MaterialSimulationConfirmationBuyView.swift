@@ -13,7 +13,7 @@ struct MaterialSimulationConfirmationBuyView: View {
     @ObservedObject var profileViewModel: Module05ProfileViewModel
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     
-    @StateObject var viewmodel: BuyingStockDataViewModel = Module05BuyingStockViewModel()
+    @StateObject var viewmodel = Module05BuyingStockViewModel()
     
     var body: some View {
         if let stock = simulationViewModel.selectedStock {

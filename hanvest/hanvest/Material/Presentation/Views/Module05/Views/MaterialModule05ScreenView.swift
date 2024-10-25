@@ -56,7 +56,15 @@ struct MaterialModule05ScreenView: View {
             
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        
+        .onChange(of: simulationViewModel.stagesCompleted) { oldValue, newValue in
+            if newValue.contains([.buyStage, .sellStage]) {
+                appRouter.push(
+                    .moduleCompletion(
+                        completionItem: .module05
+                    )
+                )
+            }
+        }
     }
 }
 

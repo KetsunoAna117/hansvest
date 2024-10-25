@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MaterialTransactionStatusView: View {
-    let moduleRouter: any Module05RouterProtocol
+    var moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
@@ -31,8 +31,24 @@ struct MaterialTransactionStatusView: View {
             HanvestButtonDefault(
                 title: "Back To Market",
                 action: {
-                    print("[!] Back to market action triggered!")
-                    moduleRouter.popToRoot()
+                    if simulationViewModel.stagesCompleted.contains(.buyStage) {
+                        if simulationViewModel.stagesCompleted.contains(.sellStage) {
+                            // Complete and Navigate to Badge Completion
+                            simulationViewModel.stagesCompleted.append(.sellStage)
+                        }
+                        else {
+                            // Navigate to sell stage
+                            simulationViewModel.stagesCompleted.append(.buyStage)
+                            moduleRouter.popToRoot()
+                            moduleRouter.push(
+                                .sellStage(
+                                    profileViewModel: profileViewModel,
+                                    simulationViewModel: simulationViewModel
+                                )
+                            )
+                        }
+                    }
+                    
                 }
             )
             .padding(.horizontal, 20)

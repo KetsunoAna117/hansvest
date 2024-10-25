@@ -31,7 +31,7 @@ struct MaterialSimulationView: View {
                     ScrollView {
                         VStack(spacing: 24) {
                             if let selectedStock = simulationViewModel.selectedStock {
-                                VStack {
+                                VStack(spacing: 16) {
                                     StockHeaderInformationView(
                                         stockCodeName: selectedStock.stockIDName,
                                         stockName: selectedStock.stockName,

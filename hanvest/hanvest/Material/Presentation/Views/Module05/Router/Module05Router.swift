@@ -17,7 +17,6 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
     
     func push(_ content: Module05ContentView) {
         self.content.append(content)
-        self.progress += 1
     }
     
     func pop() {
@@ -26,12 +25,10 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
         }
         
         self.content.removeLast()
-        self.progress -= 1
     }
     
     func popToRoot(){
         self.content.removeLast(content.count - 1)
-        self.progress = 0
     }
     
     func displayOverlay(_ overlay: Module05Overlay) {
