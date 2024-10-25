@@ -6,8 +6,17 @@
 //
 
 enum Module05Overlay: Equatable, Hashable, Identifiable {
-    case withBuyConfirmationPopup(viewmodel: BuyingStockDataViewModel, confirmAction: () -> (), cancelAction: () -> ())
-    case withSellConfirmationPopup(viewmodel: SellingStockDataViewModel, confirmAction: () -> (), cancelAction: () -> ())
+    case withBuyConfirmationPopup(
+        buyingStockDataViewModel: BuyingStockDataViewModel,
+        confirmAction: () -> (),
+        cancelAction: () -> ()
+    )
+    
+    case withSellConfirmationPopup(
+        sellingStockDataViewModel: SellingStockDataViewModel,
+        confirmAction: () -> (),
+        cancelAction: () -> ()
+    )
     
     var id: Self { return self }
 }

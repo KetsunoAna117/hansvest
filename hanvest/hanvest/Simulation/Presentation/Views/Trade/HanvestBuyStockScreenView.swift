@@ -11,7 +11,7 @@ struct HanvestBuyStockScreenView: View {
     let router: any AppRouterProtocol
     
     @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
-    @StateObject var viewmodel: BuyingStockDataViewModel = .init()
+    @StateObject var viewmodel: BuyingStockDataViewModel = LocalBuyingStockDataViewModel()
     
     var body: some View {
         if let stock = simulationViewModel.selectedStock {
@@ -72,7 +72,11 @@ struct HanvestBuyStockScreenView: View {
                 .padding(.bottom, 48)
             }
             .onAppear(){
+                // Dependency Injection
+                @Inject var getUserData: GetUserData
+                
                 viewmodel.setup(
+                    userData: getUserData.execute(),
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0

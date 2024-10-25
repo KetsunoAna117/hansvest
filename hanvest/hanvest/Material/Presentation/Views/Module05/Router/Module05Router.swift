@@ -118,7 +118,11 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .transactionComplete:
+        case .transactionComplete(
+            let profileViewModel,
+            let simulationViewModel,
+            let transactionViewModel
+        ):
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
@@ -127,6 +131,55 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
+        }
+    }
+    
+    @ViewBuilder
+    func build(_ overlay: Module05Overlay) -> some View {
+        switch overlay {
+        case .withBuyConfirmationPopup(
+            let buyingStockViewModel,
+            let confirmAction,
+            let cancelAction
+        ):
+            ZStack {
+                Color.black.opacity(0.7).ignoresSafeArea()
+                
+                SimulationBuyingConfirmationCard(
+                    viewModel: buyingStockViewModel,
+                    cancelAction: {
+                        cancelAction()
+                        self.dismissOverlay()
+                    },
+                    confirmAction: {
+                        confirmAction()
+                        self.dismissOverlay()
+                    }
+                )
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
+            }
+            
+        case .withSellConfirmationPopup(
+            let sellingStockViewModel,
+            let confirmAction,
+            let cancelAction
+        ):
+            ZStack {
+                Color.black.opacity(0.7).ignoresSafeArea()
+                
+                SimulationSellingConfirmationCard(
+                    viewModel: sellingStockViewModel,
+                    cancelAction: {
+                        cancelAction()
+                        self.dismissOverlay()
+                    },
+                    confirmAction: {
+                        confirmAction()
+                        self.dismissOverlay()
+                    }
+                )
+                .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
+            }
         }
     }
     

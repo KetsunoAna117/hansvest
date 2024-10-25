@@ -2,15 +2,12 @@
 //  BuyingStockDataViewModel.swift
 //  hanvest
 //
-//  Created by Benedick Wijayaputra on 14/10/24.
+//  Created by Hans Arthur Cupiterson on 25/10/24.
 //
 
-import SwiftUI
+import Foundation
 
-class BuyingStockDataViewModel: ObservableObject{
-    // Dependency Injection
-    @Inject var getUserData: GetUserData
-    
+class BuyingStockDataViewModel: ObservableObject {    
     var selectedStockIDName: String
     var stockBuyFee: Int
     
@@ -46,12 +43,13 @@ class BuyingStockDataViewModel: ObservableObject{
     }
     
     func setup(
+        userData: UserDataEntity?,
         selectedStockIDName: String,
         stockBuyLot: Int = 0,
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
-        if let user = getUserData.execute() {
+        if let user = userData {
             self.tradingBalance = user.userBalance
         }
         
@@ -120,4 +118,3 @@ class BuyingStockDataViewModel: ObservableObject{
         }
     }
 }
-
