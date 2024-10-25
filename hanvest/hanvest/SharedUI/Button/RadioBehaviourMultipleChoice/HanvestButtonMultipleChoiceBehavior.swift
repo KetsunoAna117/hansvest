@@ -14,9 +14,10 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     // Styling Variable (Initialized Before)
     var size: HanvestButtonSize = .large
     var iconPosition: HanvestButtonIconPosition = .leading
+    var isChecked: HanvestButtonMultipleChoiceIsChecked = .isNotChecked(checkedCondition: true)
     
-    @State private var style: HanvestButtonMultipleChoiceStyle = .unselected
     @State private var state: HanvestButtonState = .unpressed
+    @State private var style: HanvestButtonMultipleChoiceStyle = .unselected
     
     // Bind to the parent selection
     @Binding var selectedButtonID: String
@@ -24,13 +25,12 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     // Button content
     var id: String = UUID().uuidString
     var title: String
-    var image: Image?
     var action: () -> Void
     
     var body: some View {
         ZStack(alignment: iconPosition.alignment) {
             // If the icon position is leading, place the image first
-            if iconPosition == .leading, let image = image {
+            if iconPosition == .leading, let image = style.image {
                 image
                     .foregroundStyle(style.fontColor)
             }
@@ -43,7 +43,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 .padding(.horizontal, size.textHorizontalPadding)
             
             // If the icon position is trailing, place the image first
-            if iconPosition == .trailing, let image = image {
+            if iconPosition == .trailing, let image = style.image {
                 image
                     .foregroundStyle(style.fontColor)
             }
@@ -71,38 +71,52 @@ struct HanvestButtonMultipleChoiceBehavior: View {
             self.state = .pressed
         }, onPressingChanged: { isPressing in
             if !isPressing {
-                self.state = .unpressed
-                if self.selectedButtonID != self.id {
-                    self.selectedButtonID = self.id
-                    print("Selected Button ID: \(selectedButtonID)")
-                    self.style = .selected
-                    action()
-                }
+                doUnpressedAction()
             }
         })
         .onTapGesture {
             self.state = .pressed
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                self.state = .unpressed
-                if self.selectedButtonID != self.id {
-                    self.selectedButtonID = self.id
-                    print("Selected Button ID: \(selectedButtonID)")
-                    self.style = .selected
-                    action()
-                }
+                doUnpressedAction()
             })
         }
         .onChange(of: selectedButtonID, { oldValue, newValue in
             guard newValue != self.id else { return }
             
-            self.style = .unselected
+            if isChecked == .isNotChecked(checkedCondition: true) {
+                self.style = .unselected
+            }
+            
             self.state = .unpressed
         })
+        .onChange(of: isChecked, { oldValue, newValue in
+            if newValue == .isChecked(checkedCondition: true) {
+                self.style = .filledCorrect
+            } else if newValue == .isChecked(checkedCondition: false) {
+                self.style = .filledIncorrect
+            }
+        })
+        
     }
     
-    func getPressedStatus() -> Bool {
+    private func getPressedStatus() -> Bool {
         return state == .pressed
+    }
+    
+    private func doUnpressedAction() {
+        self.state = .unpressed
+        
+        if self.selectedButtonID != self.id {
+            self.selectedButtonID = self.id
+            print("Selected Button ID: \(selectedButtonID)")
+            
+            if isChecked == .isNotChecked(checkedCondition: true) {
+                self.style = .selected
+            }
+            
+            action()
+        }
     }
     
 }

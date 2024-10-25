@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SimulationBuyingCard: View {
     @ObservedObject var viewModel: BuyingStockDataViewModel
+    @Binding var currentPrice: Int
     
     // Constant
     let priceRaise: Int = 25
@@ -58,11 +59,8 @@ struct SimulationBuyingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.toBuyStockPrice, raise: priceRaise)
-                    
+                    Text("\(currentPrice)")
                 }
-                
-                
                 
                 HStack{
                     Text("Lot")
@@ -73,20 +71,25 @@ struct SimulationBuyingCard: View {
                     HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: lotRaise)
                 }
             }
+            .onChange(of: currentPrice) { oldValue, newValue in
+                viewModel.toBuyStockPrice = newValue
+                viewModel.validateStockBuyAmount()
+            }
         }
     }
 }
 
 #Preview {
     @Previewable @StateObject var viewmodel = BuyingStockDataViewModel()
+    @Previewable @State var currentPrice: Int = 5000
     
     VStack {
-        SimulationBuyingCard(viewModel: viewmodel)
+        SimulationBuyingCard(viewModel: viewmodel, currentPrice: $currentPrice)
             .onAppear(){
                 viewmodel.setup(
                     selectedStockIDName: "BBCA",
-                    initialStockPrice: 4000,
-                    currentStockPrice: 5000
+                    initialStockPrice: 40,
+                    currentStockPrice: 50
                 )
             }
     }

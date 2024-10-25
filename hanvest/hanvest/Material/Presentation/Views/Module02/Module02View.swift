@@ -75,24 +75,20 @@ struct Module02View: View {
                             
                             ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                if viewModel.checkPageToSkip(
-                                    page: page,
-                                    userSelectedAnswer: viewModel.checkDebitOrPayLater()
-                                ) {
-                                    EmptyView()
-                                } else {
-                                    HanvestMaterialnformationView(
-                                        title: page.title(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax()),
-                                        detailText: page.detailText(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax())
+                                HanvestMaterialnformationView(
+                                    title: page.title(
+                                        chosenPhone: viewModel.userSelectedAnswers[Module02MultipleChoice.page03.rawValue],
+                                        chosenMethod: viewModel.userSelectedAnswers[Module02MultipleChoice.page07.rawValue]
+                                    ),
+                                    detailText: page.detailText(
+                                        chosenPhone: viewModel.userSelectedAnswers[Module02MultipleChoice.page03.rawValue],
+                                        chosenMethod: viewModel.userSelectedAnswers[Module02MultipleChoice.page07.rawValue]
                                     )
-                                    .tag(
-                                        viewModel.adjustPageStateRawValue(
-                                            rawValue: page.rawValue
-                                        )
-                                    )
-                                    .transition(.slide)
-                                    .frame(maxHeight: .infinity, alignment: .top)
-                                }
+                                )
+                                .tag(page.rawValue)
+                                .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                
                             }
                             
                         }
