@@ -41,6 +41,9 @@ struct AppModule {
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository
         )
+        @Provider var saveUserData: SaveUserData = SaveUserDataImpl(
+            userRepo: userRepository
+        )
         @Provider var getUserTransaction: GetUserTransaction = GetUserTransactionImpl(
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository
