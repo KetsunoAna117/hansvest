@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 @main
 struct hanvestApp: App {
@@ -25,6 +26,13 @@ struct hanvestApp: App {
                     appRouter.build(startScreen)
                         .navigationDestination(for: Screen.self) { screen in
                             appRouter.build(screen)
+                        }
+                        .task {
+                            try? Tips.resetDatastore() // for debugging
+                            try? Tips.configure([
+                                .displayFrequency(.immediate),
+                                .datastoreLocation(.applicationDefault)
+                            ])
                         }
                 }
                 else {

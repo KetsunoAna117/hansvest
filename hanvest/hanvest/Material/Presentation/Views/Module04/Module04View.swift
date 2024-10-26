@@ -119,7 +119,7 @@ struct Module04View: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, (UIScreen.main.bounds.width < 400) ? 31 : 71)
+            .padding(.top, (UIScreen.main.bounds.width < 375) ? 31 : 71)
             .padding(.bottom, (viewModel.showingAnswer == .isNotShowing) ? 54 : 0)
             .padding(.horizontal, (viewModel.showingAnswer == .isNotShowing) ? 20 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
