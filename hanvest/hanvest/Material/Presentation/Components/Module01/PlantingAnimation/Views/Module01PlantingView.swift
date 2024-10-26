@@ -38,7 +38,7 @@ struct Module01PlantingView: View {
                     .transition(.opacity)
                     .id(self.growthProgress)
             }
-            .padding(.top, 140)
+            .padding(.top, (UIScreen.main.bounds.width < 400) ? 100 : 140)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             
