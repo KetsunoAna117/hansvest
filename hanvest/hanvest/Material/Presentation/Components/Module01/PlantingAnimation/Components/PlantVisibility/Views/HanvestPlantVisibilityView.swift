@@ -42,7 +42,7 @@ struct HanvestPlantVisibilityView: View {
     }
     
     private func customPaddingLeading(defaultPaddingLeading: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 400 {
+        if UIScreen.main.bounds.width < 375 {
             return (defaultPaddingLeading - 5)
         } else {
             return defaultPaddingLeading
@@ -50,7 +50,7 @@ struct HanvestPlantVisibilityView: View {
     }
     
     private func customPaddingTop(defaultPaddingTop: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 400 {
+        if UIScreen.main.bounds.width < 375 {
             return (defaultPaddingTop - 46)
         } else {
             return defaultPaddingTop
