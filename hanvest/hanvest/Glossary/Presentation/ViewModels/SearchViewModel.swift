@@ -14,18 +14,23 @@ class SearchViewModel: ObservableObject {
         }
     }
     
-    @Published var filteredResults: [HanvestGlosaryEntities] = []
-    @Published var recentSearches: [HanvestGlosaryEntities] = []
+    @Published var filteredResults: [HanvestGlosaryEntities]
+    @Published var recentSearches: [HanvestGlosaryEntities]
 
-    private var viewModel: GlossaryViewModel
-    private var allEntities: [HanvestGlosaryEntities] {
-        viewModel.letters.values.flatMap { $0 }
-    }
+    private var viewModel: GlossaryViewModel?
+    private var allEntities: [HanvestGlosaryEntities]
     
     private let recentSearchLimit = 10
     
-    init(viewModel: GlossaryViewModel) {
+    init() {
+        self.filteredResults = []
+        self.recentSearches = []
+        self.allEntities = []
+    }
+    
+    func setup(viewModel: GlossaryViewModel){
         self.viewModel = viewModel
+        self.allEntities = viewModel.letters.values.flatMap({ $0 })
         self.filteredResults = allEntities
     }
     

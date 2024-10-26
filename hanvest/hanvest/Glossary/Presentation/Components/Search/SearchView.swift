@@ -7,56 +7,51 @@
 import SwiftUI
 
 struct SearchView: View {
-  let router: any AppRouterProtocol
-  @ObservedObject var viewModel: SearchViewModel
-
-  var body: some View {
-    VStack {
-      SearchTextFieldGlossary(searchString: $viewModel.searchString)
-
-      ScrollView {
-        VStack(alignment: .leading) {
-          if viewModel.searchString.isEmpty {
-            Text("Recent")
-              .font(.body)
-              .fontWeight(.bold)
-              .frame(maxWidth: .infinity, alignment: .leading)
-            Divider()
-
-            ForEach(viewModel.recentSearches, id: \.word) { entity in
-              HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
-              }
+    let router: any AppRouterProtocol
+    
+    @ObservedObject var glossaryViewModel: GlossaryViewModel
+    @StateObject private var searchViewModel: SearchViewModel = .init()
+    
+    var body: some View {
+        VStack {
+            SearchTextFieldGlossary(searchString: $searchViewModel.searchString)
+            
+            ScrollView {
+                VStack(alignment: .leading) {
+                    if searchViewModel.searchString.isEmpty {
+                        Text("Recent")
+                            .font(.body)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Divider()
+                        
+                        ForEach(searchViewModel.recentSearches, id: \.word) { entity in
+                            HanvestGlossaryWordRow(entity: entity) { selectedEntity in
+                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                            }
+                        }
+                    } else {
+                        ForEach(searchViewModel.filteredResults, id: \.word) { entity in
+                            HanvestGlossaryWordRow(entity: entity) { selectedEntity in
+                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                                searchViewModel.addToRecentSearches(selectedEntity)
+                            }
+                        }
+                    }
+                }
+                .padding()
             }
-          } else {
-            ForEach(viewModel.filteredResults, id: \.word) { entity in
-              HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
-                viewModel.addToRecentSearches(selectedEntity)
-              }
-            }
-          }
         }
-        .padding()
-      }
-    }
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        Button {
-          router.pop()
-        } label: {
-          Image(systemName: "chevron.left")
-            .foregroundStyle(.labelPrimary)
+        .onAppear() {
+            searchViewModel.setup(viewModel: glossaryViewModel)
         }
-      }
     }
-  }
 }
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .searchGlossary
-
+    @Previewable @State var startScreen: Screen? = .glossary
+    
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {
             appRouter.build(startScreen)
