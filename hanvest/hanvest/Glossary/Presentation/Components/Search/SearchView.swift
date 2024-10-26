@@ -14,7 +14,10 @@ struct SearchView: View {
     
     var body: some View {
         VStack {
-            SearchTextFieldGlossary(searchString: $searchViewModel.searchString)
+            SearchTextFieldGlossary(
+                router: router,
+                searchString: $searchViewModel.searchString
+            )
             
             ScrollView {
                 VStack(alignment: .leading) {
