@@ -33,9 +33,6 @@ struct HanvestProgressBar: View {
             }
         }
         .frame(height: 14)
-        .onAppear {
-            print("Progress Percentage: \(calculateProgressPercentage())")
-        }
     }
 }
 

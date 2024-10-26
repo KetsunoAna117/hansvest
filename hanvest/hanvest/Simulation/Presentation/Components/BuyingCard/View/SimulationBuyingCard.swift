@@ -80,13 +80,15 @@ struct SimulationBuyingCard: View {
 }
 
 #Preview {
-    @Previewable @StateObject var viewmodel = BuyingStockDataViewModel()
+    @Previewable @StateObject var viewmodel = LocalBuyingStockDataViewModel()
     @Previewable @State var currentPrice: Int = 5000
     
     VStack {
+        @Inject var getUserData: GetUserData
         SimulationBuyingCard(viewModel: viewmodel, currentPrice: $currentPrice)
             .onAppear(){
                 viewmodel.setup(
+                    userData: getUserData.execute(),
                     selectedStockIDName: "BBCA",
                     initialStockPrice: 40,
                     currentStockPrice: 50

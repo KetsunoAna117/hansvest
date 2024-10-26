@@ -21,7 +21,7 @@ public class SwiftDataContextManager {
             
             if let container {
                 context = ModelContext(container)
-//                prepopulateUserData()
+                prepopulateUserData()
                 prepopulateSystemData()
             }
         } catch {
@@ -204,7 +204,7 @@ private extension SwiftDataContextManager {
             transactionQueueID: [
                 "transaction-04"
             ],
-            moduleCompletionIDList: [.module01, .module02]
+            moduleCompletionIDList: [.module01, .module02, .module03, .module04]
         )
     }
     

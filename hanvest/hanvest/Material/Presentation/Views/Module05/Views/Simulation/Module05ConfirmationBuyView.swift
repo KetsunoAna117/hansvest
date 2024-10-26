@@ -1,18 +1,19 @@
 //
-//  HanvestBuyConfirmationView.swift
+//  MaterialConfirmationBuyView.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 17/10/24.
+//  Created by Hans Arthur Cupiterson on 25/10/24.
 //
 
 import SwiftUI
 
-struct HanvestBuyStockScreenView: View {
-    let router: any AppRouterProtocol
+struct Module05ConfirmationBuyView: View {
+    let moduleRouter: any Module05RouterProtocol
     
-    var userData: UserDataEntity
-    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
-    @StateObject var viewmodel: BuyingStockDataViewModel = LocalBuyingStockDataViewModel()
+    @ObservedObject var profileViewModel: Module05ProfileViewModel
+    @ObservedObject var simulationViewModel: Module05SimulationViewModel
+    
+    @StateObject var viewmodel = BuyingStockDataViewModel()
     
     var body: some View {
         if let stock = simulationViewModel.selectedStock {
@@ -21,7 +22,7 @@ struct HanvestBuyStockScreenView: View {
                     label: "Buy \(stock.stockIDName)",
                     leadingIcon: Image(systemName: "chevron.left"),
                     leadingAction: {
-                        router.pop()
+                        moduleRouter.pop()
                     }
                 )
                 
@@ -47,13 +48,15 @@ struct HanvestBuyStockScreenView: View {
                     ),
                     title: "Buy",
                     action: {
-                        router.presentOverlay(
+                        moduleRouter.displayOverlay(
                             .withBuyConfirmationPopup(
-                                viewmodel: viewmodel,
+                                buyingStockDataViewModel: viewmodel,
                                 confirmAction: {
-                                    router.push(
-                                        .transactionStatus(
-                                            transaction: TransactionStatusViewModel(
+                                    moduleRouter.push(
+                                        .transactionComplete(
+                                            profileViewModel: profileViewModel,
+                                            simulationViewModel: simulationViewModel,
+                                            transactionViewModel: TransactionStatusViewModel(
                                                 lotAmount: viewmodel.stockBuyLot,
                                                 stockPrice: viewmodel.toBuyStockPrice,
                                                 selectedStockIDName: viewmodel.selectedStockIDName,
@@ -63,7 +66,7 @@ struct HanvestBuyStockScreenView: View {
                                     )
                                 },
                                 cancelAction: {
-                                    router.dismissPopup()
+                                    moduleRouter.dismissOverlay()
                                 }
                             )
                         )
@@ -74,7 +77,7 @@ struct HanvestBuyStockScreenView: View {
             }
             .onAppear(){
                 viewmodel.setup(
-                    userData: userData,
+                    userData: profileViewModel.userData,
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0
@@ -87,27 +90,16 @@ struct HanvestBuyStockScreenView: View {
     }
 }
 
-//#Preview {
-//    @Previewable @StateObject var appRouter = AppRouter()
-//    @Previewable @State var startScreen: Screen? = .simulationBuyingConfirmation
-//    
-//    NavigationStack(path: $appRouter.path) {
-//        if let startScreen = startScreen {
-//            appRouter.build(startScreen)
-//                .navigationDestination(for: Screen.self) { screen in
-//                    appRouter.build(screen)
-//                }
-//                .overlay {
-//                    if let popup = appRouter.popup {
-//                        ZStack {
-//                            appRouter.build(popup)
-//                        }
-//                       
-//                    }
-//                }
-//        }
-//    }
-//    .onAppear(){
-//        appRouter.simulationViewModel?.selectedStock = SimulationStockEntity.getMockData().first!
-//    }
-//}
+#Preview {
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule05
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+        }
+    }
+}

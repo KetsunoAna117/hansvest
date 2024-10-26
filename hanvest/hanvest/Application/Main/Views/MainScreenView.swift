@@ -11,11 +11,13 @@ struct MainScreenView: View {
     let router: any AppRouterProtocol
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
-    @StateObject var simulationViewModel: HanvestSimulationViewModel = .init()
+    @StateObject var simulationViewModel: HanvestSimulationViewModel = LocalSimulationViewModel()
+    @StateObject var userDataViewModel: HanvestLoadedUserDataViewModel = .init()
     
     var body: some View {
         VStack {
             HanvestHeaderView(
+                userDataViewModel: userDataViewModel,
                 bookIconTappedAction: {
                     print("Book Icon Tapped")
                     router.push(.glossary)
@@ -49,7 +51,8 @@ struct MainScreenView: View {
                         Color.background.ignoresSafeArea()
                         HanvestSimulationView(
                             router: router,
-                            viewmodel: simulationViewModel
+                            userDataViewModel: userDataViewModel,
+                            simulationViewModel: simulationViewModel
                         )
                     }
                 }
@@ -71,6 +74,7 @@ struct MainScreenView: View {
             if simulationViewModel.stockList.isEmpty {
                 simulationViewModel.setup()
             }
+            userDataViewModel.setup()
         }
     }
 }

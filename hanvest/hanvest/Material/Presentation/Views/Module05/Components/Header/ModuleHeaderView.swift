@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct HanvestHeaderView: View {
-    @ObservedObject var userDataViewModel: HanvestLoadedUserDataViewModel
+struct ModuleHeaderView: View {
+    @ObservedObject var userDataViewModel: Module05ProfileViewModel
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()
@@ -24,7 +24,7 @@ struct HanvestHeaderView: View {
                             .font(.nunito(.caption2))
                         Text(
                             HanvestPriceFormatter.formatIntToIDR(
-                                userDataViewModel.userData?.userBalance ?? -100
+                                userDataViewModel.userData?.userBalance ?? 0
                             )
                         )
                             .font(.nunito(.title2))
@@ -62,17 +62,5 @@ struct HanvestHeaderView: View {
         }
         .background(Color.background)
         .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 1)
-    }
-}
-
-struct HanvestHeaderLogo: View {
-    var body: some View {
-        ZStack {
-            Circle()
-                .foregroundStyle(.seagull500)
-            Image(systemName: "medal")
-                .foregroundStyle(.sundown50)
-        }
-        .frame(width: 43, height: 43)
     }
 }

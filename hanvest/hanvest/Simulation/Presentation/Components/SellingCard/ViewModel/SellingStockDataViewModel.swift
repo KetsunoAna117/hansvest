@@ -46,13 +46,19 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func setup(
+        userData: UserDataEntity?,
         selectedStockIDName: String,
         stockSellLot: Int = 0,
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
+        guard let userData = userData else {
+            print("[ERROR] User Data is not initialized!")
+            return
+        }
+        
         self.selectedStockIDName = selectedStockIDName
-        self.availableLot = calculateOwnedLot(selectedStockIDName: selectedStockIDName)
+        self.availableLot = calculateOwnedLot(selectedStockIDName: selectedStockIDName, userData: userData)
         self.toSellStockPrice = currentStockPrice
         self.stockSellLot = stockSellLot
         
@@ -61,9 +67,9 @@ class SellingStockDataViewModel: ObservableObject{
         validateStockSellAmount()
     }
     
-    private func calculateOwnedLot(selectedStockIDName: String) -> Int {
+    private func calculateOwnedLot(selectedStockIDName: String, userData: UserDataEntity) -> Int {
         var lotCount = 0
-        let purchasedLot = getPurchasedLot.execute(stockIDName: selectedStockIDName)
+        let purchasedLot = getPurchasedLot.execute(stockIDName: selectedStockIDName, userData: userData)
         
         for data in purchasedLot {
             lotCount += data.stockLotQuantity
