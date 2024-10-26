@@ -66,7 +66,7 @@ enum HanvestButtonMultipleChoiceStyle {
             case .filledIncorrect:
                 return Image(systemName: "xmark")
             case .selected, .unselected:
-                    return nil
+                return nil
         }
     }
 }

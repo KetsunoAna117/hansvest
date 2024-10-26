@@ -41,6 +41,7 @@ class Module04ViewModel: ObservableObject {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
+                changePageState()
                 resetUserSelectedAnswer()
             }
         } else {
@@ -56,7 +57,7 @@ class Module04ViewModel: ObservableObject {
     }
     
     func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / lastPage)
+        progressBarCurrValue += (progressBarMaxValue / (lastPage + 1))
     }
     
     func checkIsDisabled() -> Bool {

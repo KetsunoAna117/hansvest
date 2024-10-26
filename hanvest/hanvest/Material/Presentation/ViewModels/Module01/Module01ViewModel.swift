@@ -12,7 +12,7 @@ class Module01ViewModel: ObservableObject {
     
     let progressBarMinValue: Int = 0
     let progressBarMaxValue: Int = 100
-    let lastPage = ContentOfModule01Material.page02.rawValue
+    let lastPage = ContentOfModule01Material.allCases.count
     
     @Published var currentTab: Int = 0
     @Published var progressBarCurrValue: Int = 4
@@ -35,8 +35,9 @@ class Module01ViewModel: ObservableObject {
     }
     
     func goToNextPage(router: any AppRouterProtocol, specificModule: CompletionEntityType) {
-        if currentTab < lastPage {
+        if currentTab < (lastPage - 1) {
             currentTab += 1
+            updateProgressBarValue()
         } else {
             directToCompletionPage(router: router, specificModule: specificModule)
         }
