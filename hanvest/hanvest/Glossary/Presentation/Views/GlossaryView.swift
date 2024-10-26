@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct GlossaryView: View {
-    // Viewmodel dibikin disini semua (StateObject)
-    // Abis itu dipassing ke components
     let router: any AppRouterProtocol
     
-    @StateObject var glossaryViewModel = GlossaryViewModel()
-    @StateObject var searchViewModel = SearchViewModel(viewModel: GlossaryViewModel())
+    @StateObject private var glossaryViewModel = GlossaryViewModel()
     @State private var isPressed = false
-    
     
     var body: some View {
         VStack {
@@ -23,11 +19,13 @@ struct GlossaryView: View {
                 label: "Glossary",
                 leadingIcon: Image(systemName: "chevron.left"),
                 leadingAction: {
-//                    router.pop()
+                    router.pop()
                 },
                 trailingIcon: Image(systemName: "magnifyingglass"),
                 trailingAction: {
-//                    router.push(.searchGlossary)
+                    router.push(
+                        .searchGlossary(glossaryViewModel: glossaryViewModel)
+                    )
                 }
             )
             
@@ -39,7 +37,7 @@ struct GlossaryView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .glossary
+    @Previewable @State var startScreen: Screen? = .onboarding
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

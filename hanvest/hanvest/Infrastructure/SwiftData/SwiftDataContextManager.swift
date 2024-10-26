@@ -21,6 +21,7 @@ public class SwiftDataContextManager {
             
             if let container {
                 context = ModelContext(container)
+//                prepopulateUserData()
                 prepopulateSystemData()
             }
         } catch {
@@ -146,17 +147,19 @@ private extension SwiftDataContextManager {
 
 // Prepopulate Data
 private extension SwiftDataContextManager {
+    func prepopulateUserData(){
+        let userSchemaData = fetchUserSchema()
+        if userSchemaData == nil {
+            let result = getMockUserSchemaData()
+            saveUserData(userDataSchema: result)
+        }
+    }
+    
     func prepopulateSystemData() {
-//        let userSchemaData = fetchUserSchema()
         let transactionSchemaData = fetchTransactionSchema()
         let newsSchemaData = fetchNewsSchema()
         let productPriceSchemaData = fetchProductPriceSchema()
         let simulationStockSchemaData = fetchSimulationStockSchema()
-        
-//        if userSchemaData == nil {
-//            let result = getMockUserSchemaData()
-//            saveUserData(userDataSchema: result)
-//        }
         
         if transactionSchemaData.count <= 0 {
             let result = getMockTransactionSchemaData()

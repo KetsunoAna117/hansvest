@@ -40,6 +40,7 @@ class Module02ViewModel: ObservableObject {
             if !checkIsDisabled() {
                 currentTab += 1
                 updateProgressBarValue()
+                changePageState()
             }
         } else {
             directToCompletionPage(router: router, specificModule: specificModule)
@@ -58,7 +59,7 @@ class Module02ViewModel: ObservableObject {
     }
     
     func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / lastPage)
+        progressBarCurrValue += (progressBarMaxValue / (lastPage + 1))
     }
     
     func checkIsDisabled() -> Bool {

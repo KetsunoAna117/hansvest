@@ -14,6 +14,7 @@ enum Screen: Identifiable, Hashable, Equatable {
     case news
     case newsDetails(news: SimulationNewsEntity)
     case glossary
+    case searchGlossary(glossaryViewModel: GlossaryViewModel)
     case profile
     case materialModule01
     case materialModule02
@@ -58,6 +59,8 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .glossary:
             hasher.combine(self.hashValue)
+        case .searchGlossary:
+            hasher.combine(self.hashValue)
         case .newsDetails:
             hasher.combine(self.hashValue)
         case .transactionStatus:
@@ -83,6 +86,7 @@ extension Screen {
             (.materialModule05, .materialModule05),
             (.news, .news),
             (.glossary, .glossary),
+            (.searchGlossary, .searchGlossary),
             (.newsDetails, .newsDetails),
             (.transactionStatus, .transactionStatus),
             (.moduleCompletion, .moduleCompletion):
