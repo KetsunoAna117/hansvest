@@ -14,7 +14,7 @@ enum Module05Stage: Equatable {
     func onComplete(
         moduleRouter: any Module05RouterProtocol,
         profileViewModel: Module05ProfileViewModel,
-        simulationViewModel: HanvestSimulationViewModel,
+        simulationViewModel: Module05SimulationViewModel,
         transaction: TransactionStatusViewModel
     ) {
         switch self {
@@ -39,14 +39,27 @@ enum Module05Stage: Equatable {
                 )
             )
             
-            if let viewmodel = simulationViewModel as? Module05SimulationViewModel {
-                viewmodel.appendNewStockPrice()
-            }
+            simulationViewModel.appendNewStockPrice()
 
         case .sellStage(let appRouter):
-            appRouter.push(
-                .moduleCompletion(completionItem: .module05)
-            )
+            @Inject var validateModule: ValidateIfUserHasCompletedTheModule
+            
+            do {
+                let hasCompletedModule = try validateModule.execute(specificModule: .module05)
+                
+                if hasCompletedModule {
+                    appRouter.popToRoot()
+                }
+                else {
+                    appRouter.push(
+                        .moduleCompletion(completionItem: .module05)
+                    )
+                }
+            }
+            catch {
+                debugPrint("[ERROR]: \(error)")
+            }
+
         }
     }
 }

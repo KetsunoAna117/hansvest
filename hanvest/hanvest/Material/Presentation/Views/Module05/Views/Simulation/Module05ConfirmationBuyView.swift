@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct MaterialSimulationConfirmationBuyView: View {
+struct Module05ConfirmationBuyView: View {
     let moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
-    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
+    @ObservedObject var simulationViewModel: Module05SimulationViewModel
     
-    @StateObject var viewmodel = Module05BuyingStockViewModel()
+    @StateObject var viewmodel = BuyingStockDataViewModel()
     
     var body: some View {
         if let stock = simulationViewModel.selectedStock {

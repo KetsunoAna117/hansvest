@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct MaterialSimulationConfirmationSellView: View {
+struct Module05ConfirmationSellView: View {
     let moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
-    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
+    @ObservedObject var simulationViewModel: Module05SimulationViewModel
     
     @StateObject var viewmodel = SellingStockDataViewModel()
     
@@ -49,7 +49,7 @@ struct MaterialSimulationConfirmationSellView: View {
                     style: .filledCorrect(
                         isDisabled: viewmodel.determineIsDisabledButtonState()
                     ),
-                    title: "Buy",
+                    title: "Sell",
                     action: {
                         moduleRouter.displayOverlay(
                             .withSellConfirmationPopup(

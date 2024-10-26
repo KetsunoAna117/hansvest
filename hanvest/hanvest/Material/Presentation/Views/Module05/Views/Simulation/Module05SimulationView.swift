@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct MaterialSimulationView: View {
+struct Module05SimulationView: View {
     let appRouter: any AppRouterProtocol
     let moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
-    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
+    @ObservedObject var simulationViewModel: Module05SimulationViewModel
     
     var body: some View {
         ZStack {
