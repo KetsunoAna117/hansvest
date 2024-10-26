@@ -81,10 +81,17 @@ struct SimulationSellingCard: View {
     @Previewable @StateObject var viewmodel = SellingStockDataViewModel()
     @Previewable @State var currentPrice: Int = 5000
     
+    @Inject var getUserData: GetUserData
+    
     VStack {
         SimulationSellingCard(viewModel: viewmodel, currentPrice: $currentPrice)
             .onAppear(){
+                guard let userData = getUserData.execute() else {
+                    print("[ERROR] User Data is not initialized")
+                    return
+                }
                 viewmodel.setup(
+                    userData: userData,
                     selectedStockIDName: "BBRI",
                     initialStockPrice: 4000,
                     currentStockPrice: 5000

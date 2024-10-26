@@ -14,6 +14,13 @@ class Module05SimulationViewModel: HanvestSimulationViewModel {
         self.selectedStockID = stockList.first?.stockIDName ?? ""
     }
     
+    func appendNewStockPrice(){
+        let index = getSelectedStockIdx(selectedStockID: selectedStockID)
+        stockList[index].stockPrice.append(
+            .init(id: "BBCA-price-4", name: "BBCA", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 23:00:00"))
+        )
+    }
+    
 }
 
 private extension Module05SimulationViewModel {
@@ -39,12 +46,5 @@ private extension Module05SimulationViewModel {
                 ]
             )
         ]
-    }
-    
-    func appendNewStockPrice(){
-        let index = getSelectedStockIdx(selectedStockID: selectedStockID)
-        stockList[index].stockPrice.append(
-            .init(id: "BBCA-price-4", name: "BBCA", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 23:00:00"))
-        )
     }
 }

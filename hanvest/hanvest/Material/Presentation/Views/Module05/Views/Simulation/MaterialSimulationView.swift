@@ -46,7 +46,13 @@ struct MaterialSimulationView: View {
                                         symbolCategoryKeyPath: \.name,
                                         displayBy: .hour
                                     )
-                                    StockInvestmentData(selectedStock: selectedStock)
+                                    
+                                    if let userData = profileViewModel.userData {
+                                        StockInvestmentData(
+                                            userData: userData,
+                                            selectedStock: selectedStock
+                                        )
+                                    }
                                     
                                     StockCompanyProfileInformation(desc: selectedStock.stockDescription)
                                     

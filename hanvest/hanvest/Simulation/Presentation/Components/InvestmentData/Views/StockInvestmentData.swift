@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StockInvestmentData: View {
+    var userData: UserDataEntity
     var selectedStock: SimulationStockEntity
     
     @StateObject private var viewmodel: StockInvestmentDataViewModels = .init()
@@ -79,12 +80,14 @@ struct StockInvestmentData: View {
         )
         .onAppear(){
             viewmodel.setup(
+                userData: userData,
                 selectedStockIDName: selectedStock.stockIDName,
                 stockPrice: selectedStock.stockPrice.last?.price ?? 0
             )
         }
         .onChange(of: selectedStock.stockPrice) { oldValue, newValue in
             viewmodel.setup(
+                userData: userData,
                 selectedStockIDName: selectedStock.stockIDName,
                 stockPrice: selectedStock.stockPrice.last?.price ?? 0
             )

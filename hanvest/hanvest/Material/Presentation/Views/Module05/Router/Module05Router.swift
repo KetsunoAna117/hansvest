@@ -51,7 +51,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 VStack {
                     ModuleHeaderView(
-                        viewmodel: profileViewModel,
+                        userDataViewModel: profileViewModel,
                         bookIconTappedAction: {
                             // User can't use this button in this module, hence this will do nothing.
                         },
@@ -78,7 +78,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 VStack {
                     ModuleHeaderView(
-                        viewmodel: profileViewModel,
+                        userDataViewModel: profileViewModel,
                         bookIconTappedAction: {
                             // User can't use this button in this module, hence this will do nothing.
                         },
@@ -125,13 +125,17 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 }
             }
             
-        case .confirmSell:
+        case .confirmSell(
+            let profileViewModel,
+            let simulationViewModel
+        ):
             ZStack {
                 Color.background.ignoresSafeArea()
-                VStack {
-                    Text("Hello from confirm sell Stage")
-  
-                }
+                MaterialSimulationConfirmationSellView(
+                    moduleRouter: self,
+                    profileViewModel: profileViewModel,
+                    simulationViewModel: simulationViewModel
+                )
             }
             .navigationBarBackButtonHidden()
             .overlay {

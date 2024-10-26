@@ -45,10 +45,7 @@ struct AppModule {
         @Provider var saveUserData: SaveUserData = SaveUserDataImpl(
             userRepo: userRepository
         )
-        @Provider var getUserTransaction: GetUserTransaction = GetUserTransactionImpl(
-            userRepo: userRepository,
-            transactionRepo: stockTransactionRepository
-        )
+        @Provider var getUserTransaction: GetUserTransaction = GetUserTransactionImpl()
         
         // Simulation and Material
         @Provider var saveUserModuleProgress: SaveUserModuleProgress = SaveUserModuleProgressImpl(
