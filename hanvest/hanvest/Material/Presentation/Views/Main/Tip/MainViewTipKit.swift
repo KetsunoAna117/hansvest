@@ -7,30 +7,39 @@
 
 import TipKit
 
-struct Module06ThisIsNotificationTip: Tip {
+enum MainViewTip: Tip {
+    case thisIsNotification
+    case virtualBalance
+    
+    var id: String {
+        return String(describing: self)
+    }
+    
     var title: Text {
-        Text("This is Notification")
+        switch self {
+            case .thisIsNotification:
+                Text("This is Notification")
+            case .virtualBalance:
+                Text("Virtual Balance")
+        }
     }
     
     var message: Text? {
-        Text("You can see new news here.")
+        switch self {
+            case .thisIsNotification:
+                Text("You can see new news here.")
+            case .virtualBalance:
+                Text("A digital token that can be used to buy stocks and virtual items like accessories.")
+        }
     }
     
-    var asset: Image? {
-        Image(systemName: "chart.bar.horizontal.page")
-    }
-}
-
-struct Module02VirtualBalanceTip: Tip {
-    var title: Text {
-        Text("Virtual Balance")
-    }
-    
-    var message: Text? {
-        Text("A digital token that can be used to buy stocks and virtual items like accessories.")
+    var image: Image? {
+        switch self {
+            case .thisIsNotification:
+                Image(systemName: "chart.bar.horizontal.page")
+            case .virtualBalance:
+                Image(systemName: "creditcard")
+        }
     }
     
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
 }

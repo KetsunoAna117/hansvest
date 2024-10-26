@@ -30,7 +30,7 @@ struct hanvestApp: App {
                         .task {
                             try? Tips.resetDatastore() // for debugging
                             try? Tips.configure([
-                                .displayFrequency(.immediate),
+//                                .displayFrequency(.immediate),
                                 .datastoreLocation(.applicationDefault)
                             ])
                         }

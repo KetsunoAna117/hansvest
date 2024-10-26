@@ -7,241 +7,120 @@
 
 import TipKit
 
-struct Module05StocksTip: Tip {
+enum Module05Tip: Tip {
+    case stocks
+    case stocksName
+    case stocksPrice
+    case gainLoss
+    case yourInvestment
+    case yourEquity
+    case profitLoss
+    case companyProfile
+    case buyButton
+    case tradingBalance
+    case amountBuy
+    case priceBuy
+    case lot
+    case sellButton
+    case yourAmountOfStock
+    case amountSell
+    case priceSell
+
+    var id: String {
+        return String(describing: self)
+    }
+
     var title: Text {
-        Text("Stocks")
+        switch self {
+            case .stocks:
+                Text("Stocks")
+            case .stocksName:
+                Text("Stocks Name")
+            case .stocksPrice:
+                Text("Stocks Price")
+            case .gainLoss:
+                Text("Gain/Loss")
+            case .yourInvestment:
+                Text("Your Investment")
+            case .yourEquity:
+                Text("Your Equity")
+            case .profitLoss:
+                Text("Profit/Loss")
+            case .companyProfile:
+                Text("Company Profile")
+            case .buyButton:
+                Text("Buy Button")
+            case .tradingBalance:
+                Text("Trading Balance")
+            case .amountBuy, .amountSell:
+                Text("Amount")
+            case .priceBuy, .priceSell:
+                Text("Price")
+            case .lot:
+                Text("Lot")
+            case .sellButton:
+                Text("Sell Button")
+            case .yourAmountOfStock:
+                Text("Your Amount Of Stock")
+        }
     }
-    
+
     var message: Text? {
-        Text("Option of stocks that you can buy.")
+        switch self {
+            case .stocks:
+                Text("Option of stocks that you can buy.")
+            case .stocksName:
+                Text("The full name of the stock.")
+            case .stocksPrice:
+                Text("The price of the stock for each share.")
+            case .gainLoss:
+                Text("The gain or loss of a share from the last price before market close.")
+            case .yourInvestment:
+                Text("The amount that you invest in this stocks.")
+            case .yourEquity:
+                Text("It's your equity in this stock.")
+            case .profitLoss:
+                Text("The amount you get or loss from this stock based on the price you buy.")
+            case .companyProfile:
+                Text("You can analysis their company with their profile.")
+            case .buyButton:
+                Text("Press to buy stocks.")
+            case .tradingBalance:
+                Text("Virtual balance you can use to buy stocks.")
+            case .amountBuy:
+                Text("The total amount you want to buy.")
+            case .priceBuy:
+                Text("This is the cost of each share we want to buy.")
+            case .lot:
+                Text("1 lot = 100 shares")
+            case .sellButton:
+                Text("Press to sell stock.")
+            case .yourAmountOfStock:
+                Text("The total amount of this stock that you can sell.")
+            case .amountSell:
+                Text("The total amount that you will get from the sales.")
+            case .priceSell:
+                Text("The cost of each share we want to sell.")
+        }
     }
-    
+
     var image: Image? {
-        Image(systemName: "chart.bar.horizontal.page")
+        switch self {
+            case .stocks:
+                Image(systemName: "chart.bar.horizontal.page")
+            case .stocksName, .companyProfile:
+                Image(systemName: "building.2")
+            case .stocksPrice, .amountBuy, .priceBuy, .amountSell, .priceSell:
+                Image(systemName: "dollarsign")
+            case .gainLoss, .profitLoss:
+                Image(systemName: "arrow.up.arrow.down")
+            case .yourInvestment, .yourEquity, .tradingBalance, .lot, .sellButton, .yourAmountOfStock:
+                Image(systemName: "creditcard")
+            case .buyButton:
+                Image(systemName: "cart")
+        }
     }
+
 }
 
-struct Module05StocksNameTip: Tip {
-    var title: Text {
-        Text("Stocks Name")
-    }
-    
-    var message: Text? {
-        Text("The full name of the stock.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "building.2")
-    }
-}
-
-struct Module05StocksPriceTip: Tip {
-    var title: Text {
-        Text("Stocks Price")
-    }
-    
-    var message: Text? {
-        Text("The price of the stock for each share.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "dollarsign")
-    }
-}
-
-struct Module05GainLossTip: Tip {
-    var title: Text {
-        Text("Gain/Loss")
-    }
-    
-    var message: Text? {
-        Text("The gain or loss of a share from the last price before market close.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "arrow.up.arrow.down")
-    }
-}
-
-struct Module05YourInvestmentTip: Tip {
-    var title: Text {
-        Text("Your Investment")
-    }
-    
-    var message: Text? {
-        Text("The amount that you invest in this stocks.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
-}
-
-struct Module05YourEquityTip: Tip {
-    var title: Text {
-        Text("Your Equity")
-    }
-    
-    var message: Text? {
-        Text("It's your equity in this stock.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
-}
-
-struct Module05ProfitLossTip: Tip {
-    var title: Text {
-        Text("Profit/Loss")
-    }
-    
-    var message: Text? {
-        Text("The amount you get or loss from this stock based on the price you buy.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "arrow.up.arrow.down")
-    }
-}
-
-struct Module05CompanyProfileTip: Tip {
-    var title: Text {
-        Text("Company Profile")
-    }
-    
-    var message: Text? {
-        Text("You can analysis their company with their profile.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "building.2")
-    }
-}
-
-struct Module05BuyButtonTip: Tip {
-    var title: Text {
-        Text("Buy Button")
-    }
-    
-    var message: Text? {
-        Text("Press to buy stocks.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "cart")
-    }
-}
-
-struct Module05TradingBalanceTip: Tip {
-    var title: Text {
-        Text("Trading Balance")
-    }
-    
-    var message: Text? {
-        Text("Virtual balance you can use to buy stocks.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
-}
-
-struct Module05AmountBuyTip: Tip {
-    var title: Text {
-        Text("Amount")
-    }
-    
-    var message: Text? {
-        Text("The total amount you want to buy.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "dollarsign")
-    }
-}
-
-struct Module05PriceBuyTip: Tip {
-    var title: Text {
-        Text("Price")
-    }
-    
-    var message: Text? {
-        Text("This is the cost of each share we want to buy.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "dollarsign")
-    }
-}
-
-struct Module05LotTip: Tip {
-    var title: Text {
-        Text("Lot")
-    }
-    
-    var message: Text? {
-        Text("1 lot = 100 shares")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
-}
-
-struct Module05SellButtonTip: Tip {
-    var title: Text {
-        Text("Sell Button")
-    }
-    
-    var message: Text? {
-        Text("Press to sell stock.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
-}
-
-struct Module05YourAmountOfStockTip: Tip {
-    var title: Text {
-        Text("Your Amount Of Stock")
-    }
-    
-    var message: Text? {
-        Text("The total amount of this stock that you can sell.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "creditcard")
-    }
-}
-
-struct Module05AmountSellTip: Tip {
-    var title: Text {
-        Text("Amount")
-    }
-    
-    var message: Text? {
-        Text("The total amount that you will get from the sales.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "dollarsign")
-    }
-}
-
-struct Module05PriceSellTip: Tip {
-    var title: Text {
-        Text("Price")
-    }
-    
-    var message: Text? {
-        Text("The cost of each share we want to sell.")
-    }
-    
-    var asset: Image? {
-        Image(systemName: "dollarsign")
-    }
-}
 
