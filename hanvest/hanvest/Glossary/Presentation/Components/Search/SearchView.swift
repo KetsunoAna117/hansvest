@@ -4,69 +4,57 @@
 //
 //  Created by Christian Gunawan on 17/10/24.
 //
-
 import SwiftUI
 
 struct SearchView: View {
     let router: any AppRouterProtocol
-    @ObservedObject var viewModel: SearchViewModel
+    
+    @ObservedObject var glossaryViewModel: GlossaryViewModel
+    @StateObject private var searchViewModel: SearchViewModel = .init()
     
     var body: some View {
-        VStack{
-//            VStack{
-//                HanvestNavigationBar(
-//                    label: "Search",
-//                    leadingIcon: Image(systemName: "chevron.left"),
-//                    leadingAction: {
-//                        router.pop()
-//                    }
-//                )
-//            }
+        VStack {
+            SearchTextFieldGlossary(
+                router: router,
+                searchString: $searchViewModel.searchString
+            )
             
-
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        if viewModel.searchString.isEmpty {
-                            Text("Recent")
-                                .font(.body)
-                                .fontWeight(.bold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Divider()
-                            ForEach(viewModel.recentSearches, id: \.word) { entity in
-                                HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                                    print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
-                                }
+            ScrollView {
+                VStack(alignment: .leading) {
+                    if searchViewModel.searchString.isEmpty {
+                        Text("Recent")
+                            .font(.body)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Divider()
+                        
+                        ForEach(searchViewModel.recentSearches, id: \.word) { entity in
+                            HanvestGlossaryWordRow(entity: entity) { selectedEntity in
+                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
                             }
-                        } else {
-                            ForEach(viewModel.filteredResults, id: \.word) { entity in
-                                HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                                    print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
-                                    viewModel.addToRecentSearches(selectedEntity)
-                                }
+                        }
+                    } else {
+                        ForEach(searchViewModel.filteredResults, id: \.word) { entity in
+                            HanvestGlossaryWordRow(entity: entity) { selectedEntity in
+                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                                searchViewModel.addToRecentSearches(selectedEntity)
                             }
                         }
                     }
-                    .padding()
                 }
-                .searchable(text: $viewModel.searchString)
-        }
-        .toolbar{
-            ToolbarItem(placement: .topBarLeading){
-                Button{
-                    router.pop()
-                }label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.labelPrimary)
-                }
+                .padding()
             }
+        }
+        .onAppear() {
+            searchViewModel.setup(viewModel: glossaryViewModel)
         }
     }
 }
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .searchGlossary
-
+    @Previewable @State var startScreen: Screen? = .glossary
+    
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {
             appRouter.build(startScreen)
