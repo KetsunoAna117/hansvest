@@ -35,7 +35,7 @@ struct Module03View: View {
                                 question: Module03MultipleChoice.page01.question,
                                 options: Module03MultipleChoice.page01.options
                             ){ answer in
-                                    viewModel.checkSelectedProductIndex(answer: answer)
+                                    viewModel.setSelectedProductIndex(answer: answer)
                             }
                             .tag(Module03MultipleChoice.page01.rawValue)
                             .transition(.slide)
@@ -46,7 +46,7 @@ struct Module03View: View {
                                 HanvestModule03AllProductOfInvestmentView(
                                     title: page.title,
                                     selectedProductIndex: (viewModel.selectedProductIndex != -1) ? viewModel.selectedProductIndex : 0,
-                                    productStage: page.rawValue - 1
+                                    productStage: index
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
@@ -85,7 +85,6 @@ struct Module03View: View {
                                     router: self.router,
                                     specificModule: .module03
                                 )
-                                viewModel.changePageState()
                             }
                         }
                         .frame(maxWidth: .infinity)

@@ -95,7 +95,6 @@ struct Module04View: View {
                                             router: self.router,
                                             specificModule: .module04
                                         )
-                                        viewModel.changePageState()
                                     }
                                 }
                             } else {
@@ -110,7 +109,6 @@ struct Module04View: View {
                                             router: self.router,
                                             specificModule: .module04
                                         )
-                                        viewModel.changePageState()
                                     }
                                 )
                             }

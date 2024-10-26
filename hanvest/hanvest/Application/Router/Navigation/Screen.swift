@@ -14,7 +14,7 @@ enum Screen: Identifiable, Hashable, Equatable {
     case news
     case newsDetails(news: SimulationNewsEntity)
     case glossary
-    case searchGlossary
+    case searchGlossary(glossaryViewModel: GlossaryViewModel)
     case profile
     case materialModule01
     case materialModule02

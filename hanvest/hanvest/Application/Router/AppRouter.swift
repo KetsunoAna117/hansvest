@@ -178,10 +178,10 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .searchGlossary:
+        case .searchGlossary(let glossaryViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                SearchView(router: self, viewModel: SearchViewModel(viewModel: GlossaryViewModel()))
+                SearchView(router: self, glossaryViewModel: glossaryViewModel)
             }
             .navigationBarBackButtonHidden()
         }

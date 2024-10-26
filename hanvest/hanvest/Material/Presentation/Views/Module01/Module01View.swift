@@ -69,7 +69,6 @@ struct Module01View: View {
                                         router: self.router,
                                         specificModule: .module01
                                     )
-                                    viewModel.updateProgressBarValue()
                                 }
                             }
                             .frame(maxWidth: .infinity)
