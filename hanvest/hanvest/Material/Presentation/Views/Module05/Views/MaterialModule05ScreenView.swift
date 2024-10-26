@@ -10,7 +10,7 @@ import SwiftUI
 struct MaterialModule05ScreenView: View {
     // CONSTANT
     let MIN_PROGRESS = 0
-    let MAX_PROGRESS = 6
+    let MAX_PROGRESS = 2
     
     let appRouter: any AppRouterProtocol
     
@@ -39,6 +39,7 @@ struct MaterialModule05ScreenView: View {
                 if contentRouter.content.count <= 0 {
                     contentRouter.content.append(
                         .buyStage(
+                            appRouter: appRouter,
                             profileViewModel: profileViewModel,
                             simulationViewModel: simulationViewModel
                         )
@@ -56,13 +57,9 @@ struct MaterialModule05ScreenView: View {
             
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .onChange(of: simulationViewModel.stagesCompleted) { oldValue, newValue in
-            if newValue.contains([.buyStage, .sellStage]) {
-                appRouter.push(
-                    .moduleCompletion(
-                        completionItem: .module05
-                    )
-                )
+        .onAppear(){
+            if simulationViewModel.currentStage == nil {
+                simulationViewModel.currentStage = .buyStage(appRouter: appRouter)
             }
         }
     }

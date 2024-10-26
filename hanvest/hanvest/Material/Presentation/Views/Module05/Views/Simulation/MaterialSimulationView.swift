@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MaterialSimulationView: View {
+    let appRouter: any AppRouterProtocol
     let moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
@@ -69,7 +70,10 @@ struct MaterialSimulationView: View {
                         HStack(spacing: 12) {
                             HanvestButtonDefault(
                                 size: .medium,
-                                style: .filledIncorrect(isDisabled: false),
+                                style: .filledIncorrect(
+                                    isDisabled:
+                                        simulationViewModel.currentStage == .sellStage(appRouter: appRouter) ? false : true
+                                ),
                                 title: "Sell") {
                                     moduleRouter.push(
                                         .confirmSell(
@@ -80,7 +84,9 @@ struct MaterialSimulationView: View {
                                 }
                             HanvestButtonDefault(
                                 size: .medium,
-                                style: .filledCorrect(isDisabled: false),
+                                style: .filledCorrect(
+                                    isDisabled: simulationViewModel.currentStage == .buyStage(appRouter: appRouter) ? false : true
+                                ),
                                 title: "Buy") {
                                     moduleRouter.push(
                                         .confirmBuy(

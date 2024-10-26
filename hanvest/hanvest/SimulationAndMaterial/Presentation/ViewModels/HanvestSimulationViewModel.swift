@@ -31,7 +31,7 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
     
     @Published var displayActiveStockCurrentPrice: Int
     
-    @Published var stagesCompleted: [Module05Stage]
+    @Published var currentStage: Module05Stage?
     
     init(
         stockList: [SimulationStockEntity] = [],
@@ -39,14 +39,14 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
         selectedStock: SimulationStockEntity? = nil,
         displayActiveStockInitialPrice: Int = 0,
         displayActiveStockCurrentPrice: Int = 0,
-        stagesCompleted: [Module05Stage] = []
+        currentStage: Module05Stage? = nil
     ) {
         self.stockList = stockList
         self.selectedStockID = selectedStockID
         self.selectedStock = selectedStock
         self.displayActiveStockInitialPrice = displayActiveStockInitialPrice
         self.displayActiveStockCurrentPrice = displayActiveStockCurrentPrice
-        self.stagesCompleted = stagesCompleted
+        self.currentStage = currentStage
     }
     
     func setup(){

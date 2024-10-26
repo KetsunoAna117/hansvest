@@ -21,7 +21,7 @@ public class SwiftDataContextManager {
             
             if let container {
                 context = ModelContext(container)
-//                prepopulateUserData()
+                prepopulateUserData()
                 prepopulateSystemData()
             }
         } catch {

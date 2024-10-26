@@ -39,10 +39,14 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
         self.overlay = nil
     }
     
+    func addProgress() {
+        self.progress += 1
+    }
+    
     @ViewBuilder
     func build(_ content: Module05ContentView) -> some View {
         switch content {
-        case .buyStage(let profileViewModel, let simulationViewModel):
+        case .buyStage(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
@@ -59,6 +63,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                         }
                     )
                     MaterialSimulationView(
+                        appRouter: appRouter,
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
                         simulationViewModel: simulationViewModel
@@ -68,7 +73,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .sellStage(let profileViewModel, let simulationViewModel):
+        case .sellStage(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
@@ -85,6 +90,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                         }
                     )
                     MaterialSimulationView(
+                        appRouter: appRouter,
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
                         simulationViewModel: simulationViewModel

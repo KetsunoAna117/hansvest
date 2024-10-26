@@ -16,4 +16,6 @@ protocol Module05RouterProtocol {
     
     func displayOverlay(_ overlay: Module05Overlay)
     func dismissOverlay()
+    
+    func addProgress()
 }

@@ -21,4 +21,10 @@ class Module05ProfileViewModel: ObservableObject {
             moduleCompletionList: []
         )
     }
+    
+    func addUserInvestmentTransaction(transaction: StockTransactionEntity){
+        if userData != nil {
+            userData?.userInvestmentTransaction.append(transaction)
+        }
+    }
 }

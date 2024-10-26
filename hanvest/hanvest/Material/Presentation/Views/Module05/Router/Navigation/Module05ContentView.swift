@@ -7,10 +7,12 @@
 
 enum Module05ContentView: Equatable, Hashable, Identifiable {
     case buyStage(
+        appRouter: any AppRouterProtocol,
         profileViewModel: Module05ProfileViewModel,
         simulationViewModel: HanvestSimulationViewModel
     )
     case sellStage(
+        appRouter: any AppRouterProtocol,
         profileViewModel: Module05ProfileViewModel,
         simulationViewModel: HanvestSimulationViewModel
     )
