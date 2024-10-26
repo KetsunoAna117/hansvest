@@ -19,7 +19,13 @@ class WaterCan: SKNode {
 
         self.setScale(1)
         self.zPosition = 2
-        self.position = CGPoint(x: (UIScreen.main.bounds.width / 4.15), y: (UIScreen.main.bounds.width / 0.691))
+        
+        if UIScreen.main.bounds.width < 400 {
+            self.position = CGPoint(x: (UIScreen.main.bounds.width / 4.15), y: (UIScreen.main.bounds.width / 0.85))
+        } else {
+            self.position = CGPoint(x: (UIScreen.main.bounds.width / 4.15), y: (UIScreen.main.bounds.width / 0.691))
+        }
+        
         self.initialPosition = self.position
         
         self.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "water-can-default"), size: CGSize(width: self.image.size.width, height: self.image.size.height))
