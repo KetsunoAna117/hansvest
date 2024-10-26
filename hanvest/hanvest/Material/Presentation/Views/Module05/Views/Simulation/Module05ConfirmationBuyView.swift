@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import TipKit
 
 struct Module05ConfirmationBuyView: View {
     let moduleRouter: any Module05RouterProtocol
@@ -35,7 +34,6 @@ struct Module05ConfirmationBuyView: View {
                         currentPrice:
                             $simulationViewModel.displayActiveStockCurrentPrice
                     )
-                    .popoverTip(Module05Tip.stocksName)
                     
                     SimulationBuyingCard(viewModel: viewmodel, currentPrice: $simulationViewModel.displayActiveStockCurrentPrice)
                 }
