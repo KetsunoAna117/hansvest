@@ -8,6 +8,7 @@
 import Foundation
 
 class Module05SimulationViewModel: HanvestSimulationViewModel {
+    @Published var currentStage: Module05Stage?
  
     override func setup(){
         self.stockList = self.prepareStockData()

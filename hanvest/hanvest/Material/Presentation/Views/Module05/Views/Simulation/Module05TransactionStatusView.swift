@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct MaterialTransactionStatusView: View {
+struct Module05TransactionStatusView: View {
     var moduleRouter: any Module05RouterProtocol
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
-    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
+    @ObservedObject var simulationViewModel: Module05SimulationViewModel
     
     let transaction: TransactionStatusViewModel
     

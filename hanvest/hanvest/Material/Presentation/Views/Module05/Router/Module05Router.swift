@@ -62,7 +62,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                             // User can't use this button in this module, hence this will do nothing.
                         }
                     )
-                    MaterialSimulationView(
+                    Module05SimulationView(
                         appRouter: appRouter,
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
@@ -89,7 +89,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                             // User can't use this button in this module, hence this will do nothing.
                         }
                     )
-                    MaterialSimulationView(
+                    Module05SimulationView(
                         appRouter: appRouter,
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
@@ -107,7 +107,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
         ):
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialSimulationConfirmationBuyView(
+                Module05ConfirmationBuyView(
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
                     simulationViewModel: simulationViewModel
@@ -131,7 +131,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
         ):
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialSimulationConfirmationSellView(
+                Module05ConfirmationSellView(
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
                     simulationViewModel: simulationViewModel
@@ -157,7 +157,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    MaterialTransactionStatusView(
+                    Module05TransactionStatusView(
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
                         simulationViewModel: simulationViewModel,
