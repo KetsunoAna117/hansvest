@@ -93,7 +93,7 @@ struct Module03View: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, 71)
+            .padding(.top, (UIScreen.main.bounds.width < 400) ? 31 : 71)
             .padding(.bottom, 54)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

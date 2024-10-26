@@ -59,6 +59,7 @@ struct Module04View: View {
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
+                                .padding(.horizontal, (viewModel.showingAnswer == .isShowing) ? 20 : 0)
                                 .frame(maxHeight: .infinity, alignment: .top)
                                 
                             }
@@ -120,7 +121,7 @@ struct Module04View: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, 71)
+            .padding(.top, (UIScreen.main.bounds.width < 400) ? 31 : 71)
             .padding(.bottom, (viewModel.showingAnswer == .isNotShowing) ? 54 : 0)
             .padding(.horizontal, (viewModel.showingAnswer == .isNotShowing) ? 20 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

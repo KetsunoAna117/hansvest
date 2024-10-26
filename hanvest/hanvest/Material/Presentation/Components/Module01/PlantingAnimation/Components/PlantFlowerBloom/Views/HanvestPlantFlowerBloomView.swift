@@ -27,10 +27,14 @@ struct HanvestPlantFlowerBloomView: View {
                     HStack {
                         self.displayedImages[index].image
                     }
-                    .padding(.leading, self.displayedImages[index].leadingPadding)
+                    .padding(.leading, customPaddingLeading(
+                        defaultPaddingLeading: self.displayedImages[index].leadingPadding)
+                    )
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.top, self.displayedImages[index].topPadding)
+                .padding(.top, customPaddingTop(
+                    defaultPaddingTop: self.displayedImages[index].topPadding)
+                )
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
         }
@@ -81,6 +85,22 @@ struct HanvestPlantFlowerBloomView: View {
     private func returnToMainView(duration: CGFloat) {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             self.onCompletion?()
+        }
+    }
+    
+    private func customPaddingLeading(defaultPaddingLeading: CGFloat) -> CGFloat {
+        if UIScreen.main.bounds.width < 400 {
+            return (defaultPaddingLeading - 5)
+        } else {
+            return defaultPaddingLeading
+        }
+    }
+    
+    private func customPaddingTop(defaultPaddingTop: CGFloat) -> CGFloat {
+        if UIScreen.main.bounds.width < 400 {
+            return (defaultPaddingTop - 46)
+        } else {
+            return defaultPaddingTop
         }
     }
 }
