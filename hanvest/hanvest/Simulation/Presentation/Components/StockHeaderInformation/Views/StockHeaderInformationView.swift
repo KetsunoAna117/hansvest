@@ -31,13 +31,16 @@ struct StockHeaderInformationView: View {
                     VStack(alignment: .trailing) {
                         Text(HanvestPriceFormatter.formatIntToIDR(currentPrice))
                             .font(.nunito(.title2, .bold))
+                            .popoverTip(Module05Tip.stocksPrice)
                         HanvestProfitLossLabelView(
                             initialValue: $initialPrice,
                             currentValue: $currentPrice
                         )
+                        .popoverTip(Module05Tip.gainLoss)
                     }
                 }
             }
+            .popoverTip(Module05Tip.stocksName)
         }
     }
 }

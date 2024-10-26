@@ -23,6 +23,7 @@ struct StockInvestmentData: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userStockInvestment))
                             .font(.nunito(.subhead, .bold))
                     }
+                    .popoverTip(Module05Tip.yourInvestment)
                     
                     Rectangle()
                         .foregroundStyle(.tertiary)
@@ -35,7 +36,7 @@ struct StockInvestmentData: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userTotalEquity))
                             .font(.nunito(.subhead, .bold))
                     }
-                    
+                    .popoverTip(Module05Tip.yourEquity)
                     
                 }
                 .padding(.horizontal, 10)
@@ -52,6 +53,7 @@ struct StockInvestmentData: View {
                     }
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
+                    .popoverTip(Module05Tip.profitLoss)
                 }
                 .background(
                     Rectangle()

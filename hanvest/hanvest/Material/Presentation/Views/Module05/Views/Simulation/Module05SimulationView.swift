@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct Module05SimulationView: View {
     let appRouter: any AppRouterProtocol
@@ -25,6 +26,7 @@ struct Module05SimulationView: View {
                             
                         }
                     )
+                    .popoverTip(Module05Tip.stocks)
                     
                     Divider()
                     

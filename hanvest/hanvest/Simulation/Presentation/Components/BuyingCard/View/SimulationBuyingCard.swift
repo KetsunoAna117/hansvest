@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 struct SimulationBuyingCard: View {
     @ObservedObject var viewModel: BuyingStockDataViewModel
@@ -28,6 +29,7 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.tradingBalance))")
                         .font(.nunito(.body, .bold))
+                        .popoverTip(Module05Tip.tradingBalance)
                 }
                 
                 HStack{
@@ -69,6 +71,7 @@ struct SimulationBuyingCard: View {
                     Spacer()
                     
                     HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: lotRaise)
+                        .popoverTip(Module05Tip.lot)
                 }
             }
             .onChange(of: currentPrice) { oldValue, newValue in

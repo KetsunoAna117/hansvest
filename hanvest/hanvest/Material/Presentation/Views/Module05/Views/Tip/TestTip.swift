@@ -43,6 +43,16 @@ enum TestTip: Tip {
         case .third: return [#Rule(Self.$showThird) { $0 == true }]
         }
     }
+    var shouldDisplay: Bool {
+        switch self {
+        case .first:
+            return TestTip.showFirst
+        case .second:
+            return TestTip.showSecond
+        case .third:
+            return TestTip.showThird
+        }
+    }
 }
 
 struct TestView: View {

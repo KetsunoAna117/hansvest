@@ -17,6 +17,7 @@ struct StockCompanyProfileInformation: View {
                     .font(.nunito(.body, .bold))
                 Text(desc)
                     .font(.nunito(.caption1))
+                    .popoverTip(Module05Tip.companyProfile)
             }
         }
     }
