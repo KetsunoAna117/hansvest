@@ -108,7 +108,6 @@ struct Module02View: View {
                                     router: self.router,
                                     specificModule: .module02
                                 )
-                                viewModel.changePageState()
                             }
                         }
                         .frame(maxWidth: .infinity)

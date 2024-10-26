@@ -37,6 +37,7 @@ struct AppModule {
         )
         
         // User
+        @Provider var calculateUserRiskProfile: CalculateUserRiskProfile = CalculateUserRiskProfileImpl()
         @Provider var getUserData: GetUserData = GetUserDataImpl(
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository
