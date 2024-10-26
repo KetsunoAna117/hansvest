@@ -12,11 +12,11 @@ struct Module06ThisIsNotificationTip: Tip {
         Text("This is Notification")
     }
     
-    var message: Text {
+    var message: Text? {
         Text("You can see new news here.")
     }
     
-    var asset: Image {
+    var asset: Image? {
         Image(systemName: "chart.bar.horizontal.page")
     }
 }
@@ -26,11 +26,11 @@ struct Module02VirtualBalanceTip: Tip {
         Text("Virtual Balance")
     }
     
-    var message: Text {
+    var message: Text? {
         Text("A digital token that can be used to buy stocks and virtual items like accessories.")
     }
     
-    var asset: Image {
+    var asset: Image? {
         Image(systemName: "creditcard")
     }
 }
