@@ -66,7 +66,7 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module05",
-                moduleScreenID: .main,
+                moduleScreenID: .materialModule05,
                 state: .next,
                 popup: ModulePopupNavigatiorEntity(
                     title: "Fundamental Part 1",

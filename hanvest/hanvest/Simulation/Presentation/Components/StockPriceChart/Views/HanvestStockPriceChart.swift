@@ -62,7 +62,7 @@ struct HanvestStockPriceChart: View {
                 .chartYAxisLabel("Price")
                 .frame(height: 250)
 //                .chartScrollableAxes(.horizontal)
-//                .chartXVisibleDomain(length: viewmodel.timeRange / 2) // Adjust the length based on the time range
+//                .chartXVisibleDomain(length: simulationViewModel.timeRange / 2) // Adjust the length based on the time range
                 
             }
             .padding()
@@ -74,6 +74,6 @@ struct HanvestStockPriceChart: View {
 //    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
 //    
 //    HanvestStockPriceChart(
-//        viewmodel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
+//        simulationViewModel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
 //    .padding(.horizontal, 20)
 //}

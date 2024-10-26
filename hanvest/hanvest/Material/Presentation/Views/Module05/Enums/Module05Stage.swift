@@ -14,7 +14,8 @@ enum Module05Stage: Equatable {
     func onComplete(
         moduleRouter: any Module05RouterProtocol,
         profileViewModel: Module05ProfileViewModel,
-        simulationViewModel: HanvestSimulationViewModel
+        simulationViewModel: HanvestSimulationViewModel,
+        transaction: TransactionStatusViewModel
     ) {
         switch self {
         case .buyStage(let appRouter):
@@ -28,7 +29,19 @@ enum Module05Stage: Equatable {
                 )
             )
             simulationViewModel.currentStage = .sellStage(appRouter: appRouter)
+            profileViewModel.addUserInvestmentTransaction(
+                transaction: StockTransactionEntity(
+                    transactionID: UUID().uuidString,
+                    stockIDName: transaction.selectedStockIDName,
+                    priceAtPurchase: transaction.stockPrice,
+                    stockLotQuantity: transaction.lotAmount,
+                    time: Date.now
+                )
+            )
             
+            if let viewmodel = simulationViewModel as? Module05SimulationViewModel {
+                viewmodel.appendNewStockPrice()
+            }
 
         case .sellStage(let appRouter):
             appRouter.push(

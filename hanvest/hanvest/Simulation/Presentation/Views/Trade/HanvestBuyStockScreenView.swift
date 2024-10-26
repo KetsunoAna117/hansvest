@@ -10,7 +10,8 @@ import SwiftUI
 struct HanvestBuyStockScreenView: View {
     let router: any AppRouterProtocol
     
-    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
+    var userData: UserDataEntity
+    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: BuyingStockDataViewModel = LocalBuyingStockDataViewModel()
     
     var body: some View {
@@ -72,11 +73,8 @@ struct HanvestBuyStockScreenView: View {
                 .padding(.bottom, 48)
             }
             .onAppear(){
-                // Dependency Injection
-                @Inject var getUserData: GetUserData
-                
                 viewmodel.setup(
-                    userData: getUserData.execute(),
+                    userData: userData,
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0

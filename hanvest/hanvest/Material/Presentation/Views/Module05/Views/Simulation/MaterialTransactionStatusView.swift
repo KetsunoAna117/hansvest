@@ -35,7 +35,8 @@ struct MaterialTransactionStatusView: View {
                         stage.onComplete(
                             moduleRouter: moduleRouter,
                             profileViewModel: profileViewModel,
-                            simulationViewModel: simulationViewModel
+                            simulationViewModel: simulationViewModel,
+                            transaction: transaction
                         )
                     }
                 }

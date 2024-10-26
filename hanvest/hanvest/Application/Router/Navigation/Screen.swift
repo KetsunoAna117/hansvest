@@ -21,8 +21,8 @@ enum Screen: Identifiable, Hashable, Equatable {
     case materialModule03
     case materialModule04
     case materialModule05
-    case simulationBuyingConfirmation(viewModel: HanvestSimulationViewModel)
-    case simulationSellingConfirmation(viewModel: HanvestSimulationViewModel)
+    case simulationBuyingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
+    case simulationSellingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case transactionStatus(transaction: TransactionStatusViewModel)
     case moduleCompletion(completionItem: CompletionEntityType)
     

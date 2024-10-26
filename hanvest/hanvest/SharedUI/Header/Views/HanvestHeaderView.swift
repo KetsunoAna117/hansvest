@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HanvestHeaderView: View {
-    @StateObject private var viewmodel = HanvestProfileHeaderViewModel()
+    @ObservedObject var userDataViewModel: HanvestLoadedUserDataViewModel
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()
@@ -22,7 +22,11 @@ struct HanvestHeaderView: View {
                     VStack(alignment: .leading) {
                         Text("Virtual Balance")
                             .font(.nunito(.caption2))
-                        Text("\(viewmodel.displayBalancePrefixAndSuffix())")
+                        Text(
+                            HanvestPriceFormatter.formatIntToIDR(
+                                userDataViewModel.userData?.userBalance ?? -100
+                            )
+                        )
                             .font(.nunito(.title2))
                     }
                 }
@@ -58,9 +62,6 @@ struct HanvestHeaderView: View {
         }
         .background(Color.background)
         .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 1)
-        .onAppear(){
-            viewmodel.setup()
-        }
     }
 }
 
@@ -74,14 +75,4 @@ struct HanvestHeaderLogo: View {
         }
         .frame(width: 43, height: 43)
     }
-}
-
-#Preview {
-    HanvestHeaderView(bookIconTappedAction: {
-        print("Book Icon Tapped")
-    }, bellIconTappedAction: {
-        print("Bell Icon Tapped")
-    }, profileIconTappedAction: {
-        print("Profile Icon Tapped")
-    })
 }
