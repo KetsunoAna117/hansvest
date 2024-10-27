@@ -14,28 +14,46 @@ class Module06SimulationViewModel: HanvestSimulationViewModel {
         self.stockList = self.prepareStockData()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
     }
+    
+    func onCompletionModule(appRouter: any AppRouterProtocol) {
+        @Inject var validateIfUserComplete: ValidateIfUserHasCompletedTheModule
+        
+        if let userComplete = try? validateIfUserComplete.execute(specificModule: .module06){
+            if userComplete {
+                appRouter.popToRoot()
+            }
+            else {
+                appRouter.push(
+                    .moduleCompletion(completionItem: .module06)
+                )
+            }
+        }
+        else {
+            appRouter.popToRoot()
+        }
+    }
 }
 
 private extension Module06SimulationViewModel {
     func prepareStockData() -> [SimulationStockEntity] {
         return [
             .init(
-                stockIDName: "BBCA",
-                stockName: "PT Bank Central Asia Tbk",
-                stockImageName: "BBCA-logo",
+                stockIDName: "GOTO",
+                stockName: "PT GoTo Gojek Tokopedia Tbk",
+                stockImageName: "GOTO-logo",
                 stockDescription:
                 """
-                PT Bank Central Asia Tbk, commonly known as Bank Central Asia (BCA) is an Indonesian bank founded on 21 February 1957. It is the largest private bank in Indonesia with assets amounting to Rp 5.529,83 trillion (USD 308,5 billion) as of 2022. It is headquarters at BCA Tower in Jakarta.
+                GoTo Gojek Tokopedia (atau GoTo) adalah perusahaan ekosistem digital berbasis teknologi yang beroperasi di Indonesia, yang dibentuk sebagai penggabungan antara Gojek dan Tokopedia. Berbasis di Jakarta. GoTo telah menjadi ekosistem terbarukan mewujudkan ketahanan identitas korporasi.
 
-                Bank Central Asia (BCA) was founded by Salim Group as “NV Perseroan Dagang Dan Industrie Semarang Knitting Factory". Originally the bank started small however it was expanded by banker and conglomerate Mochtar Riady who took control of the bank. Bank Central Asia expanded rapidly during the 1980s and 90s, BCA works with well-known institutions, such as PT Telkom, Citibank, and American Express. The bank was hit hard during the 1997 financial crisis and the subsequent 1998 May Riot. It was in massive debt and as a result it was taken over by the Indonesian Bank Restructuring Agency and sold to another conglomerate group Djarum.
+                GoTo bermula sebagai perusahaan yang menyediakan layanan transportasi daring dengan nama badan hukum PT. Aplikasi Karya Anak Bangsa, yang menggunakan nama Gojek. Perusahaan kemudian berubah nama menjadi GoTo setelah bergabungnya Tokopedia, yang merupakan salah satu lokapasar daring terbesar di Indonesia, pada tahun 2021. GoTo menawarkan layanan-layanan seperti transportasi berbagi tumpangan (GoCar dan GoRide), layanan logistik on-demand (GoSend), dan lokapasar (Tokopedia). Selain itu terdapat Goto Financial yang membawahi pembayaran digital (GoPay), kasir berbasis komputasi awan (MokaPOS) dan gerbang pembayaran (Midtrans).
 
-                Since then BCA has thrived and subsequently, BCA took a major step by going public in the 2000. In 2022, Bank Central Asia was awarded to be the "Best Bank in Indonesia" by Forbes.
+                Pada tahun 2022, GoTo menjadi perusahaan Dekacorn pertama yang menjadi perusahaan terbuka di bursa efek kawasan Asia Tenggara,[2] dengan nilai penawaran umum sebesar Rp 15,8 triliun (sekitar US$1,1 miliar),[3] yang menjadikan IPO GoTo terbesar di Indonesia, ketiga di Asia, dan kelima di dunia, pada periode Januari-April 2022.[4]GoTo adalah salah satu dari lima perusahaan dengan kapitalisasi pasar terbesar di Bursa Efek Indonesia (BEI), dengan kapitalisasi pasar mencapai Rp 452 triliun per 11 April 2022.[5]
                 """,
                 stockPrice: [
-                    .init(id: "BBCA-price-1", name: "BBCA", price: 1000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
-                    .init(id: "BBCA-price-2", name: "BBCA", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
-                    .init(id: "BBCA-price-3", name: "BBCA", price: 1015, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
-                    .init(id: "BBCA-price-4", name: "BBCA", price: 1010, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00")),
+                    .init(id: "GOTO-price-1", name: "GOTO", price: 1000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
+                    .init(id: "GOTO-price-2", name: "GOTO", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
+                    .init(id: "GOTO-price-3", name: "GOTO", price: 1015, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
+                    .init(id: "GOTO-price-4", name: "GOTO", price: 1010, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00")),
                 ]
             )
         ]

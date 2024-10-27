@@ -16,7 +16,15 @@ class Module06ProfileViewModel: ObservableObject {
             userName: "user-module-simulation",
             userBalance: 1000000,
             userRiskProfile: .conservative,
-            userInvestmentTransaction: [],
+            userInvestmentTransaction: [
+                .init(
+                    transactionID: "transaction-01",
+                    stockIDName: "GOTO",
+                    priceAtPurchase: 1000,
+                    stockLotQuantity: 9,
+                    time: Date.now
+                )
+            ],
             transactionQueue: [],
             moduleCompletionList: []
         )

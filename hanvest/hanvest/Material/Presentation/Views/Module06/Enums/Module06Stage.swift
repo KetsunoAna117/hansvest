@@ -6,10 +6,23 @@
 //
 
 enum Module06Stage {
-    case openNews
-    case openNewsDetails
-    case buyState
-    case sellState
+    case openNews(appRouter: any AppRouterProtocol)
+    case openNewsDetails(appRouter: any AppRouterProtocol)
+    case buyState(appRouter: any AppRouterProtocol)
+    case sellState(appRouter: any AppRouterProtocol)
+    
+    var getAppRouter: any AppRouterProtocol {
+        switch self {
+        case .openNews(let appRouter):
+            return appRouter
+        case .openNewsDetails(let appRouter):
+            return appRouter
+        case .buyState(let appRouter):
+            return appRouter
+        case .sellState(let appRouter):
+            return appRouter
+        }
+    }
     
     var shouldBuyAndSellButtonDisabled: Bool {
         switch self {
@@ -24,20 +37,30 @@ enum Module06Stage {
         }
     }
     
-    func onComplete(
+    func onTransactionSuccess(
         moduleRouter: any Module06RouterProtocol,
         profileViewModel: Module06ProfileViewModel,
         simulationViewModel: Module06SimulationViewModel,
         transaction: TransactionStatusViewModel
     ) {
         switch self {
-        case .buyState:
-            moduleRouter.popToRoot()
-        case .sellState:
-            moduleRouter.popToRoot()
-        case .openNews:
+        case .buyState(let appRouter):
+            moduleRouter.push(
+                .conclusion(
+                    appRouter: appRouter,
+                    simulationViewModel: simulationViewModel
+                )
+            )
+        case .sellState(let appRouter):
+            moduleRouter.push(
+                .conclusion(
+                    appRouter: appRouter,
+                    simulationViewModel: simulationViewModel
+                )
+            )
+        case .openNews(_):
             break
-        case .openNewsDetails:
+        case .openNewsDetails(_):
             break
         }
     }

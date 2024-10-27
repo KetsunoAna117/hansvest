@@ -15,10 +15,12 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
         newsViewModel: Module06NewsViewModel
     )
     case confirmBuy(
+        appRouter: any AppRouterProtocol,
         profileViewModel: Module06ProfileViewModel,
         simulationViewModel: Module06SimulationViewModel
     )
     case confirmSell(
+        appRouter: any AppRouterProtocol,
         profileViewModel: Module06ProfileViewModel,
         simulationViewModel: Module06SimulationViewModel
     )
@@ -28,13 +30,18 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
         transactionViewModel: TransactionStatusViewModel
     )
     case notification(
+        appRouter: any AppRouterProtocol,
         profileViewModel: Module06ProfileViewModel,
         simulationViewModel: Module06SimulationViewModel,
         notificationViewModel: Module06NewsViewModel
     )
-    
     case newsDetail(
+        appRouter: any AppRouterProtocol,
         news: SimulationNewsEntity,
+        simulationViewModel: Module06SimulationViewModel
+    )
+    case conclusion(
+        appRouter: any AppRouterProtocol,
         simulationViewModel: Module06SimulationViewModel
     )
     
@@ -50,7 +57,8 @@ extension Module06ContentView {
                 .confirmBuy,
                 .confirmSell,
                 .newsDetail,
-                .transactionComplete:
+                .transactionComplete,
+                .conclusion:
             hasher.combine(self.hashValue)
         }
     }
@@ -63,7 +71,8 @@ extension Module06ContentView {
             (.confirmBuy, .confirmBuy),
             (.confirmSell, .confirmSell),
             (.newsDetail, .newsDetail),
-            (.transactionComplete, .transactionComplete):
+            (.transactionComplete, .transactionComplete),
+            (.conclusion, .conclusion):
             return true
         default:
             return false

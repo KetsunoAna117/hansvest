@@ -32,7 +32,7 @@ struct Module06TransactionStatusView: View {
                 title: "Back To Market",
                 action: {
                     if let stage = simulationViewModel.currentStage {
-                        stage.onComplete(
+                        stage.onTransactionSuccess(
                             moduleRouter: moduleRouter,
                             profileViewModel: profileViewModel,
                             simulationViewModel: simulationViewModel,

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Module06NewsView: View {
+    let appRouter: any AppRouterProtocol
     let moduleRouter: any Module06RouterProtocol
     
     @ObservedObject var profileViewModel: Module06ProfileViewModel
@@ -34,6 +35,7 @@ struct Module06NewsView: View {
                                     action: {
                                         moduleRouter.push(
                                             .newsDetail(
+                                                appRouter: appRouter,
                                                 news: news,
                                                 simulationViewModel: simulationViewModel
                                             )

@@ -81,6 +81,7 @@ struct Module06SimulationView: View {
                             title: "Sell") {
                                 moduleRouter.push(
                                     .confirmSell(
+                                        appRouter: appRouter,
                                         profileViewModel: profileViewModel,
                                         simulationViewModel: simulationViewModel
                                     )
@@ -94,6 +95,7 @@ struct Module06SimulationView: View {
                             title: "Buy") {
                                 moduleRouter.push(
                                     .confirmBuy(
+                                        appRouter: appRouter,
                                         profileViewModel: profileViewModel,
                                         simulationViewModel: simulationViewModel
                                     )

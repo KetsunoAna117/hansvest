@@ -61,6 +61,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                         bellIconTappedAction: {
                             self.push(
                                 .notification(
+                                    appRouter: appRouter,
                                     profileViewModel: profileViewModel,
                                     simulationViewModel: simulationViewModel,
                                     notificationViewModel: newsViewModel
@@ -82,7 +83,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .confirmBuy(let profileViewModel, let simulationViewModel):
+        case .confirmBuy(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 Module06ConfirmationBuyView(
@@ -92,8 +93,11 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                 )
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                simulationViewModel.currentStage = .buyState(appRouter: appRouter)
+            }
             
-        case .confirmSell(let profileViewModel, let simulationViewModel):
+        case .confirmSell(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 Module06ConfirmationSellView(
@@ -103,6 +107,9 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                 )
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                simulationViewModel.currentStage = .sellState(appRouter: appRouter)
+            }
             
         case .transactionComplete(let profileViewModel, let simulationViewModel, let transactionViewModel):
             ZStack {
@@ -118,10 +125,11 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .notification(let profileViewModel, let simulationViewModel, let newsViewModel):
+        case .notification(let appRouter, let profileViewModel, let simulationViewModel, let newsViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 Module06NewsView(
+                    appRouter: appRouter,
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
                     simulationViewModel: simulationViewModel,
@@ -130,8 +138,13 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                 .frame(maxHeight: .infinity, alignment: .top)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                if simulationViewModel.currentStage == nil {
+                    simulationViewModel.currentStage = .openNews(appRouter: appRouter)
+                }
+            }
             
-        case .newsDetail(let news, let simulationViewModel):
+        case .newsDetail(let appRouter, let news, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 Module06NewsDetailsView(
@@ -140,8 +153,20 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                 )
                 .frame(maxHeight: .infinity, alignment: .top)
                 .onAppear(){
-                    simulationViewModel.currentStage = .openNewsDetails
+                    simulationViewModel.currentStage = .openNewsDetails(appRouter: appRouter)
                 }
+            }
+            .navigationBarBackButtonHidden()
+            
+        case .conclusion(let appRouter, let simulationViewModel):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                Module06ConclusionView(
+                    appRouter: appRouter,
+                    moduleRouter: self,
+                    simulationViewModel: simulationViewModel
+                )
+                .frame(maxHeight: .infinity, alignment: .top)
             }
             .navigationBarBackButtonHidden()
             
