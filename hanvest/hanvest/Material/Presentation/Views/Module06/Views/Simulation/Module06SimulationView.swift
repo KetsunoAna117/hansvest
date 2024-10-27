@@ -1,17 +1,21 @@
 //
-//  MaterialModule06ScreenView.swift
+//  Module06SimulationView.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 26/10/24.
+//  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
 import SwiftUI
 
-struct MaterialModule06ScreenView: View {
+struct Module06SimulationView: View {
     let appRouter: any AppRouterProtocol
+    let moduleRouter: any Module05RouterProtocol
+    
+    @ObservedObject var profileViewModel: Module05ProfileViewModel
+    @ObservedObject var simulationViewModel: Module05SimulationViewModel
     
     var body: some View {
-        Text("Hello, from Module 06!")
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
