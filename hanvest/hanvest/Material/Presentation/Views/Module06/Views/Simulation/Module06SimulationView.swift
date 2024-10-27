@@ -9,10 +9,10 @@ import SwiftUI
 
 struct Module06SimulationView: View {
     let appRouter: any AppRouterProtocol
-    let moduleRouter: any Module05RouterProtocol
+    let moduleRouter: any Module06RouterProtocol
     
-    @ObservedObject var profileViewModel: Module05ProfileViewModel
-    @ObservedObject var simulationViewModel: Module05SimulationViewModel
+    @ObservedObject var profileViewModel: Module06ProfileViewModel
+    @ObservedObject var simulationViewModel: Module06SimulationViewModel
     
     var body: some View {
         VStack {
@@ -76,8 +76,7 @@ struct Module06SimulationView: View {
                         HanvestButtonDefault(
                             size: .medium,
                             style: .filledIncorrect(
-                                isDisabled:
-                                    simulationViewModel.currentStage == .sellStage(appRouter: appRouter) ? false : true
+                                isDisabled: false
                             ),
                             title: "Sell") {
                                 moduleRouter.push(
@@ -90,7 +89,7 @@ struct Module06SimulationView: View {
                         HanvestButtonDefault(
                             size: .medium,
                             style: .filledCorrect(
-                                isDisabled: simulationViewModel.currentStage == .buyStage(appRouter: appRouter) ? false : true
+                                isDisabled: false
                             ),
                             title: "Buy") {
                                 moduleRouter.push(

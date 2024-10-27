@@ -11,7 +11,8 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
     case simulation(
         appRouter: any AppRouterProtocol,
         profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel
+        simulationViewModel: Module06SimulationViewModel,
+        newsViewModel: Module06NewsViewModel
     )
     case confirmBuy(
         profileViewModel: Module06ProfileViewModel,
@@ -28,7 +29,12 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
     )
     case notification(
         profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel
+        simulationViewModel: Module06SimulationViewModel,
+        notificationViewModel: Module06NewsViewModel
+    )
+    
+    case newsDetail(
+        news: SimulationNewsEntity
     )
     
     var id: Self { return self }
@@ -42,7 +48,8 @@ extension Module06ContentView {
                 .notification,
                 .confirmBuy,
                 .confirmSell,
-                .transactionComplete :
+                .newsDetail,
+                .transactionComplete:
             hasher.combine(self.hashValue)
         }
     }
@@ -54,6 +61,7 @@ extension Module06ContentView {
             (.notification, .notification),
             (.confirmBuy, .confirmBuy),
             (.confirmSell, .confirmSell),
+            (.newsDetail, .newsDetail),
             (.transactionComplete, .transactionComplete):
             return true
         default:

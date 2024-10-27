@@ -12,7 +12,7 @@ struct HanvestBuyStockScreenView: View {
     
     var userData: UserDataEntity
     @ObservedObject var simulationViewModel: HanvestSimulationViewModel
-    @StateObject var viewmodel: BuyingStockDataViewModel = LocalBuyingStockDataViewModel()
+    @StateObject var viewmodel: BuyingStockDataViewModel = .init()
     
     var body: some View {
         if let stock = simulationViewModel.selectedStock {

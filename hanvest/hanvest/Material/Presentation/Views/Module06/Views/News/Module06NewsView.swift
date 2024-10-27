@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct HanvestSimulationNewsScreenView: View {
-    let router: any AppRouterProtocol
-    @StateObject private var viewmodel = LocalNewsSimulationViewModel()
+struct Module06NewsView: View {
+    let moduleRouter: any Module06RouterProtocol
+    
+    @ObservedObject var profileViewModel: Module06ProfileViewModel
+    @ObservedObject var simulationViewModel: Module06SimulationViewModel
+    @ObservedObject var newsViewModel: Module06NewsViewModel
     
     var body: some View {
         VStack {
@@ -17,19 +20,21 @@ struct HanvestSimulationNewsScreenView: View {
                 label: "Notification",
                 leadingIcon: Image(systemName: "chevron.left"),
                 leadingAction: {
-                    router.pop()
+                    moduleRouter.pop()
                 }
             )
             
             VStack {
-                if viewmodel.newsList.count != 0 {
+                if newsViewModel.newsList.count != 0 {
                     ScrollView {
                         VStack(spacing: 24) {
-                            ForEach(viewmodel.newsList, id: \.newsID) { news in
+                            ForEach(newsViewModel.newsList, id: \.newsID) { news in
                                 HanvestNewsButton(
                                     news: news,
                                     action: {
-                                        router.push(.newsDetails(news: news))
+                                        moduleRouter.push(
+                                            .newsDetail(news: news)
+                                        )
                                     }
                                 )
                             }
@@ -42,9 +47,6 @@ struct HanvestSimulationNewsScreenView: View {
             }
             .safeAreaPadding(.vertical, 32)
             .padding(.horizontal, 20)
-        }
-        .onAppear(){
-            viewmodel.setup()
         }
     }
 }

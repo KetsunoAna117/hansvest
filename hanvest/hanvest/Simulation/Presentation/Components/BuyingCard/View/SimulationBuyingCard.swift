@@ -80,7 +80,7 @@ struct SimulationBuyingCard: View {
 }
 
 #Preview {
-    @Previewable @StateObject var viewmodel = LocalBuyingStockDataViewModel()
+    @Previewable @StateObject var viewmodel = BuyingStockDataViewModel()
     @Previewable @State var currentPrice: Int = 5000
     
     VStack {

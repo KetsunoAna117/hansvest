@@ -259,7 +259,8 @@ private extension SwiftDataContextManager {
                 Neither GOTO nor Alibaba has provided an official comment on the report, but analysts predict that this investment will further solidify GOTO’s position as a key player in Indonesia’s digital economy.
                 
                 """,
-                stockFluksPercentage: 10
+                stockFluksPercentage: 10,
+                hasTriggered: true
             ),
             .init(
                 newsID: UUID().uuidString,
@@ -271,7 +272,8 @@ private extension SwiftDataContextManager {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum nunc ac purus rutrum mollis. Proin in luctus velit. Morbi mollis mollis enim quis blandit. Donec sollicitudin nunc dui. Integer rhoncus lacus nec urna sagittis, eu facilisis lacus condimentum. Duis massa ex, volutpat ac ullamcorper quis, euismod id ex. Sed sit amet condimentum metus. Duis lobortis arcu ac justo dapibus viverra. Vestibulum sagittis ullamcorper metus, eu malesuada ligula laoreet vulputate. Nam convallis gravida auctor. Sed blandit arcu id luctus ullamcorper. Suspendisse vel feugiat dui. Aenean nec massa velit. Vestibulum ut ullamcorper purus. Fusce fermentum ipsum vitae quam tincidunt, a tincidunt dui ultricies.
                 
                 """,
-                stockFluksPercentage: -5
+                stockFluksPercentage: -5,
+                hasTriggered: true
             )
         ]
     }
