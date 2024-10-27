@@ -34,7 +34,8 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
     )
     
     case newsDetail(
-        news: SimulationNewsEntity
+        news: SimulationNewsEntity,
+        simulationViewModel: Module06SimulationViewModel
     )
     
     var id: Self { return self }

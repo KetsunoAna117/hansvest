@@ -76,7 +76,7 @@ struct Module06SimulationView: View {
                         HanvestButtonDefault(
                             size: .medium,
                             style: .filledIncorrect(
-                                isDisabled: false
+                                isDisabled: simulationViewModel.currentStage?.shouldBuyAndSellButtonDisabled ?? true
                             ),
                             title: "Sell") {
                                 moduleRouter.push(
@@ -89,7 +89,7 @@ struct Module06SimulationView: View {
                         HanvestButtonDefault(
                             size: .medium,
                             style: .filledCorrect(
-                                isDisabled: false
+                                isDisabled: simulationViewModel.currentStage?.shouldBuyAndSellButtonDisabled ?? true
                             ),
                             title: "Buy") {
                                 moduleRouter.push(

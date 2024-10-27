@@ -33,7 +33,10 @@ struct Module06NewsView: View {
                                     news: news,
                                     action: {
                                         moduleRouter.push(
-                                            .newsDetail(news: news)
+                                            .newsDetail(
+                                                news: news,
+                                                simulationViewModel: simulationViewModel
+                                            )
                                         )
                                     }
                                 )
