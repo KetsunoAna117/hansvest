@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct MaterialModule06ScreenView: View {
+    // CONSTANT
+    let MIN_PROGRESS = 0
+    let MAX_PROGRESS = 2
+    
     let appRouter: any AppRouterProtocol
     
     var body: some View {

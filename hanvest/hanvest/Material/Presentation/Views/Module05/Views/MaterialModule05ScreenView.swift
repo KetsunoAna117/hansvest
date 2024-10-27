@@ -62,6 +62,16 @@ struct MaterialModule05ScreenView: View {
                 simulationViewModel.currentStage = .buyStage(appRouter: appRouter)
             }
         }
+        .overlay {
+            if let popup = contentRouter.overlay {
+                ZStack {
+                    contentRouter.build(popup)
+                }
+                // Apply transition and animation
+                .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
+            }
+        }
     }
 }
 

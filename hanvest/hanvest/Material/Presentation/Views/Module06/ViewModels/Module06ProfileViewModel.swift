@@ -1,13 +1,13 @@
 //
-//  Module05ProfileViewModel.swift
+//  Module06ProfileViewModel.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 24/10/24.
+//  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
 import Foundation
 
-class Module05ProfileViewModel: ObservableObject {
+class Module06ProfileViewModel: ObservableObject {
     var userData: UserDataEntity?
     
     func setup(){
