@@ -21,6 +21,7 @@ enum Screen: Identifiable, Hashable, Equatable {
     case materialModule03
     case materialModule04
     case materialModule05
+    case materialModule06
     case simulationBuyingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case simulationSellingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case transactionStatus(transaction: TransactionStatusViewModel)
@@ -55,6 +56,8 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .materialModule05:
             hasher.combine(self.hashValue)
+        case .materialModule06:
+            hasher.combine(self.hashValue)
         case .news:
             hasher.combine(self.hashValue)
         case .glossary:
@@ -84,6 +87,7 @@ extension Screen {
             (.materialModule03, .materialModule03),
             (.materialModule04, .materialModule04),
             (.materialModule05, .materialModule05),
+            (.materialModule06, .materialModule06),
             (.news, .news),
             (.glossary, .glossary),
             (.searchGlossary, .searchGlossary),

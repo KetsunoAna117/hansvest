@@ -15,14 +15,16 @@ import SwiftData
     var newsReleasedTime: Date
     var newsContent: String
     var stockFluksPercentage: Int
+    var hasTriggered: Bool
     
-    init(newsID: String, stockIDName: String, newsTitle: String, newsReleasedTime: Date, newsContent: String, stockFluksPercentage: Int) {
+    init(newsID: String, stockIDName: String, newsTitle: String, newsReleasedTime: Date, newsContent: String, stockFluksPercentage: Int, hasTriggered: Bool) {
         self.newsID = newsID
         self.stockIDName = stockIDName
         self.newsTitle = newsTitle
         self.newsReleasedTime = newsReleasedTime
         self.newsContent = newsContent
         self.stockFluksPercentage = stockFluksPercentage
+        self.hasTriggered = hasTriggered
     }
     
     func update(_ newData: SimulationNewsSchema) {
@@ -32,6 +34,7 @@ import SwiftData
         self.newsReleasedTime = newData.newsReleasedTime
         self.newsContent = newData.newsContent
         self.stockFluksPercentage = newData.stockFluksPercentage
+        self.hasTriggered = newData.hasTriggered
     }
     
     func update(stockIDName: String) {
@@ -61,7 +64,8 @@ import SwiftData
             newsTitle: self.newsTitle,
             newsReleasedTime: self.newsReleasedTime,
             newsContent: self.newsContent,
-            stockFluksPercentage: self.stockFluksPercentage
+            stockFluksPercentage: self.stockFluksPercentage,
+            hasTriggered: hasTriggered
         )
     }
 }

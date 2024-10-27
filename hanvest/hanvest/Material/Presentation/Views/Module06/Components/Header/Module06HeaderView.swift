@@ -1,14 +1,14 @@
 //
-//  HanvestHeaderView.swift
+//  Module06HeaderView.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 12/10/24.
+//  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
 import SwiftUI
 
-struct ModuleHeaderView: View {
-    @ObservedObject var userDataViewModel: Module05ProfileViewModel
+struct Module06HeaderView: View {
+    @ObservedObject var userDataViewModel: Module06ProfileViewModel
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()
@@ -62,5 +62,19 @@ struct ModuleHeaderView: View {
         }
         .background(Color.background)
         .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 1)
+    }
+}
+
+#Preview {
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule06
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+        }
     }
 }

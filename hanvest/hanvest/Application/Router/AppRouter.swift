@@ -102,6 +102,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
+        case .materialModule06:
+            ZStack {
+                Color.background.ignoresSafeArea()
+                MaterialModule06ScreenView(appRouter: self)
+            }
+            .navigationBarBackButtonHidden()
+            
         case .simulationBuyingConfirmation(let simulationViewModel, let userData):
             ZStack {
                 Color.background.ignoresSafeArea()
