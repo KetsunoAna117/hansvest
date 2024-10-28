@@ -50,7 +50,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    ModuleHeaderView(
+                    Module05HeaderView(
                         userDataViewModel: profileViewModel,
                         bookIconTappedAction: {
                             // User can't use this button in this module, hence this will do nothing.
@@ -77,7 +77,7 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    ModuleHeaderView(
+                    Module05HeaderView(
                         userDataViewModel: profileViewModel,
                         bookIconTappedAction: {
                             // User can't use this button in this module, hence this will do nothing.
@@ -114,16 +114,6 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 )
             }
             .navigationBarBackButtonHidden()
-            .overlay {
-                if let popup = overlay {
-                    ZStack {
-                        self.build(popup)
-                    }
-                    // Apply transition and animation
-                    .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                    .animation(.easeInOut(duration: 0.3), value: self.overlay)
-                }
-            }
             
         case .confirmSell(
             let profileViewModel,
@@ -138,16 +128,6 @@ class Module05Router: Module05RouterProtocol, ObservableObject {
                 )
             }
             .navigationBarBackButtonHidden()
-            .overlay {
-                if let popup = overlay {
-                    ZStack {
-                        self.build(popup)
-                    }
-                    // Apply transition and animation
-                    .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                    .animation(.easeInOut(duration: 0.3), value: self.overlay)
-                }
-            }
             
         case .transactionComplete(
             let profileViewModel,

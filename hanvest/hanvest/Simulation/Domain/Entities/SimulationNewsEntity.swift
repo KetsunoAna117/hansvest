@@ -14,6 +14,7 @@ struct SimulationNewsEntity {
     var newsReleasedTime: Date
     var newsContent: String
     var stockFluksPercentage: Int
+    var hasTriggered: Bool
 }
 
 extension SimulationNewsEntity {
@@ -24,7 +25,8 @@ extension SimulationNewsEntity {
             newsTitle: self.newsTitle,
             newsReleasedTime: self.newsReleasedTime,
             newsContent: self.newsContent,
-            stockFluksPercentage: self.stockFluksPercentage
+            stockFluksPercentage: self.stockFluksPercentage,
+            hasTriggered: self.hasTriggered
         )
     }
 }

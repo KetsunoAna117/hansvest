@@ -73,5 +73,26 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
         
         return stockUpdateIdx
     }
+    
+    func appendNewStockPrice(stockIdx: Int, newStockPrice: ProductPriceEntity) {
+        self.stockList[stockIdx].stockPrice.append(newStockPrice)
+    }
+    
+    func updatePriceBasedOn(news: SimulationNewsEntity) {
+        let idx = getSelectedStockIdx(selectedStockID: news.stockIDName)
+        
+        let currentStockPrice = self.stockList[idx].stockPrice.last?.price ?? 0
+        let newStockPrice = currentStockPrice + (currentStockPrice * news.stockFluksPercentage / 100)
+        let lastTime = self.stockList[idx].stockPrice.last?.time ?? Date.now
+        
+        let newPriceEntity = ProductPriceEntity(
+            id: self.stockList[idx].stockIDName,
+            name: self.stockList[idx].stockIDName,
+            price: newStockPrice,
+            time: lastTime.addingTimeInterval(30 * 60)
+        )
+        
+        appendNewStockPrice(stockIdx: idx, newStockPrice: newPriceEntity)
+    }
 
 }

@@ -1,22 +1,23 @@
 //
-//  MaterialModule05ScreenView.swift
+//  MaterialModule06ScreenView.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 24/10/24.
+//  Created by Hans Arthur Cupiterson on 26/10/24.
 //
 
 import SwiftUI
 
-struct MaterialModule05ScreenView: View {
+struct MaterialModule06ScreenView: View {
     // CONSTANT
     let MIN_PROGRESS = 0
-    let MAX_PROGRESS = 2
+    let MAX_PROGRESS = 1
     
     let appRouter: any AppRouterProtocol
     
-    @StateObject private var contentRouter = Module05Router()
-    @StateObject private var simulationViewModel = Module05SimulationViewModel()
-    @StateObject private var profileViewModel = Module05ProfileViewModel()
+    @StateObject private var contentRouter = Module06Router()
+    @StateObject private var simulationViewModel = Module06SimulationViewModel()
+    @StateObject private var profileViewModel = Module06ProfileViewModel()
+    @StateObject private var newsViewModel = Module06NewsViewModel()
     
     var body: some View {
         VStack {
@@ -38,10 +39,11 @@ struct MaterialModule05ScreenView: View {
             .onAppear(){
                 if contentRouter.content.count <= 0 {
                     contentRouter.content.append(
-                        .buyStage(
+                        .simulation(
                             appRouter: appRouter,
                             profileViewModel: profileViewModel,
-                            simulationViewModel: simulationViewModel
+                            simulationViewModel: simulationViewModel,
+                            newsViewModel: newsViewModel
                         )
                     )
                 }
@@ -53,15 +55,14 @@ struct MaterialModule05ScreenView: View {
                 if profileViewModel.userData == nil {
                     profileViewModel.setup()
                 }
+                
+                if newsViewModel.newsList.count <= 0 {
+                    newsViewModel.setup()
+                }
             }
             
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .onAppear(){
-            if simulationViewModel.currentStage == nil {
-                simulationViewModel.currentStage = .buyStage(appRouter: appRouter)
-            }
-        }
         .overlay {
             if let popup = contentRouter.overlay {
                 ZStack {
@@ -72,12 +73,13 @@ struct MaterialModule05ScreenView: View {
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
         }
+
     }
 }
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .materialModule05
+    @Previewable @State var startScreen: Screen? = .materialModule06
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

@@ -1,13 +1,13 @@
 //
-//  Module05ProfileViewModel.swift
+//  Module06ProfileViewModel.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 24/10/24.
+//  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
 import Foundation
 
-class Module05ProfileViewModel: ObservableObject {
+class Module06ProfileViewModel: ObservableObject {
     var userData: UserDataEntity?
     
     func setup(){
@@ -16,7 +16,15 @@ class Module05ProfileViewModel: ObservableObject {
             userName: "user-module-simulation",
             userBalance: 1000000,
             userRiskProfile: .conservative,
-            userInvestmentTransaction: [],
+            userInvestmentTransaction: [
+                .init(
+                    transactionID: "transaction-01",
+                    stockIDName: "GOTO",
+                    priceAtPurchase: 1000,
+                    stockLotQuantity: 9,
+                    time: Date.now
+                )
+            ],
             transactionQueue: [],
             moduleCompletionList: []
         )
