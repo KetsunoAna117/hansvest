@@ -11,7 +11,7 @@ struct MainScreenView: View {
     let router: any AppRouterProtocol
     
     @State private var selectionTab: HanvestMainViewTabSelection = .material
-    @StateObject var simulationViewModel: HanvestSimulationViewModel = LocalSimulationViewModel()
+    @StateObject var simulationViewModel = LocalSimulationViewModel()
     @StateObject var userDataViewModel: HanvestLoadedUserDataViewModel = .init()
     
     var body: some View {
@@ -72,7 +72,7 @@ struct MainScreenView: View {
         }
         .onAppear(){
             if simulationViewModel.stockList.isEmpty {
-                simulationViewModel.setup()
+                simulationViewModel.setup(appRouter: router)
             }
             userDataViewModel.setup()
         }
@@ -89,6 +89,11 @@ struct MainScreenView: View {
                 .navigationDestination(for: Screen.self) { screen in
                     appRouter.build(screen)
                 }
+        }
+    }
+    .overlay {
+        if let notification = appRouter.notification {
+            appRouter.build(notification)
         }
     }
 }

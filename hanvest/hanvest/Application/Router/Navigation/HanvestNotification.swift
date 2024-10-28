@@ -6,7 +6,7 @@
 //
 
 enum HanvestNotification: Identifiable, Hashable, Equatable {
-    case notification
+    case notification(news: SimulationNewsEntity)
     
     var id: Self { return self }
 }

@@ -55,6 +55,11 @@ struct hanvestApp: App {
                         appRouter.startScreen = .main
                 }
             }
+            .overlay {
+                if let notification = appRouter.notification {
+                    appRouter.build(notification)
+                }
+            }
 
         }
     }

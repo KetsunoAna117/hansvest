@@ -10,6 +10,7 @@ import SwiftUI
 class AppRouter: AppRouterProtocol, ObservableObject {
     @Published var path: NavigationPath = NavigationPath()
     @Published var popup: Popup?
+    @Published var notification: HanvestNotification?
     @Published var startScreen: Screen?
     
     func push(_ screen: Screen) {
@@ -30,6 +31,14 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     
     func dismissPopup() {
         self.popup = nil
+    }
+    
+    func presentNotification(_ notification: HanvestNotification) {
+        self.notification = notification
+    }
+    
+    func dismissNotification(){
+        self.notification = nil
     }
     
     // MARK: - Presentation Style Providers
@@ -117,16 +126,16 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     userData: userData,
                     simulationViewModel: simulationViewModel
                 )
-                    .overlay {
-                        if let popup = popup {
-                            ZStack {
-                                self.build(popup)
-                            }
-                            // Apply transition and animation
-                            .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                            .animation(.easeInOut(duration: 0.3), value: self.popup)
+                .overlay {
+                    if let popup = popup {
+                        ZStack {
+                            self.build(popup)
                         }
+                        // Apply transition and animation
+                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                        .animation(.easeInOut(duration: 0.3), value: self.popup)
                     }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -138,16 +147,16 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     userData: userData,
                     simulationViewModel: simulationViewModel
                 )
-                    .overlay {
-                        if let popup = popup {
-                            ZStack {
-                                self.build(popup)
-                            }
-                            // Apply transition and animation
-                            .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                            .animation(.easeInOut(duration: 0.3), value: self.popup)
+                .overlay {
+                    if let popup = popup {
+                        ZStack {
+                            self.build(popup)
                         }
+                        // Apply transition and animation
+                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                        .animation(.easeInOut(duration: 0.3), value: self.popup)
                     }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -282,6 +291,38 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     }
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func build(_ notification: HanvestNotification) -> some View {
+        switch notification {
+        case .notification(let news):
+            ZStack {
+                HanvestNotificationView(
+                    appRouter: self,
+                    notification: news
+                )
+            }
+            .transition(.move(edge: .top)) // Slide-in and slide-out effect
+            .animation(.easeInOut(duration: 0.5), value: self.notification)
+            .gesture(
+                DragGesture()
+                    .onEnded { value in
+                        // Detect upward swipe
+                        if value.translation.height < -50 {
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                self.dismissNotification()
+                            }
+                        }
+                    }
+            )
+            .frame(maxHeight: .infinity, alignment: .top)
+            .onAppear(){
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                    self.dismissNotification()
+                })
             }
         }
     }
