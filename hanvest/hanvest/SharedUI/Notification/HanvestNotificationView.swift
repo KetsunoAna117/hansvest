@@ -33,7 +33,10 @@ struct HanvestNotificationView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal, 12)
         .onTapGesture {
-            appRouter.push(.newsDetails(news: notification))
+            withAnimation(.easeInOut(duration: 0.5)) {
+                appRouter.dismissNotification()
+                appRouter.push(.newsDetails(news: notification))
+            }
         }
     }
 }

@@ -63,16 +63,6 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 MainScreenView(router: self)
-                    .overlay {
-                        if let popup = popup {
-                            ZStack {
-                                self.build(popup)
-                            }
-                            // Apply transition and animation
-                            .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                            .animation(.easeInOut(duration: 0.3), value: self.popup)
-                        }
-                    }
             }
             .navigationBarBackButtonHidden()
             
@@ -126,16 +116,6 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     userData: userData,
                     simulationViewModel: simulationViewModel
                 )
-                .overlay {
-                    if let popup = popup {
-                        ZStack {
-                            self.build(popup)
-                        }
-                        // Apply transition and animation
-                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                        .animation(.easeInOut(duration: 0.3), value: self.popup)
-                    }
-                }
             }
             .navigationBarBackButtonHidden()
             
@@ -147,16 +127,6 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     userData: userData,
                     simulationViewModel: simulationViewModel
                 )
-                .overlay {
-                    if let popup = popup {
-                        ZStack {
-                            self.build(popup)
-                        }
-                        // Apply transition and animation
-                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                        .animation(.easeInOut(duration: 0.3), value: self.popup)
-                    }
-                }
             }
             .navigationBarBackButtonHidden()
             
@@ -223,7 +193,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
                     .onTapGesture {
-                        self.dismissPopup()
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            self.dismissPopup()
+                        }
                     }
                 
                 VStack(spacing: 8) {
@@ -245,8 +217,10 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .withHanvestPopup(let title, let desc, let dismissAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea().onTapGesture {
-                    dismissAction()
-                    self.dismissPopup()
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        dismissAction()
+                        self.dismissPopup()
+                    }
                 }
                 VStack(spacing: 8) {
                     HanvestPopup(title: title, description: desc)
@@ -265,11 +239,15 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     viewModel: viewmodel,
                     cancelAction: {
                         cancelAction()
-                        self.dismissPopup()
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            self.dismissPopup()
+                        }
                     },
                     confirmAction: {
                         confirmAction()
-                        self.dismissPopup()
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            self.dismissPopup()
+                        }
                     }
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
@@ -283,11 +261,15 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     viewModel: viewmodel,
                     cancelAction: {
                         cancelAction()
-                        self.dismissPopup()
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            self.dismissPopup()
+                        }
                     },
                     confirmAction: {
                         confirmAction()
-                        self.dismissPopup()
+                        withAnimation(.easeInOut(duration: 0.1)) {
+                            self.dismissPopup()
+                        }
                     }
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
