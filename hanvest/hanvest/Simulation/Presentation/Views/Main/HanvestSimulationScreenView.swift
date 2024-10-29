@@ -91,14 +91,14 @@ struct HanvestSimulationView: View {
                 .navigationDestination(for: Screen.self) { screen in
                     appRouter.build(screen)
                 }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                       
-                    }
-                }
+        }
+    }
+    .overlay {
+        if let popup = appRouter.popup {
+            ZStack {
+                appRouter.build(popup)
+            }
+           
         }
     }
 }

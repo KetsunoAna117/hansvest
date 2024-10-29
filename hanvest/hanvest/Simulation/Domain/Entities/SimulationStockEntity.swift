@@ -24,3 +24,15 @@ struct SimulationStockEntity: Equatable {
             lhs.stockPrice == rhs.stockPrice
     }
 }
+
+extension SimulationStockEntity {
+    func mapToSchema() -> SimulationStockSchema {
+        return SimulationStockSchema(
+            stockIDName: self.stockIDName,
+            stockName: self.stockName,
+            stockImageName: self.stockImageName,
+            stockDescription: self.stockDescription,
+            stockPriceID: self.stockPrice.map({ $0.id })
+        )
+    }
+}

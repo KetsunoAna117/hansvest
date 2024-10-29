@@ -32,7 +32,7 @@ extension LocalSimulationViewModel {
         
         timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { timer in
             //            self.addPriceUsingRandom()
-            self.displayNotification()
+//            self.displayNotification()
             
         }
     }

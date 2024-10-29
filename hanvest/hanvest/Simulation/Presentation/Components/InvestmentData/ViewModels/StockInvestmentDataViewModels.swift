@@ -32,7 +32,7 @@ class StockInvestmentDataViewModels: ObservableObject {
         stockPrice: Int
     ){
         setupTotalInvestment(selectedStockIDName: selectedStockIDName, userData: userData)
-        userTotalEquity = stockPrice * userLotOwned
+        userTotalEquity = stockPrice * userLotOwned * 100
     }
     
     func calculateProfitLoss(userInvestment: Binding<Int>, totalEquity: Binding<Int>) {
@@ -46,7 +46,7 @@ class StockInvestmentDataViewModels: ObservableObject {
         let userTransaction = getUserTransaction.execute(stockIDName: selectedStockIDName, userData: userData)
         for transaction in userTransaction {
             userLotOwned += transaction.stockLotQuantity
-            userStockInvestment += transaction.priceAtPurchase * transaction.stockLotQuantity
+            userStockInvestment += transaction.priceAtPurchase * transaction.stockLotQuantity * 100
         }
     }
     

@@ -27,8 +27,7 @@ struct TransactionStatusView: View {
             HanvestButtonDefault(
                 title: "Back To Market",
                 action: {
-                    print("[!] Back to market action triggered!")
-                    router.popToRoot()
+                    transaction.executeTransaction(appRouter: router)
                 }
             )
             .padding(.horizontal, 20)
