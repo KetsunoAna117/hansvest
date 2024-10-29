@@ -55,6 +55,21 @@ struct hanvestApp: App {
                         appRouter.startScreen = .main
                 }
             }
+            .overlay {
+                if let notification = appRouter.notification {
+                    appRouter.build(notification)
+                }
+            }
+            .overlay {
+                if let popup = appRouter.popup {
+                    ZStack {
+                        appRouter.build(popup)
+                    }
+                    // Apply transition and animation
+                    .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                    .animation(.easeInOut(duration: 0.3), value: appRouter.popup)
+                }
+            }
 
         }
     }

@@ -13,7 +13,7 @@ struct HanvestStockPriceChart: View {
     let symbolCategoryKeyPath: KeyPath<ProductPriceEntity, String> // Category to differentiate symbols
     
     var displayBy: Calendar.Component
-    var displayStep: Int = 1
+    var displayStep: Int = 24
     
     var body: some View {
         HanvestCardBackground {
@@ -31,14 +31,23 @@ struct HanvestStockPriceChart: View {
                             x: .value("Time", price.time),
                             y: .value("Price", price.price)
                         )
-                        .symbol(symbol: {
-                            Circle()
-                                .frame(width: 8, height: 8)
-                                .foregroundStyle(.seagull500)
-                        })
+//                        .symbol(symbol: {
+//                            Circle()
+//                                .frame(width: 8, height: 8)
+//                                .foregroundStyle(.seagull500)
+//                        })
                         .foregroundStyle(.seagull500)
                     }
                 }
+//                .chartXAxis {
+//                    AxisMarks(values: .stride(by: displayBy, count: displayStep)) { value in
+//                        if value.as(Date.self) != nil {
+//                            AxisGridLine()
+//                            AxisTick()
+//                            AxisValueLabel(format: .dateTime.hour(), centered: true) // Format to display hours and minutes
+//                        }
+//                    }
+//                }
                 .chartXAxis {
                     AxisMarks(values: .stride(by: displayBy, count: displayStep)) { value in
                         if value.as(Date.self) != nil {
