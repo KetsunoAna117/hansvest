@@ -8,9 +8,9 @@
 import Foundation
 
 protocol SimulationNewsRepository {
-    func fetch() -> [SimulationNewsSchema]
-    func fetch(id: String) -> SimulationNewsSchema?
-    func save(_ news: SimulationNewsSchema) throws
+    func fetch() -> [StockNewsSchema]
+    func fetch(id: String) -> StockNewsSchema?
+    func save(_ news: StockNewsSchema) throws
     func delete(id: String) throws
     func update(id: String, stockIDName: String) throws
     func update(id: String, newsTitle: String) throws

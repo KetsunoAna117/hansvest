@@ -80,7 +80,7 @@ struct HanvestStockPriceChart: View {
 }
 
 //#Preview {
-//    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
+//    @Previewable @State var stockPrices = StockEntity.getMockData().first!.stockPrice
 //    
 //    HanvestStockPriceChart(
 //        simulationViewModel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)

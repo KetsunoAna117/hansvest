@@ -11,10 +11,10 @@ import SwiftData
 struct LocalSimulationNewsRepository: SimulationNewsRepository {
     let modelContext: ModelContext?
     
-    func fetch() -> [SimulationNewsSchema] {
+    func fetch() -> [StockNewsSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<SimulationNewsSchema>()
+                let descriptor = FetchDescriptor<StockNewsSchema>()
                 let result = try context.fetch(descriptor)
                 return result
             }
@@ -25,10 +25,10 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         return []
     }
     
-    func fetch(id: String) -> SimulationNewsSchema? {
+    func fetch(id: String) -> StockNewsSchema? {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<SimulationNewsSchema>(
+                let descriptor = FetchDescriptor<StockNewsSchema>(
                     predicate: #Predicate { $0.newsID == id}
                 )
                 let result = try context.fetch(descriptor)
@@ -41,7 +41,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         return nil
     }
     
-    func save(_ news: SimulationNewsSchema) throws {
+    func save(_ news: StockNewsSchema) throws {
         if let context = modelContext {
             let fetchedNews = fetch(id: news.newsID)
             if fetchedNews != nil {

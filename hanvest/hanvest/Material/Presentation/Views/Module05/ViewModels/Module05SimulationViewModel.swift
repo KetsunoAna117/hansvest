@@ -25,7 +25,7 @@ class Module05SimulationViewModel: HanvestSimulationViewModel {
 }
 
 private extension Module05SimulationViewModel {
-    func prepareStockData() -> [SimulationStockEntity] {
+    func prepareStockData() -> [StockEntity] {
         return [
             .init(
                 stockIDName: "BBCA",

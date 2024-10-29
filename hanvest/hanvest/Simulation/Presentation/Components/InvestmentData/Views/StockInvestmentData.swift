@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StockInvestmentData: View {
     var userData: UserDataEntity
-    var selectedStock: SimulationStockEntity
+    var selectedStock: StockEntity
     
     @StateObject private var viewmodel: StockInvestmentDataViewModels = .init()
     
@@ -104,7 +104,7 @@ struct StockInvestmentData: View {
 }
 
 //#Preview {
-//    @Previewable @State var selectedStock = SimulationStockEntity.getMockData().first!
+//    @Previewable @State var selectedStock = StockEntity.getMockData().first!
 //    
 //    StockInvestmentData(
 //        selectedStock: selectedStock

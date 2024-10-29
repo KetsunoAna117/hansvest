@@ -8,13 +8,13 @@
 import Foundation
 import SwiftData
 
-struct LocalStockTransactionRepository: StockTransactionRepository {
+struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
     let modelContext: ModelContext?
     
-    func fetch() -> [StockTransactionSchema] {
+    func fetch() -> [StockTransactionQueueSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>()
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
                 return try context.fetch(descriptor)
             }
             catch {
@@ -24,10 +24,10 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
         return []
     }
     
-    func fetch(id: String) -> StockTransactionSchema? {
+    func fetch(id: String) -> StockTransactionQueueSchema? {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
                     predicate: #Predicate { $0.transactionID == id}
                 )
                 return try context.fetch(descriptor).first
@@ -40,10 +40,10 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
         return nil
     }
     
-    func fetchWith(stockIDName: String) -> [StockTransactionSchema] {
+    func fetchWith(stockIDName: String) -> [StockTransactionQueueSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
                     predicate: #Predicate { $0.stockIDName == stockIDName}
                 )
                 return try context.fetch(descriptor)
@@ -56,10 +56,10 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
         return []
     }
     
-    func save(_ transaction: StockTransactionSchema) throws {
+    func save(_ transaction: StockTransactionQueueSchema) throws {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>()
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
                 
                 if (try context.fetch(descriptor).first(where: {
                     $0.transactionID == transaction.transactionID
@@ -79,7 +79,7 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
     func delete(_ transactionID: String) {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
                     predicate: #Predicate { $0.transactionID == transactionID }
                 )
                 
@@ -101,7 +101,7 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
     func update(id: String, price: Int) {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
                     predicate: #Predicate { $0.transactionID == id }
                 )
                 
@@ -122,7 +122,7 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
     func update(id: String, stockLotQty: Int) {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
                     predicate: #Predicate { $0.transactionID == id }
                 )
                 
@@ -142,7 +142,7 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
     func update(id: String, time: Date) {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
                     predicate: #Predicate { $0.transactionID == id }
                 )
                 

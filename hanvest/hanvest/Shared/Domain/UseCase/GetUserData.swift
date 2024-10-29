@@ -11,7 +11,7 @@ protocol GetUserData {
 
 struct GetUserDataImpl: GetUserData {
     let userRepo: UserRepository
-    let transactionRepo: StockTransactionRepository
+    let transactionRepo: StockTransactionQueueRepository
     
     func execute() -> UserDataEntity? {
         if let user = userRepo.fetch(){

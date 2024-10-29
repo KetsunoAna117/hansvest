@@ -37,7 +37,7 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
     )
     case newsDetail(
         appRouter: any AppRouterProtocol,
-        news: SimulationNewsEntity,
+        news: StockNewsEntity,
         simulationViewModel: Module06SimulationViewModel
     )
     case conclusion(

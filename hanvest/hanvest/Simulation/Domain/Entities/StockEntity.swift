@@ -1,5 +1,5 @@
 //
-//  SimulationStockEntity.swift
+//  StockEntity.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 12/10/24.
@@ -8,14 +8,14 @@
 import Foundation
 import SwiftUI
 
-struct SimulationStockEntity: Equatable {
+struct StockEntity: Equatable {
     var stockIDName: String
     var stockName: String
     var stockImageName: String
     var stockDescription: String
     var stockPrice: [ProductPriceEntity]
     
-    static func == (lhs: SimulationStockEntity, rhs: SimulationStockEntity) -> Bool {
+    static func == (lhs: StockEntity, rhs: StockEntity) -> Bool {
         return
             lhs.stockIDName == rhs.stockIDName &&
             lhs.stockName == rhs.stockName &&
@@ -25,9 +25,9 @@ struct SimulationStockEntity: Equatable {
     }
 }
 
-extension SimulationStockEntity {
-    func mapToSchema() -> SimulationStockSchema {
-        return SimulationStockSchema(
+extension StockEntity {
+    func mapToSchema() -> StockSchema {
+        return StockSchema(
             stockIDName: self.stockIDName,
             stockName: self.stockName,
             stockImageName: self.stockImageName,

@@ -12,7 +12,7 @@ enum Screen: Identifiable, Hashable, Equatable {
     case onboarding
     case main
     case news
-    case newsDetails(news: SimulationNewsEntity)
+    case newsDetails(news: StockNewsEntity)
     case glossary
     case searchGlossary(glossaryViewModel: GlossaryViewModel)
     case profile

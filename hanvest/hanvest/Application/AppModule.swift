@@ -15,7 +15,7 @@ struct AppModule {
         let simulationNewsRepository: SimulationNewsRepository = LocalSimulationNewsRepository(modelContext: modelContext)
         let simulationStockRepository: SimulationStockRepository = LocalSimulationStockRepository(modelContext: modelContext)
         let productPriceRepository: ProductPriceRepository = LocalProductPriceRepository(modelContext: modelContext)
-        let stockTransactionRepository: StockTransactionRepository = LocalStockTransactionRepository(modelContext: modelContext)
+        let stockTransactionRepository: StockTransactionQueueRepository = LocalStockTransactionQueueRepository(modelContext: modelContext)
         
         // MARK: - USE Case
         

@@ -8,14 +8,14 @@
 import Foundation
 
 protocol PurchaseStocks {
-    func execute(userId: String, transaction: StockTransactionEntity) -> Result<Bool, Error>
+    func execute(userId: String, transaction: StockTransactionQueueEntity) -> Result<Bool, Error>
 }
 
 struct PurchaseStocksImpl: PurchaseStocks {
     let userRepo: UserRepository
-    let stockTransactionRepository: StockTransactionRepository
+    let stockTransactionRepository: StockTransactionQueueRepository
     
-    func execute(userId: String, transaction: StockTransactionEntity) -> Result<Bool, any Error> {
+    func execute(userId: String, transaction: StockTransactionQueueEntity) -> Result<Bool, any Error> {
         do {
             let price = transaction.stockLotQuantity * transaction.priceAtPurchase * 100
             

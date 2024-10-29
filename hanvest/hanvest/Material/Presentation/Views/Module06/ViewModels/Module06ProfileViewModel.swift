@@ -30,7 +30,7 @@ class Module06ProfileViewModel: ObservableObject {
         )
     }
     
-    func addUserInvestmentTransaction(transaction: StockTransactionEntity){
+    func addUserInvestmentTransaction(transaction: StockTransactionQueueEntity){
         if userData != nil {
             userData?.userInvestmentTransaction.append(transaction)
             userData?.userBalance -= transaction.stockLotQuantity * transaction.priceAtPurchase

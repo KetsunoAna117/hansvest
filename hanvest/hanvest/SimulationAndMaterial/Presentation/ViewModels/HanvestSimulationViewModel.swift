@@ -8,7 +8,7 @@
 import Foundation
 
 class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
-    @Published var stockList: [SimulationStockEntity] {
+    @Published var stockList: [StockEntity] {
         didSet {
             updateSelectedStock()
         }
@@ -20,7 +20,7 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
         }
     }
     
-    @Published var selectedStock: SimulationStockEntity? {
+    @Published var selectedStock: StockEntity? {
         didSet {
             self.displayActiveStockInitialPrice = selectedStock?.stockPrice.first?.price ?? 0
             self.displayActiveStockCurrentPrice = selectedStock?.stockPrice.last?.price ?? 0
@@ -32,9 +32,9 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
     @Published var displayActiveStockCurrentPrice: Int
     
     init(
-        stockList: [SimulationStockEntity] = [],
+        stockList: [StockEntity] = [],
         selectedStockID: String = "",
-        selectedStock: SimulationStockEntity? = nil,
+        selectedStock: StockEntity? = nil,
         displayActiveStockInitialPrice: Int = 0,
         displayActiveStockCurrentPrice: Int = 0
     ) {
@@ -78,7 +78,7 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
         self.stockList[stockIdx].stockPrice.append(newStockPrice)
     }
     
-    func updatePriceBasedOn(news: SimulationNewsEntity) {
+    func updatePriceBasedOn(news: StockNewsEntity) {
         let idx = getSelectedStockIdx(selectedStockID: news.stockIDName)
         
         let currentStockPrice = self.stockList[idx].stockPrice.last?.price ?? 0
