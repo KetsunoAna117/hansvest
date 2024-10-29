@@ -117,16 +117,16 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     userData: userData,
                     simulationViewModel: simulationViewModel
                 )
-                    .overlay {
-                        if let popup = popup {
-                            ZStack {
-                                self.build(popup)
-                            }
-                            // Apply transition and animation
-                            .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                            .animation(.easeInOut(duration: 0.3), value: self.popup)
+                .overlay {
+                    if let popup = popup {
+                        ZStack {
+                            self.build(popup)
                         }
+                        // Apply transition and animation
+                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                        .animation(.easeInOut(duration: 0.3), value: self.popup)
                     }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -138,16 +138,16 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     userData: userData,
                     simulationViewModel: simulationViewModel
                 )
-                    .overlay {
-                        if let popup = popup {
-                            ZStack {
-                                self.build(popup)
-                            }
-                            // Apply transition and animation
-                            .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                            .animation(.easeInOut(duration: 0.3), value: self.popup)
+                .overlay {
+                    if let popup = popup {
+                        ZStack {
+                            self.build(popup)
                         }
+                        // Apply transition and animation
+                        .transition(.opacity) // You can use other transitions like .scale, .move, etc.
+                        .animation(.easeInOut(duration: 0.3), value: self.popup)
                     }
+                }
             }
             .navigationBarBackButtonHidden()
             
@@ -283,9 +283,27 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
             }
+            
+        case .withGlossaryPopup(let title, let desc, let buttonAction):
+            ZStack{
+                Color.black.opacity(0.7).ignoresSafeArea()
+                    .onTapGesture {
+                        buttonAction()
+                        self.dismissPopup()
+                    }
+                
+                HanvestCardBackground{
+                    VStack{
+                        Text(title)
+                            .font(.nunito(.title2, .bold))
+                        Text(desc)
+                            .font(.nunito(.subhead))
+                    }
+                    .padding(.vertical)
+                }
+                .padding(.horizontal, 41)
+                
+            }
         }
     }
-    
-    
-    
 }

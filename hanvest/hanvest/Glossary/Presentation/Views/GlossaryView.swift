@@ -10,7 +10,7 @@ import SwiftUI
 struct GlossaryView: View {
     let router: any AppRouterProtocol
     
-    @StateObject private var glossaryViewModel = GlossaryViewModel()
+    @StateObject private var viewModel = GlossaryViewModel()
     @State private var isPressed = false
     
     var body: some View {
@@ -24,20 +24,32 @@ struct GlossaryView: View {
                 trailingIcon: Image(systemName: "magnifyingglass"),
                 trailingAction: {
                     router.push(
-                        .searchGlossary(glossaryViewModel: glossaryViewModel)
+                        .searchGlossary(glossaryViewModel: viewModel)
                     )
                 }
             )
             
-            HanvestGlossaryListComponent(viewModel: glossaryViewModel)
+            HanvestGlossaryListComponent(viewModel: viewModel)
+                .onChange(of: viewModel.selectedEntity) { oldEntity, newEntity in
+                    if let entity = newEntity {
+                        router.presentOverlay(
+                            .withGlossaryPopup(
+                                title: entity.word,
+                                desc: entity.description,
+                                buttonAction: {
+                                    viewModel.clearSelection()
+                                }
+                            )
+                        )
+                    }
+                }
         }
     }
 }
 
-
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .onboarding
+    @Previewable @State var startScreen: Screen? = .glossary
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {
