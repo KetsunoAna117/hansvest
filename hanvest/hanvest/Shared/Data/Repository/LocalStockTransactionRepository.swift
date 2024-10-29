@@ -61,7 +61,9 @@ struct LocalStockTransactionRepository: StockTransactionRepository {
             do {
                 let descriptor = FetchDescriptor<StockTransactionSchema>()
                 
-                if (try context.fetch(descriptor).first) != nil {
+                if (try context.fetch(descriptor).first(where: {
+                    $0.transactionID == transaction.transactionID
+                })) != nil {
                     throw SwiftDataError.alreadyExists
                 }
                 

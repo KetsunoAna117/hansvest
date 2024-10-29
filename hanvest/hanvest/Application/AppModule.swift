@@ -35,6 +35,10 @@ struct AppModule {
         @Provider var getStockNewsData: GetStockNewsData = GetStockNewsDataImpl(
             newsRepo: simulationNewsRepository
         )
+        @Provider var purchaseStock: PurchaseStocks = PurchaseStocksImpl(
+            userRepo: userRepository,
+            stockTransactionRepository: stockTransactionRepository
+        )
         
         // User
         @Provider var calculateUserRiskProfile: CalculateUserRiskProfile = CalculateUserRiskProfileImpl()
