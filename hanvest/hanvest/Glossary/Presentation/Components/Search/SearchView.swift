@@ -70,9 +70,7 @@ struct SearchView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-//    @Previewable @State var startScreen: Screen? = .searchGlossary(glossaryViewModel: GlossaryViewModel())
     @Previewable @State var startScreen: Screen? = .glossary
-
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

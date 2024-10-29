@@ -13,6 +13,7 @@ struct HanvestGlossaryWordRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
+            
             Text(entity.word)
                 .font(.nunito(.body))
                 .fontWeight(.medium)
@@ -20,6 +21,7 @@ struct HanvestGlossaryWordRow: View {
             
             Divider()
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             action(entity)
         }
