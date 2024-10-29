@@ -25,80 +25,79 @@ struct LocalUserRepository: UserRepository {
         return nil
     }
     
-    func save(_ userSchema: UserSchema) {
+    func save(_ userSchema: UserSchema) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<UserSchema>()
-                
-                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                    // Create new user if not found
-                    context.insert(userSchema)
-                    try? context.save()
-                    return
-                }
-                
-                // Update if found
-                fetchedUserSchema.update(newUserData: userSchema)
+            let descriptor = FetchDescriptor<UserSchema>()
+            
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                // Create new user if not found
+                context.insert(userSchema)
                 try? context.save()
-                
+                return
             }
-            catch {
-                debugPrint("Error Fetch Data:",error)
-            }
+            
+            // Update if found
+            fetchedUserSchema.update(newUserData: userSchema)
+            try? context.save()
         }
     }
     
     func add(balance: Int) throws {
         if let context = modelContext{
-            do {
-                let descriptor = FetchDescriptor<UserSchema>()
-                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                fetchedUserSchema.add(newBalance: balance)
-                try? context.save()
-                
+            let descriptor = FetchDescriptor<UserSchema>()
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
-            catch {
-                debugPrint("Error Fetch Data:",error)
+            
+            fetchedUserSchema.add(newBalance: balance)
+            try? context.save()
+        }
+    }
+    
+    func substract(balance: Int) throws {
+        if let context = modelContext{
+            let descriptor = FetchDescriptor<UserSchema>()
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
+            
+            fetchedUserSchema.substract(balanceToSubs: balance)
+            try? context.save()
         }
     }
     
     func update(name: String) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<UserSchema>()
-                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                fetchedUserSchema.update(newName: name)
-                try? context.save()
-                
+            let descriptor = FetchDescriptor<UserSchema>()
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
-            catch {
-                debugPrint("Error Fetch Data:",error)
-            }
+            
+            fetchedUserSchema.update(newName: name)
+            try? context.save()
         }
     }
     
     func add(moduleCompletion: CompletionEntityType) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<UserSchema>()
-                guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                fetchedUserSchema.add(moduleCompletion: moduleCompletion)
-                try? context.save()
-                
+            let descriptor = FetchDescriptor<UserSchema>()
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
-            catch {
-                debugPrint("Error Fetch Data:",error)
+            
+            fetchedUserSchema.add(moduleCompletion: moduleCompletion)
+            try? context.save()
+        }
+    }
+    
+    func add(transaction: StockTransactionSchema) throws -> Void {
+        if let context = modelContext {
+            let descriptor = FetchDescriptor<UserSchema>()
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
+            
+            fetchedUserSchema.add(newUserInvestmentTransactionID: transaction.transactionID)
         }
     }
     

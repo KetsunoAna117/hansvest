@@ -38,12 +38,16 @@ import SwiftData
         self.userBalance += newBalance
     }
     
+    func substract(balanceToSubs: Int) {
+        self.userBalance -= balanceToSubs
+    }
+    
     func update(newName: String) {
         self.userName = newName
     }
     
-    func update(newUserInvestmentTransactionID: [String]) {
-        self.userInvestmentTransactionID = newUserInvestmentTransactionID
+    func add(newUserInvestmentTransactionID: String) {
+        self.userInvestmentTransactionID.append(newUserInvestmentTransactionID)
     }
     
     func update(newTransactionQueueID: [String]) {
