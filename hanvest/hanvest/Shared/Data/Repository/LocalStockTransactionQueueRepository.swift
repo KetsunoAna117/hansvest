@@ -58,104 +58,79 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
     
     func save(_ transaction: StockTransactionQueueSchema) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
-                
-                if (try context.fetch(descriptor).first(where: {
-                    $0.transactionID == transaction.transactionID
-                })) != nil {
-                    throw SwiftDataError.alreadyExists
-                }
-                
-                context.insert(transaction)
-                try? context.save()
+            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
+                predicate: #Predicate { $0.transactionID == transaction.transactionID }
+            )
+            
+            if try context.fetch(descriptor).first != nil {
+                throw SwiftDataError.alreadyExists
             }
-            catch {
-                debugPrint("Error Fetch Data:",error)
-            }
+            
+            context.insert(transaction)
+            try context.save()
         }
     }
     
-    func delete(_ transactionID: String) {
+    func delete(_ transactionID: String) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.transactionID == transactionID }
-                )
-                
-                guard let result = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                context.delete(result)
-                try? context.save()
-            } catch {
-                debugPrint("Error Fetch Data: ", error)
+            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
+                predicate: #Predicate { $0.transactionID == transactionID }
+            )
+            
+            guard let result = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
+            
+            context.delete(result)
+            try context.save()
         }
     }
 
 
 
     
-    func update(id: String, price: Int) {
+    func update(id: String, price: Int) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.transactionID == id }
-                )
-                
-                guard let transaction = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                transaction.update(newPriceAtUpdate: price)
-                try? context.save()
-                
+            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
+                predicate: #Predicate { $0.transactionID == id }
+            )
+            
+            guard let transaction = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
-            catch {
-                debugPrint("Error Fetch Data: ", error)
-            }
+            
+            transaction.update(newPriceAtUpdate: price)
+            try context.save()
         }
     }
     
-    func update(id: String, stockLotQty: Int) {
+    func update(id: String, stockLotQty: Int) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.transactionID == id }
-                )
-                
-                guard let transaction = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                transaction.update(stockLotQuantity: stockLotQty)
-                try? context.save()
+            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
+                predicate: #Predicate { $0.transactionID == id }
+            )
+            
+            guard let transaction = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
-            catch {
-                debugPrint("Error Fetch Data: ", error)
-            }
+            
+            transaction.update(stockLotQuantity: stockLotQty)
+            try context.save()
         }
     }
     
-    func update(id: String, time: Date) {
+    func update(id: String, time: Date) throws {
         if let context = modelContext {
-            do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.transactionID == id }
-                )
-                
-                guard let transaction = try context.fetch(descriptor).first else {
-                    throw SwiftDataError.notFound
-                }
-                
-                transaction.update(time: time)
-                try? context.save()
+            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
+                predicate: #Predicate { $0.transactionID == id }
+            )
+            
+            guard let transaction = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
             }
-            catch {
-                debugPrint("Error Fetch Data: ", error)
-            }
+            
+            transaction.update(time: time)
+            try context.save()
         }
     }
     

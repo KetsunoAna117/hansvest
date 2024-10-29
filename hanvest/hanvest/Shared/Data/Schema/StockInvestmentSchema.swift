@@ -22,20 +22,26 @@ final class StockInvestmentSchema {
         self.lotPurchased = lotPurchased
     }
     
-    func addLotPurchased(_ lotPurchased: Int) {
+    func add(lotPurchased: Int) {
         self.lotPurchased += lotPurchased
     }
     
-    func addTotalInvested(_ totalInvested: Int) {
+    func add(totalInvested: Int) {
         self.totalInvested += totalInvested
     }
     
-    func substractLotsPurchased(_ lotPurchased: Int) {
+    func substract(lotPurchased: Int) {
         self.lotPurchased -= lotPurchased
     }
     
-    func substractTotalInvested(_ totalInvested: Int) {
+    func substract(totalInvested: Int) {
         self.totalInvested -= totalInvested
+    }
+    
+    func update(newStockInvestmentSchema data: StockInvestmentSchema) {
+        self.stockIDName = data.stockIDName
+        self.totalInvested = data.totalInvested
+        self.lotPurchased = data.lotPurchased
     }
     
     func mapToEntity() -> StockInvestmentEntity {

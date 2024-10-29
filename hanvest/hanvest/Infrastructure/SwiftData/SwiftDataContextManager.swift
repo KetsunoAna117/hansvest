@@ -81,88 +81,88 @@ private extension SwiftDataContextManager {
     }
     
     // FETCH
-    func fetchUserSchema() -> UserSchema? {
+    func fetchUserSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
-                let userSchema = try context.fetch(descriptor)
-                return userSchema.first
+                let userSchema = try context.fetchCount(descriptor)
+                return userSchema
             }
             catch {
                 fatalError("Error Fetch Data: \(error)")
             }
         }
-        return nil
+        return 0
     }
     
-    func fetchTransactionSchema() -> [StockTransactionQueueSchema] {
+    func fetchTransactionSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
-                let result = try context.fetch(descriptor)
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
                 fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchNewsSchema() -> [StockNewsSchema] {
+    func fetchNewsSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<StockNewsSchema>()
-                let result = try context.fetch(descriptor)
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
                 fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchProductPriceSchema() -> [ProductPriceSchema] {
+    func fetchProductPriceSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<ProductPriceSchema>()
-                let result = try context.fetch(descriptor)
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
                 fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchSimulationStockSchema() -> [StockSchema] {
+    func fetchSimulationStockSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<StockSchema>()
-                let result = try context.fetch(descriptor)
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
                 fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchStockInvestmentSchema() -> [StockInvestmentSchema] {
+    func fetchStockInvestmentSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<StockInvestmentSchema>()
-                let result = try context.fetch(descriptor)
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
                 fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
 }
 
@@ -170,7 +170,7 @@ private extension SwiftDataContextManager {
 private extension SwiftDataContextManager {
     func prepopulateUserData(){
         let userSchemaData = fetchUserSchema()
-        if userSchemaData == nil {
+        if userSchemaData <= 0 {
             let result = getMockUserSchemaData()
             saveUserData(userDataSchema: result)
         }
@@ -181,32 +181,40 @@ private extension SwiftDataContextManager {
         let newsSchemaData = fetchNewsSchema()
         let productPriceSchemaData = fetchProductPriceSchema()
         let simulationStockSchemaData = fetchSimulationStockSchema()
+        let userInvestmentData = fetchStockInvestmentSchema()
         
-        if transactionSchemaData.count <= 0 {
+        if transactionSchemaData <= 0 {
             let result = getMockTransactionSchemaData()
             for data in result {
                 saveStockTransactionData(stockTransaction: data)
             }
         }
         
-        if newsSchemaData.count <= 0 {
+        if newsSchemaData <= 0 {
             let result = getMockNewsSchemaData()
             for data in result {
                 saveNewsData(news: data)
             }
         }
         
-        if productPriceSchemaData.count <= 0 {
+        if productPriceSchemaData <= 0 {
             let result = getMockProductPriceSchemaData()
             for data in result {
                 saveProductPriceData(productPrice: data)
             }
         }
         
-        if simulationStockSchemaData.count <= 0 {
+        if simulationStockSchemaData <= 0 {
             let result = getMockSimulationStockSchemaData()
             for data in result {
                 saveSimulationStockData(stockSimulation: data)
+            }
+        }
+        
+        if userInvestmentData <= 0 {
+            let result = getMockInvestmentData()
+            for data in result {
+                saveStockInvestmentData(investment: data)
             }
         }
     }
@@ -379,4 +387,7 @@ private extension SwiftDataContextManager {
         ]
     }
 
+    func getMockInvestmentData() -> [StockInvestmentSchema] {
+        return []
+    }
 }
