@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class StockInvestmentDataViewModels: ObservableObject {
-    @Inject var getUserTransaction: GetUserTransaction
+    @Inject var getUserTransaction: GetUserInvestmentData
     
     @Published var profitLossLabel: Int
     @Published var profitLossPercentageLabel: Int
@@ -43,11 +43,11 @@ class StockInvestmentDataViewModels: ObservableObject {
     private func setupTotalInvestment(selectedStockIDName: String, userData: UserDataEntity){
         setToZero()
         
-        let userTransaction = getUserTransaction.execute(stockIDName: selectedStockIDName, userData: userData)
-        for transaction in userTransaction {
-            userLotOwned += transaction.stockLotQuantity
-            userStockInvestment += transaction.priceAtPurchase * transaction.stockLotQuantity * 100
+        if let userInvestment = getUserTransaction.execute(stockIDName: selectedStockIDName, userData: userData) {
+            userLotOwned = userInvestment.lotPurchased
+            userStockInvestment = userInvestment.totalInvested
         }
+        
     }
     
     func setToZero(){

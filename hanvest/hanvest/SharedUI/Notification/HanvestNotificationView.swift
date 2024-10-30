@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestNotificationView: View {
     let appRouter: any AppRouterProtocol
-    let notification: SimulationNewsEntity
+    let notification: StockNewsEntity
     
     var body: some View {
         HStack() {

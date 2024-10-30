@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model final class SimulationNewsSchema {
+@Model final class StockNewsSchema {
     @Attribute(.unique) var newsID: String
     var stockIDName: String
     var newsTitle: String
@@ -27,7 +27,7 @@ import SwiftData
         self.hasTriggered = hasTriggered
     }
     
-    func update(_ newData: SimulationNewsSchema) {
+    func update(_ newData: StockNewsSchema) {
         self.newsID = newData.newsID
         self.stockIDName = newData.stockIDName
         self.newsTitle = newData.newsTitle
@@ -57,8 +57,8 @@ import SwiftData
         self.stockFluksPercentage = stockFluksPercentage
     }
     
-    func mapToEntity() -> SimulationNewsEntity {
-        return SimulationNewsEntity(
+    func mapToEntity() -> StockNewsEntity {
+        return StockNewsEntity(
             newsID: self.newsID,
             stockIDName: self.stockIDName,
             newsTitle: self.newsTitle,

@@ -1,5 +1,5 @@
 //
-//  PurchaseStocks.swift
+//  SellStocks.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 29/10/24.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol PurchaseStocks {
+protocol SellStocks {
     func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, Error>
 }
 
-struct PurchaseStocksImpl: PurchaseStocks {
+struct SellStocksImpl: SellStocks {
     let userRepo: UserRepository
     let investmentRepo: StockInvestmentRepository
     
@@ -31,19 +31,17 @@ struct PurchaseStocksImpl: PurchaseStocks {
             
             if let investment = investmentData.first(where: { $0.stockIDName == investmentSchema.stockIDName }) {
                 // If stockID already registered, update the value
-                try investmentRepo.add(
+                try investmentRepo.substract(
                     investmentID: investment.investmentID,
                     with: investmentSchema
                 )
             }
             else {
-                // If no stockID registered from user investment, register it
-                try userRepo.add(investment: investmentSchema)
-                try investmentRepo.save(investment: investmentSchema)
+                throw SwiftDataError.notFound
             }
             
             // Substract User Balance from Invested Data
-            try userRepo.substract(balance: investment.totalInvested)
+            try userRepo.add(balance: investment.totalInvested)
             
             return .success(true)
         }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model final class SimulationStockSchema {
+@Model final class StockSchema {
     @Attribute(.unique) var stockIDName: String
     var stockName: String
     var stockImageName: String
@@ -45,8 +45,8 @@ import SwiftData
     
     func mapToEntity(
         productPriceSchema: [ProductPriceSchema]
-    ) -> SimulationStockEntity {
-        return SimulationStockEntity(
+    ) -> StockEntity {
+        return StockEntity(
             stockIDName: self.stockIDName,
             stockName: self.stockName,
             stockImageName: self.stockImageName,

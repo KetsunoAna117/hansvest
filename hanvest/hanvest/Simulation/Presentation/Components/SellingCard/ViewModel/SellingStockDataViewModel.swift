@@ -9,7 +9,7 @@ import SwiftUI
 
 class SellingStockDataViewModel: ObservableObject{
     // Dependency Injection
-    @Inject var getPurchasedLot: GetUserTransaction
+    @Inject var getInvestmentData: GetUserInvestmentData
     
     var selectedStockIDName: String
     var stockSellFee: Int
@@ -69,10 +69,8 @@ class SellingStockDataViewModel: ObservableObject{
     
     private func calculateOwnedLot(selectedStockIDName: String, userData: UserDataEntity) -> Int {
         var lotCount = 0
-        let purchasedLot = getPurchasedLot.execute(stockIDName: selectedStockIDName, userData: userData)
-        
-        for data in purchasedLot {
-            lotCount += data.stockLotQuantity
+        if let investmentData = getInvestmentData.execute(stockIDName: selectedStockIDName, userData: userData) {
+            lotCount = investmentData.lotPurchased
         }
         
         return lotCount

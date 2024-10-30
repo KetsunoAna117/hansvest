@@ -47,7 +47,7 @@ struct Module06SimulationView: View {
                                 )
                                 
                                 if let userData = profileViewModel.userData {
-                                    StockInvestmentData(
+                                    StockInvestmentDataView(
                                         userData: userData,
                                         selectedStock: selectedStock
                                     )

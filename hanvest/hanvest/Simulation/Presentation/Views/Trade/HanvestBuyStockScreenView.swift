@@ -108,6 +108,6 @@ struct HanvestBuyStockScreenView: View {
 //        }
 //    }
 //    .onAppear(){
-//        appRouter.simulationViewModel?.selectedStock = SimulationStockEntity.getMockData().first!
+//        appRouter.simulationViewModel?.selectedStock = StockEntity.getMockData().first!
 //    }
 //}

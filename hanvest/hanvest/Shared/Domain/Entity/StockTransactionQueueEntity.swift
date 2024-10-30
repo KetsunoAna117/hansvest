@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StockTransactionEntity {
+struct StockTransactionQueueEntity {
     var transactionID: String
     var stockIDName: String
     var priceAtPurchase: Int
@@ -15,9 +15,9 @@ struct StockTransactionEntity {
     var time: Date
 }
 
-extension StockTransactionEntity {
-    func mapToSchema() -> StockTransactionSchema {
-        return StockTransactionSchema(
+extension StockTransactionQueueEntity {
+    func mapToSchema() -> StockTransactionQueueSchema {
+        return StockTransactionQueueSchema(
             transactionID: self.transactionID,
             stockIDName: self.stockIDName,
             priceAtPurchase: self.priceAtPurchase,

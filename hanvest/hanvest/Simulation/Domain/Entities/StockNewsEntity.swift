@@ -1,5 +1,5 @@
 //
-//  SimulationNewsEntity.swift
+//  StockNewsEntity.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 17/10/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SimulationNewsEntity {
+struct StockNewsEntity {
     var newsID: String
     var stockIDName: String
     var newsTitle: String
@@ -17,9 +17,9 @@ struct SimulationNewsEntity {
     var hasTriggered: Bool
 }
 
-extension SimulationNewsEntity {
-    func mapToSchema() -> SimulationNewsSchema {
-        return SimulationNewsSchema(
+extension StockNewsEntity {
+    func mapToSchema() -> StockNewsSchema {
+        return StockNewsSchema(
             newsID: self.newsID,
             stockIDName: self.stockIDName,
             newsTitle: self.newsTitle,

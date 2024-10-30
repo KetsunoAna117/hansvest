@@ -11,21 +11,22 @@ protocol GetUserData {
 
 struct GetUserDataImpl: GetUserData {
     let userRepo: UserRepository
-    let transactionRepo: StockTransactionRepository
+    let transactionRepo: StockTransactionQueueRepository
+    let investmentRepo: StockInvestmentRepository
     
     func execute() -> UserDataEntity? {
         if let user = userRepo.fetch(){
-            let transaction = user.userInvestmentTransactionID.compactMap({ transactionID in
-                return transactionRepo.fetch(id: transactionID)
+            let investmentData = user.userInvestmentTransactionID.compactMap({ investmentID in
+                return investmentRepo.fetchBy(investmentID: investmentID)
             })
             
-            let queue = user.transactionQueueID.compactMap({ transactionID in
+            let transactionQueue = user.transactionQueueID.compactMap({ transactionID in
                  return transactionRepo.fetch(id: transactionID)
             })
             
             return user.mapToEntity(
-                userInvestmentTransaction: transaction,
-                transactionQueue: queue
+                userInvestmentTransaction: investmentData,
+                transactionQueue: transactionQueue
             )
         }
         

@@ -56,7 +56,7 @@ struct HanvestSellStockScreenView: View {
                                                 lotAmount: viewmodel.stockSellLot,
                                                 stockPrice: viewmodel.toSellStockPrice,
                                                 selectedStockIDName: viewmodel.selectedStockIDName,
-                                                transactionType: .buy
+                                                transactionType: .sell
                                             )
                                         )
                                     )

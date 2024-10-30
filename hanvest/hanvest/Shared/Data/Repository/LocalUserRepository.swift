@@ -90,7 +90,7 @@ struct LocalUserRepository: UserRepository {
         }
     }
     
-    func add(transaction: StockTransactionSchema) throws -> Void {
+    func add(transaction: StockTransactionQueueSchema) throws -> Void {
         if let context = modelContext {
             let descriptor = FetchDescriptor<UserSchema>()
             guard let fetchedUserSchema = try context.fetch(descriptor).first else {
@@ -101,5 +101,18 @@ struct LocalUserRepository: UserRepository {
         }
     }
     
+    func add(investment: StockInvestmentSchema) throws {
+        if let context = modelContext {
+            let descriptor = FetchDescriptor<UserSchema>()
+            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound
+            }
+            
+            // Append to investment if id is not registered
+            if fetchedUserSchema.userInvestmentTransactionID.contains(investment.investmentID) == false {
+                fetchedUserSchema.userInvestmentTransactionID.append(investment.investmentID)
+            }
+        }
+    }
     
 }

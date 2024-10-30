@@ -11,10 +11,10 @@ import SwiftData
 struct LocalSimulationStockRepository: SimulationStockRepository {
     let modelContext: ModelContext?
     
-    func fetchAll() -> [SimulationStockSchema] {
+    func fetchAll() -> [StockSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<SimulationStockSchema>()
+                let descriptor = FetchDescriptor<StockSchema>()
                 let result = try context.fetch(descriptor)
                 return result
             }
@@ -26,10 +26,10 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
         return []
     }
     
-    func fetch(stockID id: String) -> SimulationStockSchema? {
+    func fetch(stockID id: String) -> StockSchema? {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<SimulationStockSchema>(
+                let descriptor = FetchDescriptor<StockSchema>(
                     predicate: #Predicate { $0.stockIDName == id}
                 )
                 
@@ -44,7 +44,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
         return nil
     }
     
-    func save(_ stocks: SimulationStockSchema) throws {
+    func save(_ stocks: StockSchema) throws {
         if let context = modelContext {
             if fetch(stockID: stocks.stockIDName) != nil {
                 throw SwiftDataError.alreadyExists

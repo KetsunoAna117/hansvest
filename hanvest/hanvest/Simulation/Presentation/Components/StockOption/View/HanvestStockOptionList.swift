@@ -10,7 +10,7 @@ import SwiftUI
 struct HanvestStockOptionList: View {
     @Binding var selectedStockID: String
     
-    var simulationStockList: [SimulationStockEntity]
+    var simulationStockList: [StockEntity]
     var onPressed: (_ selectedStockID: String) -> ()
     
     var body: some View {
@@ -42,7 +42,7 @@ struct HanvestStockOptionList: View {
 //
 //    HanvestStockOptionList(
 //        selectedStockID: $selectedStockID,
-//        simulationStockList: SimulationStockEntity.getMockData(),
+//        simulationStockList: StockEntity.getMockData(),
 //        onPressed: { data in
 //            print("On Pressed \(data)")
 //        }

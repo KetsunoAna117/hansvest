@@ -12,5 +12,6 @@ protocol UserRepository {
     func add(moduleCompletion: CompletionEntityType) throws -> Void
     func add(balance: Int) throws -> Void
     func substract(balance: Int) throws -> Void
-    func add(transaction: StockTransactionSchema) throws -> Void
+    func add(transaction: StockTransactionQueueSchema) throws -> Void
+    func add(investment: StockInvestmentSchema) throws -> Void
 }

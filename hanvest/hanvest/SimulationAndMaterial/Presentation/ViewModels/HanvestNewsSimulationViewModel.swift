@@ -8,7 +8,7 @@
 import Foundation
 
 class HanvestNewsSimulationViewModel: ObservableObject {
-    @Published var newsList: [SimulationNewsEntity]
+    @Published var newsList: [StockNewsEntity]
     
     init(){
         newsList = []
