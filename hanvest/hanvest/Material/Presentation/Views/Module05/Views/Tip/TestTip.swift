@@ -113,17 +113,17 @@ struct TestView: View {
                     }
                 }
 //
-//            Text("Tip 2")
-//                .popoverTip(PopoverTip2())
-//                .onTapGesture {
-//                    // Explicitly invalidate the tip when tapped
-//                    PopoverTip2().invalidate(reason: .actionPerformed)
-//
-//                    // After invalidating, send an event to update rules for other tips
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        TestView.tipDidOpen.sendDonation()
-//                    }
-//                }
+            Text("Tip 2")
+                .popoverTip(PopoverTip2())
+                .onTapGesture {
+                    // Explicitly invalidate the tip when tapped
+                    PopoverTip2().invalidate(reason: .actionPerformed)
+
+                    // After invalidating, send an event to update rules for other tips
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        TestView.tipDidOpen.sendDonation()
+                    }
+                }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -185,67 +185,16 @@ struct FeedView: View {
     }
 }
 
-struct AbsolutePositionReader: View {
-  let id: String?
-  init() { self.id = nil }
-  init(_ id: String?) { self.id = id }
-  
-  var body: some View {
-    GeometryReader { metrics in
-      let absolutePosition = CGPoint(
-        x: metrics.frame(in: .named("AbsolutePositionReaderSpace")).midX, // use min/mid/max as needed
-        y: metrics.frame(in: .named("AbsolutePositionReaderSpace")).midY  // use min/mid/max as needed
-      )
-
-      Rectangle()
-        .fill(Color.clear)
-        .preference(
-          key: AbsolutePositionKey.self,
-          value: [AbsolutePositionValue(id: id, absolutePosition: absolutePosition)]
-        )
-    }
-  }
-}
-
-struct AbsolutePositionValue: Equatable {
-  let id: String?
-  let absolutePosition: CGPoint
-}
-
-struct AbsolutePositionKey: PreferenceKey {
-    typealias Value = [AbsolutePositionValue]
-    static var defaultValue: [AbsolutePositionValue] = []
-    static func reduce(value: inout [AbsolutePositionValue], nextValue: () -> [AbsolutePositionValue]) {
-        value.append(contentsOf: nextValue())
-    }
-}
-
-struct Lines: View {
-    let testo : String = "There is a thunderstorm in the area. Added some testing long text to demo that wrapping works correctly!"
-
-
-    var body: some View {
-        hilightedText(str: testo, searched: "thunderstorm")
-            .multilineTextAlignment(.leading)
-    }
-
-    func hilightedText(str: String, searched: String) -> Text {
-        guard !str.isEmpty && !searched.isEmpty else { return Text(str) }
-
-        var result: Text!
-        let parts = str.components(separatedBy: searched)
-        for i in parts.indices {
-            result = (result == nil ? Text(parts[i]) : result + Text(parts[i]))
-            if i != parts.count - 1 {
-                result = result + Text(searched).bold()
-            }
-        }
-        return result ?? Text(str)
-    }
-}
 
 
 #Preview {
-    Lines()
+    FeedView()
+        .task {
+            try? Tips.resetDatastore() // for debugging
+            try? Tips.configure([
+                .displayFrequency(.immediate),
+                .datastoreLocation(.applicationDefault)
+            ])
+        }
 }
 
