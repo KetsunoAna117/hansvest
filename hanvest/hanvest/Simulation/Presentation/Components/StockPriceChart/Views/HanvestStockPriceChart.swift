@@ -13,7 +13,7 @@ struct HanvestStockPriceChart: View {
     let symbolCategoryKeyPath: KeyPath<ProductPriceEntity, String> // Category to differentiate symbols
     
     var displayBy: Calendar.Component
-    var displayStep: Int = 1
+    var displayStep: Int = 24
     
     var body: some View {
         HanvestCardBackground {
@@ -31,14 +31,23 @@ struct HanvestStockPriceChart: View {
                             x: .value("Time", price.time),
                             y: .value("Price", price.price)
                         )
-                        .symbol(symbol: {
-                            Circle()
-                                .frame(width: 8, height: 8)
-                                .foregroundStyle(.seagull500)
-                        })
+//                        .symbol(symbol: {
+//                            Circle()
+//                                .frame(width: 8, height: 8)
+//                                .foregroundStyle(.seagull500)
+//                        })
                         .foregroundStyle(.seagull500)
                     }
                 }
+//                .chartXAxis {
+//                    AxisMarks(values: .stride(by: displayBy, count: displayStep)) { value in
+//                        if value.as(Date.self) != nil {
+//                            AxisGridLine()
+//                            AxisTick()
+//                            AxisValueLabel(format: .dateTime.hour(), centered: true) // Format to display hours and minutes
+//                        }
+//                    }
+//                }
                 .chartXAxis {
                     AxisMarks(values: .stride(by: displayBy, count: displayStep)) { value in
                         if value.as(Date.self) != nil {
@@ -62,7 +71,7 @@ struct HanvestStockPriceChart: View {
                 .chartYAxisLabel("Price")
                 .frame(height: 250)
 //                .chartScrollableAxes(.horizontal)
-//                .chartXVisibleDomain(length: viewmodel.timeRange / 2) // Adjust the length based on the time range
+//                .chartXVisibleDomain(length: simulationViewModel.timeRange / 2) // Adjust the length based on the time range
                 
             }
             .padding()
@@ -70,10 +79,10 @@ struct HanvestStockPriceChart: View {
     }
 }
 
-#Preview {
-    @Previewable @State var stockPrices = SimulationStockEntity.getMockData().first!.stockPrice
-    
-    HanvestStockPriceChart(
-        viewmodel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
-    .padding(.horizontal, 20)
-}
+//#Preview {
+//    @Previewable @State var stockPrices = StockEntity.getMockData().first!.stockPrice
+//    
+//    HanvestStockPriceChart(
+//        simulationViewModel: HanvestProductPriceChartViewModel(prices: stockPrices), symbolCategoryKeyPath: \.name, displayBy: .hour)
+//    .padding(.horizontal, 20)
+//}

@@ -12,16 +12,20 @@ enum Screen: Identifiable, Hashable, Equatable {
     case onboarding
     case main
     case news
-    case newsDetails(news: SimulationNewsEntity)
+    case newsDetails(news: StockNewsEntity)
     case glossary
+    case searchGlossary(glossaryViewModel: GlossaryViewModel)
     case profile
     case materialModule01
     case materialModule02
     case materialModule03
     case materialModule04
-    case simulationBuyingConfirmation
-    case simulationSellingConfirmation
+    case materialModule05
+    case materialModule06
+    case simulationBuyingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
+    case simulationSellingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case transactionStatus(transaction: TransactionStatusViewModel)
+    case moduleCompletion(completionItem: CompletionEntityType)
     
     var id: Self { return self }
 }
@@ -50,13 +54,21 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .materialModule04:
             hasher.combine(self.hashValue)
+        case .materialModule05:
+            hasher.combine(self.hashValue)
+        case .materialModule06:
+            hasher.combine(self.hashValue)
         case .news:
             hasher.combine(self.hashValue)
         case .glossary:
             hasher.combine(self.hashValue)
+        case .searchGlossary:
+            hasher.combine(self.hashValue)
         case .newsDetails:
             hasher.combine(self.hashValue)
         case .transactionStatus:
+            hasher.combine(self.hashValue)
+        case .moduleCompletion:
             hasher.combine(self.hashValue)
         }
     }
@@ -74,10 +86,14 @@ extension Screen {
             (.materialModule02, .materialModule02),
             (.materialModule03, .materialModule03),
             (.materialModule04, .materialModule04),
+            (.materialModule05, .materialModule05),
+            (.materialModule06, .materialModule06),
             (.news, .news),
             (.glossary, .glossary),
+            (.searchGlossary, .searchGlossary),
             (.newsDetails, .newsDetails),
-            (.transactionStatus, .transactionStatus):
+            (.transactionStatus, .transactionStatus),
+            (.moduleCompletion, .moduleCompletion):
             return true
         default:
             return false

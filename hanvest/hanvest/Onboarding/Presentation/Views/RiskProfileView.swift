@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct RiskProfileView: View {
-    // Constant
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    
-    @State private var pageState: RiskProfilePageState = .pageOpening
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 10
+    let router: any AppRouterProtocol
     
     // View Model
-    @State private var viewModel = RiskProfileViewModel()
+    @StateObject private var viewModel = RiskProfileViewModel()
     
     var body: some View {
         ZStack {
@@ -25,21 +19,20 @@ struct RiskProfileView: View {
             
             ZStack {
                 VStack(spacing: 58) {
-                    if pageState == .pageQuestion {
+                    if viewModel.pageState == .pageQuestion {
                         HanvestProgressBar(
                             value:
-                                $progressBarCurrValue,
+                                $viewModel.progressBarCurrValue,
                             minimum:
-                                progressBarMinValue,
+                                viewModel.progressBarMinValue,
                             maximum:
-                                progressBarMaxValue
+                                viewModel.progressBarMaxValue
                         )
-                        .padding(.horizontal, 36)
                         .frame(maxWidth: .infinity)
                     }
                     
                     VStack(spacing: 0) {
-                        TabView(selection: $currentTab) {
+                        TabView(selection: $viewModel.currentTab) {
                             HanvestRiskProfileOpeningView()
                                 .tag(RiskProfilePageState.pageOpening.rawValue)
                                 .transition(.slide)
@@ -66,6 +59,9 @@ struct RiskProfileView: View {
                             .tag(RiskProfilePageState.pageRiskResult.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
+                            .onAppear {
+                                viewModel.getUserRiskProfile()
+                            }
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -73,58 +69,48 @@ struct RiskProfileView: View {
                         .onAppear {
                             UIScrollView.appearance().isScrollEnabled = false
                         }
-                        
-                        HanvestButtonDefault(
-                            style:
-                                .filled(isDisabled: checkIsDisabled()),
-                            title:
-                                pageState.buttonStringValue
-                        ) {
-                            goToNextPage()
-                            changePageState()
+                        ZStack {
+                            HanvestButtonDefault(
+                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                title: viewModel.pageState.buttonStringValue
+                            ) {
+                                viewModel.goToNextPage(
+                                    router: self.router
+                                )
+                            }
                         }
-                        .padding(.horizontal, 20)
                         .frame(maxWidth: .infinity)
                     }
                 }
             }
-            .padding(.top, (pageState == .pageQuestion) ? 74 : 140)
+            .padding(.top, (viewModel.pageState == .pageQuestion) ? 74 : 140)
+            .padding(.horizontal, 20)
             .padding(.bottom, 54)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
     
-    private func goToNextPage() {
-        if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
-            if !checkIsDisabled() {
-                currentTab += 1
-                updateProgressBarValue()
-            }
-        } else {
-            // TODO: direct to the corresponding page
-        }
-    }
-    
-    private func changePageState() {
-        if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
-            pageState = .pageQuestion
-        } else {
-            pageState = .pageRiskResult
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        if pageState == .pageQuestion {
-            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
-        }
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        return pageState == .pageQuestion && viewModel.userSelectedAnswers[currentTab - 1].isEmpty
-    }
 }
 
 #Preview {
-    RiskProfileView()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .onboarding
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

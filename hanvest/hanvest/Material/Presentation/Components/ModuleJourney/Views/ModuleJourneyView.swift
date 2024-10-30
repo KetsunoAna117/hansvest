@@ -16,42 +16,50 @@ struct ModuleJourneyView: View {
     let moduleSpacing: CGFloat = 4
     
     // View Model
-    @StateObject private var viewModel = ModuleJourneyViewModel()
+    @ObservedObject var viewModel: ModuleJourneyViewModel
     
     @ViewBuilder
     var moduleListView: some View {
         VStack(spacing: 4) {
-            ForEach(1...viewModel.numberOfModules, id: \.self) { number in
+            ForEach(viewModel.moduleProgressList, id: \.moduleID) { module in
+                let moduleNumber = viewModel.getModuleIdx(module: module) + 1
+                
                 HStack {
-                    if number == 2 {
+                    if moduleNumber == 2 {
                         Image("hanvest-app-mascot")
                             .resizable()
-                            .frame(width: 95, height: 106)
+                            .frame(width: 79, height: 106)
                             .padding(.trailing, 157.94)
                     }
                     
                     HanvestModuleNumberButton(
-                        style: viewModel.getUserModuleProgress(
-                            moduleIndex: number
-                        ),
-                        number: number,
+                        style: module.state,
+                        number: moduleNumber,
                         action: {
-                            
-                            // TODO: Do action for every module, the viewModel.updateUserModuleProgressIfDone should be triggered only when a module is Done
-                            viewModel.updateUserModuleProgressIfDone(
-                                moduleIndex: number
-                            )
-                            print("Button number \(number) pressed")
+                            withAnimation(.easeInOut(duration: 0.1)) {
+                                router.presentOverlay(
+                                    .withHanvestPopupButton(
+                                        title: module.popup.title,
+                                        desc: module.popup.desc,
+                                        buttonAction: {
+                                            router.push(module.moduleScreenID)
+                                        }
+                                    )
+                                )
+                            }
                         }
                     )
                 }
                 .padding(10)
-                .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: number))
+                .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: moduleNumber))
                 .frame(height: 100)
             }
         }
         .padding(.horizontal, 20)
         .frame(maxWidth: .infinity)
+        .onAppear(){
+            viewModel.setup()
+        }
     }
     
     var body: some View {
@@ -96,14 +104,6 @@ struct ModuleJourneyView: View {
             appRouter.build(startScreen)
                 .navigationDestination(for: Screen.self) { screen in
                     appRouter.build(screen)
-                }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                       
-                    }
                 }
         }
     }

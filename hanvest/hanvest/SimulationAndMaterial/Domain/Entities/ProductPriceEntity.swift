@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProductPriceEntity: Equatable {
-    var id: String = UUID().uuidString
+    var id: String
     var name: String
     var price: Int
     var time: Date
@@ -17,5 +17,14 @@ struct ProductPriceEntity: Equatable {
         return
             lhs.price == rhs.price &&
             lhs.time == rhs.time
+    }
+    
+    func mapToSchema() -> ProductPriceSchema {
+        return ProductPriceSchema(
+            id: self.id,
+            name: self.name,
+            price: self.price,
+            time: self.time
+        )
     }
 }

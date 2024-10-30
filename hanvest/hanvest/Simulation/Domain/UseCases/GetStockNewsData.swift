@@ -6,11 +6,13 @@
 //
 
 protocol GetStockNewsData {
-    func execute() -> [SimulationNewsEntity]
+    func execute() -> [StockNewsEntity]
 }
 
-struct GetStockDataImpl: GetStockNewsData {
-    func execute() -> [SimulationNewsEntity] {
-        return SimulationNewsEntity.mock()
+struct GetStockNewsDataImpl: GetStockNewsData {
+    let newsRepo: SimulationNewsRepository
+    
+    func execute() -> [StockNewsEntity] {
+        return newsRepo.fetch().map { $0.mapToEntity() }
     }
 }

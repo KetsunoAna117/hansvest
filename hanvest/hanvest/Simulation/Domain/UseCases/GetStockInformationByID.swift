@@ -8,11 +8,20 @@
 import Foundation
 
 protocol GetStockInformationByID {
-    func execute(id: String) -> SimulationStockEntity
+    func execute(id: String) -> StockEntity?
 }
 
 struct GetStockInformationByIDImpl: GetStockInformationByID {
-    func execute(id: String) -> SimulationStockEntity {
-        return SimulationStockEntity.getMockData().first!
+    let stockRepository: SimulationStockRepository
+    let priceRepository: ProductPriceRepository
+    
+    func execute(id: String) -> StockEntity? {
+        let fetchedPrice = priceRepository.fetchAllWith(stockID: id)
+        
+        if let fetchedStock = stockRepository.fetch(stockID: id) {
+            return fetchedStock.mapToEntity(productPriceSchema: fetchedPrice)
+        }
+        
+        return nil
     }
 }

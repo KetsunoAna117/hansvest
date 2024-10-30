@@ -10,7 +10,8 @@ import SwiftUI
 struct HanvestBuyStockScreenView: View {
     let router: any AppRouterProtocol
     
-    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
+    var userData: UserDataEntity
+    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: BuyingStockDataViewModel = .init()
     
     var body: some View {
@@ -33,7 +34,7 @@ struct HanvestBuyStockScreenView: View {
                             $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
-                    SimulationBuyingCard(viewModel: viewmodel)
+                    SimulationBuyingCard(viewModel: viewmodel, currentPrice: $simulationViewModel.displayActiveStockCurrentPrice)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
@@ -73,6 +74,7 @@ struct HanvestBuyStockScreenView: View {
             }
             .onAppear(){
                 viewmodel.setup(
+                    userData: userData,
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0
@@ -85,27 +87,27 @@ struct HanvestBuyStockScreenView: View {
     }
 }
 
-#Preview {
-    @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .simulationBuyingConfirmation
-    
-    NavigationStack(path: $appRouter.path) {
-        if let startScreen = startScreen {
-            appRouter.build(startScreen)
-                .navigationDestination(for: Screen.self) { screen in
-                    appRouter.build(screen)
-                }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                       
-                    }
-                }
-        }
-    }
-    .onAppear(){
-        appRouter.simulationViewModel?.selectedStock = SimulationStockEntity.getMockData().first!
-    }
-}
+//#Preview {
+//    @Previewable @StateObject var appRouter = AppRouter()
+//    @Previewable @State var startScreen: Screen? = .simulationBuyingConfirmation
+//    
+//    NavigationStack(path: $appRouter.path) {
+//        if let startScreen = startScreen {
+//            appRouter.build(startScreen)
+//                .navigationDestination(for: Screen.self) { screen in
+//                    appRouter.build(screen)
+//                }
+//                .overlay {
+//                    if let popup = appRouter.popup {
+//                        ZStack {
+//                            appRouter.build(popup)
+//                        }
+//                       
+//                    }
+//                }
+//        }
+//    }
+//    .onAppear(){
+//        appRouter.simulationViewModel?.selectedStock = StockEntity.getMockData().first!
+//    }
+//}

@@ -9,7 +9,7 @@ import SwiftUI
 
 class SellingStockDataViewModel: ObservableObject{
     // Dependency Injection
-    @Inject var getPurchasedLot: GetUserTransaction
+    @Inject var getInvestmentData: GetUserInvestmentData
     
     var selectedStockIDName: String
     var stockSellFee: Int
@@ -46,13 +46,19 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func setup(
+        userData: UserDataEntity?,
         selectedStockIDName: String,
         stockSellLot: Int = 0,
         initialStockPrice: Int,
         currentStockPrice: Int
     ){
+        guard let userData = userData else {
+            print("[ERROR] User Data is not initialized!")
+            return
+        }
+        
         self.selectedStockIDName = selectedStockIDName
-        self.availableLot = calculateOwnedLot(selectedStockIDName: selectedStockIDName)
+        self.availableLot = calculateOwnedLot(selectedStockIDName: selectedStockIDName, userData: userData)
         self.toSellStockPrice = currentStockPrice
         self.stockSellLot = stockSellLot
         
@@ -61,12 +67,10 @@ class SellingStockDataViewModel: ObservableObject{
         validateStockSellAmount()
     }
     
-    private func calculateOwnedLot(selectedStockIDName: String) -> Int {
+    private func calculateOwnedLot(selectedStockIDName: String, userData: UserDataEntity) -> Int {
         var lotCount = 0
-        let purchasedLot = getPurchasedLot.execute(stockIDName: selectedStockIDName)
-        
-        for data in purchasedLot {
-            lotCount += data.stockLotQuantity
+        if let investmentData = getInvestmentData.execute(stockIDName: selectedStockIDName, userData: userData) {
+            lotCount = investmentData.lotPurchased
         }
         
         return lotCount
@@ -100,7 +104,13 @@ class SellingStockDataViewModel: ObservableObject{
     }
     
     func calculateStockSellAmountPercentage() -> String {
-        let percentage = Double(stockSellLot) / Double(availableLot) * 100
+        var percentage: Double = 0
+        
+        if availableLot == 0 {
+            percentage = 0
+        } else{
+            percentage = Double(stockSellLot) / Double(availableLot) * 100
+        }
         return String(format: "%.2f", percentage)
     }
     

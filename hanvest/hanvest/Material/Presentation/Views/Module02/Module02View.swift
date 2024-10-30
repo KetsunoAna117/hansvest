@@ -8,13 +8,7 @@
 import SwiftUI
 
 struct Module02View: View {
-    // Constants
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 4
-    @State private var pageState: Module02PageState = .pageContinue
+    let router: any AppRouterProtocol
     
     // View Models
     @StateObject private var viewModel = Module02ViewModel()
@@ -25,19 +19,17 @@ struct Module02View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState != .pageClaimReward {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                // TODO: DO SOMETHING
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: viewModel.progressBarMinValue,
+                        progressBarMaxValue: viewModel.progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $viewModel.progressBarCurrValue
+                    )
                     
                     VStack(spacing: 48) {
-                        TabView(selection: $currentTab) {
+                        TabView(selection: $viewModel.currentTab) {
                             
                             ForEach(Array(Module02TextImage.allCases.enumerated()), id: \.offset) { index, page in
                                 
@@ -83,30 +75,21 @@ struct Module02View: View {
                             
                             ForEach(Array(Module02HeaderWithDetailText.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                if checkPageToSkip(
-                                    page: page,
-                                    userSelectedAnswer: viewModel.checkDebitOrPayLater()
-                                ) {
-                                    EmptyView()
-                                } else {
-                                    HanvestMaterialnformationView(
-                                        title: page.title(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax()),
-                                        detailText: page.detailText(userSelectedAnswer: viewModel.checkIphoneOrIphoneProMax())
+                                HanvestMaterialnformationView(
+                                    title: page.title(
+                                        chosenPhone: viewModel.userSelectedAnswers[Module02MultipleChoice.page03.rawValue],
+                                        chosenMethod: viewModel.userSelectedAnswers[Module02MultipleChoice.page07.rawValue]
+                                    ),
+                                    detailText: page.detailText(
+                                        chosenPhone: viewModel.userSelectedAnswers[Module02MultipleChoice.page03.rawValue],
+                                        chosenMethod: viewModel.userSelectedAnswers[Module02MultipleChoice.page07.rawValue]
                                     )
-                                    .tag(
-                                        adjustPageStateRawValue(
-                                            rawValue: page.rawValue
-                                        )
-                                    )
-                                    .transition(.slide)
-                                    .frame(maxHeight: .infinity, alignment: .top)
-                                }
-                            }
-                            
-                            CompletionPageView(completionItem: CompletionItem.module02)
-                                .tag(Module02PageState.pageClaimReward.rawValue)
+                                )
+                                .tag(page.rawValue)
                                 .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .bottom)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                
+                            }
                             
                         }
                         .frame(maxWidth: .infinity)
@@ -118,11 +101,13 @@ struct Module02View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: checkIsDisabled()),
-                                title: pageState.buttonStringValue
+                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                title: viewModel.pageState.buttonStringValue
                             ) {
-                                goToNextPage()
-                                changePageState()
+                                viewModel.goToNextPage(
+                                    router: self.router,
+                                    specificModule: .module02
+                                )
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -130,7 +115,7 @@ struct Module02View: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, 71)
+            .padding(.top, (UIScreen.main.bounds.width < 375) ? 31 : 71)
             .padding(.bottom, 54)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -139,66 +124,26 @@ struct Module02View: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func goToNextPage() {
-        if currentTab < Module02PageState.pageClaimReward.rawValue {
-            if !checkIsDisabled() {
-                currentTab += 1
-                updateProgressBarValue()
-            }
-        } else {
-            // TODO: direct to the corresponding page
-        }
-    }
-    
-    private func changePageState() {
-        switch currentTab {
-            case Module02TextImage.page06.rawValue:
-                pageState = .pageCheckout
-            case Module02MultipleChoice.page07.rawValue:
-                pageState = .pagePay
-            case Module02PageState.pageClaimReward.rawValue:
-                pageState = .pageClaimReward
-            default:
-                pageState = .pageContinue
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (Module02PageState.pageClaimReward.rawValue))
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        guard currentTab < viewModel.userSelectedAnswers.count else {
-            return false
-        }
-        
-        let isPage04 = (currentTab == Module02TextImageColorPicker.page04.rawValue)
-        let isChoicePage = Module02MultipleChoice.allCases.contains(where: { $0.rawValue == currentTab })
-        let isAnswerEmpty = viewModel.userSelectedAnswers[currentTab].isEmpty
-        
-        return (isPage04 || isChoicePage) && isAnswerEmpty
-    }
-    
-    private func checkPageToSkip(page: Module02HeaderWithDetailText, userSelectedAnswer: Bool) -> Bool {
-        return (
-            (
-                userSelectedAnswer && (page == .page08Alt2 || page == .page09Alt2)
-            ) || (
-                !userSelectedAnswer && (page == .page08 || page == .page09)
-            )
-        )
-    }
-    
-    private func adjustPageStateRawValue(rawValue: Int) -> Int {
-        if rawValue > Module02PageState.pageClaimReward.rawValue {
-            return (rawValue / Module02PageState.pageClaimReward.rawValue)
-        } else {
-            return rawValue
-        }
-    }
-    
 }
 
 #Preview {
-    Module02View()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule02
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

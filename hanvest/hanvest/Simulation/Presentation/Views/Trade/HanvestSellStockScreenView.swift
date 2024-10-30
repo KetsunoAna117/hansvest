@@ -10,7 +10,8 @@ import SwiftUI
 struct HanvestSellStockScreenView: View {
     let router: any AppRouterProtocol
     
-    @EnvironmentObject var simulationViewModel: HanvestSimulationViewModel
+    var userData: UserDataEntity
+    @ObservedObject var simulationViewModel: HanvestSimulationViewModel
     @StateObject var viewmodel: SellingStockDataViewModel = .init()
     
     var body: some View {
@@ -32,7 +33,7 @@ struct HanvestSellStockScreenView: View {
                         currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                     )
                     
-                    SimulationSellingCard(viewModel: viewmodel)
+                    SimulationSellingCard(viewModel: viewmodel, currentPrice: $simulationViewModel.displayActiveStockCurrentPrice)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 24)
@@ -55,7 +56,7 @@ struct HanvestSellStockScreenView: View {
                                                 lotAmount: viewmodel.stockSellLot,
                                                 stockPrice: viewmodel.toSellStockPrice,
                                                 selectedStockIDName: viewmodel.selectedStockIDName,
-                                                transactionType: .buy
+                                                transactionType: .sell
                                             )
                                         )
                                     )
@@ -72,6 +73,7 @@ struct HanvestSellStockScreenView: View {
             }
             .onAppear(){
                 viewmodel.setup(
+                    userData: userData,
                     selectedStockIDName: stock.stockIDName,
                     initialStockPrice: stock.stockPrice.first?.price ?? 0,
                     currentStockPrice: stock.stockPrice.last?.price ?? 0
@@ -81,25 +83,25 @@ struct HanvestSellStockScreenView: View {
     }
 }
 
-#Preview {
-    @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? =
-        .simulationSellingConfirmation
-    
-    NavigationStack(path: $appRouter.path) {
-        if let startScreen = startScreen {
-            appRouter.build(startScreen)
-                .navigationDestination(for: Screen.self) { screen in
-                    appRouter.build(screen)
-                }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                        
-                    }
-                }
-        }
-    }
-}
+//#Preview {
+//    @Previewable @StateObject var appRouter = AppRouter()
+//    @Previewable @State var startScreen: Screen? =
+//        .simulationSellingConfirmation
+//    
+//    NavigationStack(path: $appRouter.path) {
+//        if let startScreen = startScreen {
+//            appRouter.build(startScreen)
+//                .navigationDestination(for: Screen.self) { screen in
+//                    appRouter.build(screen)
+//                }
+//                .overlay {
+//                    if let popup = appRouter.popup {
+//                        ZStack {
+//                            appRouter.build(popup)
+//                        }
+//                        
+//                    }
+//                }
+//        }
+//    }
+//}

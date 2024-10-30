@@ -14,6 +14,7 @@ struct HanvestGlossaryListComponent: View {
             ForEach(viewModel.alphabet, id: \.self) { letter in
                 if let words = viewModel.letters[letter], !words.isEmpty {
                     HanvestGlossaryRow(
+                        viewModel: viewModel,
                         letter: letter,
                         words: words
                     )

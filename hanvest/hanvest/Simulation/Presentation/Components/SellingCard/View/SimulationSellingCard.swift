@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SimulationSellingCard: View {
     @ObservedObject var viewModel: SellingStockDataViewModel
+    @Binding var currentPrice: Int
     
     // Constant
     var priceRaise: Int = 25
@@ -56,8 +57,7 @@ struct SimulationSellingCard: View {
                         
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.toSellStockPrice, raise: priceRaise)
-                    
+                    Text("\(currentPrice)")
                 }
                 
                 HStack{
@@ -69,17 +69,29 @@ struct SimulationSellingCard: View {
                     HanvestNumberStepper(value: $viewModel.stockSellLot, raise: lotRaise)
                 }
             }
+            .onChange(of: currentPrice) { oldValue, newValue in
+                viewModel.toSellStockPrice = newValue
+                viewModel.validateStockSellAmount()
+            }
         }
     }
 }
 
 #Preview {
     @Previewable @StateObject var viewmodel = SellingStockDataViewModel()
+    @Previewable @State var currentPrice: Int = 5000
+    
+    @Inject var getUserData: GetUserData
     
     VStack {
-        SimulationSellingCard(viewModel: viewmodel)
+        SimulationSellingCard(viewModel: viewmodel, currentPrice: $currentPrice)
             .onAppear(){
+                guard let userData = getUserData.execute() else {
+                    print("[ERROR] User Data is not initialized")
+                    return
+                }
                 viewmodel.setup(
+                    userData: userData,
                     selectedStockIDName: "BBRI",
                     initialStockPrice: 4000,
                     currentStockPrice: 5000

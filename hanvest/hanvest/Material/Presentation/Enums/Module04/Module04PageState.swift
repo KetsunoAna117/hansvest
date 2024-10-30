@@ -7,10 +7,9 @@
 
 import Foundation
 
-enum Module04PageState: Int {
+enum Module04PageState {
     case pageStartQuiz
     case pageContinue
-    case pageClaimReward = 11
     
     var buttonStringValue: String {
         switch self {
@@ -18,8 +17,6 @@ enum Module04PageState: Int {
                 "Start Quiz"
             case .pageContinue:
                 "Continue"
-            case .pageClaimReward:
-                "Claim Reward"
         }
     }
 }

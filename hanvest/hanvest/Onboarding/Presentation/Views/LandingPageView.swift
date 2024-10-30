@@ -13,10 +13,7 @@ struct LandingPageView: View {
             Color.background
             
             VStack(spacing: 24) {
-                // TODO: replace the rectangle with logo
-                Rectangle()
-                    .frame(maxWidth: 180, maxHeight: 180)
-                    .cornerRadius(12)
+                Image("onboarding-hanvest-app-logo")
                 
                 VStack {
                     Text("Hanvesting")

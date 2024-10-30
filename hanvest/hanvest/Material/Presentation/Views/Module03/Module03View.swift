@@ -8,13 +8,7 @@
 import SwiftUI
 
 struct Module03View: View {
-    // Constants
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    
-    @State private var currentTab: Int = 0
-    @State private var progressBarCurrValue: Int = 4
-    @State private var pageState: Module03PageState = .pageContinue
+    let router: any AppRouterProtocol
     
     // View Model
     @StateObject private var viewModel = Module03ViewModel()
@@ -25,42 +19,39 @@ struct Module03View: View {
             
             ZStack {
                 VStack(spacing: 49) {
-                    if pageState != .pageClaimReward {
-                        ProgressBarWithXMarkView(
-                            progressBarMinValue: progressBarMinValue,
-                            progressBarMaxValue: progressBarMaxValue,
-                            action: {
-                                // TODO: DO SOMETHING
-                            },
-                            progressBarCurrValue: $progressBarCurrValue
-                        )
-                    }
+                    ProgressBarWithXMarkView(
+                        progressBarMinValue: viewModel.progressBarMinValue,
+                        progressBarMaxValue: viewModel.progressBarMaxValue,
+                        action: {
+                            router.popToRoot()
+                        },
+                        progressBarCurrValue: $viewModel.progressBarCurrValue
+                    )
                     
                     VStack(spacing: 48) {
-                        TabView(selection: $currentTab) {
+                        TabView(selection: $viewModel.currentTab) {
                             
                             HanvestMultipleChoice(
                                 question: Module03MultipleChoice.page01.question,
-                                options: Module03MultipleChoice.page01.options){ answer in
-                                    viewModel.checkSelectedProductIndex(answer: answer)
+                                options: Module03MultipleChoice.page01.options
+                            ){ answer in
+                                    viewModel.setSelectedProductIndex(answer: answer)
                             }
                             .tag(Module03MultipleChoice.page01.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
                             
-                            if viewModel.selectedProductIndex != -1 {
-                                ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
-                                    
-                                    HanvestModule03AllProductOfInvestmentView(
-                                        title: page.title,
-                                        selectedProductIndex: viewModel.selectedProductIndex,
-                                        productStage: page.rawValue - 1
-                                    )
-                                    .tag(page.rawValue)
-                                    .transition(.slide)
-                                    .frame(maxHeight: .infinity, alignment: .top)
-                                    
-                                }
+                            ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
+                                
+                                HanvestModule03AllProductOfInvestmentView(
+                                    title: page.title,
+                                    selectedProductIndex: (viewModel.selectedProductIndex != -1) ? viewModel.selectedProductIndex : 0,
+                                    productStage: index
+                                )
+                                .tag(page.rawValue)
+                                .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                
                             }
                             
                             ForEach(Array(Module03MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
@@ -77,11 +68,6 @@ struct Module03View: View {
                                 
                             }
                             
-                            CompletionPageView(completionItem: CompletionItem.module03)
-                                .tag(Module03PageState.pageClaimReward.rawValue)
-                                .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .bottom)
-                            
                         }
                         .frame(maxWidth: .infinity)
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -92,11 +78,13 @@ struct Module03View: View {
                         
                         ZStack {
                             HanvestButtonDefault(
-                                style: .filled(isDisabled: checkIsDisabled()),
-                                title: pageState.buttonStringValue
+                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                title: viewModel.pageState.buttonStringValue
                             ) {
-                                goToNextPage()
-                                changePageState()
+                                viewModel.goToNextPage(
+                                    router: self.router,
+                                    specificModule: .module03
+                                )
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -104,7 +92,7 @@ struct Module03View: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, 71)
+            .padding(.top, (UIScreen.main.bounds.width < 375) ? 31 : 71)
             .padding(.bottom, 54)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -113,38 +101,26 @@ struct Module03View: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func goToNextPage() {
-        if currentTab < Module03PageState.pageClaimReward.rawValue {
-            if !checkIsDisabled() {
-                currentTab += 1
-                updateProgressBarValue()
-            }
-        } else {
-            // TODO: direct to the corresponding page
-        }
-    }
-    
-    private func changePageState() {
-        switch currentTab {
-            case Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue:
-                pageState = .pageNextMonth
-            case Module03PageState.pageClaimReward.rawValue:
-                pageState = .pageClaimReward
-            default:
-                pageState = .pageContinue
-        }
-    }
-    
-    private func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (Module03PageState.pageClaimReward.rawValue))
-    }
-    
-    private func checkIsDisabled() -> Bool {
-        return (viewModel.selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
-    }
-    
 }
 
 #Preview {
-    Module03View()
+    @Previewable @StateObject var appRouter = AppRouter()
+    @Previewable @State var startScreen: Screen? = .materialModule03
+    
+    NavigationStack(path: $appRouter.path) {
+        if let startScreen = startScreen {
+            appRouter.build(startScreen)
+                .navigationDestination(for: Screen.self) { screen in
+                    appRouter.build(screen)
+                }
+                .overlay {
+                    if let popup = appRouter.popup {
+                        ZStack {
+                            appRouter.build(popup)
+                        }
+                       
+                    }
+                }
+        }
+    }
 }

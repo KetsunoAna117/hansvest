@@ -8,11 +8,20 @@
 import Foundation
 
 protocol GetAvailableSimulationStocks {
-    func execute() -> [SimulationStockEntity]
+    func execute() -> [StockEntity]
 }
 
 struct GetAvailableSimulationStocksImpl: GetAvailableSimulationStocks {
-    func execute() -> [SimulationStockEntity] {
-        return SimulationStockEntity.getMockData()
+    let stockRepo: SimulationStockRepository
+    let productPriceRepo: ProductPriceRepository
+    
+    func execute() -> [StockEntity] {
+        let fetchedStock = stockRepo.fetchAll()
+        
+        return fetchedStock.map { stock in
+            let fetchedPrice = productPriceRepo.fetchAllWith(stockID: stock.stockIDName)
+            return stock.mapToEntity(productPriceSchema: fetchedPrice)
+        }
+
     }
 }

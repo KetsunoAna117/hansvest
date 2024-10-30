@@ -15,7 +15,7 @@ struct HanvestNewsButton: View {
     var initialState: HanvestNewsButtonState = .unpressed
     @State private var state: HanvestNewsButtonState = .unpressed
     
-    var news: SimulationNewsEntity
+    var news: StockNewsEntity
     var action: () -> ()
     
     var body: some View {
@@ -70,12 +70,12 @@ struct HanvestNewsButton: View {
     }
 }
 
-#Preview {
-    HanvestNewsButton(
-        news: SimulationNewsEntity.mock().first!,
-        action: {
-            print("News Pressed!")
-        }
-    )
-    .padding(.horizontal, 16)
-}
+//#Preview {
+//    HanvestNewsButton(
+//        news: StockNewsEntity.mock().first!,
+//        action: {
+//            print("News Pressed!")
+//        }
+//    )
+//    .padding(.horizontal, 16)
+//}

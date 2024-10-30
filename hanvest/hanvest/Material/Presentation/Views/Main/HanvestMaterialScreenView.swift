@@ -10,9 +10,12 @@ import SwiftUI
 struct HanvestMaterialScreenView: View {
     let router: any AppRouterProtocol
     
+    @StateObject private var viewmodel: ModuleJourneyViewModel = .init()
+    
     var body: some View {
         VStack {
-            ModuleJourneyView(router: router)
+            ModuleJourneyView(router: router, viewModel: viewmodel)
+            Divider()
         }
     }
 }
@@ -26,14 +29,6 @@ struct HanvestMaterialScreenView: View {
             appRouter.build(startScreen)
                 .navigationDestination(for: Screen.self) { screen in
                     appRouter.build(screen)
-                }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                       
-                    }
                 }
         }
     }

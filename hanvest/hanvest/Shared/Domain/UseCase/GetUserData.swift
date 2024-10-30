@@ -6,11 +6,30 @@
 //
 
 protocol GetUserData {
-    func execute() -> UserData
+    func execute() -> UserDataEntity?
 }
 
 struct GetUserDataImpl: GetUserData {
-    func execute() -> UserData {
-        return UserData.getMockupUserData()
+    let userRepo: UserRepository
+    let transactionRepo: StockTransactionQueueRepository
+    let investmentRepo: StockInvestmentRepository
+    
+    func execute() -> UserDataEntity? {
+        if let user = userRepo.fetch(){
+            let investmentData = user.userInvestmentTransactionID.compactMap({ investmentID in
+                return investmentRepo.fetchBy(investmentID: investmentID)
+            })
+            
+            let transactionQueue = user.transactionQueueID.compactMap({ transactionID in
+                 return transactionRepo.fetch(id: transactionID)
+            })
+            
+            return user.mapToEntity(
+                userInvestmentTransaction: investmentData,
+                transactionQueue: transactionQueue
+            )
+        }
+        
+        return nil
     }
 }

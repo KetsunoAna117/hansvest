@@ -18,16 +18,18 @@ struct HanvestPopup: View {
     var action: (() -> Void)? = nil
     
     var body: some View {
-        HanvestCardBackground{
-            VStack(spacing: 16){
-                VStack{
+        HanvestCardBackground {
+            VStack(spacing: 16) {
+                VStack {
                     if let title = title {
                         Text(title)
                             .font(.nunito(.title2, .bold))
+                            .multilineTextAlignment(.center)
                     }
                     
                     Text(description)
                         .font(.nunito(.subhead))
+                        .multilineTextAlignment(.center)
                 }
                 
                 if let action = action {
@@ -41,14 +43,15 @@ struct HanvestPopup: View {
                     )
                 }
             }
+            .padding(4)
         }
     }
 }
 
 #Preview {
     HanvestPopup(
-        title: "Title",
-        description: "Description Detail",
+        title: "Basic Investment",
+        description: "This module uses fun tree analogies to teach investing basics. Discover the importance of patience, care, and potential rewards.",
         action: {
             print("Let's go")
         }

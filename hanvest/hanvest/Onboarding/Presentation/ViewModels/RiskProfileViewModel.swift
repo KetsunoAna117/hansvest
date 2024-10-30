@@ -7,14 +7,57 @@
 
 import Foundation
 
-@Observable
-class RiskProfileViewModel {
-    var resultState: RiskProfileResultState = .conservative
-    var userSelectedAnswers = Array(repeating: "", count: RiskProfileQuestionsAndOptions.allCases.count)
+class RiskProfileViewModel: ObservableObject {
+    @Inject var calculateUserRiskProfile: CalculateUserRiskProfile
     
-    func calculateRiskProfile() -> RiskProfileResultState {
-        // add logic to calculate risk profile from the 'userSelectedAnswers' variable
-        
-        return .conservative
+    let progressBarMinValue: Int = 0
+    let progressBarMaxValue: Int = 100
+    
+    @Published var resultState: RiskProfileType = .conservative ///will be used for segmenting user based on risk profile
+    @Published var pageState: RiskProfilePageState = .pageOpening
+    @Published var currentTab: Int = 0
+    @Published var progressBarCurrValue: Int = 4
+    @Published var userSelectedAnswers = Array(repeating: "", count: RiskProfileQuestionsAndOptions.allCases.count)
+    
+    
+    func getUserRiskProfile() {
+        do {
+            let userRiskProfile = try calculateUserRiskProfile.execute(userSelectedAnswers)
+            
+            resultState = userRiskProfile
+        } catch {
+            debugPrint("Failed to get user risk profile: \(error.localizedDescription)")
+        }
+    }
+    
+    func goToNextPage(router: any AppRouterProtocol) {
+        if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
+            if !checkIsDisabled() {
+                currentTab += 1
+                updateProgressBarValue()
+                changePageState()
+            }
+        } else {
+            router.startScreen = .main
+            router.popToRoot()
+        }
+    }
+    
+    func changePageState() {
+        if currentTab < RiskProfilePageState.pageRiskResult.rawValue {
+            pageState = .pageQuestion
+        } else {
+            pageState = .pageRiskResult
+        }
+    }
+    
+    func updateProgressBarValue() {
+        if pageState == .pageQuestion {
+            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
+        }
+    }
+    
+    func checkIsDisabled() -> Bool {
+        return pageState == .pageQuestion && userSelectedAnswers[currentTab - 1].isEmpty
     }
 }

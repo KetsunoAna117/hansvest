@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestSimulationNewsScreenView: View {
     let router: any AppRouterProtocol
-    @StateObject private var viewmodel = HanvestNewsSimulationViewModel()
+    @StateObject private var viewmodel = LocalNewsSimulationViewModel()
     
     var body: some View {
         VStack {

@@ -11,6 +11,8 @@ import SwiftUI
 protocol AppRouterProtocol: ObservableObject {
     var path: NavigationPath { get set }
     var popup: Popup? { get set }
+    var notification: HanvestNotification? { get set }
+    var startScreen: Screen? { get set }
 
     func push(_ screen:  Screen)
     func pop()
@@ -18,4 +20,7 @@ protocol AppRouterProtocol: ObservableObject {
     
     func presentOverlay(_ popup: Popup)
     func dismissPopup()
+    
+    func presentNotification(_ notification: HanvestNotification)
+    func dismissNotification()
 }

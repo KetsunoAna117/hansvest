@@ -11,7 +11,7 @@ class UserDataCardViewModel: ObservableObject{
     @Inject var getUserData: GetUserData
     
     @Published var username: String
-    @Published var riskProfileStatus: RiskProfileResultState
+    @Published var riskProfileStatus: RiskProfileType
     @Published var todayEquity: Int
     @Published var yesterdayEquity: Int
     @Published var percentage: Int = 0
@@ -27,8 +27,10 @@ class UserDataCardViewModel: ObservableObject{
         todayEquity: Int = 0,
         yesterdayEquity: Int = 0
     ){
-        self.username = getUserData.execute().userName
-        self.riskProfileStatus = getUserData.execute().userRiskProfile
+        if let user = getUserData.execute() {
+            self.username = user.userName
+            self.riskProfileStatus = user.userRiskProfile
+        }
         self.todayEquity = todayEquity
         self.yesterdayEquity = yesterdayEquity
         calculateEquityPercentage()

@@ -10,7 +10,7 @@ import SwiftUI
 struct HanvestStockOptionList: View {
     @Binding var selectedStockID: String
     
-    var simulationStockList: [SimulationStockEntity]
+    var simulationStockList: [StockEntity]
     var onPressed: (_ selectedStockID: String) -> ()
     
     var body: some View {
@@ -20,13 +20,14 @@ struct HanvestStockOptionList: View {
                     ForEach(simulationStockList, id: \.stockIDName) { stock in
                         HanvestStockOption(
                             selectedStockID: $selectedStockID,
-                            initialState: self.selectedStockID == stock.stockIDName ? .selected : .unselected,
+                            state: self.selectedStockID == stock.stockIDName ? .selected : .unselected,
                             id: stock.stockIDName,
-                            imageName: stock.stockImageName
-                        ) {
-                            onPressed(self.selectedStockID)
+                            imageName: stock.stockImageName,
+                            action: {
+                                onPressed(self.selectedStockID)
                             }
-                            .padding(.bottom, 6)
+                        )
+                        .padding(.bottom, 6)
                     }
                 }
             }
@@ -36,14 +37,14 @@ struct HanvestStockOptionList: View {
     }
 }
 
-#Preview {
-    @Previewable @State var selectedStockID: String = "BBRI"
-    
-    HanvestStockOptionList(
-        selectedStockID: $selectedStockID,
-        simulationStockList: SimulationStockEntity.getMockData(),
-        onPressed: { data in
-            print("On Pressed \(data)")
-        }
-    )
-}
+//#Preview {
+//    @Previewable @State var selectedStockID: String = "BBRI"
+//
+//    HanvestStockOptionList(
+//        selectedStockID: $selectedStockID,
+//        simulationStockList: StockEntity.getMockData(),
+//        onPressed: { data in
+//            print("On Pressed \(data)")
+//        }
+//    )
+//}
