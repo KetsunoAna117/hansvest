@@ -10,7 +10,7 @@ import SwiftUI
 struct HanvestSimulationNewsDetailsScreenView: View {
     let router: any AppRouterProtocol
     
-    let news: SimulationNewsEntity
+    let news: StockNewsEntity
     
     var body: some View {
         VStack {
@@ -48,7 +48,7 @@ struct HanvestSimulationNewsDetailsScreenView: View {
 
 //#Preview {
 //    @Previewable @StateObject var appRouter = AppRouter()
-//    @Previewable @State var startScreen: Screen? = .newsDetails(news: SimulationNewsEntity.mock().first!)
+//    @Previewable @State var startScreen: Screen? = .newsDetails(news: StockNewsEntity.mock().first!)
 //    
 //    NavigationStack(path: $appRouter.path) {
 //        if let startScreen = startScreen {

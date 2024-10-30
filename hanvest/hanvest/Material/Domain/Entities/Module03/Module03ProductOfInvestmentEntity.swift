@@ -1,5 +1,5 @@
 //
-//  Module01SimulationStockEntity.swift
+//  Module01StockEntity.swift
 //  hanvest
 //
 //  Created by Bryan Vernanda on 17/10/24.

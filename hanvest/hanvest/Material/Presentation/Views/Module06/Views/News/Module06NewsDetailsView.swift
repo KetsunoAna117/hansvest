@@ -10,7 +10,7 @@ import SwiftUI
 struct Module06NewsDetailsView: View {
     let moduleRouter: any Module06RouterProtocol
     
-    let news: SimulationNewsEntity
+    let news: StockNewsEntity
     
     var body: some View {
         VStack {

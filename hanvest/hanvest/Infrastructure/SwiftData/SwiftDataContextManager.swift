@@ -32,10 +32,11 @@ public class SwiftDataContextManager {
     private func setupSchema() -> Schema {
         return Schema([
             UserSchema.self,
-            StockTransactionSchema.self,
-            SimulationNewsSchema.self,
+            StockTransactionQueueSchema.self,
+            StockNewsSchema.self,
             ProductPriceSchema.self,
-            SimulationStockSchema.self,
+            StockSchema.self,
+            StockInvestmentSchema.self
         ])
     }
 }
@@ -49,13 +50,13 @@ private extension SwiftDataContextManager {
         }
     }
     
-    func saveStockTransactionData(stockTransaction: StockTransactionSchema){
+    func saveStockTransactionData(stockTransaction: StockTransactionQueueSchema){
         if let context {
             context.insert(stockTransaction)
         }
     }
     
-    func saveNewsData(news: SimulationNewsSchema) {
+    func saveNewsData(news: StockNewsSchema) {
         if let context {
             context.insert(news)
         }
@@ -67,81 +68,101 @@ private extension SwiftDataContextManager {
         }
     }
     
-    func saveSimulationStockData(stockSimulation: SimulationStockSchema) {
+    func saveSimulationStockData(stockSimulation: StockSchema) {
         if let context {
             context.insert(stockSimulation)
         }
     }
     
+    func saveStockInvestmentData(investment: StockInvestmentSchema) {
+        if let context {
+            context.insert(investment)
+        }
+    }
+    
     // FETCH
-    func fetchUserSchema() -> UserSchema? {
+    func fetchUserSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<UserSchema>()
-                let userSchema = try context.fetch(descriptor)
-                return userSchema.first
+                let userSchema = try context.fetchCount(descriptor)
+                return userSchema
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                fatalError("Error Fetch Data: \(error)")
             }
         }
-        return nil
+        return 0
     }
     
-    func fetchTransactionSchema() -> [StockTransactionSchema] {
+    func fetchTransactionSchema() -> Int {
         if let context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionSchema>()
-                let result = try context.fetch(descriptor)
+                let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchNewsSchema() -> [SimulationNewsSchema] {
+    func fetchNewsSchema() -> Int {
         if let context {
             do {
-                let descriptor = FetchDescriptor<SimulationNewsSchema>()
-                let result = try context.fetch(descriptor)
+                let descriptor = FetchDescriptor<StockNewsSchema>()
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchProductPriceSchema() -> [ProductPriceSchema] {
+    func fetchProductPriceSchema() -> Int {
         if let context {
             do {
                 let descriptor = FetchDescriptor<ProductPriceSchema>()
-                let result = try context.fetch(descriptor)
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
     }
     
-    func fetchSimulationStockSchema() -> [SimulationStockSchema] {
+    func fetchSimulationStockSchema() -> Int {
         if let context {
             do {
-                let descriptor = FetchDescriptor<SimulationStockSchema>()
-                let result = try context.fetch(descriptor)
+                let descriptor = FetchDescriptor<StockSchema>()
+                let result = try context.fetchCount(descriptor)
                 return result
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                fatalError("Error Fetch Data: \(error)")
             }
         }
-        return []
+        return 0
+    }
+    
+    func fetchStockInvestmentSchema() -> Int {
+        if let context {
+            do {
+                let descriptor = FetchDescriptor<StockInvestmentSchema>()
+                let result = try context.fetchCount(descriptor)
+                return result
+            }
+            catch {
+                fatalError("Error Fetch Data: \(error)")
+            }
+        }
+        return 0
     }
 }
 
@@ -149,7 +170,7 @@ private extension SwiftDataContextManager {
 private extension SwiftDataContextManager {
     func prepopulateUserData(){
         let userSchemaData = fetchUserSchema()
-        if userSchemaData == nil {
+        if userSchemaData <= 0 {
             let result = getMockUserSchemaData()
             saveUserData(userDataSchema: result)
         }
@@ -160,32 +181,40 @@ private extension SwiftDataContextManager {
         let newsSchemaData = fetchNewsSchema()
         let productPriceSchemaData = fetchProductPriceSchema()
         let simulationStockSchemaData = fetchSimulationStockSchema()
+        let userInvestmentData = fetchStockInvestmentSchema()
         
-        if transactionSchemaData.count <= 0 {
+        if transactionSchemaData <= 0 {
             let result = getMockTransactionSchemaData()
             for data in result {
                 saveStockTransactionData(stockTransaction: data)
             }
         }
         
-        if newsSchemaData.count <= 0 {
+        if newsSchemaData <= 0 {
             let result = getMockNewsSchemaData()
             for data in result {
                 saveNewsData(news: data)
             }
         }
         
-        if productPriceSchemaData.count <= 0 {
+        if productPriceSchemaData <= 0 {
             let result = getMockProductPriceSchemaData()
             for data in result {
                 saveProductPriceData(productPrice: data)
             }
         }
         
-        if simulationStockSchemaData.count <= 0 {
+        if simulationStockSchemaData <= 0 {
             let result = getMockSimulationStockSchemaData()
             for data in result {
                 saveSimulationStockData(stockSimulation: data)
+            }
+        }
+        
+        if userInvestmentData <= 0 {
+            let result = getMockInvestmentData()
+            for data in result {
+                saveStockInvestmentData(investment: data)
             }
         }
     }
@@ -194,7 +223,7 @@ private extension SwiftDataContextManager {
         return  UserSchema(
             userId: UUID().uuidString,
             userName: "Bryon",
-            userBalance: 100000,
+            userBalance: 100000000,
             userRiskProfile: .conservative,
             userInvestmentTransactionID: [
                 "transaction-01",
@@ -208,30 +237,30 @@ private extension SwiftDataContextManager {
         )
     }
     
-    func getMockTransactionSchemaData() -> [StockTransactionSchema] {
+    func getMockTransactionSchemaData() -> [StockTransactionQueueSchema] {
         return [
-            StockTransactionSchema(
+            StockTransactionQueueSchema(
                 transactionID: "transaction-01",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-40 * 60)
             ),
-            StockTransactionSchema(
+            StockTransactionQueueSchema(
                 transactionID: "transaction-02",
                 stockIDName: "BBRI",
                 priceAtPurchase: 5100,
                 stockLotQuantity: 2,
                 time: Date.now.addingTimeInterval(-30 * 60)
             ),
-            StockTransactionSchema(
+            StockTransactionQueueSchema(
                 transactionID: "transaction-03",
                 stockIDName: "BBCA",
                 priceAtPurchase: 7000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-20 * 60)
             ),
-            StockTransactionSchema(
+            StockTransactionQueueSchema(
                 transactionID: "transaction-04",
                 stockIDName: "GOTO",
                 priceAtPurchase: 50,
@@ -241,7 +270,7 @@ private extension SwiftDataContextManager {
         ]
     }
     
-    func getMockNewsSchemaData() -> [SimulationNewsSchema] {
+    func getMockNewsSchemaData() -> [StockNewsSchema] {
         return [
             .init(
                 newsID: UUID().uuidString,
@@ -306,7 +335,7 @@ private extension SwiftDataContextManager {
         ]
     }
     
-    func getMockSimulationStockSchemaData() -> [SimulationStockSchema] {
+    func getMockSimulationStockSchemaData() -> [StockSchema] {
         return [
             .init(
                 stockIDName: "BBRI",
@@ -358,4 +387,7 @@ private extension SwiftDataContextManager {
         ]
     }
 
+    func getMockInvestmentData() -> [StockInvestmentSchema] {
+        return []
+    }
 }

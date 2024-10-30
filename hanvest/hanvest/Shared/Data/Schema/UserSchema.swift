@@ -63,15 +63,15 @@ import SwiftData
     }
     
     func mapToEntity(
-        userInvestmentTransaction: [StockTransactionSchema],
-        transactionQueue: [StockTransactionSchema]
+        userInvestmentTransaction: [StockInvestmentSchema],
+        transactionQueue: [StockTransactionQueueSchema]
     ) -> UserDataEntity {
         return UserDataEntity(
             userId: self.userId,
             userName: self.userName,
             userBalance: self.userBalance,
             userRiskProfile: self.userRiskProfile,
-            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
+            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() },
             transactionQueue: transactionQueue.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
             moduleCompletionList: self.moduleCompletionIDList
         )

@@ -8,14 +8,14 @@
 import Foundation
 
 protocol GetAvailableSimulationStocks {
-    func execute() -> [SimulationStockEntity]
+    func execute() -> [StockEntity]
 }
 
 struct GetAvailableSimulationStocksImpl: GetAvailableSimulationStocks {
     let stockRepo: SimulationStockRepository
     let productPriceRepo: ProductPriceRepository
     
-    func execute() -> [SimulationStockEntity] {
+    func execute() -> [StockEntity] {
         let fetchedStock = stockRepo.fetchAll()
         
         return fetchedStock.map { stock in

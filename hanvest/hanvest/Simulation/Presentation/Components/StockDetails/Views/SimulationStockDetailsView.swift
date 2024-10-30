@@ -31,7 +31,7 @@ struct SimulationStockDetailsView: View {
                             symbolCategoryKeyPath: \.name,
                             displayBy: .hour
                         )
-                        StockInvestmentData(
+                        StockInvestmentDataView(
                             userData: userData,
                             selectedStock: selectedStock
                         )

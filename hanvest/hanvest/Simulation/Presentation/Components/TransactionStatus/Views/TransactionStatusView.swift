@@ -11,12 +11,14 @@ struct TransactionStatusView: View {
     let router: any AppRouterProtocol
     let transaction: TransactionStatusViewModel
     
+    @State var transactionStatusSuccess: Bool = false
+    
     var body: some View {
         ZStack {
             VStack {
-                TransactionStatusLogo()
+                TransactionStatusLogo(transactionStatusSuccess: $transactionStatusSuccess)
                 VStack {
-                    Text("Order Placed!")
+                    Text(transactionStatusSuccess ? "Transaction Success!" : "Transaction Failed!")
                         .font(.nunito(.title1, .bold))
                     Text("\(transaction.lotAmount) lot of \(transaction.selectedStockIDName) at price \(transaction.stockPrice) \(transaction.transactionType.description)")
                 }
@@ -27,17 +29,26 @@ struct TransactionStatusView: View {
             HanvestButtonDefault(
                 title: "Back To Market",
                 action: {
-                    transaction.executeTransaction(appRouter: router)
+                    if transactionStatusSuccess {
+                        router.popToRoot()
+                    }
+                    else {
+                        self.transactionStatusSuccess = transaction.executeTransaction()
+                    }
                 }
             )
             .padding(.horizontal, 20)
             .padding(.bottom, 48)
             .frame(maxHeight: .infinity, alignment: .bottom)
         }
+        .onAppear() {
+            self.transactionStatusSuccess = transaction.executeTransaction()
+        }
     }
 }
 
 private struct TransactionStatusLogo: View {
+    @Binding var transactionStatusSuccess: Bool
     @State private var isAnimating = false
 
     var body: some View {
@@ -56,9 +67,9 @@ private struct TransactionStatusLogo: View {
             // Inner circle with checkmark
             ZStack(alignment: .center) {
                 Circle()
-                    .fill(Color.blizzardBlue400)
+                    .fill(transactionStatusSuccess ? Color.blizzardBlue400 : Color.sundown400)
                     .frame(width: 250, height: 250)
-                Image(systemName: "checkmark")
+                Image(systemName: transactionStatusSuccess ? "checkmark" : "xmark")
                     .resizable()
                     .foregroundStyle(Color.mineShaft50)
                     .frame(width: 100, height: 100)
