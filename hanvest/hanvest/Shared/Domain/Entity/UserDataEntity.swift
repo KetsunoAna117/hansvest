@@ -12,7 +12,7 @@ struct UserDataEntity {
     var userName: String
     var userBalance: Int
     var userRiskProfile: RiskProfileType
-    var userInvestmentTransaction: [StockTransactionQueueEntity]
+    var userInvestmentTransaction: [StockInvestmentEntity]
     var transactionQueue: [StockTransactionQueueEntity]
     var moduleCompletionList: [CompletionEntityType]
 }
@@ -24,7 +24,7 @@ extension UserDataEntity {
             userName: self.userName,
             userBalance: self.userBalance,
             userRiskProfile: self.userRiskProfile,
-            userInvestmentTransactionID: self.userInvestmentTransaction.map { $0.transactionID },
+            userInvestmentTransactionID: self.userInvestmentTransaction.map { $0.investmentID },
             transactionQueueID: self.transactionQueue.map { $0.transactionID },
             moduleCompletionIDList: self.moduleCompletionList
         )

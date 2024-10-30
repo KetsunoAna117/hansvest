@@ -9,7 +9,7 @@ import SwiftUI
 
 class SellingStockDataViewModel: ObservableObject{
     // Dependency Injection
-    @Inject var getPurchasedLot: GetUserTransaction
+    @Inject var getPurchasedLot: GetUserInvestmentData
     
     var selectedStockIDName: String
     var stockSellFee: Int

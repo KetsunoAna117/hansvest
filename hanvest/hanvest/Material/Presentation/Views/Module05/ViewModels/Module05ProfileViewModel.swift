@@ -22,10 +22,17 @@ class Module05ProfileViewModel: ObservableObject {
         )
     }
     
-    func addUserInvestmentTransaction(transaction: StockTransactionQueueEntity){
+    func addUserInvestmentTransaction(transaction: StockInvestmentEntity){
         if userData != nil {
-            userData?.userInvestmentTransaction.append(transaction)
-            userData?.userBalance -= transaction.stockLotQuantity * transaction.priceAtPurchase
+            if let index = userData?.userInvestmentTransaction.firstIndex(where: { $0.stockIDName == transaction.stockIDName }) {
+                userData?.userInvestmentTransaction[index].totalInvested += transaction.totalInvested
+                userData?.userInvestmentTransaction[index].lotPurchased += transaction.lotPurchased
+            }
+            else {
+                userData?.userInvestmentTransaction.append(transaction)
+            }
+            
+            userData?.userBalance -= transaction.totalInvested
         }
     }
 }
