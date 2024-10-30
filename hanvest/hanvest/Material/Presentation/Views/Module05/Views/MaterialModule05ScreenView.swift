@@ -76,11 +76,7 @@ struct MaterialModule05ScreenView: View {
             }
         }
         .modifier(ShowCaseRoot(showHighlights: true, stage: .mainStage, onFinished: { value in
-//            if changeShowState == .show {
-//                isNavigate = !value
-//            } else {
-//                isNavigate = value
-//            }
+            print("onboarding finished")
         }))
     }
 }

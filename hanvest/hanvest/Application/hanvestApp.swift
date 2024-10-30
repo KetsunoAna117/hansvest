@@ -27,13 +27,6 @@ struct hanvestApp: App {
                         .navigationDestination(for: Screen.self) { screen in
                             appRouter.build(screen)
                         }
-                        .task {
-                            try? Tips.resetDatastore() // for debugging
-                            try? Tips.configure([
-                                .displayFrequency(.immediate),
-                                .datastoreLocation(.applicationDefault)
-                            ])
-                        }
                 }
                 else {
                     Text("ERROR: View is not routed anywhere!")

@@ -9,7 +9,15 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    func showCase(order: Int, title: String, detail: String, cornerRadius: CGFloat, style: RoundedCornerStyle, scale: CGFloat = 1, stage: HighlightComponentStage) -> some View {
+    func showCase(
+        order: Int,
+        title: String,
+        detail: String,
+        cornerRadius: CGFloat = 10,
+        style: RoundedCornerStyle = .continuous,
+        scale: CGFloat = 1,
+        stage: HighlightComponentStage
+    ) -> some View {
         self
         /// storing it in Anchor Preference
             .anchorPreference(key: HighlightAnchorKey.self, value: .bounds) { anchor in
@@ -31,6 +39,7 @@ struct ShowCaseRoot: ViewModifier {
     @State private var showView: Bool = true
     /// popover
     @State private var showTitle: Bool = true
+    @State private var positionUpOrDown: Bool = true
     /// Namespace ID, for smooth shape transitions
     
     @Namespace private var animation
@@ -65,6 +74,7 @@ struct ShowCaseRoot: ViewModifier {
          GeometryReader { proxy in
              let highlightRect = proxy[highlight.anchor]
              let safeArea = proxy.safeAreaInsets
+             let screenHeight = UIScreen.main.bounds.height
              
              Rectangle()
                  .fill(.black.opacity(0.5))
@@ -98,21 +108,35 @@ struct ShowCaseRoot: ViewModifier {
              
              Rectangle()
                  .foregroundColor(.clear)
-                 /// Adding border
-                 /// Simply extend its size
                  .frame(width: highlightRect.width + 20, height: highlightRect.height + 20)
                  .clipShape(RoundedRectangle(cornerRadius: highlight.cornerRadius, style: highlight.style))
-                 .popover(isPresented: $showTitle, content: {
-                     VStack(spacing: 8) {
+                 .popover(
+                     isPresented: $showTitle,
+                     attachmentAnchor: .point(positionUpOrDown ? .bottom : .top),
+                     arrowEdge: positionUpOrDown ? .top : .bottom
+                 ) {
+                     VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
+                             .font(.nunito(.body, .bold))
                          
                          Text(highlight.detail)
+                             .font(.nunito(.subhead))
+                             .foregroundStyle(.labelSecondary)
+                             .lineLimit(nil)
+                             .fixedSize(horizontal: false, vertical: true)
                      }
-                     .padding(.horizontal, 10)
+                     .padding(16)
+                     .frame(maxWidth: 277, alignment: .leading)
+                     .multilineTextAlignment(.leading)
                      .presentationCompactAdaptation(.popover)
-                 })
+                 }
                  .scaleEffect(highlight.scale)
                  .offset(x: highlightRect.minX - 10, y: highlightRect.minY - 10)
+                 .onChange(of: showTitle) { _, newValue in
+                     if newValue {
+                         positionUpOrDown = highlightRect.midY < screenHeight / 2
+                     }
+                 }
          }
     }
 }

@@ -80,7 +80,7 @@ enum Module05TipData: CaseIterable {
             case .yourEquity:
                 return "It's your equity in this stock."
             case .profitLoss:
-                return "The amount you gain or lose from this stock based on the price you bought it at."
+                return "Your gain or loss on this stock depends on the purchase price."
             case .companyProfile:
                 return "You can analyze their company with their profile."
             case .buyButton:

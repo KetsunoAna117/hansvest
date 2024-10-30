@@ -13,7 +13,7 @@ struct Highlight: Identifiable, Equatable, Hashable {
     var title: String
     var detail: String
     var cornerRadius: CGFloat
-    var style: RoundedCornerStyle = .continuous
-    var scale: CGFloat = 1
+    var style: RoundedCornerStyle
+    var scale: CGFloat
     var stage: HighlightComponentStage
 }

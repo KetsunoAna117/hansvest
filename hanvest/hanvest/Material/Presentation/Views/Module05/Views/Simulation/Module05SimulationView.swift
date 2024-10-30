@@ -25,6 +25,12 @@ struct Module05SimulationView: View {
                             
                         }
                     )
+                    .showCase(
+                        order: Module05TipData.stocks.index,
+                        title: Module05TipData.stocks.title,
+                        detail: Module05TipData.stocks.detail,
+                        stage: .mainStage
+                    )
                     
                     Divider()
                     
@@ -88,6 +94,12 @@ struct Module05SimulationView: View {
                                         )
                                     )
                                 }
+                                .showCase(
+                                    order: Module05TipData.sellButton.index,
+                                    title: Module05TipData.sellButton.title,
+                                    detail: Module05TipData.sellButton.detail,
+                                    stage: .mainStage
+                                )
                             HanvestButtonDefault(
                                 size: .medium,
                                 style: .filledCorrect(
@@ -101,6 +113,12 @@ struct Module05SimulationView: View {
                                         )
                                     )
                                 }
+                                .showCase(
+                                    order: Module05TipData.buyButton.index,
+                                    title: Module05TipData.buyButton.title,
+                                    detail: Module05TipData.buyButton.detail,
+                                    stage: .mainStage
+                                )
                         }
                     }
                     .padding(.horizontal, 20)
