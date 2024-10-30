@@ -274,6 +274,19 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
             }
+            
+        case .withGlossaryPopup(let title, let desc, let buttonAction):
+            ZStack{
+                Color.black.opacity(0.7).ignoresSafeArea()
+                    .onTapGesture {
+                        buttonAction()
+                        self.dismissPopup()
+                    }
+                
+                HanvestPopup(title: title, description: desc)
+                    .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingMain)
+                
+            }
         }
     }
     
