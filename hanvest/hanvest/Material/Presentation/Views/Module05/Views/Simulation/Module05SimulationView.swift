@@ -103,11 +103,12 @@ struct Module05SimulationView: View {
                                 }
                         }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 13)
                     
-
+                    Divider()
+                }
             }
-
         }
     }
     
