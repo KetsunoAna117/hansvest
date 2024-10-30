@@ -17,98 +17,102 @@ struct Module05SimulationView: View {
     var body: some View {
         ZStack {
             VStack {
-                VStack {
-                    HanvestStockOptionList(
-                        selectedStockID: $simulationViewModel.selectedStockID,
-                        simulationStockList: simulationViewModel.stockList,
-                        onPressed: { data in
-                            
+                    VStack {
+                        HanvestStockOptionList(
+                            selectedStockID: $simulationViewModel.selectedStockID,
+                            simulationStockList: simulationViewModel.stockList,
+                            onPressed: { data in
+                                
+                            }
+                        )
+                        
+                        Divider()
+                        
+                        // Stock Detail
+                        ScrollView {
+                            VStack(spacing: 24) {
+                                if let selectedStock = simulationViewModel.selectedStock {
+                                    VStack(spacing: 16) {
+                                        StockHeaderInformationView(
+                                            stockCodeName: selectedStock.stockIDName,
+                                            stockName: selectedStock.stockName,
+                                            initialPrice: $simulationViewModel.displayActiveStockInitialPrice,
+                                            currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
+                                        )
+                                        
+                                        HanvestStockPriceChart(
+                                            viewmodel: HanvestProductPriceChartViewModel(
+                                                prices: selectedStock.stockPrice),
+                                            symbolCategoryKeyPath: \.name,
+                                            displayBy: .hour
+                                        )
+                                        
+                                        if let userData = profileViewModel.userData {
+                                            StockInvestmentData(
+                                                userData: userData,
+                                                selectedStock: selectedStock
+                                            )
+                                        }
+                                        
+                                        StockCompanyProfileInformation(desc: selectedStock.stockDescription)
+                                        
+                                    }
+                                }
+                                else {
+                                    Text("No Stock selected")
+                                        .font(.nunito(.title2, .bold))
+                                }
+                                
+                            }
+                            .padding(.horizontal, 20)
                         }
-                    )
-                    
-                    Divider()
-                    
-                    // Stock Detail
-                    ScrollView {
-                        VStack(spacing: 24) {
-                            if let selectedStock = simulationViewModel.selectedStock {
-                                VStack(spacing: 16) {
-                                    StockHeaderInformationView(
-                                        stockCodeName: selectedStock.stockIDName,
-                                        stockName: selectedStock.stockName,
-                                        initialPrice: $simulationViewModel.displayActiveStockInitialPrice,
-                                        currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
-                                    )
-                                    
-                                    HanvestStockPriceChart(
-                                        viewmodel: HanvestProductPriceChartViewModel(
-                                            prices: selectedStock.stockPrice),
-                                        symbolCategoryKeyPath: \.name,
-                                        displayBy: .hour
-                                    )
-                                    
-                                    if let userData = profileViewModel.userData {
-                                        StockInvestmentData(
-                                            userData: userData,
-                                            selectedStock: selectedStock
+                        .padding(.top, 12)
+                        
+                        Divider()
+                            .padding(.top, -6)
+                        
+                        // Button
+                        VStack {
+                            HStack(spacing: 12) {
+                                HanvestButtonDefault(
+                                    size: .medium,
+                                    style: .filledIncorrect(
+                                        isDisabled:
+                                            simulationViewModel.currentStage == .sellStage(appRouter: appRouter) ? false : true
+                                    ),
+                                    title: "Sell") {
+                                        moduleRouter.push(
+                                            .confirmSell(
+                                                profileViewModel: profileViewModel,
+                                                simulationViewModel: simulationViewModel
+                                            )
                                         )
                                     }
-                                    
-                                    StockCompanyProfileInformation(desc: selectedStock.stockDescription)
-                                    
-                                }
+                                HanvestButtonDefault(
+                                    size: .medium,
+                                    style: .filledCorrect(
+                                        isDisabled: simulationViewModel.currentStage == .buyStage(appRouter: appRouter) ? false : true
+                                    ),
+                                    title: "Buy") {
+                                        moduleRouter.push(
+                                            .confirmBuy(
+                                                profileViewModel: profileViewModel,
+                                                simulationViewModel: simulationViewModel
+                                            )
+                                        )
+                                    }
                             }
-                            else {
-                                Text("No Stock selected")
-                                    .font(.nunito(.title2, .bold))
-                            }
-                            
                         }
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 13)
+                        
+                        Divider()
                     }
-                    .padding(.top, 12)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     
-                    Divider()
-                        .padding(.top, -6)
-                    
-                    // Button
-                    VStack {
-                        HStack(spacing: 12) {
-                            HanvestButtonDefault(
-                                size: .medium,
-                                style: .filledIncorrect(
-                                    isDisabled:
-                                        simulationViewModel.currentStage == .sellStage(appRouter: appRouter) ? false : true
-                                ),
-                                title: "Sell") {
-                                    moduleRouter.push(
-                                        .confirmSell(
-                                            profileViewModel: profileViewModel,
-                                            simulationViewModel: simulationViewModel
-                                        )
-                                    )
-                                }
-                            HanvestButtonDefault(
-                                size: .medium,
-                                style: .filledCorrect(
-                                    isDisabled: simulationViewModel.currentStage == .buyStage(appRouter: appRouter) ? false : true
-                                ),
-                                title: "Buy") {
-                                    moduleRouter.push(
-                                        .confirmBuy(
-                                            profileViewModel: profileViewModel,
-                                            simulationViewModel: simulationViewModel
-                                        )
-                                    )
-                                }
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 13)
-                    
-                    Divider()
-                }
+
             }
+
         }
     }
     

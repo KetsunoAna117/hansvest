@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-//struct Highlight: Identifiable, Equatable, Hashable {
-//    var id: UUID = .init()
-//    var anchor: Anchor<CGRect>
-//    var title: String
-//    var cornerRadius: CGFloat
-//    var style: RoundedCornerStyle = .continuous
-//    var scale: CGFloat = 1
-//}
+struct Highlight: Identifiable, Equatable, Hashable {
+    var id: UUID = .init()
+    var anchor: Anchor<CGRect>
+    var title: String
+    var detail: String
+    var cornerRadius: CGFloat
+    var style: RoundedCornerStyle = .continuous
+    var scale: CGFloat = 1
+    var stage: HighlightComponentStage
+}

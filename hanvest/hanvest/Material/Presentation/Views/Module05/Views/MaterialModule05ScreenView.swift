@@ -17,44 +17,47 @@ struct MaterialModule05ScreenView: View {
     @StateObject private var contentRouter = Module05Router()
     @StateObject private var simulationViewModel = Module05SimulationViewModel()
     @StateObject private var profileViewModel = Module05ProfileViewModel()
+    @State private var viewLoaded = false
     
     var body: some View {
-        VStack {
-            ProgressBarWithXMarkView(
-                progressBarMinValue: MIN_PROGRESS,
-                progressBarMaxValue: MAX_PROGRESS,
-                action: {
-                    appRouter.popToRoot()
-                },
-                progressBarCurrValue: $contentRouter.progress
-            )
-            .padding(.horizontal, 20)
-            
+        GeometryReader { _ in
             VStack {
-                if let content = contentRouter.content.last {
-                    contentRouter.build(content)
+                ProgressBarWithXMarkView(
+                    progressBarMinValue: MIN_PROGRESS,
+                    progressBarMaxValue: MAX_PROGRESS,
+                    action: {
+                        appRouter.popToRoot()
+                    },
+                    progressBarCurrValue: $contentRouter.progress
+                )
+                .padding(.horizontal, 20)
+                
+                VStack {
+                    if let content = contentRouter.content.last {
+                        contentRouter.build(content)
+                    }
                 }
-            }
-            .onAppear(){
-                if contentRouter.content.count <= 0 {
-                    contentRouter.content.append(
-                        .buyStage(
-                            appRouter: appRouter,
-                            profileViewModel: profileViewModel,
-                            simulationViewModel: simulationViewModel
+                .onAppear(){
+                    if contentRouter.content.count <= 0 {
+                        contentRouter.content.append(
+                            .buyStage(
+                                appRouter: appRouter,
+                                profileViewModel: profileViewModel,
+                                simulationViewModel: simulationViewModel
+                            )
                         )
-                    )
+                    }
+                    
+                    if simulationViewModel.stockList.count <= 0 {
+                        simulationViewModel.setup()
+                    }
+                    
+                    if profileViewModel.userData == nil {
+                        profileViewModel.setup()
+                    }
                 }
                 
-                if simulationViewModel.stockList.count <= 0 {
-                    simulationViewModel.setup()
-                }
-                
-                if profileViewModel.userData == nil {
-                    profileViewModel.setup()
-                }
             }
-            
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .onAppear(){
@@ -71,6 +74,25 @@ struct MaterialModule05ScreenView: View {
                 .transition(.opacity) // You can use other transitions like .scale, .move, etc.
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
+        }
+        .modifier(ShowCaseRoot(showHighlights: true, stage: .mainStage, onFinished: { value in
+//            if changeShowState == .show {
+//                isNavigate = !value
+//            } else {
+//                isNavigate = value
+//            }
+        }))
+    }
+}
+
+extension View {
+    /// A custom view modifier that conditionally applies a modifier if a condition is met.
+    @ViewBuilder
+    func modifierIf<Content: ViewModifier>(_ condition: Bool, modifier: () -> Content) -> some View {
+        if condition {
+            self.modifier(modifier())
+        } else {
+            self
         }
     }
 }
