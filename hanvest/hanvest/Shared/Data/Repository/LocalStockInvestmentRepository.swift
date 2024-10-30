@@ -41,12 +41,14 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
     
     func save(investment: StockInvestmentSchema) throws {
         if let context = modelContext {
+            let investmentID: String = investment.investmentID
+            
             let descriptor = FetchDescriptor<StockInvestmentSchema>(
-                predicate: #Predicate{ $0.investmentID == investment.investmentID }
+                predicate: #Predicate { $0.investmentID == investmentID }
             )
             
             // Update to new data if any
-            if var stockInvestment = try context.fetch(descriptor).first {
+            if let stockInvestment = try context.fetch(descriptor).first {
                 stockInvestment.update(newStockInvestmentSchema: investment)
             }
             // Save to SwiftData if not found
@@ -64,7 +66,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 predicate: #Predicate{ $0.investmentID == investmentID }
             )
             
-            guard var result = try context.fetch(descriptor).first else {
+            guard let result = try context.fetch(descriptor).first else {
                 throw SwiftDataError.notFound
             }
             
@@ -79,7 +81,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 predicate: #Predicate{ $0.investmentID == investmentID }
             )
             
-            guard var result = try context.fetch(descriptor).first else {
+            guard let result = try context.fetch(descriptor).first else {
                 throw SwiftDataError.notFound
             }
             
@@ -94,7 +96,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 predicate: #Predicate{ $0.investmentID == investmentID }
             )
             
-            guard var result = try context.fetch(descriptor).first else {
+            guard let result = try context.fetch(descriptor).first else {
                 throw SwiftDataError.notFound
             }
             
@@ -109,7 +111,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 predicate: #Predicate{ $0.investmentID == investmentID }
             )
             
-            guard var result = try context.fetch(descriptor).first else {
+            guard let result = try context.fetch(descriptor).first else {
                 throw SwiftDataError.notFound
             }
             

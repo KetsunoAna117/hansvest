@@ -58,8 +58,10 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
     
     func save(_ transaction: StockTransactionQueueSchema) throws {
         if let context = modelContext {
+            let transactionID: String = transaction.transactionID
+            
             let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionID == transaction.transactionID }
+                predicate: #Predicate { $0.transactionID == transactionID }
             )
             
             if try context.fetch(descriptor).first != nil {
