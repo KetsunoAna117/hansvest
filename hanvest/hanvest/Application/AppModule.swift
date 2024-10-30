@@ -16,6 +16,7 @@ struct AppModule {
         let simulationStockRepository: SimulationStockRepository = LocalSimulationStockRepository(modelContext: modelContext)
         let productPriceRepository: ProductPriceRepository = LocalProductPriceRepository(modelContext: modelContext)
         let stockTransactionRepository: StockTransactionQueueRepository = LocalStockTransactionQueueRepository(modelContext: modelContext)
+        let stockInvestmentRepository: StockInvestmentRepository = LocalStockInvestmentRepository(modelContext: modelContext)
         
         // MARK: - USE Case
         
@@ -37,19 +38,20 @@ struct AppModule {
         )
         @Provider var purchaseStock: PurchaseStocks = PurchaseStocksImpl(
             userRepo: userRepository,
-            stockTransactionRepository: stockTransactionRepository
+            investmentRepo: stockInvestmentRepository
         )
         
         // User
         @Provider var calculateUserRiskProfile: CalculateUserRiskProfile = CalculateUserRiskProfileImpl()
         @Provider var getUserData: GetUserData = GetUserDataImpl(
             userRepo: userRepository,
-            transactionRepo: stockTransactionRepository
+            transactionRepo: stockTransactionRepository,
+            investmentRepo: stockInvestmentRepository
         )
         @Provider var saveUserData: SaveUserData = SaveUserDataImpl(
             userRepo: userRepository
         )
-        @Provider var getUserTransaction: GetUserInvestmentData = GetUserInvestmentDataImpl()
+        @Provider var getUserInvestment: GetUserInvestmentData = GetUserInvestmentDataImpl()
         
         // Simulation and Material
         @Provider var saveUserModuleProgress: SaveUserModuleProgress = SaveUserModuleProgressImpl(

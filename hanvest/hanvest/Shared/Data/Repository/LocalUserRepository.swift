@@ -108,14 +108,11 @@ struct LocalUserRepository: UserRepository {
                 throw SwiftDataError.notFound
             }
             
-            if fetchedUserSchema.userInvestmentTransactionID.contains(investment.investmentID) {
-                throw SwiftDataError.alreadyExists
-            }
-            else {
+            // Append to investment if id is not registered
+            if fetchedUserSchema.userInvestmentTransactionID.contains(investment.investmentID) == false {
                 fetchedUserSchema.userInvestmentTransactionID.append(investment.investmentID)
             }
         }
     }
-    
     
 }

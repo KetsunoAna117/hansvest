@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StockInvestmentData: View {
+struct StockInvestmentDataView: View {
     var userData: UserDataEntity
     var selectedStock: StockEntity
     

@@ -29,13 +29,13 @@ struct TransactionStatusViewModel {
         guard let user = getUserData.execute() else { return }
         let result = purchaseStock.execute(
             userId: user.userId,
-            transaction: StockTransactionQueueEntity(
-                transactionID: UUID().uuidString,
-                stockIDName: self.selectedStockIDName,
-                priceAtPurchase: self.stockPrice,
-                stockLotQuantity: self.lotAmount,
-                time: Date.now
-            )
+            investment:
+                StockInvestmentEntity(
+                    investmentID: UUID().uuidString,
+                    stockIDName: self.selectedStockIDName,
+                    totalInvested: self.lotAmount * self.stockPrice * 100,
+                    lotPurchased: self.lotAmount
+                )
         )
         
         switch result {

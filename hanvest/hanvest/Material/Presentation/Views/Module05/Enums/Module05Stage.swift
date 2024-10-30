@@ -30,13 +30,13 @@ enum Module05Stage: Equatable {
             )
             simulationViewModel.currentStage = .sellStage(appRouter: appRouter)
             profileViewModel.addUserInvestmentTransaction(
-                transaction: StockTransactionQueueEntity(
-                    transactionID: UUID().uuidString,
-                    stockIDName: transaction.selectedStockIDName,
-                    priceAtPurchase: transaction.stockPrice,
-                    stockLotQuantity: transaction.lotAmount,
-                    time: Date.now
-                )
+                transaction:
+                    StockInvestmentEntity(
+                        investmentID: UUID().uuidString,
+                        stockIDName: transaction.selectedStockIDName,
+                        totalInvested: transaction.stockPrice * transaction.lotAmount * 100,
+                        lotPurchased: transaction.lotAmount
+                    )
             )
             
             simulationViewModel.appendNewStockPrice()

@@ -20,7 +20,7 @@ class Module06ProfileViewModel: ObservableObject {
                 .init(
                     investmentID: "investment-01",
                     stockIDName: "GOTO",
-                    totalInvested: 9000,
+                    totalInvested: 9 * 1000 * 100,
                     lotPurchased: 9
                 )
             ],

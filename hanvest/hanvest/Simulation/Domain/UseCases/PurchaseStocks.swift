@@ -8,20 +8,40 @@
 import Foundation
 
 protocol PurchaseStocks {
-    func execute(userId: String, transaction: StockTransactionQueueEntity) -> Result<Bool, Error>
+    func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, Error>
 }
 
 struct PurchaseStocksImpl: PurchaseStocks {
     let userRepo: UserRepository
-    let stockTransactionRepository: StockTransactionQueueRepository
+    let investmentRepo: StockInvestmentRepository
     
-    func execute(userId: String, transaction: StockTransactionQueueEntity) -> Result<Bool, any Error> {
+    func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, any Error> {
         do {
-            let price = transaction.stockLotQuantity * transaction.priceAtPurchase * 100
+            // Fetch User Data
+            guard let userData = userRepo.fetch() else {
+                return .failure(SwiftDataError.notFound)
+            }
             
-            try userRepo.substract(balance: price)
-            try userRepo.add(transaction: transaction.mapToSchema())
-            try stockTransactionRepository.save(transaction.mapToSchema())
+            let investmentSchema = investment.mapToSchema()
+            
+            // Fetch Investment Data from User
+            let investmentData = userData.userInvestmentTransactionID.compactMap({ investmentID in
+                investmentRepo.fetchBy(investmentID: investmentID)
+            })
+            
+            if let investment = investmentData.first(where: { $0.stockIDName == investmentSchema.stockIDName }) {
+                // If stockID already registered, update the value
+                try investmentRepo.add(investment: investment)
+            }
+            else {
+                // If no stockID registered from user investment, register it
+                try userRepo.add(investment: investmentSchema)
+                try investmentRepo.add(investment: investmentSchema)
+            }
+            
+            // Substract User Balance from Invested Data
+            try userRepo.substract(balance: investment.totalInvested)
+            
             return .success(true)
         }
         catch {

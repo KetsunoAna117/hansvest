@@ -12,6 +12,7 @@ enum Popup: Identifiable, Hashable, Equatable {
     case withHanvestPopup(title: String?, desc: String, dismissAction: () -> Void)
     case withBuyConfirmationPopup(viewmodel: BuyingStockDataViewModel, confirmAction: () -> (), cancelAction: () -> ())
     case withSellConfirmationPopup(viewmodel: SellingStockDataViewModel, confirmAction: () -> (), cancelAction: () -> ())
+    case withGlossaryPopup(title: String, desc: String, buttonAction: () -> Void)
     
     var id: Self { return self }
 }
@@ -28,7 +29,10 @@ extension Popup {
             hasher.combine(self.hashValue)
         case .withSellConfirmationPopup:
             hasher.combine(self.hashValue)
+        case .withGlossaryPopup:
+            hasher.combine(self.hashValue)
         }
+    
     }
     
     // Conform to Equatable
@@ -37,7 +41,8 @@ extension Popup {
         case (.withHanvestPopup, .withHanvestPopup),
             (.withBuyConfirmationPopup, .withBuyConfirmationPopup),
             (.withSellConfirmationPopup, .withSellConfirmationPopup),
-            (.withHanvestPopupButton, .withHanvestPopupButton):
+            (.withHanvestPopupButton, .withHanvestPopupButton),
+            (.withGlossaryPopup, .withGlossaryPopup):
             return true
         default:
             return false

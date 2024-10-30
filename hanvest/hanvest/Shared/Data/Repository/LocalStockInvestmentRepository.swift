@@ -39,7 +39,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
         return nil
     }
     
-    func save(investment: StockInvestmentSchema) throws {
+    func add(investment: StockInvestmentSchema) throws {
         if let context = modelContext {
             let investmentID: String = investment.investmentID
             
@@ -47,9 +47,9 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 predicate: #Predicate { $0.investmentID == investmentID }
             )
             
-            // Update to new data if any
+            // Update and add new data if any
             if let stockInvestment = try context.fetch(descriptor).first {
-                stockInvestment.update(newStockInvestmentSchema: investment)
+                stockInvestment.add(data: investment)
             }
             // Save to SwiftData if not found
             else {
@@ -60,62 +60,23 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
         }
     }
     
-    func add(to investmentID: String, lot: Int) throws {
+    func substract(investment: StockInvestmentSchema) throws {
         if let context = modelContext {
+            let investmentID: String = investment.investmentID
+            
             let descriptor = FetchDescriptor<StockInvestmentSchema>(
-                predicate: #Predicate{ $0.investmentID == investmentID }
+                predicate: #Predicate { $0.investmentID == investmentID }
             )
             
-            guard let result = try context.fetch(descriptor).first else {
+            // Update and substract from new data if any
+            if let stockInvestment = try context.fetch(descriptor).first {
+                stockInvestment.substract(from: investment)
+            }
+            // Save to SwiftData if not found
+            else {
                 throw SwiftDataError.notFound
             }
             
-            result.add(lotPurchased: lot)
-            try context.save()
-        }
-    }
-    
-    func add(to investmentID: String, totalInvested: Int) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<StockInvestmentSchema>(
-                predicate: #Predicate{ $0.investmentID == investmentID }
-            )
-            
-            guard let result = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            result.add(totalInvested: totalInvested)
-            try context.save()
-        }
-    }
-    
-    func substract(from investmentID: String, lot: Int) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<StockInvestmentSchema>(
-                predicate: #Predicate{ $0.investmentID == investmentID }
-            )
-            
-            guard let result = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            result.substract(lotPurchased: lot)
-            try context.save()
-        }
-    }
-    
-    func substract(from investmentID: String, totalInvested: Int) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<StockInvestmentSchema>(
-                predicate: #Predicate{ $0.investmentID == investmentID }
-            )
-            
-            guard let result = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            result.substract(totalInvested: totalInvested)
             try context.save()
         }
     }
