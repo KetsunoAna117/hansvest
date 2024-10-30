@@ -30,16 +30,20 @@ struct SearchView: View {
                         
                         ForEach(searchViewModel.recentSearches, id: \.word) { entity in
                             HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                                //                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                                glossaryViewModel.selectEntity(selectedEntity)
                             }
                         }
                     } else {
                         ForEach(searchViewModel.filteredResults, id: \.word) { entity in
                             HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                                glossaryViewModel.selectEntity(selectedEntity)
                                 searchViewModel.addToRecentSearches(selectedEntity)
                             }
+                            
                         }
+                        
+                        
                     }
                 }
                 .padding()
@@ -47,6 +51,19 @@ struct SearchView: View {
         }
         .onAppear() {
             searchViewModel.setup(viewModel: glossaryViewModel)
+        }
+        .onChange(of: glossaryViewModel.selectedEntity) { oldEntity, newEntity in
+            if let entity = newEntity {
+                router.presentOverlay(
+                    .withGlossaryPopup(
+                        title: entity.word,
+                        desc: entity.description,
+                        buttonAction: {
+                            glossaryViewModel.clearSelection()
+                        }
+                    )
+                )
+            }
         }
     }
 }
@@ -61,14 +78,14 @@ struct SearchView: View {
                 .navigationDestination(for: Screen.self) { screen in
                     appRouter.build(screen)
                 }
-                .overlay {
-                    if let popup = appRouter.popup {
-                        ZStack {
-                            appRouter.build(popup)
-                        }
-                        
-                    }
-                }
+        }
+    }
+    .overlay {
+        if let popup = appRouter.popup {
+            ZStack {
+                appRouter.build(popup)
+            }
+            
         }
     }
 }
