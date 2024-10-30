@@ -283,16 +283,8 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                         self.dismissPopup()
                     }
                 
-                HanvestCardBackground{
-                    VStack{
-                        Text(title)
-                            .font(.nunito(.title2, .bold))
-                        Text(desc)
-                            .font(.nunito(.subhead))
-                    }
-                    .padding(.vertical)
-                }
-                .padding(.horizontal, 41)
+                HanvestPopup(title: title, description: desc)
+                    .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingMain)
                 
             }
         }
