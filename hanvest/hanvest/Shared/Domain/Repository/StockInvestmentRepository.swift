@@ -10,6 +10,7 @@ import Foundation
 protocol StockInvestmentRepository {
     func fetch() -> [StockInvestmentSchema]
     func fetchBy(investmentID: String) -> StockInvestmentSchema?
-    func add(investment: StockInvestmentSchema) throws
-    func substract(investment: StockInvestmentSchema) throws
+    func save(investment: StockInvestmentSchema) throws
+    func add(investmentID: String, with investment: StockInvestmentSchema) throws
+    func substract(investmentID: String, with investment: StockInvestmentSchema) throws
 }

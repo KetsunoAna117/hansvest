@@ -40,6 +40,10 @@ struct AppModule {
             userRepo: userRepository,
             investmentRepo: stockInvestmentRepository
         )
+        @Provider var sellStock: SellStocks = SellStocksImpl(
+            userRepo: userRepository,
+            investmentRepo: stockInvestmentRepository
+        )
         
         // User
         @Provider var calculateUserRiskProfile: CalculateUserRiskProfile = CalculateUserRiskProfileImpl()

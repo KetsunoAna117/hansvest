@@ -39,10 +39,28 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
         return nil
     }
     
-    func add(investment: StockInvestmentSchema) throws {
+    func save(investment: StockInvestmentSchema) throws {
         if let context = modelContext {
-            let investmentID: String = investment.investmentID
+            let investmentID = investment.investmentID
             
+            let descriptor = FetchDescriptor<StockInvestmentSchema>(
+                predicate: #Predicate { $0.investmentID == investmentID }
+            )
+            
+            // Save if not found
+            if try context.fetch(descriptor).first == nil {
+                context.insert(investment)
+            }
+            else {
+                throw SwiftDataError.alreadyExists
+            }
+            
+            try context.save()
+        }
+    }
+    
+    func add(investmentID: String, with investment: StockInvestmentSchema) throws {
+        if let context = modelContext {
             let descriptor = FetchDescriptor<StockInvestmentSchema>(
                 predicate: #Predicate { $0.investmentID == investmentID }
             )
@@ -51,19 +69,16 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
             if let stockInvestment = try context.fetch(descriptor).first {
                 stockInvestment.add(data: investment)
             }
-            // Save to SwiftData if not found
             else {
-                context.insert(investment)
+                throw SwiftDataError.notFound
             }
             
             try context.save()
         }
     }
     
-    func substract(investment: StockInvestmentSchema) throws {
+    func substract(investmentID: String, with investment: StockInvestmentSchema) throws {
         if let context = modelContext {
-            let investmentID: String = investment.investmentID
-            
             let descriptor = FetchDescriptor<StockInvestmentSchema>(
                 predicate: #Predicate { $0.investmentID == investmentID }
             )
@@ -72,7 +87,6 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
             if let stockInvestment = try context.fetch(descriptor).first {
                 stockInvestment.substract(from: investment)
             }
-            // Save to SwiftData if not found
             else {
                 throw SwiftDataError.notFound
             }

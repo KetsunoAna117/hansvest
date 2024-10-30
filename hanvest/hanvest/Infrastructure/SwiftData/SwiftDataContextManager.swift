@@ -223,7 +223,7 @@ private extension SwiftDataContextManager {
         return  UserSchema(
             userId: UUID().uuidString,
             userName: "Bryon",
-            userBalance: 100000,
+            userBalance: 100000000,
             userRiskProfile: .conservative,
             userInvestmentTransactionID: [
                 "transaction-01",

@@ -9,6 +9,7 @@ import Foundation
 
 struct TransactionStatusViewModel {
     @Inject var purchaseStock: PurchaseStocks
+    @Inject var sellStock: SellStocks
     @Inject var getUserData: GetUserData
     
     var lotAmount: Int
@@ -16,17 +17,17 @@ struct TransactionStatusViewModel {
     var selectedStockIDName: String
     var transactionType: TransactionType
     
-    func executeTransaction(appRouter: any AppRouterProtocol){
+    func executeTransaction() -> Bool {
         switch self.transactionType {
         case .buy:
-            self.buyStock(appRouter: appRouter)
+            return buyStockAction()
         case .sell:
-            break
+            return sellStockAction()
         }
     }
     
-    func buyStock(appRouter: any AppRouterProtocol){
-        guard let user = getUserData.execute() else { return }
+    func buyStockAction() -> Bool {
+        guard let user = getUserData.execute() else { return false }
         let result = purchaseStock.execute(
             userId: user.userId,
             investment:
@@ -41,10 +42,37 @@ struct TransactionStatusViewModel {
         switch result {
         case .success(let success):
             if success {
-                appRouter.popToRoot()
+                return true
             }
         case .failure(let failure):
-            print("[ERROR]: Failure with error: \(failure)")
+            print("[ERROR]: Failure Buy Stock with error: \(failure)")
         }
+        
+        return false
+    }
+    
+    func sellStockAction() -> Bool {
+        guard let user = getUserData.execute() else { return false }
+        let result = sellStock.execute(
+            userId: user.userId,
+            investment:
+                StockInvestmentEntity(
+                    investmentID: UUID().uuidString,
+                    stockIDName: self.selectedStockIDName,
+                    totalInvested: self.lotAmount * self.stockPrice * 100,
+                    lotPurchased: self.lotAmount
+                )
+        )
+        
+        switch result {
+        case .success(let success):
+            if success {
+                return true
+            }
+        case .failure(let failure):
+            print("[ERROR]: Failure Sell Stock with error: \(failure)")
+        }
+        
+        return false
     }
 }

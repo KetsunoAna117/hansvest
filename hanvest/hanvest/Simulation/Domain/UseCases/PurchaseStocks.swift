@@ -31,12 +31,15 @@ struct PurchaseStocksImpl: PurchaseStocks {
             
             if let investment = investmentData.first(where: { $0.stockIDName == investmentSchema.stockIDName }) {
                 // If stockID already registered, update the value
-                try investmentRepo.add(investment: investment)
+                try investmentRepo.add(
+                    investmentID: investment.investmentID,
+                    with: investmentSchema
+                )
             }
             else {
                 // If no stockID registered from user investment, register it
                 try userRepo.add(investment: investmentSchema)
-                try investmentRepo.add(investment: investmentSchema)
+                try investmentRepo.save(investment: investmentSchema)
             }
             
             // Substract User Balance from Invested Data
