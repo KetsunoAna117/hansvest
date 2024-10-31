@@ -80,18 +80,6 @@ struct MaterialModule05ScreenView: View {
     }
 }
 
-extension View {
-    /// A custom view modifier that conditionally applies a modifier if a condition is met.
-    @ViewBuilder
-    func modifierIf<Content: ViewModifier>(_ condition: Bool, modifier: () -> Content) -> some View {
-        if condition {
-            self.modifier(modifier())
-        } else {
-            self
-        }
-    }
-}
-
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
     @Previewable @State var startScreen: Screen? = .materialModule05
