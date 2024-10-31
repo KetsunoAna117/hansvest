@@ -17,48 +17,44 @@ struct MaterialModule05ScreenView: View {
     @StateObject private var contentRouter = Module05Router()
     @StateObject private var simulationViewModel = Module05SimulationViewModel()
     @StateObject private var profileViewModel = Module05ProfileViewModel()
-    @StateObject private var highlightViewModel = HighlightViewModel()
     
     var body: some View {
-        GeometryReader { _ in
+        VStack {
+            ProgressBarWithXMarkView(
+                progressBarMinValue: MIN_PROGRESS,
+                progressBarMaxValue: MAX_PROGRESS,
+                action: {
+                    appRouter.popToRoot()
+                },
+                progressBarCurrValue: $contentRouter.progress
+            )
+            .padding(.horizontal, 20)
+            
             VStack {
-                ProgressBarWithXMarkView(
-                    progressBarMinValue: MIN_PROGRESS,
-                    progressBarMaxValue: MAX_PROGRESS,
-                    action: {
-                        appRouter.popToRoot()
-                    },
-                    progressBarCurrValue: $contentRouter.progress
-                )
-                .padding(.horizontal, 20)
-                
-                VStack {
-                    if let content = contentRouter.content.last {
-                        contentRouter.build(content)
-                    }
+                if let content = contentRouter.content.last {
+                    contentRouter.build(content)
                 }
-                .onAppear(){
-                    if contentRouter.content.count <= 0 {
-                        contentRouter.content.append(
-                            .buyStage(
-                                appRouter: appRouter,
-                                profileViewModel: profileViewModel,
-                                simulationViewModel: simulationViewModel,
-                                highlightViewModel: highlightViewModel
-                            )
-                        )
-                    }
-                    
-                    if simulationViewModel.stockList.count <= 0 {
-                        simulationViewModel.setup()
-                    }
-                    
-                    if profileViewModel.userData == nil {
-                        profileViewModel.setup()
-                    }
-                }
-                
             }
+            .onAppear {
+                if contentRouter.content.count <= 0 {
+                    contentRouter.content.append(
+                        .buyStage(
+                            appRouter: appRouter,
+                            profileViewModel: profileViewModel,
+                            simulationViewModel: simulationViewModel
+                        )
+                    )
+                }
+                
+                if simulationViewModel.stockList.count <= 0 {
+                    simulationViewModel.setup()
+                }
+                
+                if profileViewModel.userData == nil {
+                    profileViewModel.setup()
+                }
+            }
+            
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .onAppear(){
@@ -76,7 +72,9 @@ struct MaterialModule05ScreenView: View {
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
         }
-        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifier(HighlightHelperView(onValueChange: { value in
+            simulationViewModel.currentHighlight = value
+        }))
     }
 }
 

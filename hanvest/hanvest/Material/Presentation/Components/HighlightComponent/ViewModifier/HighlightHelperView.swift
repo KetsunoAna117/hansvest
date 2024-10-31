@@ -30,7 +30,7 @@ extension View {
 /// showcase root view modifier
 struct HighlightHelperView: ViewModifier {
     /// view model
-    @ObservedObject var viewModel: HighlightViewModel
+    @StateObject var viewModel = HighlightViewModel()
     
     /// Namespace ID, for smooth shape transitions (must be attached to view directly)
     @Namespace private var animation
