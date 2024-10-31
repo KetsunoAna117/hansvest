@@ -10,6 +10,7 @@ import SwiftUI
 struct HanvestNumberStepper: View {
     @Binding var value: Int
     var raise: Int
+    var stage: String
     
     @StateObject var viewModel = HanvestNumberStepperViewModel()
     
@@ -42,7 +43,7 @@ struct HanvestNumberStepper: View {
                     order: Module05TipData.lot.index,
                     title: Module05TipData.lot.title,
                     detail: Module05TipData.lot.detail,
-                    stage: Module05HighlightStage.buyStage.stringValue
+                    stage: stage
                 )
             
             Button {
@@ -72,7 +73,7 @@ struct HanvestNumberStepper: View {
     let raise = 25
     
     VStack {
-        HanvestNumberStepper(value: $value, raise: raise)
+        HanvestNumberStepper(value: $value, raise: raise, stage: "main-stage")
             .padding()
     }
     .background(.mineShaft50)

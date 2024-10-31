@@ -85,7 +85,11 @@ struct SimulationBuyingCard: View {
                     
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: lotRaise)
+                    HanvestNumberStepper(
+                        value: $viewModel.stockBuyLot,
+                        raise: lotRaise,
+                        stage: Module05HighlightStage.buyStage.stringValue
+                    )
                 }
             }
             .onChange(of: currentPrice) { oldValue, newValue in

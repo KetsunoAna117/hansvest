@@ -111,6 +111,8 @@ struct Module05SimulationView: View {
                                             simulationViewModel: simulationViewModel
                                         )
                                     )
+                                    
+                                    simulationViewModel.currentHighlightStage = .sellStage
                                 }
                                 .showCase(
                                     order: Module05TipData.sellButton.index,

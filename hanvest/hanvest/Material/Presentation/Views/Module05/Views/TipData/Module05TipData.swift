@@ -20,11 +20,11 @@ enum Module05TipData: CaseIterable {
     case tradingBalance
     case amountBuy
     case priceBuy
-    case lot
     case sellButton
     case yourAmountOfStock
     case amountSell
     case priceSell
+    case lot
     
     var index: Int {
         return Module05TipData.allCases.firstIndex(of: self) ?? 0
@@ -56,12 +56,12 @@ enum Module05TipData: CaseIterable {
                 return "Amount"
             case .priceBuy, .priceSell:
                 return "Price"
-            case .lot:
-                return "Lot"
             case .sellButton:
                 return "Sell Button"
             case .yourAmountOfStock:
                 return "Your Amount Of Stock"
+            case .lot:
+                return "Lot"
         }
     }
     
@@ -91,8 +91,6 @@ enum Module05TipData: CaseIterable {
                 return "The total amount you want to buy."
             case .priceBuy:
                 return "This is the cost of each share you want to buy."
-            case .lot:
-                return "1 lot = 100 shares"
             case .sellButton:
                 return "Press to sell stock."
             case .yourAmountOfStock:
@@ -101,6 +99,8 @@ enum Module05TipData: CaseIterable {
                 return "The total amount that you will get from the sales."
             case .priceSell:
                 return "The cost of each share you want to sell."
+            case .lot:
+                return "1 lot = 100 shares"
         }
     }
 }
