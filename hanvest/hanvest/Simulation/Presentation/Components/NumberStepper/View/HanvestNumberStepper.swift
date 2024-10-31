@@ -42,7 +42,7 @@ struct HanvestNumberStepper: View {
                     order: Module05TipData.lot.index,
                     title: Module05TipData.lot.title,
                     detail: Module05TipData.lot.detail,
-                    stage: .buyStage
+                    stage: Module05HighlightStage.buyStage.stringValue
                 )
             
             Button {

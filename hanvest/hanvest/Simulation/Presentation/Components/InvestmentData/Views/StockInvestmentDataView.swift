@@ -28,7 +28,7 @@ struct StockInvestmentDataView: View {
                         order: Module05TipData.yourInvestment.index,
                         title: Module05TipData.yourInvestment.title,
                         detail: Module05TipData.yourInvestment.detail,
-                        stage: .mainStage
+                        stage: Module05HighlightStage.mainStage.stringValue
                     )
                     
                     Rectangle()
@@ -47,7 +47,7 @@ struct StockInvestmentDataView: View {
                         order: Module05TipData.yourEquity.index,
                         title: Module05TipData.yourEquity.title,
                         detail: Module05TipData.yourEquity.detail,
-                        stage: .mainStage
+                        stage: Module05HighlightStage.mainStage.stringValue
                     )
                     
                 }
@@ -69,7 +69,7 @@ struct StockInvestmentDataView: View {
                         order: Module05TipData.profitLoss.index,
                         title: Module05TipData.profitLoss.title,
                         detail: Module05TipData.profitLoss.detail,
-                        stage: .mainStage
+                        stage: Module05HighlightStage.mainStage.stringValue
                     )
                 }
                 .background(

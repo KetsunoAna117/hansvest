@@ -29,7 +29,7 @@ struct Module05SimulationView: View {
                         order: Module05TipData.stocks.index,
                         title: Module05TipData.stocks.title,
                         detail: Module05TipData.stocks.detail,
-                        stage: .mainStage
+                        stage: Module05HighlightStage.mainStage.stringValue
                     )
                     
                     Divider()
@@ -68,7 +68,7 @@ struct Module05SimulationView: View {
                                                 order: Module05TipData.companyProfile.index,
                                                 title: Module05TipData.companyProfile.title,
                                                 detail: Module05TipData.companyProfile.detail,
-                                                stage: .mainStage
+                                                stage: Module05HighlightStage.mainStage.stringValue
                                             )
                                             .id(Module05TipData.companyProfile.index)
                                         
@@ -116,7 +116,7 @@ struct Module05SimulationView: View {
                                     order: Module05TipData.sellButton.index,
                                     title: Module05TipData.sellButton.title,
                                     detail: Module05TipData.sellButton.detail,
-                                    stage: .mainStage
+                                    stage: Module05HighlightStage.mainStage.stringValue
                                 )
                             HanvestButtonDefault(
                                 size: .medium,
@@ -130,12 +130,14 @@ struct Module05SimulationView: View {
                                             simulationViewModel: simulationViewModel
                                         )
                                     )
+                                    
+                                    simulationViewModel.currentHighlightStage = .buyStage
                                 }
                                 .showCase(
                                     order: Module05TipData.buyButton.index,
                                     title: Module05TipData.buyButton.title,
                                     detail: Module05TipData.buyButton.detail,
-                                    stage: .mainStage
+                                    stage: Module05HighlightStage.mainStage.stringValue
                                 )
                         }
                     }

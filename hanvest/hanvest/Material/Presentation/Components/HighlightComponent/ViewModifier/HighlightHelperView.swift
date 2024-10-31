@@ -16,7 +16,7 @@ extension View {
         cornerRadius: CGFloat = 10,
         style: RoundedCornerStyle = .continuous,
         scale: CGFloat = 1,
-        stage: HighlightComponentStage
+        stage: String
     ) -> some View {
         self
         /// storing it in Anchor Preference
@@ -30,7 +30,7 @@ extension View {
 /// showcase root view modifier
 struct HighlightHelperView: ViewModifier {
     /// view model
-    @StateObject var viewModel = HighlightViewModel()
+    @ObservedObject var viewModel: HighlightViewModel
     
     /// Namespace ID, for smooth shape transitions (must be attached to view directly)
     @Namespace private var animation
@@ -80,23 +80,13 @@ struct HighlightHelperView: ViewModifier {
                  .ignoresSafeArea()
                  .onChange(of: viewModel.showTitle) { _, newValue in
                      if newValue {
-                         viewModel.positionUpOrDown = highlightRect.midY < screenHeight / 2
+                         viewModel.setNewPopUpPosition(midYPosition: highlightRect.midY, screenHeight: screenHeight)
                      } else {
-                         if viewModel.currentHighlight >= viewModel.highlightOrder.count - 1 {
-                             withAnimation(.easeInOut(duration: 0.25)) {
-                                 viewModel.showView = false
-                             }
-                             viewModel.resetCurrectHighlightValue()
-                         } else {
-                             withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.7, blendDuration: 0.7)) {
-                                 viewModel.currentHighlight += 1
-                             }
-                             
-                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                 viewModel.showTitle = true
-                             }
+                         viewModel.updateCurrentHighlight()
+                         
+                         if let onValueChange = onValueChange {
+                             onValueChange(viewModel.currentHighlight)
                          }
-                         onValueChange!(viewModel.currentHighlight)
                      }
                  }
              

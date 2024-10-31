@@ -15,5 +15,5 @@ struct Highlight: Identifiable, Equatable, Hashable {
     var cornerRadius: CGFloat
     var style: RoundedCornerStyle
     var scale: CGFloat
-    var stage: HighlightComponentStage
+    var stage: String
 }

@@ -8,8 +8,14 @@
 import Foundation
 
 class Module05SimulationViewModel: HanvestSimulationViewModel {
-    @Published var currentHighlight: Int = 0
+    @Published var currentHighlight: Int
+    @Published var currentHighlightStage: Module05HighlightStage
     @Published var currentStage: Module05Stage?
+    
+    init() {
+        self.currentHighlight = 0
+        self.currentHighlightStage = .mainStage
+    }
  
     override func setup(){
         self.stockList = self.prepareStockData()

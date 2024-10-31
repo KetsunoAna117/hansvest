@@ -25,7 +25,7 @@ struct StockHeaderInformationView: View {
                                 order: Module05TipData.stocksName.index,
                                 title: Module05TipData.stocksName.title,
                                 detail: Module05TipData.stocksName.detail,
-                                stage: .mainStage
+                                stage: Module05HighlightStage.mainStage.stringValue
                             )
                         Text(stockName)
                             .font(.nunito(.caption1))
@@ -41,7 +41,7 @@ struct StockHeaderInformationView: View {
                                 order: Module05TipData.stocksPrice.index,
                                 title: Module05TipData.stocksPrice.title,
                                 detail: Module05TipData.stocksPrice.detail,
-                                stage: .mainStage
+                                stage: Module05HighlightStage.mainStage.stringValue
                             )
                         HanvestProfitLossLabelView(
                             initialValue: $initialPrice,
@@ -51,7 +51,7 @@ struct StockHeaderInformationView: View {
                             order: Module05TipData.gainLoss.index,
                             title: Module05TipData.gainLoss.title,
                             detail: Module05TipData.gainLoss.detail,
-                            stage: .mainStage
+                            stage: Module05HighlightStage.mainStage.stringValue
                         )
                     }
                 }

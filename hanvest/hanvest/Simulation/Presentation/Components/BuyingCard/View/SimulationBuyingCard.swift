@@ -32,7 +32,7 @@ struct SimulationBuyingCard: View {
                             order: Module05TipData.tradingBalance.index,
                             title: Module05TipData.tradingBalance.title,
                             detail: Module05TipData.tradingBalance.detail,
-                            stage: .buyStage
+                            stage: Module05HighlightStage.buyStage.stringValue
                         )
                 }
                 
@@ -60,7 +60,7 @@ struct SimulationBuyingCard: View {
                             order: Module05TipData.amountBuy.index,
                             title: Module05TipData.amountBuy.title,
                             detail: Module05TipData.amountBuy.detail,
-                            stage: .buyStage
+                            stage: Module05HighlightStage.buyStage.stringValue
                         )
                 }
                 
@@ -75,7 +75,7 @@ struct SimulationBuyingCard: View {
                             order: Module05TipData.priceBuy.index,
                             title: Module05TipData.priceBuy.title,
                             detail: Module05TipData.priceBuy.detail,
-                            stage: .buyStage
+                            stage: Module05HighlightStage.buyStage.stringValue
                         )
                 }
                 
