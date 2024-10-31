@@ -23,12 +23,13 @@ struct StockInvestmentDataView: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userStockInvestment))
                             .font(.nunito(.subhead, .bold))
                     }
-//                    .showCase(
-//                        order: Module05TipData.yourInvestment.index,
-//                        title: Module05TipData.yourInvestment.title,
-//                        detail: Module05TipData.yourInvestment.detail,
-//                        stage: .mainStage
-//                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .showCase(
+                        order: Module05TipData.yourInvestment.index,
+                        title: Module05TipData.yourInvestment.title,
+                        detail: Module05TipData.yourInvestment.detail,
+                        stage: .mainStage
+                    )
                     
                     Rectangle()
                         .foregroundStyle(.tertiary)
@@ -41,12 +42,13 @@ struct StockInvestmentDataView: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userTotalEquity))
                             .font(.nunito(.subhead, .bold))
                     }
-//                    .showCase(
-//                        order: Module05TipData.yourEquity.index,
-//                        title: Module05TipData.yourEquity.title,
-//                        detail: Module05TipData.yourEquity.detail,
-//                        stage: .mainStage
-//                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .showCase(
+                        order: Module05TipData.yourEquity.index,
+                        title: Module05TipData.yourEquity.title,
+                        detail: Module05TipData.yourEquity.detail,
+                        stage: .mainStage
+                    )
                     
                 }
                 .padding(.horizontal, 10)
@@ -63,12 +65,12 @@ struct StockInvestmentDataView: View {
                     }
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
-//                    .showCase(
-//                        order: Module05TipData.profitLoss.index,
-//                        title: Module05TipData.profitLoss.title,
-//                        detail: Module05TipData.profitLoss.detail,
-//                        stage: .mainStage
-//                    )
+                    .showCase(
+                        order: Module05TipData.profitLoss.index,
+                        title: Module05TipData.profitLoss.title,
+                        detail: Module05TipData.profitLoss.detail,
+                        stage: .mainStage
+                    )
                 }
                 .background(
                     Rectangle()

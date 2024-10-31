@@ -35,44 +35,62 @@ struct Module05SimulationView: View {
                     Divider()
                     
                     // Stock Detail
-                    ScrollView {
-                        VStack(spacing: 24) {
-                            if let selectedStock = simulationViewModel.selectedStock {
-                                VStack(spacing: 16) {
-                                    StockHeaderInformationView(
-                                        stockCodeName: selectedStock.stockIDName,
-                                        stockName: selectedStock.stockName,
-                                        initialPrice: $simulationViewModel.displayActiveStockInitialPrice,
-                                        currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
-                                    )
-                                    
-                                    HanvestStockPriceChart(
-                                        viewmodel: HanvestProductPriceChartViewModel(
-                                            prices: selectedStock.stockPrice),
-                                        symbolCategoryKeyPath: \.name,
-                                        displayBy: .hour
-                                    )
-                                    
-                                    if let userData = profileViewModel.userData {
-                                        StockInvestmentDataView(
-                                            userData: userData,
-                                            selectedStock: selectedStock
+                    ScrollViewReader { scrollView in
+                        ScrollView {
+                            VStack(spacing: 24) {
+                                if let selectedStock = simulationViewModel.selectedStock {
+                                    VStack(spacing: 16) {
+                                        StockHeaderInformationView(
+                                            stockCodeName: selectedStock.stockIDName,
+                                            stockName: selectedStock.stockName,
+                                            initialPrice: $simulationViewModel.displayActiveStockInitialPrice,
+                                            currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                                         )
+                                        .id(Module05TipData.stocks.index)
+                                        
+                                        HanvestStockPriceChart(
+                                            viewmodel: HanvestProductPriceChartViewModel(
+                                                prices: selectedStock.stockPrice),
+                                            symbolCategoryKeyPath: \.name,
+                                            displayBy: .hour
+                                        )
+                                        
+                                        if let userData = profileViewModel.userData {
+                                            StockInvestmentDataView(
+                                                userData: userData,
+                                                selectedStock: selectedStock
+                                            )
+                                            .id(Module05TipData.yourInvestment.index)
+                                        }
+                                        
+                                        StockCompanyProfileInformation(desc: selectedStock.stockDescription)
+                                            .showCase(
+                                                order: Module05TipData.companyProfile.index,
+                                                title: Module05TipData.companyProfile.title,
+                                                detail: Module05TipData.companyProfile.detail,
+                                                stage: .mainStage
+                                            )
+                                            .id(Module05TipData.companyProfile.index)
+                                        
                                     }
-                                    
-                                    StockCompanyProfileInformation(desc: selectedStock.stockDescription)
-                                    
+                                }
+                                else {
+                                    Text("No Stock selected")
+                                        .font(.nunito(.title2, .bold))
+                                }
+                                
+                            }
+                            .padding(.horizontal, 20)
+                        }
+                        .padding(.top, 12)
+                        .onChange(of: simulationViewModel.currentHighlight) { _, newValue in
+                            if simulationViewModel.checkForCurrentHighlightValue(newValue) {
+                                withAnimation {
+                                    scrollView.scrollTo(newValue, anchor: .top)
                                 }
                             }
-                            else {
-                                Text("No Stock selected")
-                                    .font(.nunito(.title2, .bold))
-                            }
-                            
                         }
-                        .padding(.horizontal, 20)
                     }
-                    .padding(.top, 12)
                     
                     Divider()
                         .padding(.top, -6)

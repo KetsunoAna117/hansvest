@@ -17,7 +17,6 @@ struct MaterialModule05ScreenView: View {
     @StateObject private var contentRouter = Module05Router()
     @StateObject private var simulationViewModel = Module05SimulationViewModel()
     @StateObject private var profileViewModel = Module05ProfileViewModel()
-    @State private var viewLoaded = false
     
     var body: some View {
         GeometryReader { _ in
@@ -75,8 +74,8 @@ struct MaterialModule05ScreenView: View {
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
         }
-        .modifier(ShowCaseRoot(showHighlights: true, stage: .mainStage, onFinished: { value in
-            print("onboarding finished")
+        .modifier(HighlightHelperView(onValueChange: { value in
+            simulationViewModel.currentHighlight = value
         }))
     }
 }

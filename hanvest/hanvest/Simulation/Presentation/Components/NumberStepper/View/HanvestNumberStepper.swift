@@ -38,6 +38,12 @@ struct HanvestNumberStepper: View {
                 .font(.nunito(.body))
                 .frame(minWidth: 80, idealWidth: 168) 
                 .padding(.horizontal, 20)
+                .showCase(
+                    order: Module05TipData.lot.index,
+                    title: Module05TipData.lot.title,
+                    detail: Module05TipData.lot.detail,
+                    stage: .buyStage
+                )
             
             Button {
                 viewModel.increment(&value, raise)

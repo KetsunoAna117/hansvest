@@ -28,41 +28,32 @@ extension View {
 }
 
 /// showcase root view modifier
-struct ShowCaseRoot: ViewModifier {
-    var showHighlights: Bool
-    var stage: HighlightComponentStage
-    var onFinished: ((Bool) -> Void)
+struct HighlightHelperView: ViewModifier {
+    /// view model
+    @StateObject var viewModel = HighlightViewModel()
     
-    /// View properties
-    @State private var highlightOrder: [Int] = []
-    @State private var currentHightlight: Int = 0
-    @State private var showView: Bool = true
-    /// popover
-    @State private var showTitle: Bool = true
-    @State private var positionUpOrDown: Bool = true
-    /// Namespace ID, for smooth shape transitions
-    
+    /// Namespace ID, for smooth shape transitions (must be attached to view directly)
     @Namespace private var animation
+    
+    /// parse value to main view
+    var onValueChange: ((Int) -> Void)?
+    
     func body(content: Content) -> some View {
         content
             .onPreferenceChange(HighlightAnchorKey.self) { value in
                 // Filter highlights based on the current show state condition
-                highlightOrder = value
-                    .filter { $0.value.stage == stage }
+                viewModel.highlightOrder = value
+                    .filter { $0.value.stage == viewModel.stage }
                     .map { $0.key }
                     .sorted()
             }
-            .onChange(of: stage) { _, newValue in
+            .onChange(of: viewModel.stage) { _, newValue in
                 // Reset showcase state when `changeShowState` updates
-                if newValue == .buyStage {
-                    currentHightlight = 0
-                    showView = true
-                    showTitle = true
-                }
+                viewModel.resetHighlightViewState()
             }
             .overlayPreferenceValue(HighlightAnchorKey.self) { preferences in
-                if highlightOrder.indices.contains(currentHightlight), showHighlights, showView {
-                    if let highlight = preferences[highlightOrder[currentHightlight]] {
+                if viewModel.highlightOrder.indices.contains(viewModel.currentHighlight), viewModel.showView {
+                    if let highlight = preferences[viewModel.highlightOrder[viewModel.currentHighlight]] {
                         HighlightView(highlight)
                     }
                 }
@@ -87,22 +78,25 @@ struct ShowCaseRoot: ViewModifier {
                          .offset(x: highlightRect.minX - 2.5, y: highlightRect.minY + safeArea.top - 2.5)
                  }
                  .ignoresSafeArea()
-                 .onChange(of: showTitle) { _, newValue in
-                     if !newValue {
-                         if currentHightlight >= highlightOrder.count - 1 {
+                 .onChange(of: viewModel.showTitle) { _, newValue in
+                     if newValue {
+                         viewModel.positionUpOrDown = highlightRect.midY < screenHeight / 2
+                     } else {
+                         if viewModel.currentHighlight >= viewModel.highlightOrder.count - 1 {
                              withAnimation(.easeInOut(duration: 0.25)) {
-                                 showView = false
+                                 viewModel.showView = false
                              }
-                             onFinished(true)
+                             viewModel.resetCurrectHighlightValue()
                          } else {
                              withAnimation(.interactiveSpring(response: 0.3, dampingFraction: 0.7, blendDuration: 0.7)) {
-                                 currentHightlight += 1
+                                 viewModel.currentHighlight += 1
                              }
                              
                              DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                 showTitle = true
+                                 viewModel.showTitle = true
                              }
                          }
+                         onValueChange!(viewModel.currentHighlight)
                      }
                  }
              
@@ -111,9 +105,9 @@ struct ShowCaseRoot: ViewModifier {
                  .frame(width: highlightRect.width + 20, height: highlightRect.height + 20)
                  .clipShape(RoundedRectangle(cornerRadius: highlight.cornerRadius, style: highlight.style))
                  .popover(
-                     isPresented: $showTitle,
-                     attachmentAnchor: .point(positionUpOrDown ? .bottom : .top),
-                     arrowEdge: positionUpOrDown ? .top : .bottom
+                    isPresented: $viewModel.showTitle,
+                    attachmentAnchor: .point(viewModel.positionUpOrDown ? .bottom : .top),
+                    arrowEdge: viewModel.positionUpOrDown ? .top : .bottom
                  ) {
                      VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
@@ -132,11 +126,6 @@ struct ShowCaseRoot: ViewModifier {
                  }
                  .scaleEffect(highlight.scale)
                  .offset(x: highlightRect.minX - 10, y: highlightRect.minY - 10)
-                 .onChange(of: showTitle) { _, newValue in
-                     if newValue {
-                         positionUpOrDown = highlightRect.midY < screenHeight / 2
-                     }
-                 }
          }
     }
 }
