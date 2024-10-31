@@ -8,7 +8,14 @@
 import Foundation
 
 class Module05SimulationViewModel: HanvestSimulationViewModel {
+    @Published var currentHighlight: Int
+    @Published var currentHighlightStage: Module05HighlightStage
     @Published var currentStage: Module05Stage?
+    
+    init() {
+        self.currentHighlight = 0
+        self.currentHighlightStage = .mainStage
+    }
  
     override func setup(){
         self.stockList = self.prepareStockData()
@@ -20,6 +27,16 @@ class Module05SimulationViewModel: HanvestSimulationViewModel {
         stockList[index].stockPrice.append(
             .init(id: "BBCA-price-4", name: "BBCA", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 23:00:00"))
         )
+    }
+    
+    func checkForCurrentHighlightValue(_ value: Int) -> Bool {
+        let relevantIndices: Set<Int> = [
+            Module05TipData.stocks.index,
+            Module05TipData.yourInvestment.index,
+            Module05TipData.companyProfile.index
+        ]
+        
+        return relevantIndices.contains(value)
     }
     
 }
