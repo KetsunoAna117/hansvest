@@ -17,6 +17,7 @@ struct MaterialModule05ScreenView: View {
     @StateObject private var contentRouter = Module05Router()
     @StateObject private var simulationViewModel = Module05SimulationViewModel()
     @StateObject private var profileViewModel = Module05ProfileViewModel()
+    @StateObject private var highlightViewModel = HighlightViewModel()
     
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct MaterialModule05ScreenView: View {
                     contentRouter.build(content)
                 }
             }
-            .onAppear(){
+            .onAppear {
                 if contentRouter.content.count <= 0 {
                     contentRouter.content.append(
                         .buyStage(
@@ -57,7 +58,9 @@ struct MaterialModule05ScreenView: View {
             
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .onAppear(){
+        .onAppear {
+            highlightViewModel.stage = simulationViewModel.currentHighlightStage.stringValue
+            
             if simulationViewModel.currentStage == nil {
                 simulationViewModel.currentStage = .buyStage(appRouter: appRouter)
             }
@@ -72,6 +75,12 @@ struct MaterialModule05ScreenView: View {
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
         }
+        .onChange(of: simulationViewModel.currentHighlightStage) { _, newValue in
+            highlightViewModel.stage = newValue.stringValue
+        }
+        .modifier(HighlightHelperView(viewModel: highlightViewModel, onValueChange: { value in
+            simulationViewModel.currentHighlight = value
+        }))
     }
 }
 

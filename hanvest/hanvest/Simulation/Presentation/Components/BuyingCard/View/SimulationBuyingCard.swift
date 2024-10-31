@@ -28,6 +28,12 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.tradingBalance))")
                         .font(.nunito(.body, .bold))
+                        .showCase(
+                            order: Module05TipData.tradingBalance.index,
+                            title: Module05TipData.tradingBalance.title,
+                            detail: Module05TipData.tradingBalance.detail,
+                            stage: Module05HighlightStage.buyStage.stringValue
+                        )
                 }
                 
                 HStack{
@@ -50,7 +56,12 @@ struct SimulationBuyingCard: View {
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyAmount))")
                         .font(.nunito(.body, .regular))
                         .foregroundStyle(amountState.textColor)
-                        
+                        .showCase(
+                            order: Module05TipData.amountBuy.index,
+                            title: Module05TipData.amountBuy.title,
+                            detail: Module05TipData.amountBuy.detail,
+                            stage: Module05HighlightStage.buyStage.stringValue
+                        )
                 }
                 
                 HStack{
@@ -60,6 +71,12 @@ struct SimulationBuyingCard: View {
                     Spacer()
                     
                     Text("\(currentPrice)")
+                        .showCase(
+                            order: Module05TipData.priceBuy.index,
+                            title: Module05TipData.priceBuy.title,
+                            detail: Module05TipData.priceBuy.detail,
+                            stage: Module05HighlightStage.buyStage.stringValue
+                        )
                 }
                 
                 HStack{
@@ -68,7 +85,11 @@ struct SimulationBuyingCard: View {
                     
                     Spacer()
                     
-                    HanvestNumberStepper(value: $viewModel.stockBuyLot, raise: lotRaise)
+                    HanvestNumberStepper(
+                        value: $viewModel.stockBuyLot,
+                        raise: lotRaise,
+                        stage: Module05HighlightStage.buyStage.stringValue
+                    )
                 }
             }
             .onChange(of: currentPrice) { oldValue, newValue in
