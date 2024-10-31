@@ -13,6 +13,7 @@ struct Module05SimulationView: View {
     
     @ObservedObject var profileViewModel: Module05ProfileViewModel
     @ObservedObject var simulationViewModel: Module05SimulationViewModel
+    @ObservedObject var highlightViewModel: HighlightViewModel
     
     var body: some View {
         ZStack {
@@ -83,7 +84,7 @@ struct Module05SimulationView: View {
                             .padding(.horizontal, 20)
                         }
                         .padding(.top, 12)
-                        .onChange(of: simulationViewModel.currentHighlight) { _, newValue in
+                        .onChange(of: highlightViewModel.currentHighlight) { _, newValue in
                             if simulationViewModel.checkForCurrentHighlightValue(newValue) {
                                 withAnimation {
                                     scrollView.scrollTo(newValue, anchor: .top)
@@ -108,7 +109,8 @@ struct Module05SimulationView: View {
                                     moduleRouter.push(
                                         .confirmSell(
                                             profileViewModel: profileViewModel,
-                                            simulationViewModel: simulationViewModel
+                                            simulationViewModel: simulationViewModel,
+                                            highlightViewModel: highlightViewModel
                                         )
                                     )
                                 }
@@ -127,7 +129,8 @@ struct Module05SimulationView: View {
                                     moduleRouter.push(
                                         .confirmBuy(
                                             profileViewModel: profileViewModel,
-                                            simulationViewModel: simulationViewModel
+                                            simulationViewModel: simulationViewModel,
+                                            highlightViewModel: highlightViewModel
                                         )
                                     )
                                 }

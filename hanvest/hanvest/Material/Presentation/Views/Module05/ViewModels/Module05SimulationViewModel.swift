@@ -8,7 +8,6 @@
 import Foundation
 
 class Module05SimulationViewModel: HanvestSimulationViewModel {
-    @Published var currentHighlight: Int = 0
     @Published var currentStage: Module05Stage?
  
     override func setup(){

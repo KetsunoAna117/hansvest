@@ -17,6 +17,7 @@ struct MaterialModule05ScreenView: View {
     @StateObject private var contentRouter = Module05Router()
     @StateObject private var simulationViewModel = Module05SimulationViewModel()
     @StateObject private var profileViewModel = Module05ProfileViewModel()
+    @StateObject private var highlightViewModel = HighlightViewModel()
     
     var body: some View {
         GeometryReader { _ in
@@ -42,7 +43,8 @@ struct MaterialModule05ScreenView: View {
                             .buyStage(
                                 appRouter: appRouter,
                                 profileViewModel: profileViewModel,
-                                simulationViewModel: simulationViewModel
+                                simulationViewModel: simulationViewModel,
+                                highlightViewModel: highlightViewModel
                             )
                         )
                     }
@@ -74,9 +76,7 @@ struct MaterialModule05ScreenView: View {
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
         }
-        .modifier(HighlightHelperView(onValueChange: { value in
-            simulationViewModel.currentHighlight = value
-        }))
+        .modifier(HighlightHelperView(viewModel: highlightViewModel))
     }
 }
 
