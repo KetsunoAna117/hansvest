@@ -56,4 +56,5 @@ class HighlightViewModel: ObservableObject {
             }
         }
     }
+    
 }

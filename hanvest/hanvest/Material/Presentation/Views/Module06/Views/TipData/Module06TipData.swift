@@ -5,8 +5,6 @@
 //  Created by Bryan Vernanda on 01/11/24.
 //
 
-import Foundation
-
 enum Module06TipData: CaseIterable {
     case notification
     

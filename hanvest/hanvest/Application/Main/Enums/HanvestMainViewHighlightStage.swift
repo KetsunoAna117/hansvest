@@ -1,17 +1,16 @@
 //
-//  Module06HighlightStage.swift
+//  HanvestMainViewHighlightStage.swift
 //  hanvest
 //
 //  Created by Bryan Vernanda on 01/11/24.
 //
 
-enum Module06HighlightStage {
+enum HanvestMainViewHighlightStage {
     case mainStage
     
     var stringValue: String {
         switch self {
-            case .mainStage: return "main-stage-module-06"
+            case .mainStage: return "main-stage-main-view"
         }
     }
 }
-
