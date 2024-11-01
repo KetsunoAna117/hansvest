@@ -79,7 +79,7 @@ struct MainScreenView: View {
             }
             userDataViewModel.setup()
         }
-//        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifier(HighlightHelperView(viewModel: highlightViewModel))
     }
 }
 

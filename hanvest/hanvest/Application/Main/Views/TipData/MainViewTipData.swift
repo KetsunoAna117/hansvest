@@ -18,7 +18,7 @@ enum MainViewTipData: CaseIterable {
             case .virtualBalance:
                 return "Virtual Balance"
             case .moduleIntro:
-                return "Learning Module"
+                return "Learning Module Journey"
         }
     }
     
@@ -27,7 +27,7 @@ enum MainViewTipData: CaseIterable {
             case .virtualBalance:
                 return "In app money."
             case .moduleIntro:
-                return "This is your module journey, finish each module for the first time to earn some virtual balance."
+                return "Complete each module for the first time to earn virtual balance."
         }
     }
 }
