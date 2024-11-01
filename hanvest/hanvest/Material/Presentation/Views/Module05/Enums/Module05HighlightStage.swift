@@ -12,9 +12,9 @@ enum Module05HighlightStage {
     
     var stringValue: String {
         switch self {
-            case .mainStage: return "main-stage"
-            case .buyStage: return "buy-stage"
-            case .sellStage: return "sell-stage"
+            case .mainStage: return "main-stage-module05"
+            case .buyStage: return "buy-stage-module05"
+            case .sellStage: return "sell-stage-module05"
         }
     }
 }
