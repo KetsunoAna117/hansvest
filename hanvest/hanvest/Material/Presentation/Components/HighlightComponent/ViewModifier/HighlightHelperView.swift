@@ -35,9 +35,6 @@ struct HighlightHelperView: ViewModifier {
     /// Namespace ID, for smooth shape transitions (must be attached to view directly)
     @Namespace private var animation
     
-    /// parse value to main view
-    var onValueChange: ((Int) -> Void)?
-    
     func body(content: Content) -> some View {
         content
             .onPreferenceChange(HighlightAnchorKey.self) { value in
@@ -88,10 +85,6 @@ struct HighlightHelperView: ViewModifier {
                          viewModel.setNewPopUpPosition(highlightRect: highlightRect, screenHeight: screenHeight)
                      } else {
                          viewModel.updateCurrentHighlight()
-                         
-                         if let onValueChange = onValueChange {
-                             onValueChange(viewModel.currentHighlight)
-                         }
                      }
                  }
                  .onAppear {
