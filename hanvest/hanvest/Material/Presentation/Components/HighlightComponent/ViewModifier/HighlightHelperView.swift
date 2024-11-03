@@ -38,26 +38,15 @@ struct HighlightHelperView: ViewModifier {
     func body(content: Content) -> some View {
         content
             .onPreferenceChange(HighlightAnchorKey.self) { value in
-                // Filter and sort highlights based on the current stage
-                let newHighlightOrder = value
-                    .filter { $0.value.stage == viewModel.stage }
-                    .map { $0.key }
-                    .sorted()
-
-                // Update only if there's a difference
-                if newHighlightOrder != viewModel.highlightOrder {
-                    viewModel.highlightOrder = newHighlightOrder
-                }
+                viewModel.updateHighlightOrderIfNeeded(from: value)
             }
             .onChange(of: viewModel.stage) { _, newValue in
                 // Reset showcase state when `changeShowState` updates
                 viewModel.resetHighlightViewState()
             }
             .overlayPreferenceValue(HighlightAnchorKey.self) { preferences in
-                if viewModel.highlightOrder.indices.contains(viewModel.currentHighlight), viewModel.showView {
-                    if let highlight = preferences[viewModel.highlightOrder[viewModel.currentHighlight]] {
-                        HighlightView(highlight)
-                    }
+                if let highlight = viewModel.currentHighlightToShow(from: preferences) {
+                    HighlightView(highlight)
                 }
             }
     }

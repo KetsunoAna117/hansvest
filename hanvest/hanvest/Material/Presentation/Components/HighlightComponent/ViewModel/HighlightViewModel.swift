@@ -44,6 +44,26 @@ class HighlightViewModel: ObservableObject {
         print("\(highlightRect.height), \(screenHeight)")
     }
     
+    func updateHighlightOrderIfNeeded(from preferences: [Int: Highlight]) {
+        // Filter and sort highlights based on the current stage
+        let newHighlightOrder = preferences
+            .filter { $0.value.stage == stage }
+            .map { $0.key }
+            .sorted()
+        
+        // Update only if there's a difference
+        if newHighlightOrder != highlightOrder {
+            highlightOrder = newHighlightOrder
+        }
+    }
+    
+    func currentHighlightToShow(from preferences: [Int: Highlight]) -> Highlight? {
+        guard highlightOrder.indices.contains(currentHighlight), showView else {
+            return nil
+        }
+        return preferences[highlightOrder[currentHighlight]]
+    }
+    
     func updateCurrentHighlight() {
         if currentHighlight >= highlightOrder.count - 1 {
             withAnimation(.easeInOut(duration: 0.25)) {
