@@ -72,12 +72,16 @@ struct MainScreenView: View {
             .animation(.easeInOut, value: selectionTab)
         }
         .onAppear {
-            highlightViewModel.stage = HanvestMainViewHighlightStage.mainStage.stringValue
+            userDataViewModel.setup()
+            
+            if !userDataViewModel.isHighlightEverShown {
+                highlightViewModel.stage = HanvestMainViewHighlightStage.mainStage.stringValue
+                userDataViewModel.toggleHighlightEverShown()
+            }
             
             if simulationViewModel.stockList.isEmpty {
                 simulationViewModel.setup(appRouter: router)
             }
-            userDataViewModel.setup()
         }
         .modifier(HighlightHelperView(viewModel: highlightViewModel))
     }
