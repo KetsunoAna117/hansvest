@@ -30,11 +30,15 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
     }
     
     func displayOverlay(_ overlay: Module06Overlay) {
-        self.overlay = overlay
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.overlay = overlay
+        }
     }
     
     func dismissOverlay() {
-        self.overlay = nil
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.overlay = nil
+        }
     }
     
     func addProgress() {
@@ -141,6 +145,15 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
             .onAppear(){
                 if simulationViewModel.currentStage == nil {
                     simulationViewModel.currentStage = .openNews(appRouter: appRouter)
+                    self.displayOverlay(
+                        .withHanvestPopup(
+                            title: "Instruction!",
+                            desc: "Let's open one of the news",
+                            dismissAction: {
+                                // Do Nothing
+                            }
+                        )
+                    )
                 }
             }
             
@@ -153,7 +166,18 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                 )
                 .frame(maxHeight: .infinity, alignment: .top)
                 .onAppear(){
-                    simulationViewModel.currentStage = .openNewsDetails(appRouter: appRouter)
+                    if simulationViewModel.currentStage == .openNews(appRouter: appRouter) {
+                        simulationViewModel.currentStage = .openNewsDetails(appRouter: appRouter)
+                        self.displayOverlay(
+                            .withHanvestPopup(
+                                title: "Instruction!",
+                                desc: "Read this news carefully, after reading it, go back to the simulation and decide if you want to buy or sell your stocks",
+                                dismissAction: {
+                                    // Do Nothing
+                                }
+                            )
+                        )
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
