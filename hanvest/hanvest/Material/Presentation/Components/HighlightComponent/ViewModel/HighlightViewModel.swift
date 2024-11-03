@@ -40,7 +40,8 @@ class HighlightViewModel: ObservableObject {
     
     func setNewPopUpPosition(highlightRect: CGRect, screenHeight: CGFloat) {
         isItemInUpperScreenPart = highlightRect.midY < screenHeight / 2
-        isItemCoverThreeQuarterScreen = highlightRect.height > (screenHeight * 18 / 25)
+        isItemCoverThreeQuarterScreen = highlightRect.height > (screenHeight * 7 / 10)
+        print("\(highlightRect.height), \(screenHeight)")
     }
     
     func updateCurrentHighlight() {
