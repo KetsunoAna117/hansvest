@@ -60,7 +60,7 @@ struct hanvestApp: App {
                     }
                     // Apply transition and animation
                     .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                    .animation(.easeInOut(duration: 0.3), value: appRouter.popup)
+                    .animation(.easeInOut(duration: 0.2), value: appRouter.popup)
                 }
             }
 

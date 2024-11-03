@@ -26,19 +26,27 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     }
     
     func presentOverlay(_ popup: Popup) {
-        self.popup = popup
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.popup = popup
+        }
     }
     
     func dismissPopup() {
-        self.popup = nil
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.popup = nil
+        }
     }
     
     func presentNotification(_ notification: HanvestNotification) {
-        self.notification = notification
+        withAnimation(.easeInOut(duration: 0.5)) {
+            self.notification = notification
+        }
     }
     
     func dismissNotification(){
-        self.notification = nil
+        withAnimation(.easeInOut(duration: 0.5)) {
+            self.notification = nil
+        }
     }
     
     // MARK: - Presentation Style Providers
@@ -193,9 +201,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea()
                     .onTapGesture {
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            self.dismissPopup()
-                        }
+                        self.dismissPopup()
                     }
                 
                 VStack(spacing: 8) {
@@ -217,10 +223,8 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .withHanvestPopup(let title, let desc, let dismissAction):
             ZStack {
                 Color.black.opacity(0.7).ignoresSafeArea().onTapGesture {
-                    withAnimation(.easeInOut(duration: 0.1)) {
-                        dismissAction()
-                        self.dismissPopup()
-                    }
+                    dismissAction()
+                    self.dismissPopup()
                 }
                 VStack(spacing: 8) {
                     HanvestPopup(title: title, description: desc)
@@ -239,15 +243,11 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     viewModel: viewmodel,
                     cancelAction: {
                         cancelAction()
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            self.dismissPopup()
-                        }
+                        self.dismissPopup()
                     },
                     confirmAction: {
                         confirmAction()
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            self.dismissPopup()
-                        }
+                        self.dismissPopup()
                     }
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
@@ -261,15 +261,11 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     viewModel: viewmodel,
                     cancelAction: {
                         cancelAction()
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            self.dismissPopup()
-                        }
+                        self.dismissPopup()
                     },
                     confirmAction: {
                         confirmAction()
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            self.dismissPopup()
-                        }
+                        self.dismissPopup()
                     }
                 )
                 .padding(.horizontal, HanvestConstant.overlayHorizontalPaddingSimulation)
@@ -307,9 +303,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     .onEnded { value in
                         // Detect upward swipe
                         if value.translation.height < -50 {
-                            withAnimation(.easeInOut(duration: 0.5)) {
-                                self.dismissNotification()
-                            }
+                            self.dismissNotification()
                         }
                     }
             )

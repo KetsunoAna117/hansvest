@@ -6,7 +6,7 @@
 //
 
 enum Module06Overlay: Equatable, Hashable, Identifiable {
-    case withHanvestPopup(title: String?, desc: String, dismissAction: () -> Void)
+    case withHanvestPopup(title: String? = nil, desc: String, dismissAction: () -> Void)
     case withBuyConfirmationPopup(
         buyingStockDataViewModel: BuyingStockDataViewModel,
         confirmAction: () -> (),
