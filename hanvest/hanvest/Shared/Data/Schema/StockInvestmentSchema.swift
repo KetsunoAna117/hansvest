@@ -28,7 +28,7 @@ final class StockInvestmentSchema {
     }
     
     func substract(from data: StockInvestmentSchema) {
-        self.totalInvested -= data.totalInvested
+//        self.totalInvested -= data.totalInvested
         self.lotPurchased -= data.lotPurchased
     }
     
