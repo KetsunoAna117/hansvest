@@ -10,7 +10,12 @@ import Foundation
 class HanvestLoadedUserDataViewModel: ObservableObject {
     @Inject var getUserData: GetUserData
     
+    @Published var isHighlightEverShown: Bool
     @Published var userData: UserDataEntity?
+    
+    init() {
+        isHighlightEverShown = UserDefaults.standard.bool(forKey: "HighlightEverShown")
+    }
     
     func setup(){
         if let user = getUserData.execute() {
@@ -18,6 +23,9 @@ class HanvestLoadedUserDataViewModel: ObservableObject {
         }
         
     }
-
+    
+    func toggleHighlightEverShown() {
+        UserDefaults.standard.set(true, forKey: "HighlightEverShown")
+    }
     
 }
