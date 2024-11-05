@@ -103,7 +103,7 @@ struct StockInvestmentDataView: View {
                 selectedStockIDName: selectedStock.stockIDName,
                 stockPrice: selectedStock.stockPrice.last?.price ?? 0
             )
-            print("User Balance: \(userData.userBalance)")
+//            print("User Balance: \(userData.userBalance)")
         }
         .onChange(of: selectedStock.stockPrice) { oldValue, newValue in
             viewmodel.setup(

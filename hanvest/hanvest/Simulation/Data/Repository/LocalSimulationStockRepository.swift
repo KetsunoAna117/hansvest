@@ -47,7 +47,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func save(_ stocks: StockSchema) throws {
         if let context = modelContext {
             if fetch(stockID: stocks.stockIDName) != nil {
-                throw SwiftDataError.alreadyExists
+                throw SwiftDataError.alreadyExists(object: stocks)
             }
             
             context.insert(stocks)
@@ -58,7 +58,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func delete(id: String) throws {
         if let context = modelContext {
             guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             context.delete(stock)
@@ -69,7 +69,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func update(id: String, stockIDName: String) throws {
         if let context = modelContext {
             guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             stock.update(stockIDName: stockIDName)
@@ -80,7 +80,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func update(id: String, stockName: String) throws {
         if let context = modelContext {
             guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             stock.update(stockName: stockName)
@@ -91,7 +91,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func update(id: String, stockImageName: String) throws {
         if let context = modelContext {
             guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             stock.update(stockImageName: stockImageName)
@@ -102,7 +102,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func update(id: String, stockDescription: String) throws {
         if let context = modelContext {
             guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             stock.update(stockDescription: stockDescription)
@@ -113,7 +113,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func update(id: String, stockPriceID: [String]) throws {
         if let context = modelContext {
             guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             stock.update(stockPriceID: stockPriceID)

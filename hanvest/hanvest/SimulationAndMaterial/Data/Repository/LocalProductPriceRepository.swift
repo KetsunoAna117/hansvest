@@ -61,7 +61,7 @@ struct LocalProductPriceRepository: ProductPriceRepository {
     func save(_ productPrice: ProductPriceSchema) throws {
         if let context = modelContext {
             if fetch(priceID: productPrice.priceID) != nil {
-                throw SwiftDataError.alreadyExists
+                throw SwiftDataError.alreadyExists(object: productPrice)
             }
             
             context.insert(productPrice)
@@ -72,7 +72,7 @@ struct LocalProductPriceRepository: ProductPriceRepository {
     func delete(id: String) throws {
         if let context = modelContext {
             guard let fetchedProductPrice = fetch(priceID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             context.delete(fetchedProductPrice)
@@ -83,7 +83,7 @@ struct LocalProductPriceRepository: ProductPriceRepository {
     func update(id: String, priceID: String) throws {
         if let context = modelContext {
             guard let fetchedProductPrice = fetch(priceID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedProductPrice.update(priceID: priceID)
@@ -94,7 +94,7 @@ struct LocalProductPriceRepository: ProductPriceRepository {
     func update(id: String, name: String) throws {
         if let context = modelContext {
             guard let fetchedProductPrice = fetch(priceID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedProductPrice.update(name: name)
@@ -105,7 +105,7 @@ struct LocalProductPriceRepository: ProductPriceRepository {
     func update(id: String, price: Int) throws {
         if let context = modelContext {
             guard let fetchedProductPrice = fetch(priceID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedProductPrice.update(price: price)
@@ -116,7 +116,7 @@ struct LocalProductPriceRepository: ProductPriceRepository {
     func update(id: String, time: Date) throws {
         if let context = modelContext {
             guard let fetchedProductPrice = fetch(priceID: id) else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedProductPrice.update(time: time)

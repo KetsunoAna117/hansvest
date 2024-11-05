@@ -45,7 +45,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: news.newsID)
             if fetchedNews != nil {
-                throw SwiftDataError.alreadyExists
+                throw SwiftDataError.alreadyExists(object: news)
             }
             
             context.insert(news)
@@ -57,7 +57,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)
             if fetchedNews == nil {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             context.delete(fetchedNews!)
@@ -69,7 +69,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)
             guard let fetchedNews else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedNews.update(stockIDName: stockIDName)
@@ -81,7 +81,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)
             guard let fetchedNews else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedNews.update(newsTitle: newsTitle)
@@ -93,7 +93,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)
             guard let fetchedNews else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedNews.update(newsReleasedTime: newsReleasedTime)
@@ -105,7 +105,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)
             guard let fetchedNews else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedNews.update(newsContent: newsContent)
@@ -117,7 +117,7 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)
             guard let fetchedNews else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedNews.update(stockFluksPercentage: stockFluksPercentage)

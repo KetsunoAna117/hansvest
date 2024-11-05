@@ -39,6 +39,21 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
         return nil
     }
     
+    func fetchBy(userID: String) -> [StockInvestmentSchema] {
+        if let context = modelContext {
+            do {
+                let descriptor = FetchDescriptor<StockInvestmentSchema>(
+                    predicate: #Predicate{ $0.userID == userID }
+                )
+                return try context.fetch(descriptor)
+            }
+            catch {
+                debugPrint("Error Fetch StockInvestmentSchema: ",error)
+            }
+        }
+        return []
+    }
+    
     func save(investment: StockInvestmentSchema) throws {
         if let context = modelContext {
             let investmentID = investment.investmentID
@@ -52,7 +67,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 context.insert(investment)
             }
             else {
-                throw SwiftDataError.alreadyExists
+                throw SwiftDataError.alreadyExists(object: investment)
             }
             
             try context.save()
@@ -70,7 +85,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 stockInvestment.add(data: investment)
             }
             else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound(object: investmentID)
             }
             
             try context.save()
@@ -88,7 +103,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 stockInvestment.substract(from: investment)
             }
             else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound(object: investmentID)
             }
             
             try context.save()

@@ -35,7 +35,16 @@ struct TransactionStatusViewModel {
                     investmentID: UUID().uuidString,
                     stockIDName: self.selectedStockIDName,
                     totalInvested: self.lotAmount * self.stockPrice * 100,
-                    lotPurchased: self.lotAmount
+                    lotPurchased: self.lotAmount,
+                    stockTransaction: [
+                        .init(
+                            transactionID: UUID().uuidString,
+                            stockIDName: self.selectedStockIDName,
+                            priceAtPurchase: self.stockPrice,
+                            stockLotQuantity: self.lotAmount,
+                            time: Date.now
+                        )
+                    ]
                 )
         )
         
@@ -60,7 +69,16 @@ struct TransactionStatusViewModel {
                     investmentID: UUID().uuidString,
                     stockIDName: self.selectedStockIDName,
                     totalInvested: self.lotAmount * self.stockPrice * 100,
-                    lotPurchased: self.lotAmount
+                    lotPurchased: self.lotAmount,
+                    stockTransaction: [
+                        .init(
+                            transactionID: UUID().uuidString,
+                            stockIDName: self.selectedStockIDName,
+                            priceAtPurchase: self.stockPrice,
+                            stockLotQuantity: self.lotAmount,
+                            time: Date.now
+                        )
+                    ]
                 )
         )
         
