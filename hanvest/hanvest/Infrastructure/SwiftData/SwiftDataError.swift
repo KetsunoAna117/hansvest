@@ -8,9 +8,9 @@
 import Foundation
 
 enum SwiftDataError: LocalizedError {
-    case notFound
-    case alreadyExists
-    case failed
-    case noData
+    case notFound(object: Any? = nil)
+    case alreadyExists(object: Any)
+    case failed(object: Any)
+    case noData(object: Any)
     case genericError(error: Error)
 }

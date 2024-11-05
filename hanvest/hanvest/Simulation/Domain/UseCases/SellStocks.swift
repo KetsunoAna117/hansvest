@@ -8,45 +8,65 @@
 import Foundation
 
 protocol SellStocks {
-    func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, Error>
+    func execute(
+        userId: String,
+        stockIDName: String,
+        transaction: StockTransactionEntity
+    ) -> Result<Bool, Error>
 }
 
 struct SellStocksImpl: SellStocks {
     let userRepo: UserRepository
     let investmentRepo: StockInvestmentRepository
+    let transactionRepo: StockTransactionRepository
     
-    func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, any Error> {
+    func execute(
+        userId: String,
+        stockIDName: String,
+        transaction: StockTransactionEntity
+    ) -> Result<Bool, any Error> {
         do {
             // Fetch User Data
             guard let userData = userRepo.fetch() else {
-                return .failure(SwiftDataError.notFound)
+                return .failure(SwiftDataError.notFound(object: userId))
             }
             
-            let investmentSchema = investment.mapToSchema()
-            
-            // Fetch Investment Data from User
-            let investmentData = userData.userInvestmentTransactionID.compactMap({ investmentID in
-                investmentRepo.fetchBy(investmentID: investmentID)
-            })
-            
-            if let investment = investmentData.first(where: { $0.stockIDName == investmentSchema.stockIDName }) {
-                // If stockID already registered, update the value
+            // Fetch Investment
+            if let investment = investmentRepo.fetchBy(
+                userID: userId,
+                stockIDName: stockIDName
+            ) {
+                let fetchedTransactionList = transactionRepo.fetchWith(
+                    investmentID: investment.investmentID
+                )
+                
+                guard fetchedTransactionList.isEmpty == false else {
+                    return .failure(SwiftDataError.noData(object: "no transaction found"))
+                }
+                
+                let averageTransactionPrice = getAverage(transactionList: fetchedTransactionList)
                 try investmentRepo.substract(
                     investmentID: investment.investmentID,
-                    with: investmentSchema
+                    totalInvested: averageTransactionPrice,
+                    lotPurchased: transaction.stockLotQuantity
                 )
             }
-            else {
-                throw SwiftDataError.notFound
-            }
-            
-            // Substract User Balance from Invested Data
-            try userRepo.add(balance: investment.totalInvested)
             
             return .success(true)
         }
         catch {
             return .failure(error)
         }
+    }
+    
+    func getAverage(transactionList: [StockTransactionSchema]) -> Int {
+        let (totalTransactionAmount, totalInvestedLotAmount) = transactionList.reduce((0, 0)) { result, data in
+            let amount = data.priceAtPurchase * data.stockLotQuantity * 100
+            return (result.0 + amount, result.1 + data.stockLotQuantity)
+        }
+        
+        guard totalInvestedLotAmount != 0 else { return 0 }
+        
+        return totalTransactionAmount / totalInvestedLotAmount
     }
 }

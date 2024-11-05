@@ -8,43 +8,85 @@
 import Foundation
 
 protocol PurchaseStocks {
-    func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, Error>
+    func execute(
+        userId: String,
+        stockIDName: String,
+        transaction: StockTransactionEntity
+    ) -> Result<Bool, Error>
 }
 
 struct PurchaseStocksImpl: PurchaseStocks {
     let userRepo: UserRepository
     let investmentRepo: StockInvestmentRepository
+    let transactionRepo: StockTransactionRepository
     
-    func execute(userId: String, investment: StockInvestmentEntity) -> Result<Bool, any Error> {
+    func execute(
+        userId: String,
+        stockIDName: String,
+        transaction: StockTransactionEntity
+    ) -> Result<Bool, any Error> {
         do {
             // Fetch User Data
             guard let userData = userRepo.fetch() else {
-                return .failure(SwiftDataError.notFound)
+                return .failure(SwiftDataError.notFound(object: userId))
             }
             
-            let investmentSchema = investment.mapToSchema()
-            
-            // Fetch Investment Data from User
-            let investmentData = userData.userInvestmentTransactionID.compactMap({ investmentID in
-                investmentRepo.fetchBy(investmentID: investmentID)
-            })
-            
-            if let investment = investmentData.first(where: { $0.stockIDName == investmentSchema.stockIDName }) {
-                // If stockID already registered, update the value
+            // Fetch Investment
+            if let investment = investmentRepo.fetchBy(
+                userID: userId,
+                stockIDName: stockIDName
+            ) {
+                // If investment already created, append transaction based on investmentID
+                try transactionRepo.save(
+                    .init(
+                        transactionID: transaction.transactionID,
+                        investmentID: investment.investmentID,
+                        priceAtPurchase: transaction.priceAtPurchase,
+                        stockLotQuantity: transaction.stockLotQuantity,
+                        time: transaction.time
+                    )
+                )
+                
+                // Update Investment Data
+                let totalInvested = transaction.priceAtPurchase * transaction.stockLotQuantity * 100
                 try investmentRepo.add(
                     investmentID: investment.investmentID,
-                    with: investmentSchema
+                    totalInvested: totalInvested,
+                    lotPurchased: transaction.stockLotQuantity
                 )
             }
             else {
-                // If no stockID registered from user investment, register it
-                try userRepo.add(investment: investmentSchema)
-                try investmentRepo.save(investment: investmentSchema)
+                // If investment is not found, create new investment
+                let newInvestment = StockInvestmentSchema(
+                    investmentID: UUID().uuidString,
+                    stockIDName: stockIDName,
+                    totalInvested: transaction.priceAtPurchase * transaction.stockLotQuantity * 100,
+                    lotPurchased: transaction.stockLotQuantity,
+                    userID: userId
+                )
+                
+                // Save Investment
+                try investmentRepo.save(investment: newInvestment)
+                
+                // Save Transaction
+                try transactionRepo.save(
+                    .init(
+                        transactionID: transaction.transactionID,
+                        investmentID: newInvestment.investmentID,
+                        priceAtPurchase: transaction.priceAtPurchase,
+                        stockLotQuantity: transaction.stockLotQuantity,
+                        time: transaction.time
+                    )
+                )
+                
+                // Update Investment Data
+                let totalInvested = transaction.priceAtPurchase * transaction.stockLotQuantity * 100
+                try investmentRepo.add(
+                    investmentID: newInvestment.investmentID,
+                    totalInvested: totalInvested,
+                    lotPurchased: transaction.stockLotQuantity
+                )
             }
-            
-            // Substract User Balance from Invested Data
-            try userRepo.substract(balance: investment.totalInvested)
-            
             return .success(true)
         }
         catch {
