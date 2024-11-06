@@ -8,58 +8,35 @@
 import SwiftUI
 
 struct HanvestPlantVisibilityView: View {
-    @State private var plantImage: String = ""
+    @StateObject private var viewModel = HanvestPlantVisibilityViewModel()
     @Binding var growthProgress: PlantGrowthProgress
     
     var body: some View {
         ZStack {
             ZStack {
                 HStack {
-                    Image(self.plantImage)
+                    Image(viewModel.plantImage)
                         .transition(.opacity)
-                        .id(self.plantImage)
+                        .id(viewModel.plantImage)
                 }
-                .padding(.leading, customPaddingLeading(defaultPaddingLeading: (growthProgress == .progress13) ? 52.0 : 38.5))
+                .padding(.leading, viewModel.customPaddingLeading(
+                    defaultPaddingLeading: (growthProgress == .progress13) ? 52.0 : 38.5)
+                )
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.bottom, customPaddingBottom(defaultPaddingBottom: (growthProgress == .progress13) ?  87.0 : 228.0))
+            .padding(.bottom, viewModel.customPaddingBottom(
+                defaultPaddingBottom: (growthProgress == .progress13) ?  87.0 : 228.0)
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-            .onChange(of: self.growthProgress) { _, newValue in
-                self.updateCurrentPlantImage(growthProgress: newValue)
+            .onChange(of: growthProgress) { _, newValue in
+                viewModel.updateCurrentPlantImage(growthProgress: newValue)
             }
         }
         .allowsHitTesting(false)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
-    
-    private func updateCurrentPlantImage(growthProgress: PlantGrowthProgress) {
-        withAnimation(.easeInOut) {
-            if let matchedImage = PlantImage.allCases.first(where: { $0.rawValue == growthProgress.rawValue }) {
-                self.plantImage = matchedImage.plantImageName
-            }
-        }
-    }
-    
-    private func customPaddingLeading(defaultPaddingLeading: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 385 {
-            return (defaultPaddingLeading + 3)
-        } else if UIScreen.main.bounds.width < 400 {
-            return defaultPaddingLeading
-        } else {
-            return (defaultPaddingLeading + 23)
-        }
-    }
-    
-    private func customPaddingBottom(defaultPaddingBottom: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 385 {
-            return (defaultPaddingBottom - 140)
-        } else if UIScreen.main.bounds.width < 400 {
-            return defaultPaddingBottom
-        } else {
-            return (defaultPaddingBottom + 20)
-        }
-    }
+
 }
 
 #Preview {
