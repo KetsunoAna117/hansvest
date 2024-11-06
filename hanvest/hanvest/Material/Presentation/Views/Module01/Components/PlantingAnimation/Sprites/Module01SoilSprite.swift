@@ -17,10 +17,10 @@ class Soil: SKNode {
         self.setScale(1)
         self.zPosition = 3
         
-        if UIScreen.main.bounds.width < 375 { // iPhone SE
+        if UIScreen.main.bounds.width < 385 { // iPhone SE
             self.position = CGPoint(x: UIScreen.main.bounds.width / 1.9, y: UIScreen.main.bounds.width / 11)
         } else { // default iPhone
-            self.position = CGPoint(x: UIScreen.main.bounds.width / 1.99, y: UIScreen.main.bounds.width / 2.05)
+            self.position = CGPoint(x: UIScreen.main.bounds.width / 1.99, y: UIScreen.main.bounds.width / 2.25)
         }
         
         self.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "soil"), size: CGSize(width: self.image.size.width, height: self.image.size.height))
