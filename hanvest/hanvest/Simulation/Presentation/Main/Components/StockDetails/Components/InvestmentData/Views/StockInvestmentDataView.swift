@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StockInvestmentDataView: View {
-    var userData: UserDataEntity
+    @Binding var userData: UserDataEntity?
     var selectedStock: StockEntity
     
     @StateObject private var viewmodel: StockInvestmentDataViewModels = .init()
@@ -98,21 +98,23 @@ struct StockInvestmentDataView: View {
                 )
         )
         .onAppear(){
+            guard let userData = userData else { return }
             viewmodel.setup(
                 userData: userData,
                 selectedStockIDName: selectedStock.stockIDName,
                 stockPrice: selectedStock.stockPrice.last?.price ?? 0
             )
-            print("User Balance: \(userData.userBalance)")
         }
         .onChange(of: selectedStock.stockPrice) { oldValue, newValue in
+            guard let userData = userData else { return }
             viewmodel.setup(
                 userData: userData,
                 selectedStockIDName: selectedStock.stockIDName,
                 stockPrice: selectedStock.stockPrice.last?.price ?? 0
             )
         }
-        .onChange(of: userData.userBalance) { oldValue, newValue in
+        .onChange(of: userData) { oldValue, newValue in
+            guard let userData = userData else { return }
             viewmodel.setup(
                 userData: userData,
                 selectedStockIDName: selectedStock.stockIDName,

@@ -10,7 +10,7 @@ import SwiftUI
 struct SimulationStockDetailsView: View {
     let router: any AppRouterProtocol
     
-    var userData: UserDataEntity
+    @Binding var userData: UserDataEntity?
     @ObservedObject var viewmodel: HanvestSimulationViewModel
     
     var body: some View {
@@ -31,8 +31,9 @@ struct SimulationStockDetailsView: View {
                             symbolCategoryKeyPath: \.name,
                             displayBy: .hour
                         )
+                        
                         StockInvestmentDataView(
-                            userData: userData,
+                            userData: $userData,
                             selectedStock: selectedStock
                         )
                         

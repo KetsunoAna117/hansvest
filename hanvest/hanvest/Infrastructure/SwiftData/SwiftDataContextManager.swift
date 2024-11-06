@@ -32,7 +32,7 @@ public class SwiftDataContextManager {
     private func setupSchema() -> Schema {
         return Schema([
             UserSchema.self,
-            StockTransactionQueueSchema.self,
+            StockTransactionSchema.self,
             StockNewsSchema.self,
             ProductPriceSchema.self,
             StockSchema.self,
@@ -50,7 +50,7 @@ private extension SwiftDataContextManager {
         }
     }
     
-    func saveStockTransactionData(stockTransaction: StockTransactionQueueSchema){
+    func saveStockTransactionData(stockTransaction: StockTransactionSchema){
         if let context {
             context.insert(stockTransaction)
         }
@@ -98,7 +98,7 @@ private extension SwiftDataContextManager {
     func fetchTransactionSchema() -> Int {
         if let context {
             do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 let result = try context.fetchCount(descriptor)
                 return result
             }
@@ -221,51 +221,76 @@ private extension SwiftDataContextManager {
     
     func getMockUserSchemaData() -> UserSchema {
         return  UserSchema(
-            userId: UUID().uuidString,
+            userId: "user-01",
             userName: "Bryon",
             userBalance: 100000000,
             userRiskProfile: .conservative,
-            userInvestmentTransactionID: [
-                "transaction-01",
-                "transaction-02",
-                "transaction-03"
-            ],
-            transactionQueueID: [
-                "transaction-04"
-            ],
             moduleCompletionIDList: [.module01, .module02, .module03, .module04]
         )
     }
     
-    func getMockTransactionSchemaData() -> [StockTransactionQueueSchema] {
+    func getMockTransactionSchemaData() -> [StockTransactionSchema] {
         return [
-            StockTransactionQueueSchema(
+            StockTransactionSchema(
                 transactionID: "transaction-01",
-                stockIDName: "BBRI",
+                investmentID: "investment-01",
                 priceAtPurchase: 5000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-40 * 60)
             ),
-            StockTransactionQueueSchema(
+            StockTransactionSchema(
                 transactionID: "transaction-02",
-                stockIDName: "BBRI",
+                investmentID: "investment-01",
                 priceAtPurchase: 5100,
                 stockLotQuantity: 2,
                 time: Date.now.addingTimeInterval(-30 * 60)
             ),
-            StockTransactionQueueSchema(
+            StockTransactionSchema(
                 transactionID: "transaction-03",
-                stockIDName: "BBCA",
+                investmentID: "investment-02",
                 priceAtPurchase: 7000,
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-20 * 60)
             ),
-            StockTransactionQueueSchema(
+            StockTransactionSchema(
                 transactionID: "transaction-04",
-                stockIDName: "GOTO",
+                investmentID: "investment-03",
                 priceAtPurchase: 50,
                 stockLotQuantity: 10,
                 time: Date.now.addingTimeInterval(-10 * 60)
+            ),
+            StockTransactionSchema(
+                transactionID: "transaction-03",
+                investmentID: "investment-03",
+                priceAtPurchase: 60,
+                stockLotQuantity: 5,
+                time: Date.now.addingTimeInterval(-5 * 60)
+            ),
+        ]
+    }
+    
+    func getMockInvestmentData() -> [StockInvestmentSchema] {
+        return [
+            .init(
+                investmentID: "investment-01",
+                stockIDName: "BBRI",
+                totalInvested: 1520000,
+                lotPurchased: 3,
+                userID: "user-01"
+            ),
+            .init(
+                investmentID: "investment-02",
+                stockIDName: "BBCA",
+                totalInvested: 700000,
+                lotPurchased: 1,
+                userID: "user-01"
+            ),
+            .init(
+                investmentID: "investment-03",
+                stockIDName: "GOTO",
+                totalInvested: 80000,
+                lotPurchased: 15,
+                userID: "user-01"
             )
         ]
     }
@@ -385,9 +410,5 @@ private extension SwiftDataContextManager {
                 ]
             )
         ]
-    }
-
-    func getMockInvestmentData() -> [StockInvestmentSchema] {
-        return []
     }
 }
