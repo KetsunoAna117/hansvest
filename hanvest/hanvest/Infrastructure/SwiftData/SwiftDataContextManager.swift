@@ -252,6 +252,20 @@ private extension SwiftDataContextManager {
                 stockLotQuantity: 1,
                 time: Date.now.addingTimeInterval(-20 * 60)
             ),
+            StockTransactionSchema(
+                transactionID: "transaction-04",
+                investmentID: "investment-03",
+                priceAtPurchase: 50,
+                stockLotQuantity: 10,
+                time: Date.now.addingTimeInterval(-10 * 60)
+            ),
+            StockTransactionSchema(
+                transactionID: "transaction-03",
+                investmentID: "investment-03",
+                priceAtPurchase: 60,
+                stockLotQuantity: 5,
+                time: Date.now.addingTimeInterval(-5 * 60)
+            ),
         ]
     }
     
@@ -269,6 +283,13 @@ private extension SwiftDataContextManager {
                 stockIDName: "BBCA",
                 totalInvested: 700000,
                 lotPurchased: 1,
+                userID: "user-01"
+            ),
+            .init(
+                investmentID: "investment-03",
+                stockIDName: "GOTO",
+                totalInvested: 80000,
+                lotPurchased: 15,
                 userID: "user-01"
             )
         ]

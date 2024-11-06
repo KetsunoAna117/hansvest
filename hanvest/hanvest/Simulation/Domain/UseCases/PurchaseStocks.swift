@@ -49,13 +49,18 @@ struct PurchaseStocksImpl: PurchaseStocks {
                     totalInvested: totalInvested,
                     lotPurchased: transaction.stockLotQuantity
                 )
+                
+                try userRepo.substract(balance: totalInvested)
             }
             else {
+                // Get total invested value
+                let totalInvested = transaction.priceAtPurchase * transaction.stockLotQuantity * 100
+                
                 // If investment is not found, create new investment
                 let newInvestment = StockInvestmentSchema(
                     investmentID: UUID().uuidString,
                     stockIDName: stockIDName,
-                    totalInvested: transaction.priceAtPurchase * transaction.stockLotQuantity * 100,
+                    totalInvested: totalInvested,
                     lotPurchased: transaction.stockLotQuantity,
                     userID: userId
                 )
@@ -74,13 +79,8 @@ struct PurchaseStocksImpl: PurchaseStocks {
                     )
                 )
                 
-                // Update Investment Data
-                let totalInvested = transaction.priceAtPurchase * transaction.stockLotQuantity * 100
-                try investmentRepo.add(
-                    investmentID: newInvestment.investmentID,
-                    totalInvested: totalInvested,
-                    lotPurchased: transaction.stockLotQuantity
-                )
+                // Substract User Balance
+                try userRepo.substract(balance: totalInvested)
             }
             return .success(true)
         }

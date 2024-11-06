@@ -62,7 +62,7 @@ struct LocalUserRepository: UserRepository {
             }
             
             fetchedUserSchema.substract(balanceToSubs: balance)
-            try? context.save()
+            try context.save()
         }
     }
     
@@ -74,7 +74,7 @@ struct LocalUserRepository: UserRepository {
             }
             
             fetchedUserSchema.update(newName: name)
-            try? context.save()
+            try context.save()
         }
     }
     
@@ -86,7 +86,7 @@ struct LocalUserRepository: UserRepository {
             }
             
             fetchedUserSchema.add(moduleCompletion: moduleCompletion)
-            try? context.save()
+            try context.save()
         }
     }
 }

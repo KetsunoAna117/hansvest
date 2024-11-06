@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDataEntity {
+struct UserDataEntity: Equatable {
     var userId: String
     var userName: String
     var userBalance: Int
@@ -26,6 +26,13 @@ extension UserDataEntity {
             userRiskProfile: self.userRiskProfile,
             moduleCompletionIDList: self.moduleCompletionList
         )
+    }
+}
+
+extension UserDataEntity {
+    // Conform to equatable
+    static func == (lhs: UserDataEntity, rhs: UserDataEntity) -> Bool {
+        return lhs.userId == rhs.userId
     }
 }
 

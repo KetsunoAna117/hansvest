@@ -66,7 +66,6 @@ struct HanvestSellStockScreenView: View {
                                 }
                             )
                         )
-                        print("[!] User Sell Button Event Triggered!")
                     }
                 )
                 .padding(.bottom, 48)

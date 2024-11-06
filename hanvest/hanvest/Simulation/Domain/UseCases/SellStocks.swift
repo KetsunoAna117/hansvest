@@ -40,11 +40,16 @@ struct SellStocksImpl: SellStocks {
                 }
                 
                 let averageTransactionPrice = getAverage(transactionList: fetchedTransactionList)
+                let invesmentToSubstract = averageTransactionPrice * transaction.stockLotQuantity
+                
                 try investmentRepo.substract(
                     investmentID: investment.investmentID,
-                    totalInvested: averageTransactionPrice,
+                    totalInvested: invesmentToSubstract,
                     lotPurchased: transaction.stockLotQuantity
                 )
+                
+                let newBalance = transaction.stockLotQuantity * transaction.priceAtPurchase * 100
+                try userRepo.add(balance: newBalance)
             }
             
             return .success(true)
