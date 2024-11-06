@@ -10,7 +10,7 @@ import SpriteKit
 import Combine
 
 struct Module01PlantingView: View {
-    @State private var growthProgress: PlantGrowthProgress = .progress01
+    @State private var growthProgress: PlantGrowthProgress = .progress03
     @State private var growthTimer: AnyCancellable?
     @State private var spriteScene: Module01SpriteController?
     
@@ -38,7 +38,7 @@ struct Module01PlantingView: View {
                     .transition(.opacity)
                     .id(self.growthProgress)
             }
-            .padding(.top, (UIScreen.main.bounds.width < 375) ? 100 : 140)
+            .padding(.top, (UIScreen.main.bounds.width < 385) ? 100 : 140)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             

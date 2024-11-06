@@ -19,11 +19,11 @@ struct HanvestPlantVisibilityView: View {
                         .transition(.opacity)
                         .id(self.plantImage)
                 }
-                .padding(.leading, customPaddingLeading(defaultPaddingLeading: (growthProgress == .progress13) ? 52.0 : 46.5))
+                .padding(.leading, customPaddingLeading(defaultPaddingLeading: (growthProgress == .progress13) ? 52.0 : 38.5))
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.top, customPaddingTop(defaultPaddingTop: (growthProgress == .progress13) ?  314.0 : 226.0))
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.bottom, customPaddingBottom(defaultPaddingBottom: (growthProgress == .progress13) ?  87.0 : 228.0))
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .onChange(of: self.growthProgress) { _, newValue in
                 self.updateCurrentPlantImage(growthProgress: newValue)
             }
@@ -42,18 +42,18 @@ struct HanvestPlantVisibilityView: View {
     }
     
     private func customPaddingLeading(defaultPaddingLeading: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 375 {
-            return (defaultPaddingLeading - 5)
+        if UIScreen.main.bounds.width < 385 {
+            return (defaultPaddingLeading + 3)
         } else {
             return defaultPaddingLeading
         }
     }
     
-    private func customPaddingTop(defaultPaddingTop: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 375 {
-            return (defaultPaddingTop - 46)
+    private func customPaddingBottom(defaultPaddingBottom: CGFloat) -> CGFloat {
+        if UIScreen.main.bounds.width < 385 {
+            return (defaultPaddingBottom - 140)
         } else {
-            return defaultPaddingTop
+            return defaultPaddingBottom
         }
     }
 }

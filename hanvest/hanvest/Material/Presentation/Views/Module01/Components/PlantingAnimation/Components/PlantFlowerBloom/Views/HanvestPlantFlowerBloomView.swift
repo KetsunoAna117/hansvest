@@ -89,15 +89,15 @@ struct HanvestPlantFlowerBloomView: View {
     }
     
     private func customPaddingLeading(defaultPaddingLeading: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 375 {
-            return (defaultPaddingLeading - 5)
+        if UIScreen.main.bounds.width < 385 {
+            return (defaultPaddingLeading + 3)
         } else {
             return defaultPaddingLeading
         }
     }
     
     private func customPaddingTop(defaultPaddingTop: CGFloat) -> CGFloat {
-        if UIScreen.main.bounds.width < 375 {
+        if UIScreen.main.bounds.width < 385 {
             return (defaultPaddingTop - 46)
         } else {
             return defaultPaddingTop
