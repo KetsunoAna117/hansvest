@@ -10,7 +10,7 @@ import SpriteKit
 import Combine
 
 struct Module01PlantingView: View {
-    @State private var growthProgress: PlantGrowthProgress = .progress03
+    @State private var growthProgress: PlantGrowthProgress = .progress01
     @State private var growthTimer: AnyCancellable?
     @State private var spriteScene: Module01SpriteController?
     
