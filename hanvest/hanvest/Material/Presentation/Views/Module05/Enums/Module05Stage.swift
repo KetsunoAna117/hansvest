@@ -37,7 +37,16 @@ enum Module05Stage: Equatable {
                         investmentID: UUID().uuidString,
                         stockIDName: transaction.selectedStockIDName,
                         totalInvested: transaction.stockPrice * transaction.lotAmount * 100,
-                        lotPurchased: transaction.lotAmount
+                        lotPurchased: transaction.lotAmount,
+                        stockTransaction: [
+                            .init(
+                                transactionID: UUID().uuidString,
+                                stockIDName: transaction.selectedStockIDName,
+                                priceAtPurchase: transaction.stockPrice,
+                                stockLotQuantity: transaction.lotAmount,
+                                time: Date.now
+                            )
+                        ]
                     )
             )
             

@@ -70,7 +70,6 @@ struct Module06ConfirmationBuyView: View {
                                 }
                             )
                         )
-                        print("[!] User Buy Button Event Pressed!")
                     }
                 )
                 .padding(.bottom, 48)

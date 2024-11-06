@@ -30,13 +30,14 @@ struct TransactionStatusViewModel {
         guard let user = getUserData.execute() else { return false }
         let result = purchaseStock.execute(
             userId: user.userId,
-            investment:
-                StockInvestmentEntity(
-                    investmentID: UUID().uuidString,
-                    stockIDName: self.selectedStockIDName,
-                    totalInvested: self.lotAmount * self.stockPrice * 100,
-                    lotPurchased: self.lotAmount
-                )
+            stockIDName: selectedStockIDName,
+            transaction: .init(
+                transactionID: UUID().uuidString,
+                stockIDName: selectedStockIDName,
+                priceAtPurchase: stockPrice,
+                stockLotQuantity: lotAmount,
+                time: Date.now
+            )
         )
         
         switch result {
@@ -55,13 +56,14 @@ struct TransactionStatusViewModel {
         guard let user = getUserData.execute() else { return false }
         let result = sellStock.execute(
             userId: user.userId,
-            investment:
-                StockInvestmentEntity(
-                    investmentID: UUID().uuidString,
-                    stockIDName: self.selectedStockIDName,
-                    totalInvested: self.lotAmount * self.stockPrice * 100,
-                    lotPurchased: self.lotAmount
-                )
+            stockIDName: selectedStockIDName,
+            transaction: .init(
+                transactionID: UUID().uuidString,
+                stockIDName: selectedStockIDName,
+                priceAtPurchase: stockPrice,
+                stockLotQuantity: lotAmount,
+                time: Date.now
+            )
         )
         
         switch result {

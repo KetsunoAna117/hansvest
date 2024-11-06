@@ -21,7 +21,8 @@ class Module06ProfileViewModel: ObservableObject {
                     investmentID: "investment-01",
                     stockIDName: "GOTO",
                     totalInvested: 9 * 1000 * 100,
-                    lotPurchased: 9
+                    lotPurchased: 9,
+                    stockTransaction: []
                 )
             ],
             transactionQueue: [],

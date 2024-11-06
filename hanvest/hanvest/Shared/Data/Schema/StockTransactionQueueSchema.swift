@@ -1,54 +1,45 @@
 //
-//  StockInvestmentTransactionSchema.swift
+//  StockTransactionQueueSche,a.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 20/10/24.
+//  Created by Hans Arthur Cupiterson on 05/11/24.
 //
 
 import Foundation
 import SwiftData
 
-@Model final class StockTransactionQueueSchema: Equatable, Hashable {
-    @Attribute(.unique) var transactionID: String
-    var stockIDName: String
+@Model
+final class StockTransactionQueueSchema {
+    @Attribute(.unique) var transactionQueueID: String
+    var stockIDName: String // FK
+    var userID: String // FK
     var priceAtPurchase: Int
-    var stockLotQuantity: Int
+    var lotPurchaseQuantity: Int
     var time: Date
     
-    init(transactionID: String, stockIDName: String, priceAtPurchase: Int, stockLotQuantity: Int, time: Date) {
-        self.transactionID = transactionID
+    init(
+        transactionQueueID: String,
+        stockIDName: String,
+        userID: String,
+        priceAtPurchase: Int,
+        lotPurchaseQuantity: Int,
+        time: Date
+    ) {
+        self.transactionQueueID = transactionQueueID
         self.stockIDName = stockIDName
+        self.userID = userID
         self.priceAtPurchase = priceAtPurchase
-        self.stockLotQuantity = stockLotQuantity
-        self.time = time
-    }
-    
-    func update(stockInvestmentTransactionSchema: StockTransactionQueueSchema) {
-        self.transactionID = stockInvestmentTransactionSchema.transactionID
-        self.priceAtPurchase = stockInvestmentTransactionSchema.priceAtPurchase
-        self.stockLotQuantity = stockInvestmentTransactionSchema.stockLotQuantity
-        self.time = stockInvestmentTransactionSchema.time
-    }
-    
-    func update(newPriceAtUpdate: Int) {
-        self.priceAtPurchase = newPriceAtUpdate
-    }
-    
-    func update(stockLotQuantity: Int) {
-        self.stockLotQuantity = stockLotQuantity
-    }
-    
-    func update(time: Date) {
+        self.lotPurchaseQuantity = lotPurchaseQuantity
         self.time = time
     }
     
     func mapToEntity() -> StockTransactionQueueEntity {
-        return StockTransactionQueueEntity(
-            transactionID: self.transactionID,
+        return .init(
+            transactionQueueID: self.transactionQueueID,
             stockIDName: self.stockIDName,
             priceAtPurchase: self.priceAtPurchase,
-            stockLotQuantity: self.stockLotQuantity,
-            time: Date.distantPast
+            lotPurchaseQuantity: self.lotPurchaseQuantity,
+            time: self.time
         )
     }
 }

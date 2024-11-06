@@ -32,6 +32,9 @@ struct MaterialModule06ScreenView: View {
             )
             .padding(.horizontal, 20)
             
+            Divider()
+                .padding(.top, 20)
+            
             VStack {
                 if let content = contentRouter.content.last {
                     contentRouter.build(content)

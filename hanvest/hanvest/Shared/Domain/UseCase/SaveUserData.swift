@@ -20,14 +20,6 @@ struct SaveUserDataImpl: SaveUserData {
             userName: "Bryon",
             userBalance: 100000,
             userRiskProfile: .conservative,
-            userInvestmentTransactionID: [
-                "transaction-01",
-                "transaction-02",
-                "transaction-03"
-            ],
-            transactionQueueID: [
-                "transaction-04"
-            ],
             moduleCompletionIDList: []
         )
         

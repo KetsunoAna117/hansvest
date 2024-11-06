@@ -56,13 +56,11 @@ struct Module05SimulationView: View {
                                             displayBy: .hour
                                         )
                                         
-                                        if let userData = profileViewModel.userData {
-                                            StockInvestmentDataView(
-                                                userData: userData,
-                                                selectedStock: selectedStock
-                                            )
-                                            .id(Module05TipData.yourInvestment.index)
-                                        }
+                                        StockInvestmentDataView(
+                                            userData: $profileViewModel.userData,
+                                            selectedStock: selectedStock
+                                        )
+                                        .id(Module05TipData.yourInvestment.index)
                                         
                                         StockCompanyProfileInformation(desc: selectedStock.stockDescription)
                                             .showCase(

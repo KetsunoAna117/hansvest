@@ -1,66 +1,67 @@
 //
-//  LocalStockTransactionQueueRepository.swift
+//  LocalStockInvestmentRepository.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 05/11/24.
+//  Created by Hans Arthur Cupiterson on 21/10/24.
 //
 
 import Foundation
 import SwiftData
 
-struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
+struct LocalStockTransactionRepository: StockTransactionRepository {
     let modelContext: ModelContext?
     
-    func fetch() -> [StockTransactionQueueSchema] {
+    func fetch() -> [StockTransactionSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>()
+                let descriptor = FetchDescriptor<StockTransactionSchema>()
                 return try context.fetch(descriptor)
             }
             catch {
-                debugPrint("Error Fetch StockTransactionQueueSchema: ", error)
+                debugPrint("Error Fetch Data:",error)
             }
         }
         return []
     }
     
-    func fetch(id: String) -> StockTransactionQueueSchema? {
+    func fetch(id: String) -> StockTransactionSchema? {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.transactionQueueID == id }
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                    predicate: #Predicate { $0.transactionID == id}
                 )
                 return try context.fetch(descriptor).first
                 
             }
             catch {
-                debugPrint("Error Fetch StockTransactionQueueSchema: ", error)
+                debugPrint("Error Fetch Data:",error)
             }
         }
         return nil
     }
     
-    func fetchWith(userID: String) -> [StockTransactionQueueSchema] {
+    func fetchWith(investmentID: String) -> [StockTransactionSchema] {
         if let context = modelContext {
             do {
-                let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.userID == userID}
+                let descriptor = FetchDescriptor<StockTransactionSchema>(
+                    predicate: #Predicate { $0.investmentID == investmentID}
                 )
                 return try context.fetch(descriptor)
+                
             }
             catch {
-                debugPrint("Error Fetch StockTransactionQueueSchema: ", error)
+                debugPrint("Error Fetch Data:",error)
             }
         }
         return []
     }
     
-    func save(_ transaction: StockTransactionQueueSchema) throws {
+    func save(_ transaction: StockTransactionSchema) throws {
         if let context = modelContext {
-            let transactionID: String = transaction.transactionQueueID
+            let transactionID: String = transaction.transactionID
             
-            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionQueueID == transactionID }
+            let descriptor = FetchDescriptor<StockTransactionSchema>(
+                predicate: #Predicate { $0.transactionID == transactionID }
             )
             
             if try context.fetch(descriptor).first != nil {
@@ -74,8 +75,8 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
     
     func delete(_ transactionID: String) throws {
         if let context = modelContext {
-            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionQueueID == transactionID }
+            let descriptor = FetchDescriptor<StockTransactionSchema>(
+                predicate: #Predicate { $0.transactionID == transactionID }
             )
             
             guard let result = try context.fetch(descriptor).first else {
@@ -86,6 +87,4 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
             try context.save()
         }
     }
-    
-    
 }

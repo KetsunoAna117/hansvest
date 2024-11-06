@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDataEntity {
+struct UserDataEntity: Equatable {
     var userId: String
     var userName: String
     var userBalance: Int
@@ -24,10 +24,15 @@ extension UserDataEntity {
             userName: self.userName,
             userBalance: self.userBalance,
             userRiskProfile: self.userRiskProfile,
-            userInvestmentTransactionID: self.userInvestmentTransaction.map { $0.investmentID },
-            transactionQueueID: self.transactionQueue.map { $0.transactionID },
             moduleCompletionIDList: self.moduleCompletionList
         )
+    }
+}
+
+extension UserDataEntity {
+    // Conform to equatable
+    static func == (lhs: UserDataEntity, rhs: UserDataEntity) -> Bool {
+        return lhs.userId == rhs.userId
     }
 }
 
@@ -39,9 +44,9 @@ extension UserDataEntity {
 //            userName: "Bryon",
 //            userBalance: 2000000,
 //            userRiskProfile: .aggresive,
-//            userInvestmentTransaction: StockTransactionQueueEntity.mock(),
+//            userInvestmentTransaction: StockTransactionEntity.mock(),
 //            transactionQueue: [
-//                StockTransactionQueueEntity(
+//                StockTransactionEntity(
 //                    transactionID: UUID().uuidString,
 //                    stockIDName: "BBRI",
 //                    priceAtPurchase: 1000,
