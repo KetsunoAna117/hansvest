@@ -54,6 +54,8 @@ struct PurchaseStocksImpl: PurchaseStocks {
                     totalInvested: totalInvested,
                     lotPurchased: transaction.stockLotQuantity
                 )
+                // Update investment Data
+                investmentRepo.add(investmentID: <#T##String#>, with: <#T##StockInvestmentSchema#>)
             }
             else {
                 // If investment is not found, create new investment
