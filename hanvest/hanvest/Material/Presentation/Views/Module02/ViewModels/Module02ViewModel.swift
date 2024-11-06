@@ -1,24 +1,33 @@
 //
-//  Module04ViewModel.swift
+//  Module02ViewModel.swift
 //  hanvest
 //
-//  Created by Bryan Vernanda on 19/10/24.
+//  Created by Bryan Vernanda on 16/10/24.
 //
 
 import Foundation
 
-class Module04ViewModel: ObservableObject {
+class Module02ViewModel: ObservableObject {
     @Inject var validateIfUserHasCompletedTheModule: ValidateIfUserHasCompletedTheModule
     
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    let lastPage = Module04NumberedListContent.page11.rawValue
+    let progressBarMinValue: Int
+    let progressBarMaxValue: Int
+    let lastPage: Int
     
-    @Published var currentTab: Int = 0
-    @Published var progressBarCurrValue: Int = 4
-    @Published var pageState: Module04PageState = .pageStartQuiz
-    @Published var showingAnswer: Module04ShowingCorrectOrWrongAnswer = .isNotShowing
-    @Published var userSelectedAnswer: String = ""
+    @Published var currentTab: Int
+    @Published var progressBarCurrValue: Int
+    @Published var pageState: Module02PageState
+    @Published var userSelectedAnswers: Array<String>
+    
+    init() {
+        self.progressBarMinValue = 0
+        self.progressBarMaxValue = 100
+        self.lastPage = Module02HeaderWithDetailText.page10.rawValue
+        self.currentTab = 0
+        self.progressBarCurrValue = 4
+        self.pageState = .pageContinue
+        self.userSelectedAnswers = Array(repeating: "", count: Module02HeaderWithDetailText.page10.rawValue)
+    }
     
     
     func directToCompletionPage(router: any AppRouterProtocol, specificModule: CompletionEntityType) {
@@ -42,7 +51,6 @@ class Module04ViewModel: ObservableObject {
                 currentTab += 1
                 updateProgressBarValue()
                 changePageState()
-                resetUserSelectedAnswer()
             }
         } else {
             directToCompletionPage(router: router, specificModule: specificModule)
@@ -51,6 +59,10 @@ class Module04ViewModel: ObservableObject {
     
     func changePageState() {
         switch currentTab {
+            case Module02TextImage.page06.rawValue:
+                pageState = .pageCheckout
+            case Module02MultipleChoice.page07.rawValue:
+                pageState = .pagePay
             default:
                 pageState = .pageContinue
         }
@@ -61,34 +73,15 @@ class Module04ViewModel: ObservableObject {
     }
     
     func checkIsDisabled() -> Bool {
-        return (userSelectedAnswer.isEmpty && checkIsCurrentPageAQuestion())
-    }
-    
-    func checkIsCurrentPageAQuestion() -> Bool {
-        return (Module04MultipleChoice.allCases.contains { $0.rawValue == currentTab })
-    }
-    
-    func toggleShowingAnswer() {
-        showingAnswer.toggle()
-    }
-    
-    func parseUserAnswerIfIsWrong(page: Module04MultipleChoice) -> String? {
-        if userSelectedAnswer != page.answers {
-            return userSelectedAnswer
-        } else {
-            return nil
-        }
-    }
-    
-    func checkUserAnswerTrueOrFalse(currentTab: Int) -> Bool {
-        if let currentPage = Module04MultipleChoice(rawValue: currentTab) {
-            return userSelectedAnswer == currentPage.answers
-        } else {
+        guard currentTab < userSelectedAnswers.count else {
             return false
         }
+        
+        let isPage04 = (currentTab == Module02TextImageColorPicker.page04.rawValue)
+        let isChoicePage = Module02MultipleChoice.allCases.contains(where: { $0.rawValue == currentTab })
+        let isAnswerEmpty = userSelectedAnswers[currentTab].isEmpty
+        
+        return (isPage04 || isChoicePage) && isAnswerEmpty
     }
     
-    func resetUserSelectedAnswer() {
-        userSelectedAnswer = ""
-    }
 }

@@ -36,17 +36,15 @@ struct ModuleJourneyView: View {
                         style: module.state,
                         number: moduleNumber,
                         action: {
-                            withAnimation(.easeInOut(duration: 0.1)) {
-                                router.presentOverlay(
-                                    .withHanvestPopupButton(
-                                        title: module.popup.title,
-                                        desc: module.popup.desc,
-                                        buttonAction: {
-                                            router.push(module.moduleScreenID)
-                                        }
-                                    )
+                            router.presentOverlay(
+                                .withHanvestPopupButton(
+                                    title: module.popup.title,
+                                    desc: module.popup.desc,
+                                    buttonAction: {
+                                        router.push(module.moduleScreenID)
+                                    }
                                 )
-                            }
+                            )
                         }
                     )
                 }

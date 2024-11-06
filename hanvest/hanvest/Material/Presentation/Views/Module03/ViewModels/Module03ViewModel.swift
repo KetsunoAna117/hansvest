@@ -1,23 +1,33 @@
 //
-//  Module02ViewModel.swift
+//  Module04ViewModel.swift
 //  hanvest
 //
-//  Created by Bryan Vernanda on 16/10/24.
+//  Created by Bryan Vernanda on 19/10/24.
 //
 
 import Foundation
 
-class Module02ViewModel: ObservableObject {
+class Module03ViewModel: ObservableObject {
     @Inject var validateIfUserHasCompletedTheModule: ValidateIfUserHasCompletedTheModule
     
-    let progressBarMinValue: Int = 0
-    let progressBarMaxValue: Int = 100
-    let lastPage = Module02HeaderWithDetailText.page10.rawValue
+    let progressBarMinValue: Int
+    let progressBarMaxValue: Int
+    let lastPage: Int
     
-    @Published var currentTab: Int = 0
-    @Published var progressBarCurrValue: Int = 4
-    @Published var pageState: Module02PageState = .pageContinue
-    @Published var userSelectedAnswers = Array(repeating: "", count: Module02HeaderWithDetailText.page10.rawValue)
+    @Published var currentTab: Int
+    @Published var progressBarCurrValue: Int
+    @Published var pageState: Module03PageState
+    @Published var selectedProductIndex: Int
+    
+    init() {
+        self.progressBarMinValue = 0
+        self.progressBarMaxValue = 100
+        self.lastPage = Module03MaterialInformationContent.page06.rawValue
+        self.currentTab = 0
+        self.progressBarCurrValue = 4
+        self.pageState = .pageContinue
+        self.selectedProductIndex = -1
+    }
     
     
     func directToCompletionPage(router: any AppRouterProtocol, specificModule: CompletionEntityType) {
@@ -49,10 +59,8 @@ class Module02ViewModel: ObservableObject {
     
     func changePageState() {
         switch currentTab {
-            case Module02TextImage.page06.rawValue:
-                pageState = .pageCheckout
-            case Module02MultipleChoice.page07.rawValue:
-                pageState = .pagePay
+            case Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue:
+                pageState = .pageNextMonth
             default:
                 pageState = .pageContinue
         }
@@ -63,15 +71,15 @@ class Module02ViewModel: ObservableObject {
     }
     
     func checkIsDisabled() -> Bool {
-        guard currentTab < userSelectedAnswers.count else {
-            return false
-        }
-        
-        let isPage04 = (currentTab == Module02TextImageColorPicker.page04.rawValue)
-        let isChoicePage = Module02MultipleChoice.allCases.contains(where: { $0.rawValue == currentTab })
-        let isAnswerEmpty = userSelectedAnswers[currentTab].isEmpty
-        
-        return (isPage04 || isChoicePage) && isAnswerEmpty
+        return (selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
     }
     
+    func setSelectedProductIndex(answer: String) {
+        for optionCase in Module03MultipleChoice.allCases {
+            if let index = optionCase.options.firstIndex(of: answer) {
+                self.selectedProductIndex = index
+                return
+            }
+        }
+    }
 }

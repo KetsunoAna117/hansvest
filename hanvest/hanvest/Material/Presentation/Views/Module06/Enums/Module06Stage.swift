@@ -5,7 +5,7 @@
 //  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
-enum Module06Stage {
+enum Module06Stage: Equatable {
     case openNews(appRouter: any AppRouterProtocol)
     case openNewsDetails(appRouter: any AppRouterProtocol)
     case buyState(appRouter: any AppRouterProtocol)
@@ -92,6 +92,21 @@ enum Module06Stage {
             return """
                     Lorem ipsum dolor sit amet consectetur. Malesuada lectus id quam congue neque odio dignissim. Diam viverra enim velit euismod duis. A urna facilisi id vestibulum. Maecenas velit dolor semper sagittis enim arcu. Arcu hac eu eget sed. Vulputate viverra leo id quis pellentesque lacus lorem aliquet. Ipsum pellentesque habitasse molestie nunc id. At nec facilisis malesuada facilisis facilisis nunc. Vitae lorem nisi molestie consequat vitae 
                     """
+        }
+    }
+}
+
+extension Module06Stage {
+    // Conform to Equatable
+    static func == (lhs: Module06Stage, rhs: Module06Stage) -> Bool {
+        switch (lhs, rhs) {
+        case (.openNews, .openNews),
+            (.openNewsDetails, .openNewsDetails),
+            (.buyState, .buyState),
+            (.sellState, .sellState):
+            return true
+        default:
+            return false
         }
     }
 }

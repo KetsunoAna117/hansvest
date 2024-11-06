@@ -32,17 +32,15 @@ struct GlossaryView: View {
             HanvestGlossaryListComponent(viewModel: viewModel)
                 .onChange(of: viewModel.selectedEntity) { oldEntity, newEntity in
                     if let entity = newEntity {
-                        withAnimation(.easeInOut(duration: 0.1)) {
-                            router.presentOverlay(
-                                .withGlossaryPopup(
-                                    title: entity.word,
-                                    desc: entity.description,
-                                    buttonAction: {
-                                        viewModel.clearSelection()
-                                    }
-                                )
+                        router.presentOverlay(
+                            .withGlossaryPopup(
+                                title: entity.word,
+                                desc: entity.description,
+                                buttonAction: {
+                                    viewModel.clearSelection()
+                                }
                             )
-                        }
+                        )
                     }
                 }
         }

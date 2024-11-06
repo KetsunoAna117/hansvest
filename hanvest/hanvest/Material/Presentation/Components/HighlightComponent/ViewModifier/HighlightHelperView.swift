@@ -35,27 +35,18 @@ struct HighlightHelperView: ViewModifier {
     /// Namespace ID, for smooth shape transitions (must be attached to view directly)
     @Namespace private var animation
     
-    /// parse value to main view
-    var onValueChange: ((Int) -> Void)?
-    
     func body(content: Content) -> some View {
         content
             .onPreferenceChange(HighlightAnchorKey.self) { value in
-                // Filter highlights based on the current show state condition
-                viewModel.highlightOrder = value
-                    .filter { $0.value.stage == viewModel.stage }
-                    .map { $0.key }
-                    .sorted()
+                viewModel.updateHighlightOrderIfNeeded(from: value)
             }
             .onChange(of: viewModel.stage) { _, newValue in
                 // Reset showcase state when `changeShowState` updates
                 viewModel.resetHighlightViewState()
             }
             .overlayPreferenceValue(HighlightAnchorKey.self) { preferences in
-                if viewModel.highlightOrder.indices.contains(viewModel.currentHighlight), viewModel.showView {
-                    if let highlight = preferences[viewModel.highlightOrder[viewModel.currentHighlight]] {
-                        HighlightView(highlight)
-                    }
+                if let highlight = viewModel.currentHighlightToShow(from: preferences) {
+                    HighlightView(highlight)
                 }
             }
     }
@@ -80,24 +71,26 @@ struct HighlightHelperView: ViewModifier {
                  .ignoresSafeArea()
                  .onChange(of: viewModel.showTitle) { _, newValue in
                      if newValue {
-                         viewModel.setNewPopUpPosition(midYPosition: highlightRect.midY, screenHeight: screenHeight)
+                         viewModel.setNewPopUpPosition(highlightRect: highlightRect, screenHeight: screenHeight)
                      } else {
                          viewModel.updateCurrentHighlight()
-                         
-                         if let onValueChange = onValueChange {
-                             onValueChange(viewModel.currentHighlight)
-                         }
                      }
+                 }
+                 .onAppear {
+                     viewModel.setNewPopUpPosition(highlightRect: highlightRect, screenHeight: screenHeight)
                  }
              
              Rectangle()
                  .foregroundColor(.clear)
-                 .frame(width: highlightRect.width + 20, height: highlightRect.height + 20)
+                 .frame(
+                    width: highlightRect.width + (viewModel.isItemCoverThreeQuarterScreen ? 5 : 20),
+                    height: highlightRect.height + (viewModel.isItemCoverThreeQuarterScreen ? 5 : 20)
+                 )
                  .clipShape(RoundedRectangle(cornerRadius: highlight.cornerRadius, style: highlight.style))
                  .popover(
                     isPresented: $viewModel.showTitle,
-                    attachmentAnchor: .point(viewModel.positionUpOrDown ? .bottom : .top),
-                    arrowEdge: viewModel.positionUpOrDown ? .top : .bottom
+                    attachmentAnchor: viewModel.getPopoverAttachmentAnchorPosition(),
+                    arrowEdge: viewModel.getPopoverArrowEdge()
                  ) {
                      VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
