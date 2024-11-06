@@ -55,9 +55,12 @@ struct SellStocksImpl: SellStocks {
     }
     
     func getAverage(transactionList: [StockTransactionSchema]) -> Int {
-        let (totalTransactionAmount, totalInvestedLotAmount) = transactionList.reduce((0, 0)) { result, data in
-            let amount = data.priceAtPurchase * data.stockLotQuantity * 100
-            return (result.0 + amount, result.1 + data.stockLotQuantity)
+        var totalInvestedLotAmount = 0
+        var totalTransactionAmount = 0
+        
+        for transaction in transactionList {
+            totalInvestedLotAmount += transaction.stockLotQuantity
+            totalTransactionAmount += transaction.stockLotQuantity * transaction.priceAtPurchase * 100
         }
         
         guard totalInvestedLotAmount != 0 else { return 0 }

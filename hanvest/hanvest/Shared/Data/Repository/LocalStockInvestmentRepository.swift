@@ -98,8 +98,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 
                 // Add investment data if found
                 if let investment = try context.fetch(descriptor).first {
-                    investment.totalInvested += totalInvested
-                    investment.lotPurchased += lotPurchased
+                    investment.add(totalInvested: totalInvested, lotPurchased: lotPurchased)
                     
                     try context.save()
                 }
@@ -119,8 +118,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 
                 // Add investment data if found
                 if let investment = try context.fetch(descriptor).first {
-                    investment.totalInvested -= totalInvested
-                    investment.lotPurchased -= lotPurchased
+                    investment.substract(totalInvested: totalInvested, lotPurchased: lotPurchased)
                     
                     try context.save()
                 }

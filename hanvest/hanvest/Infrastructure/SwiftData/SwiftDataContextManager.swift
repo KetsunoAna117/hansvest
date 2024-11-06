@@ -255,6 +255,25 @@ private extension SwiftDataContextManager {
         ]
     }
     
+    func getMockInvestmentData() -> [StockInvestmentSchema] {
+        return [
+            .init(
+                investmentID: "investment-01",
+                stockIDName: "BBRI",
+                totalInvested: 1520000,
+                lotPurchased: 3,
+                userID: "user-01"
+            ),
+            .init(
+                investmentID: "investment-02",
+                stockIDName: "BBCA",
+                totalInvested: 700000,
+                lotPurchased: 1,
+                userID: "user-01"
+            )
+        ]
+    }
+    
     func getMockNewsSchemaData() -> [StockNewsSchema] {
         return [
             .init(
@@ -368,25 +387,6 @@ private extension SwiftDataContextManager {
                     "GOTO-price-3",
                     "GOTO-price-4",
                 ]
-            )
-        ]
-    }
-
-    func getMockInvestmentData() -> [StockInvestmentSchema] {
-        return [
-            .init(
-                investmentID: "investment-01",
-                stockIDName: "BBRI",
-                totalInvested: 15200000,
-                lotPurchased: 3,
-                userID: "user-01"
-            ),
-            .init(
-                investmentID: "investment-02",
-                stockIDName: "BBCA",
-                totalInvested: 700000,
-                lotPurchased: 1,
-                userID: "user-01"
             )
         ]
     }

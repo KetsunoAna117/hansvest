@@ -30,19 +30,14 @@ final class StockInvestmentSchema {
         self.userID = userID
     }
     
-    func add(data: StockInvestmentSchema) {
-        self.totalInvested += data.totalInvested
-        self.lotPurchased += data.lotPurchased
+    func add(totalInvested: Int, lotPurchased: Int) {
+        self.totalInvested += totalInvested
+        self.lotPurchased += lotPurchased
     }
     
-    func substract(from data: StockInvestmentSchema) {
-        if self.totalInvested - data.totalInvested < 0 {
-            self.totalInvested = 0
-        }
-        else {
-            self.totalInvested -= data.totalInvested
-        }
-        self.lotPurchased -= data.lotPurchased
+    func substract(totalInvested: Int, lotPurchased: Int) {
+        self.totalInvested -= totalInvested
+        self.lotPurchased -= lotPurchased
     }
     
     func mapToEntity(
