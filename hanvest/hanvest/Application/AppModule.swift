@@ -39,11 +39,13 @@ struct AppModule {
         )
         @Provider var purchaseStock: PurchaseStocks = PurchaseStocksImpl(
             userRepo: userRepository,
-            investmentRepo: stockInvestmentRepository
+            investmentRepo: stockInvestmentRepository,
+            transactionRepo: stockTransactionRepository
         )
         @Provider var sellStock: SellStocks = SellStocksImpl(
             userRepo: userRepository,
-            investmentRepo: stockInvestmentRepository
+            investmentRepo: stockInvestmentRepository,
+            transactionRepo: stockTransactionRepository
         )
         
         // User

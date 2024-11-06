@@ -71,10 +71,10 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
     
     func save(investment: StockInvestmentSchema) throws {
         if let context = modelContext {
-            let investmentID = investment.investmentID
+            let investmentStock = investment.stockIDName
             
             let descriptor = FetchDescriptor<StockInvestmentSchema>(
-                predicate: #Predicate { $0.stockIDName == investment.stockIDName }
+                predicate: #Predicate { $0.stockIDName == investmentStock }
             )
             
             // Save if not found

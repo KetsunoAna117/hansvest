@@ -26,11 +26,6 @@ struct PurchaseStocksImpl: PurchaseStocks {
         transaction: StockTransactionEntity
     ) -> Result<Bool, any Error> {
         do {
-            // Fetch User Data
-            guard let userData = userRepo.fetch() else {
-                return .failure(SwiftDataError.notFound(object: userId))
-            }
-            
             // Fetch Investment
             if let investment = investmentRepo.fetchBy(
                 userID: userId,
@@ -54,8 +49,6 @@ struct PurchaseStocksImpl: PurchaseStocks {
                     totalInvested: totalInvested,
                     lotPurchased: transaction.stockLotQuantity
                 )
-                // Update investment Data
-                investmentRepo.add(investmentID: <#T##String#>, with: <#T##StockInvestmentSchema#>)
             }
             else {
                 // If investment is not found, create new investment

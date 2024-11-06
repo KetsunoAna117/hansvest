@@ -25,12 +25,7 @@ struct SellStocksImpl: SellStocks {
         stockIDName: String,
         transaction: StockTransactionEntity
     ) -> Result<Bool, any Error> {
-        do {
-            // Fetch User Data
-            guard let userData = userRepo.fetch() else {
-                return .failure(SwiftDataError.notFound(object: userId))
-            }
-            
+        do {            
             // Fetch Investment
             if let investment = investmentRepo.fetchBy(
                 userID: userId,
