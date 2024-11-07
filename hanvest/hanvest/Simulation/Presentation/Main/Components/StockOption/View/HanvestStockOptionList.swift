@@ -32,6 +32,7 @@ struct HanvestStockOptionList: View {
                 }
             }
             .safeAreaPadding(.horizontal, 20)
+            .scrollIndicators(.hidden)
         }
         .padding(.vertical, 12)
     }

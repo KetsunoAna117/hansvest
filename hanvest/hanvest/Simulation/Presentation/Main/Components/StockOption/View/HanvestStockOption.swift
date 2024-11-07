@@ -18,7 +18,8 @@ struct HanvestStockOption: View {
     
     var body: some View {
         ZStack {
-            Image(self.state == .unselected ? "\(imageName)-inactive" : "\(imageName)")
+            Image(self.state == .unselected ? "\(imageName)_INACTIVE" : "\(imageName)_ACTIVE")
+                .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .shadow(
                     color: (self.state == .unselected ? .mineShaft700 : .clear),
