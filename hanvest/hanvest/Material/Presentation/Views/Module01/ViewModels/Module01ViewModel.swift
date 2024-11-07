@@ -21,7 +21,7 @@ class Module01ViewModel: ObservableObject {
     init() {
         self.progressBarMinValue = 0
         self.progressBarMaxValue = 100
-        self.lastPage = ContentOfModule01Material.allCases.count
+        self.lastPage = ContentOfModule01Material.page02.rawValue
         self.currentTab = 0
         self.progressBarCurrValue = 4
         self.plantingViewVisibility = .isVisible
@@ -44,7 +44,7 @@ class Module01ViewModel: ObservableObject {
     }
     
     func goToNextPage(router: any AppRouterProtocol, specificModule: CompletionEntityType) {
-        if currentTab < (lastPage - 1) {
+        if currentTab < lastPage {
             currentTab += 1
             updateProgressBarValue()
         } else {

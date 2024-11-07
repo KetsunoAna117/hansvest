@@ -63,7 +63,7 @@ class RiskProfileViewModel: ObservableObject {
     
     func updateProgressBarValue() {
         if pageState == .pageQuestion {
-            progressBarCurrValue += (progressBarMaxValue / RiskProfileQuestionsAndOptions.allCases.count)
+            progressBarCurrValue += (progressBarMaxValue / (RiskProfileQuestionsAndOptions.allCases.count - 1))
         }
     }
     
