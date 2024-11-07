@@ -174,21 +174,28 @@ private extension SwiftDataContextManager {
             let result = getMockUserSchemaData()
             saveUserData(userDataSchema: result)
         }
-    }
-    
-    func prepopulateSystemData() {
-        let transactionSchemaData = fetchTransactionSchema()
-        let newsSchemaData = fetchNewsSchema()
-        let productPriceSchemaData = fetchProductPriceSchema()
-        let simulationStockSchemaData = fetchSimulationStockSchema()
-        let userInvestmentData = fetchStockInvestmentSchema()
         
+        let transactionSchemaData = fetchTransactionSchema()
         if transactionSchemaData <= 0 {
             let result = getMockTransactionSchemaData()
             for data in result {
                 saveStockTransactionData(stockTransaction: data)
             }
         }
+        
+        let userInvestmentData = fetchStockInvestmentSchema()
+        if userInvestmentData <= 0 {
+            let result = getMockInvestmentData()
+            for data in result {
+                saveStockInvestmentData(investment: data)
+            }
+        }
+    }
+    
+    func prepopulateSystemData() {
+        let newsSchemaData = fetchNewsSchema()
+        let productPriceSchemaData = fetchProductPriceSchema()
+        let simulationStockSchemaData = fetchSimulationStockSchema()
         
         if newsSchemaData <= 0 {
             let result = getMockNewsSchemaData()
@@ -208,13 +215,6 @@ private extension SwiftDataContextManager {
             let result = getMockSimulationStockSchemaData()
             for data in result {
                 saveSimulationStockData(stockSimulation: data)
-            }
-        }
-        
-        if userInvestmentData <= 0 {
-            let result = getMockInvestmentData()
-            for data in result {
-                saveStockInvestmentData(investment: data)
             }
         }
     }
