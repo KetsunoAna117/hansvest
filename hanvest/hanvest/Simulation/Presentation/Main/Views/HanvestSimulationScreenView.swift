@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct HanvestSimulationView: View {
     let router: any AppRouterProtocol
@@ -27,16 +28,12 @@ struct HanvestSimulationView: View {
                         
                         Divider()
                         
-                        if let userData = userDataViewModel.userData {
-                            SimulationStockDetailsView(
-                                router: router,
-                                userData: userData,
-                                viewmodel: simulationViewModel
-                            )
-                            .padding(.top, 12)
-                        }
-                        
-     
+                        SimulationStockDetailsView(
+                            router: router,
+                            userData: $userDataViewModel.userData,
+                            viewmodel: simulationViewModel
+                        )
+                        .padding(.top, 12)
                         
                         Divider()
                             .padding(.top, -6)
@@ -73,6 +70,7 @@ struct HanvestSimulationView: View {
                         Divider()
                     }
                 }
+
             }
             else {
                 Text("ERROR: No User Data Detected")

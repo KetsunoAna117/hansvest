@@ -46,12 +46,10 @@ struct Module06SimulationView: View {
                                     displayBy: .hour
                                 )
                                 
-                                if let userData = profileViewModel.userData {
-                                    StockInvestmentDataView(
-                                        userData: userData,
-                                        selectedStock: selectedStock
-                                    )
-                                }
+                                StockInvestmentDataView(
+                                    userData: $profileViewModel.userData,
+                                    selectedStock: selectedStock
+                                )
                                 
                                 StockCompanyProfileInformation(desc: selectedStock.stockDescription)
                                 

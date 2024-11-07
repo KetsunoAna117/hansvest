@@ -1,8 +1,8 @@
 //
-//  LocalStockInvestmentRepository.swift
+//  LocalStockTransactionQueueRepository.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 21/10/24.
+//  Created by Hans Arthur Cupiterson on 05/11/24.
 //
 
 import Foundation
@@ -18,7 +18,7 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
                 return try context.fetch(descriptor)
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                debugPrint("Error Fetch StockTransactionQueueSchema: ", error)
             }
         }
         return []
@@ -28,29 +28,28 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
         if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.transactionID == id}
+                    predicate: #Predicate { $0.transactionQueueID == id }
                 )
                 return try context.fetch(descriptor).first
                 
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                debugPrint("Error Fetch StockTransactionQueueSchema: ", error)
             }
         }
         return nil
     }
     
-    func fetchWith(stockIDName: String) -> [StockTransactionQueueSchema] {
+    func fetchWith(userID: String) -> [StockTransactionQueueSchema] {
         if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                    predicate: #Predicate { $0.stockIDName == stockIDName}
+                    predicate: #Predicate { $0.userID == userID}
                 )
                 return try context.fetch(descriptor)
-                
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                debugPrint("Error Fetch StockTransactionQueueSchema: ", error)
             }
         }
         return []
@@ -58,14 +57,14 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
     
     func save(_ transaction: StockTransactionQueueSchema) throws {
         if let context = modelContext {
-            let transactionID: String = transaction.transactionID
+            let transactionID: String = transaction.transactionQueueID
             
             let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionID == transactionID }
+                predicate: #Predicate { $0.transactionQueueID == transactionID }
             )
             
             if try context.fetch(descriptor).first != nil {
-                throw SwiftDataError.alreadyExists
+                throw SwiftDataError.alreadyExists(object: transaction)
             }
             
             context.insert(transaction)
@@ -76,62 +75,14 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
     func delete(_ transactionID: String) throws {
         if let context = modelContext {
             let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionID == transactionID }
+                predicate: #Predicate { $0.transactionQueueID == transactionID }
             )
             
             guard let result = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound(object: transactionID)
             }
             
             context.delete(result)
-            try context.save()
-        }
-    }
-
-
-
-    
-    func update(id: String, price: Int) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionID == id }
-            )
-            
-            guard let transaction = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            transaction.update(newPriceAtUpdate: price)
-            try context.save()
-        }
-    }
-    
-    func update(id: String, stockLotQty: Int) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionID == id }
-            )
-            
-            guard let transaction = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            transaction.update(stockLotQuantity: stockLotQty)
-            try context.save()
-        }
-    }
-    
-    func update(id: String, time: Date) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<StockTransactionQueueSchema>(
-                predicate: #Predicate { $0.transactionID == id }
-            )
-            
-            guard let transaction = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            transaction.update(time: time)
             try context.save()
         }
     }

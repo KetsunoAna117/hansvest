@@ -12,17 +12,19 @@ import SwiftData
     var userName: String
     var userBalance: Int
     var userRiskProfile: RiskProfileType
-    var userInvestmentTransactionID: [String]
-    var transactionQueueID: [String]
     var moduleCompletionIDList: [CompletionEntityType]
     
-    init(userId: String, userName: String, userBalance: Int, userRiskProfile: RiskProfileType, userInvestmentTransactionID: [String], transactionQueueID: [String], moduleCompletionIDList: [CompletionEntityType]) {
+    init(
+        userId: String,
+        userName: String,
+        userBalance: Int,
+        userRiskProfile: RiskProfileType,
+        moduleCompletionIDList: [CompletionEntityType]
+    ) {
         self.userId = userId
         self.userName = userName
         self.userBalance = userBalance
         self.userRiskProfile = userRiskProfile
-        self.userInvestmentTransactionID = userInvestmentTransactionID
-        self.transactionQueueID = transactionQueueID
         self.moduleCompletionIDList = moduleCompletionIDList
     }
     
@@ -30,8 +32,6 @@ import SwiftData
         self.userName = newUserData.userName
         self.userBalance = newUserData.userBalance
         self.userRiskProfile = newUserData.userRiskProfile
-        self.userInvestmentTransactionID = newUserData.userInvestmentTransactionID
-        self.transactionQueueID = newUserData.transactionQueueID
     }
     
     func add(newBalance: Int) {
@@ -46,14 +46,6 @@ import SwiftData
         self.userName = newName
     }
     
-    func add(newUserInvestmentTransactionID: String) {
-        self.userInvestmentTransactionID.append(newUserInvestmentTransactionID)
-    }
-    
-    func update(newTransactionQueueID: [String]) {
-        self.transactionQueueID = newTransactionQueueID
-    }
-    
     func add(moduleCompletion: CompletionEntityType) {
         self.moduleCompletionIDList.append(moduleCompletion)
     }
@@ -63,7 +55,8 @@ import SwiftData
     }
     
     func mapToEntity(
-        userInvestmentTransaction: [StockInvestmentSchema],
+        stockInvestmentSchema: [StockInvestmentSchema],
+        stockInvestmentTransaction: [StockTransactionSchema],
         transactionQueue: [StockTransactionQueueSchema]
     ) -> UserDataEntity {
         return UserDataEntity(
@@ -71,7 +64,14 @@ import SwiftData
             userName: self.userName,
             userBalance: self.userBalance,
             userRiskProfile: self.userRiskProfile,
-            userInvestmentTransaction: userInvestmentTransaction.map { $0.mapToEntity() },
+            userInvestmentTransaction: stockInvestmentSchema.map { investment in
+                investment.mapToEntity(
+                    stockTransactionSchema: stockInvestmentTransaction.filter({ transaction in
+                        transaction.investmentID == investment.investmentID
+                    })
+                    .sorted(by: { $0.time < $1.time })
+                )
+            },
             transactionQueue: transactionQueue.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
             moduleCompletionList: self.moduleCompletionIDList
         )

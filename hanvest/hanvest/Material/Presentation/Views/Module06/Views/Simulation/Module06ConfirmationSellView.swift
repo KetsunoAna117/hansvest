@@ -74,7 +74,6 @@ struct Module06ConfirmationSellView: View {
                                 }
                             )
                         )
-                        print("[!] User Sell Button Event Pressed!")
                     }
                 )
                 .padding(.bottom, 48)

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-struct LocalUserRepository: UserRepository {
+struct LocalUserRepository: UserRepository {    
     let modelContext: ModelContext?
     
     func fetch() -> UserSchema? {
@@ -46,7 +46,7 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext{
             let descriptor = FetchDescriptor<UserSchema>()
             guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedUserSchema.add(newBalance: balance)
@@ -58,11 +58,11 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext{
             let descriptor = FetchDescriptor<UserSchema>()
             guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedUserSchema.substract(balanceToSubs: balance)
-            try? context.save()
+            try context.save()
         }
     }
     
@@ -70,11 +70,11 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext {
             let descriptor = FetchDescriptor<UserSchema>()
             guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedUserSchema.update(newName: name)
-            try? context.save()
+            try context.save()
         }
     }
     
@@ -82,37 +82,11 @@ struct LocalUserRepository: UserRepository {
         if let context = modelContext {
             let descriptor = FetchDescriptor<UserSchema>()
             guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
+                throw SwiftDataError.notFound()
             }
             
             fetchedUserSchema.add(moduleCompletion: moduleCompletion)
-            try? context.save()
+            try context.save()
         }
     }
-    
-    func add(transaction: StockTransactionQueueSchema) throws -> Void {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<UserSchema>()
-            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            fetchedUserSchema.add(newUserInvestmentTransactionID: transaction.transactionID)
-        }
-    }
-    
-    func add(investment: StockInvestmentSchema) throws {
-        if let context = modelContext {
-            let descriptor = FetchDescriptor<UserSchema>()
-            guard let fetchedUserSchema = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound
-            }
-            
-            // Append to investment if id is not registered
-            if fetchedUserSchema.userInvestmentTransactionID.contains(investment.investmentID) == false {
-                fetchedUserSchema.userInvestmentTransactionID.append(investment.investmentID)
-            }
-        }
-    }
-    
 }

@@ -1,27 +1,28 @@
 //
-//  StockInvestmentTransaction.swift
+//  StockTransactionQueueEntity.swift
 //  hanvest
 //
-//  Created by Hans Arthur Cupiterson on 18/10/24.
+//  Created by Hans Arthur Cupiterson on 05/11/24.
 //
 
 import Foundation
 
 struct StockTransactionQueueEntity {
-    var transactionID: String
+    var transactionQueueID: String
     var stockIDName: String
     var priceAtPurchase: Int
-    var stockLotQuantity: Int
+    var lotPurchaseQuantity: Int
     var time: Date
 }
 
 extension StockTransactionQueueEntity {
-    func mapToSchema() -> StockTransactionQueueSchema {
-        return StockTransactionQueueSchema(
-            transactionID: self.transactionID,
+    func mapToSchema(userID: String) -> StockTransactionQueueSchema {
+        return .init(
+            transactionQueueID: self.transactionQueueID,
             stockIDName: self.stockIDName,
+            userID: userID,
             priceAtPurchase: self.priceAtPurchase,
-            stockLotQuantity: self.stockLotQuantity,
+            lotPurchaseQuantity: self.lotPurchaseQuantity,
             time: self.time
         )
     }
