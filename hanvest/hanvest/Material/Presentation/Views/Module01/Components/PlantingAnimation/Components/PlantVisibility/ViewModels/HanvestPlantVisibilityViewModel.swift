@@ -26,7 +26,7 @@ class HanvestPlantVisibilityViewModel: ObservableObject {
         switch UIScreen.main.bounds.width {
             case ..<385:
                 return (defaultPaddingLeading + 3)
-            case 385..<400:
+            case 385..<410:
                 return defaultPaddingLeading
             default:
                 return (defaultPaddingLeading + 23)
@@ -38,7 +38,7 @@ class HanvestPlantVisibilityViewModel: ObservableObject {
         switch UIScreen.main.bounds.width {
             case ..<385:
                 return (defaultPaddingBottom - 140)
-            case 385..<400:
+            case 385..<410:
                 return defaultPaddingBottom
             default:
                 return (defaultPaddingBottom + 20)

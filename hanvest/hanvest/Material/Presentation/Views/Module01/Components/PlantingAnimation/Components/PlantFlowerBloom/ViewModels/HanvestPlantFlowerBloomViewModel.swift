@@ -80,7 +80,7 @@ class HanvestPlantFlowerBloomViewModel: ObservableObject {
         switch UIScreen.main.bounds.width {
             case ..<385:
                 return (defaultPaddingLeading + 3)
-            case 385..<400:
+            case 385..<410:
                 return defaultPaddingLeading
             default:
                 return (defaultPaddingLeading + 23)
@@ -93,6 +93,8 @@ class HanvestPlantFlowerBloomViewModel: ObservableObject {
                 return (defaultPaddingTop - 46)
             case 385..<400:
                 return defaultPaddingTop
+            case 400..<410:
+                return (defaultPaddingTop + 20)
             default:
                 return (defaultPaddingTop + 80)
         }
