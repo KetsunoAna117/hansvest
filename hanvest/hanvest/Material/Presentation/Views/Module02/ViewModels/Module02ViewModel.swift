@@ -69,7 +69,7 @@ class Module02ViewModel: ObservableObject {
     }
     
     func updateProgressBarValue() {
-        progressBarCurrValue += (progressBarMaxValue / (lastPage + 1))
+        progressBarCurrValue += (progressBarMaxValue / lastPage)
     }
     
     func checkIsDisabled() -> Bool {
