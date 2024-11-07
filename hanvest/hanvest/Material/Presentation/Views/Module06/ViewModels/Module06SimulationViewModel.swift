@@ -38,22 +38,18 @@ private extension Module06SimulationViewModel {
     func prepareStockData() -> [StockEntity] {
         return [
             .init(
-                stockIDName: "GOTO",
-                stockName: "PT GoTo Gojek Tokopedia Tbk",
-                stockImageName: "GOTO-logo",
+                stockIDName: "GOMM",
+                stockName: "PT Goodfood Maju Makmur Tbk",
+                stockImageName: "GOMM",
                 stockDescription:
                 """
-                GoTo Gojek Tokopedia (atau GoTo) adalah perusahaan ekosistem digital berbasis teknologi yang beroperasi di Indonesia, yang dibentuk sebagai penggabungan antara Gojek dan Tokopedia. Berbasis di Jakarta. GoTo telah menjadi ekosistem terbarukan mewujudkan ketahanan identitas korporasi.
-
-                GoTo bermula sebagai perusahaan yang menyediakan layanan transportasi daring dengan nama badan hukum PT. Aplikasi Karya Anak Bangsa, yang menggunakan nama Gojek. Perusahaan kemudian berubah nama menjadi GoTo setelah bergabungnya Tokopedia, yang merupakan salah satu lokapasar daring terbesar di Indonesia, pada tahun 2021. GoTo menawarkan layanan-layanan seperti transportasi berbagi tumpangan (GoCar dan GoRide), layanan logistik on-demand (GoSend), dan lokapasar (Tokopedia). Selain itu terdapat Goto Financial yang membawahi pembayaran digital (GoPay), kasir berbasis komputasi awan (MokaPOS) dan gerbang pembayaran (Midtrans).
-
-                Pada tahun 2022, GoTo menjadi perusahaan Dekacorn pertama yang menjadi perusahaan terbuka di bursa efek kawasan Asia Tenggara,[2] dengan nilai penawaran umum sebesar Rp 15,8 triliun (sekitar US$1,1 miliar),[3] yang menjadikan IPO GoTo terbesar di Indonesia, ketiga di Asia, dan kelima di dunia, pada periode Januari-April 2022.[4]GoTo adalah salah satu dari lima perusahaan dengan kapitalisasi pasar terbesar di Bursa Efek Indonesia (BEI), dengan kapitalisasi pasar mencapai Rp 452 triliun per 11 April 2022.[5]
+                PT Goodfood Maju Makmur Tbk adalah produsen makanan dan minuman yang dikenal dengan produk sehat berbahan dasar alami dan organik. Perusahaan ini memiliki lini produk makanan ringan dan minuman yang dibuat dari bahan-bahan berkualitas tinggi dan ramah lingkungan. GOMM berfokus pada tren pola hidup sehat dan terus berinovasi untuk memenuhi permintaan konsumen terhadap produk vegan dan rendah gula. Mereka juga bekerja sama dengan petani lokal untuk memastikan keberlanjutan bahan baku.
                 """,
                 stockPrice: [
-                    .init(id: "GOTO-price-1", name: "GOTO", price: 1000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
-                    .init(id: "GOTO-price-2", name: "GOTO", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
-                    .init(id: "GOTO-price-3", name: "GOTO", price: 1015, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
-                    .init(id: "GOTO-price-4", name: "GOTO", price: 1010, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00")),
+                    .init(id: "GOMM-price-1", name: "GOMM", price: 1000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
+                    .init(id: "GOMM-price-2", name: "GOMM", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
+                    .init(id: "GOMM-price-3", name: "GOMM", price: 1015, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
+                    .init(id: "GOMM-price-4", name: "GOMM", price: 1010, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00")),
                 ]
             )
         ]

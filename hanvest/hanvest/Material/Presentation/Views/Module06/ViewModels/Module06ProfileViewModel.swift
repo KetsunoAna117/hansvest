@@ -19,10 +19,18 @@ class Module06ProfileViewModel: ObservableObject {
             userInvestmentTransaction: [
                 .init(
                     investmentID: "investment-01",
-                    stockIDName: "GOTO",
+                    stockIDName: "GOMM",
                     totalInvested: 9 * 1000 * 100,
                     lotPurchased: 9,
-                    stockTransaction: []
+                    stockTransaction: [
+                        .init(
+                            transactionID: "transaction-gomm-01",
+                            stockIDName: "GOMM",
+                            priceAtPurchase: 1000,
+                            stockLotQuantity: 9,
+                            time: Date.now
+                        )
+                    ]
                 )
             ],
             transactionQueue: [],
