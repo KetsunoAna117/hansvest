@@ -8,7 +8,7 @@
 import Foundation
 import AVKit
 
-class HanvestSoundFXManager {
+struct HanvestSoundFXManager {
     private static var audioPlayer: AVAudioPlayer?
     
     static func playSound(named name: String) {
