@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model final class StockNewsSchema {
+@Model final class StockNewsSchema: Decodable {
     @Attribute(.unique) var newsID: String
     var stockIDName: String
     var newsTitle: String
@@ -68,4 +68,29 @@ import SwiftData
             hasTriggered: hasTriggered
         )
     }
+    
+    // Custom Decodable initializer to handle decoding
+      required init(from decoder: Decoder) throws {
+          let container = try decoder.container(keyedBy: CodingKeys.self)
+          
+          // Decode each property individually
+          self.newsID = try container.decode(String.self, forKey: .newsID)
+          self.stockIDName = try container.decode(String.self, forKey: .stockIDName)
+          self.newsTitle = try container.decode(String.self, forKey: .newsTitle)
+          self.newsReleasedTime = try container.decode(Date.self, forKey: .newsReleasedTime)
+          self.newsContent = try container.decode(String.self, forKey: .newsContent)
+          self.stockFluksPercentage = try container.decode(Int.self, forKey: .stockFluksPercentage)
+          self.hasTriggered = try container.decode(Bool.self, forKey: .hasTriggered)
+      }
+      
+      // Enum for coding keys to match JSON keys to properties
+      private enum CodingKeys: String, CodingKey {
+          case newsID
+          case stockIDName
+          case newsTitle
+          case newsReleasedTime
+          case newsContent
+          case stockFluksPercentage
+          case hasTriggered
+      }
 }

@@ -242,6 +242,8 @@ private extension SwiftDataContextManager {
     }
     
     func getMockNewsSchemaData() -> [StockNewsSchema] {
+        // TODO: Fill this later
+            
         return [
             .init(
                 newsID: UUID().uuidString,

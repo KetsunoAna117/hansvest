@@ -8,7 +8,7 @@
 import Foundation
 
 struct HanvestJSONDecoder {
-    func decode<T: Decodable>(from filename: String, as type: T.Type) -> T? {
+    static func decode<T: Decodable>(from filename: String, as type: T.Type) -> T? {
         // Locate the file in the main bundle
         guard let url = Bundle.main.url(forResource: filename, withExtension: "json") else {
             print("Failed to locate \(filename) in bundle.")

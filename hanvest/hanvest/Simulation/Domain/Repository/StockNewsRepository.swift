@@ -1,5 +1,5 @@
 //
-//  SimulationNewsRepository.swift
+//  StockNewsRepository.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 22/10/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SimulationNewsRepository {
+protocol StockNewsRepository {
     func fetch() -> [StockNewsSchema]
     func fetch(id: String) -> StockNewsSchema?
     func save(_ news: StockNewsSchema) throws

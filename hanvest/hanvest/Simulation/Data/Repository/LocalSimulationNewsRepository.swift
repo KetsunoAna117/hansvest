@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-struct LocalSimulationNewsRepository: SimulationNewsRepository {
+struct LocalSimulationNewsRepository: StockNewsRepository {
     let modelContext: ModelContext?
     
     func fetch() -> [StockNewsSchema] {

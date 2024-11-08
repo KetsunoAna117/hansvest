@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-struct LocalSimulationStockRepository: SimulationStockRepository {
+struct LocalSimulationStockRepository: StockRepository {
     let modelContext: ModelContext?
     
     func fetchAll() -> [StockSchema] {
