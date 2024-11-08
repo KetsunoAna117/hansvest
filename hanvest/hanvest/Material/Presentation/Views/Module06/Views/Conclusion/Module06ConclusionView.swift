@@ -20,8 +20,6 @@ struct Module06ConclusionView: View {
                     .font(.nunito(.title2, .bold))
                 
                 VStack(alignment: .leading) {
-                    Text("Penjelasan Terkait Keputusan")
-                        .font(.nunito(.body))
                     Text(currentStage.choiceConclusionContent)
                         .font(.nunito(.body))
                         .padding(.top, 12)

@@ -72,9 +72,9 @@ enum Module06Stage: Equatable {
         case .openNewsDetails:
             return ""
         case .buyState:
-            return "You have bought your stocks"
+            return "What if you buy?"
         case .sellState:
-            return "You have sold your stocks"
+            return "What if you sell?"
         }
     }
     
@@ -86,11 +86,11 @@ enum Module06Stage: Equatable {
             return ""
         case .buyState:
             return """
-                    Lorem ipsum dolor sit amet consectetur. Malesuada lectus id quam congue neque odio dignissim. Diam viverra enim velit euismod duis. A urna facilisi id vestibulum. Maecenas velit dolor semper sagittis enim arcu. Arcu hac eu eget sed. Vulputate viverra leo id quis pellentesque lacus lorem aliquet. Ipsum pellentesque habitasse molestie nunc id. At nec facilisis malesuada facilisis facilisis nunc. Vitae lorem nisi molestie consequat vitae 
+                    For those looking to buy, this could be a favorable time if you believe in GOTE’s growth potential. The backing from Alibaba could accelerate GOTE’s expansion in Indonesia, enhance its technological capabilities, and create more competitive advantages in e-commerce and on-demand services. With increased resources, GOTE is better positioned to capture a larger market share, possibly driving up the stock’s value over time.
                     """
         case .sellState:
             return """
-                    Lorem ipsum dolor sit amet consectetur. Malesuada lectus id quam congue neque odio dignissim. Diam viverra enim velit euismod duis. A urna facilisi id vestibulum. Maecenas velit dolor semper sagittis enim arcu. Arcu hac eu eget sed. Vulputate viverra leo id quis pellentesque lacus lorem aliquet. Ipsum pellentesque habitasse molestie nunc id. At nec facilisis malesuada facilisis facilisis nunc. Vitae lorem nisi molestie consequat vitae 
+                    If you're cautious about the risks, selling might be considered if the current stock price has already surged significantly from the news, as early surges often reflect immediate investor excitement. While Alibaba’s investment is promising, it’s not a guaranteed path to profitability. Factors such as GOTE’s competition, broader economic conditions, and execution challenges in expanding its ecosystem could impact its long-term success.
                     """
         }
     }

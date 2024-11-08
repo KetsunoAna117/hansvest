@@ -38,18 +38,18 @@ private extension Module06SimulationViewModel {
     func prepareStockData() -> [StockEntity] {
         return [
             .init(
-                stockIDName: "GOMM",
-                stockName: "PT Goodfood Maju Makmur Tbk",
-                stockImageName: "GOMM",
+                stockIDName: "GOTE",
+                stockName: "PT Ganas Ojek Teladan Tbk",
+                stockImageName: "GOTE",
                 stockDescription:
                 """
-                PT Goodfood Maju Makmur Tbk adalah produsen makanan dan minuman yang dikenal dengan produk sehat berbahan dasar alami dan organik. Perusahaan ini memiliki lini produk makanan ringan dan minuman yang dibuat dari bahan-bahan berkualitas tinggi dan ramah lingkungan. GOMM berfokus pada tren pola hidup sehat dan terus berinovasi untuk memenuhi permintaan konsumen terhadap produk vegan dan rendah gula. Mereka juga bekerja sama dengan petani lokal untuk memastikan keberlanjutan bahan baku.
+                PT Ganas Ojek Teladan Tbk (GOTE) adalah perusahaan transportasi berbasis teknologi yang berfokus pada layanan ojek online di Indonesia. Berdiri dengan tujuan memberikan solusi transportasi cepat, aman, dan terjangkau, GOTE melayani kebutuhan mobilitas masyarakat perkotaan sekaligus membuka peluang ekonomi bagi para mitra pengemudi. Dengan berbagai inovasi dalam teknologi aplikasi dan layanan pengiriman, GOTE terus mengembangkan fitur-fitur tambahan, seperti pesan-antar makanan dan kurir, guna meningkatkan pengalaman pelanggan dan memperluas layanan di seluruh Indonesia.
                 """,
                 stockPrice: [
-                    .init(id: "GOMM-price-1", name: "GOMM", price: 1000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
-                    .init(id: "GOMM-price-2", name: "GOMM", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
-                    .init(id: "GOMM-price-3", name: "GOMM", price: 1015, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
-                    .init(id: "GOMM-price-4", name: "GOMM", price: 1010, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00")),
+                    .init(id: "GOTE-price-1", name: "GOTE", price: 1000, time: HanvestDateFormatter.stringToDate("2024-10-11 19:20:00")),
+                    .init(id: "GOTE-price-2", name: "GOTE", price: 1020, time: HanvestDateFormatter.stringToDate("2024-10-11 20:30:00")),
+                    .init(id: "GOTE-price-3", name: "GOTE", price: 1015, time: HanvestDateFormatter.stringToDate("2024-10-11 21:40:00")),
+                    .init(id: "GOTE-price-4", name: "GOTE", price: 1010, time: HanvestDateFormatter.stringToDate("2024-10-11 22:50:00")),
                 ]
             )
         ]
