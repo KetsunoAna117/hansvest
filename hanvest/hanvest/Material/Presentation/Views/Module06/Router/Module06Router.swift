@@ -51,8 +51,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         case .simulation(
             let appRouter,
             let profileViewModel,
-            let simulationViewModel,
-            let newsViewModel
+            let simulationViewModel
         ):
             ZStack {
                 Color.background.ignoresSafeArea()
@@ -67,8 +66,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                                 .notification(
                                     appRouter: appRouter,
                                     profileViewModel: profileViewModel,
-                                    simulationViewModel: simulationViewModel,
-                                    notificationViewModel: newsViewModel
+                                    simulationViewModel: simulationViewModel
                                 )
                             )
                         },
@@ -129,15 +127,14 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .notification(let appRouter, let profileViewModel, let simulationViewModel, let newsViewModel):
+        case .notification(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
                 Module06NewsView(
                     appRouter: appRouter,
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
-                    simulationViewModel: simulationViewModel,
-                    newsViewModel: newsViewModel
+                    simulationViewModel: simulationViewModel
                 )
                 .frame(maxHeight: .infinity, alignment: .top)
             }
@@ -162,7 +159,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                 Color.background.ignoresSafeArea()
                 Module06NewsDetailsView(
                     moduleRouter: self,
-                    news: news
+                    notification: news
                 )
                 .frame(maxHeight: .infinity, alignment: .top)
                 .onAppear(){

@@ -11,5 +11,5 @@ struct UserNotificationEntity {
     var notificationID: String
     var releasedTime: Date
     var hasTriggered: Bool
-    var stockNews: [StockNewsEntity]
+    var stockNews: StockNewsEntity
 }

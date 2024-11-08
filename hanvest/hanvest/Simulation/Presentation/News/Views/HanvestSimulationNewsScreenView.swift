@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestSimulationNewsScreenView: View {
     let router: any AppRouterProtocol
-    @StateObject private var viewmodel = LocalNewsSimulationViewModel()
+    @ObservedObject var userDataViewModel: HanvestLoadedUserDataViewModel
     
     var body: some View {
         VStack {
@@ -20,31 +20,34 @@ struct HanvestSimulationNewsScreenView: View {
                     router.pop()
                 }
             )
-            
+
             VStack {
-                if viewmodel.newsList.count != 0 {
-                    ScrollView {
-                        VStack(spacing: 24) {
-                            ForEach(viewmodel.newsList, id: \.newsID) { news in
-                                HanvestNewsButton(
-                                    news: news,
-                                    action: {
-                                        router.push(.newsDetails(news: news))
-                                    }
-                                )
+                if let user = userDataViewModel.userData {
+                    if user.notificationList.count != 0 {
+                        ScrollView {
+                            VStack(spacing: 24) {
+                                ForEach(user.notificationList, id: \.notificationID) { notification in
+                                    HanvestNewsButton(
+                                        notification: notification,
+                                        action: {
+                                            router.push(.newsDetails(notification: notification))
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
+                    else {
+                        Text("No News Available")
+                    }
                 }
                 else {
-                    Text("No News Available")
+                    Text("No user detected, please login")
                 }
             }
             .safeAreaPadding(.vertical, 32)
             .padding(.horizontal, 20)
-        }
-        .onAppear(){
-            viewmodel.setup()
+            .frame(maxHeight: .infinity)
         }
     }
 }

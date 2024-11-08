@@ -11,8 +11,7 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
     case simulation(
         appRouter: any AppRouterProtocol,
         profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel,
-        newsViewModel: Module06NewsViewModel
+        simulationViewModel: Module06SimulationViewModel
     )
     case confirmBuy(
         appRouter: any AppRouterProtocol,
@@ -32,12 +31,11 @@ enum Module06ContentView: Equatable, Hashable, Identifiable  {
     case notification(
         appRouter: any AppRouterProtocol,
         profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel,
-        notificationViewModel: Module06NewsViewModel
+        simulationViewModel: Module06SimulationViewModel
     )
     case newsDetail(
         appRouter: any AppRouterProtocol,
-        news: StockNewsEntity,
+        notification: UserNotificationEntity,
         simulationViewModel: Module06SimulationViewModel
     )
     case conclusion(

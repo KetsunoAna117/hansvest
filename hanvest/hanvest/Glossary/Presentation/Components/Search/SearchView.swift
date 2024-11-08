@@ -30,7 +30,7 @@ struct SearchView: View {
                         
                         ForEach(searchViewModel.recentSearches, id: \.word) { entity in
                             HanvestGlossaryWordRow(entity: entity) { selectedEntity in
-                                //                                print("\(selectedEntity.word) clicked: \(selectedEntity.description)")
+                                //                                debugPrint("\(selectedEntity.word) clicked: \(selectedEntity.description)")
                                 glossaryViewModel.selectEntity(selectedEntity)
                             }
                         }

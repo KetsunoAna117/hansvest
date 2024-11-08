@@ -74,7 +74,7 @@ struct HanvestButtonRadioBehavior: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.selectedButtonID = self.id
-                    print("Selected Button ID: \(selectedButtonID)")
+                    debugPrint("Selected Button ID: \(selectedButtonID)")
                     action()
                 })
             }
@@ -149,7 +149,7 @@ struct HanvestButtonRadioBehavior: View {
                 style: .bordered(isDisabled: selectedButtonID.isEmpty),
                 title: "Continue",
                 action: {
-                    print("Continue Tapped!")
+                    debugPrint("Continue Tapped!")
                     selectedButtonID = ""
             })
             .padding(.top, 32)

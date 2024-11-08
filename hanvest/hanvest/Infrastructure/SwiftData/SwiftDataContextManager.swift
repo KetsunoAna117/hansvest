@@ -261,7 +261,7 @@ private extension SwiftDataContextManager {
             userName: "Bryon",
             userBalance: 100000000,
             userRiskProfile: .conservative,
-            moduleCompletionIDList: [.module01, .module02, .module03, .module04]
+            moduleCompletionIDList: [.module01, .module02, .module03, .module04, .module05, .module06]
         )
     }
     
@@ -336,7 +336,8 @@ private extension SwiftDataContextManager {
                 stockImageName: "BBSU",
                 stockDescription: "PT Bank Semua Untung Tbk adalah salah satu bank digital terkemuka di Indonesia yang menyediakan layanan keuangan berbasis teknologi. Fokus utama bank ini adalah meningkatkan aksesibilitas layanan perbankan melalui aplikasi mobile yang canggih dan fitur keamanan tingkat tinggi. Bank ini juga menawarkan berbagai produk investasi digital untuk menarik generasi muda. Dengan jaringan luas dan inovasi berkelanjutan, BBSU berkomitmen untuk menjadi pelopor di bidang perbankan digital di Indonesia.",
                 stockPriceID: [
-                    "bbsu-price-init"
+                    "bbsu-price-init",
+                    "bbsu-price-init-2"
                 ]
             ),
             .init(
@@ -345,7 +346,8 @@ private extension SwiftDataContextManager {
                 stockImageName: "GOMM",
                 stockDescription: "PT Goodfood Maju Makmur Tbk adalah produsen makanan dan minuman yang dikenal dengan produk sehat berbahan dasar alami dan organik. Perusahaan ini memiliki lini produk makanan ringan dan minuman yang dibuat dari bahan-bahan berkualitas tinggi dan ramah lingkungan. GOMM berfokus pada tren pola hidup sehat dan terus berinovasi untuk memenuhi permintaan konsumen terhadap produk vegan dan rendah gula. Mereka juga bekerja sama dengan petani lokal untuk memastikan keberlanjutan bahan baku.",
                 stockPriceID: [
-                    "gomm-price-init"
+                    "gomm-price-init",
+                    "gomm-price-init-2"
                 ]
             ),
             .init(
@@ -354,7 +356,8 @@ private extension SwiftDataContextManager {
                 stockImageName: "BIVI",
                 stockDescription: "PT Brim Vehicle International Tbk adalah perusahaan otomotif yang berfokus pada produksi kendaraan listrik untuk mendukung transisi energi bersih di Indonesia. BIVI terus berinovasi dalam teknologi kendaraan ramah lingkungan, dengan fasilitas produksi modern yang berlokasi di Jawa Tengah. Selain kendaraan listrik, perusahaan juga mengembangkan teknologi otomotif berbasis AI dan terus memperluas pasar internasional untuk mendukung pertumbuhan yang berkelanjutan.",
                 stockPriceID: [
-                    "bivi-price-init"
+                    "bivi-price-init",
+                    "bivi-price-init-2"
                 ]
             ),
             .init(
@@ -363,7 +366,8 @@ private extension SwiftDataContextManager {
                 stockImageName: "ENTB",
                 stockDescription: "PT Energi Tambang Tbk adalah perusahaan energi terkemuka yang beroperasi di sektor eksplorasi dan pengolahan batubara. ENTB memiliki beberapa tambang besar di Indonesia dan berkomitmen untuk menerapkan teknologi ramah lingkungan dalam proses produksinya. Dengan fokus pada efisiensi dan keberlanjutan, perusahaan ini juga telah memulai proyek-proyek energi terbarukan untuk mendukung transisi menuju energi bersih di masa depan.",
                 stockPriceID: [
-                    "entb-price-init"
+                    "entb-price-init",
+                    "entb-price-init-2"
                 ]
             ),
             .init(
@@ -372,7 +376,8 @@ private extension SwiftDataContextManager {
                 stockImageName: "TEJA",
                 stockDescription: "PT Telekom Jaya Tbk adalah perusahaan telekomunikasi yang menyediakan layanan internet, telepon seluler, dan solusi digital untuk pelanggan di seluruh Indonesia. TEJA terkenal dengan inovasi di bidang jaringan, termasuk pengembangan teknologi 5G dan satelit untuk memperluas jangkauan layanan hingga ke daerah terpencil. Dengan komitmen pada transformasi digital, TEJA berusaha untuk mendukung digitalisasi masyarakat Indonesia melalui produk dan layanan yang andal serta terjangkau.",
                 stockPriceID: [
-                    "teja-price-init"
+                    "teja-price-init",
+                    "teja-price-init-2"
                 ]
             )
         ]

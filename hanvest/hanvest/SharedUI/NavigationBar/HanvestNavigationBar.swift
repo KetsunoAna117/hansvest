@@ -76,11 +76,11 @@ struct HanvestNavigationBar: View {
             label: "Hello, World!",
             leadingIcon: Image(systemName: "chevron.left"),
             leadingAction: {
-                print("Leading Icon Pressed")
+                debugPrint("Leading Icon Pressed")
             },
             trailingIcon: Image(systemName: "magnifyingglass"),
             trailingAction: {
-                print("Trailing Icon Pressed")
+                debugPrint("Trailing Icon Pressed")
             }
         )
         

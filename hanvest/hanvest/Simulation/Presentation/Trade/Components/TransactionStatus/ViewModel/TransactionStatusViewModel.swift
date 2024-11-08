@@ -46,7 +46,7 @@ struct TransactionStatusViewModel {
                 return true
             }
         case .failure(let failure):
-            print("[ERROR]: Failure Buy Stock with error: \(failure)")
+            debugPrint("[ERROR]: Failure Buy Stock with error: \(failure)")
         }
         
         return false
@@ -72,7 +72,7 @@ struct TransactionStatusViewModel {
                 return true
             }
         case .failure(let failure):
-            print("[ERROR]: Failure Sell Stock with error: \(failure)")
+            debugPrint("[ERROR]: Failure Sell Stock with error: \(failure)")
         }
         
         return false

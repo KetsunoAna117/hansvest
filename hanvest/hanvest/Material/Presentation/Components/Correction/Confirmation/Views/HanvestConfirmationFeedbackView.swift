@@ -41,7 +41,7 @@ struct HanvestConfirmationFeedbackView: View {
 #Preview {
     HanvestConfirmationFeedbackView(
         state: .correct, action: {
-            print("Button Pressed!")
+            debugPrint("Button Pressed!")
         }
     )
 }

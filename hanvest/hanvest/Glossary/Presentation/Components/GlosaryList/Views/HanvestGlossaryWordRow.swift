@@ -34,13 +34,13 @@ struct HanvestGlossaryWordRow: View {
         entity: HanvestGlosaryEntities(
             word: "Cash", description: "Cash is the most liquid asset a company can possess.")
     ) { entity in
-        print("\(entity.word) clicked: \(entity.description)")
+        debugPrint("\(entity.word) clicked: \(entity.description)")
     }
     
     HanvestGlossaryWordRow(
         entity: HanvestGlosaryEntities(
             word: "Assets", description: "Assets are resources owned by a company.")
     ) { entity in
-        print("\(entity.word) clicked: \(entity.description)")
+        debugPrint("\(entity.word) clicked: \(entity.description)")
     }
 }

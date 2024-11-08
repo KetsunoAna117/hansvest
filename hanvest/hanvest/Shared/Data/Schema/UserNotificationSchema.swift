@@ -24,13 +24,13 @@ import SwiftData
     }
     
     func mapToEntity(
-        stockNews: [StockNewsSchema]
+        stockNews: StockNewsSchema
     ) -> UserNotificationEntity {
         return .init(
             notificationID: self.notificationID,
             releasedTime: self.releasedTime,
             hasTriggered: self.hasTriggered,
-            stockNews: stockNews.map { $0.mapToEntity() }
+            stockNews: stockNews.mapToEntity()
         )
     }
 }

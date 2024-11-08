@@ -20,15 +20,15 @@ struct MainScreenView: View {
             HanvestHeaderView(
                 userDataViewModel: userDataViewModel,
                 bookIconTappedAction: {
-                    print("Book Icon Tapped")
+                    debugPrint("Book Icon Tapped")
                     router.push(.glossary)
                 },
                 bellIconTappedAction: {
-                    print("Bell Icon Tapped")
-                    router.push(.news)
+                    debugPrint("Bell Icon Tapped")
+                    router.push(.news(userViewModel: userDataViewModel))
                 },
                 profileIconTappedAction: {
-                    print("Profile Account Tapped")
+                    debugPrint("Profile Account Tapped")
                     router.push(.profile)
                 }
             )
