@@ -74,13 +74,13 @@ struct HanvestButtonRadioBehavior: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.selectedButtonID = self.id
-                    print("Selected Button ID: \(selectedButtonID)")
+//                    print("Selected Button ID: \(selectedButtonID)")
                     action()
                 })
             }
             
-            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
-            HanvestHapticManager.hapticNotif(type: .success)
+//            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+//            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onChange(of: selectedButtonID, { oldValue, newValue in
             guard newValue != self.id else { return }

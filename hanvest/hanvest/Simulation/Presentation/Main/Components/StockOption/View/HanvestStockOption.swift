@@ -34,14 +34,14 @@ struct HanvestStockOption: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
+            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+            HanvestHapticManager.hapticNotif(type: .success)
+            
             if selectedStockID != id {
                 self.selectedStockID = self.id
                 state = .selected
                 action()
             }
-
-            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
-            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onChange(of: selectedStockID) { oldValue, newValue in
             if newValue != id {
