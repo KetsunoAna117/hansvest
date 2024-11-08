@@ -95,6 +95,9 @@ struct CompletionPageView: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            HanvestSoundFXManager.playSound(named: HanvestSoundFX.getBadge.name)
+        }
     }
 }
 

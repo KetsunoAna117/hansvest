@@ -100,9 +100,7 @@ struct Module04View: View {
                             } else {
                                 HanvestConfirmationFeedbackView(
                                     state: (
-                                        viewModel.checkUserAnswerTrueOrFalse(
-                                            currentTab: viewModel.currentTab
-                                        )
+                                        viewModel.checkUserAnswerTrueOrFalse()
                                     ) ? .correct : .incorrect, action: {
                                         viewModel.toggleShowingAnswer()
                                         viewModel.goToNextPage(
