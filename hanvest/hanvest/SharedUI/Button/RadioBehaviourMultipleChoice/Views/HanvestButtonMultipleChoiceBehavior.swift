@@ -119,6 +119,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
         }
         
         HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+        HanvestHapticManager.hapticNotif(type: .success)
     }
     
 }

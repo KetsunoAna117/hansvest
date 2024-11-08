@@ -37,6 +37,7 @@ struct HanvestConfirmationFeedbackView: View {
         .background(state.backgroundColor)
         .onAppear {
             HanvestSoundFXManager.playSound(named: state.soundFX)
+            HanvestHapticManager.hapticNotif(type: .success)
         }
     }
 }

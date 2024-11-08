@@ -54,6 +54,7 @@ struct HanvestModuleNumberButton: View {
                     self.state = .unpressed
                     action()
                     HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+                    HanvestHapticManager.hapticNotif(type: .success)
                 })
             }
         }

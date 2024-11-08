@@ -80,6 +80,7 @@ struct HanvestButtonRadioBehavior: View {
             }
             
             HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onChange(of: selectedButtonID, { oldValue, newValue in
             guard newValue != self.id else { return }

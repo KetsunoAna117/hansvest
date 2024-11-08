@@ -41,6 +41,7 @@ struct HanvestStockOption: View {
             }
 
             HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onChange(of: selectedStockID) { oldValue, newValue in
             if newValue != id {

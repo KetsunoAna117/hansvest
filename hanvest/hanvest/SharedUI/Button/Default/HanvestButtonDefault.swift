@@ -75,6 +75,7 @@ struct HanvestButtonDefault: View {
             }
             
             HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onAppear {
             setupState()
