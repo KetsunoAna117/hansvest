@@ -14,7 +14,6 @@ protocol StockNewsRepository {
     func delete(id: String) throws
     func update(id: String, stockIDName: String) throws
     func update(id: String, newsTitle: String) throws
-    func update(id: String, newsReleasedTime: Date) throws
     func update(id: String, newsContent: String) throws
     func update(id: String, stockFluksPercentage: Int) throws
 }

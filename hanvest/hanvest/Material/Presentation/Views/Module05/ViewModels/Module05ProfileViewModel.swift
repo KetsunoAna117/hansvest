@@ -18,7 +18,8 @@ class Module05ProfileViewModel: ObservableObject {
             userRiskProfile: .conservative,
             userInvestmentTransaction: [],
             transactionQueue: [],
-            moduleCompletionList: []
+            moduleCompletionList: [],
+            notificationList: []
         )
     }
     

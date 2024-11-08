@@ -21,12 +21,19 @@ public class SwiftDataContextManager {
             
             if let container {
                 context = ModelContext(container)
-                prepopulateUserData()
-                prepopulateSystemData()
+                intializeSwiftData()
             }
         } catch {
-            debugPrint("Error initializing database container:", error)
+            debugPrint("Error initializing database container: ", error)
         }
+    }
+    
+    private func intializeSwiftData() {
+        #if DEBUG
+        prepopulateUserData()
+        #endif
+        
+        prepopulateSystemData()
     }
     
     private func setupSchema() -> Schema {
@@ -36,7 +43,8 @@ public class SwiftDataContextManager {
             StockNewsSchema.self,
             ProductPriceSchema.self,
             StockSchema.self,
-            StockInvestmentSchema.self
+            StockInvestmentSchema.self,
+            UserNotificationSchema.self
         ])
     }
 }
@@ -77,6 +85,12 @@ private extension SwiftDataContextManager {
     func saveStockInvestmentData(investment: StockInvestmentSchema) {
         if let context {
             context.insert(investment)
+        }
+    }
+    
+    func saveNotificationSchema(notification: UserNotificationSchema) {
+        if let context {
+            context.insert(notification)
         }
     }
     
@@ -164,6 +178,20 @@ private extension SwiftDataContextManager {
         }
         return 0
     }
+    
+    func fetchNotificationSchema() -> Int {
+        if let context {
+            do {
+                let descriptor = FetchDescriptor<UserNotificationSchema>()
+                let result = try context.fetchCount(descriptor)
+                return result
+            }
+            catch {
+                fatalError("Error Fetch Data: \(error)")
+            }
+        }
+        return 0
+    }
 }
 
 // Prepopulate Data
@@ -188,6 +216,14 @@ private extension SwiftDataContextManager {
             let result = getMockInvestmentData()
             for data in result {
                 saveStockInvestmentData(investment: data)
+            }
+        }
+        
+        let userNotificationData = fetchNotificationSchema()
+        if userNotificationData <= 0 {
+            let result = getUserNotificationData()
+            for data in result {
+                saveNotificationSchema(notification: data)
             }
         }
     }
@@ -246,10 +282,9 @@ private extension SwiftDataContextManager {
             
         return [
             .init(
-                newsID: UUID().uuidString,
+                newsID: "news-mockup-01",
                 stockIDName: "GOTO",
                 newsTitle: "GOTO gets billions in funding",
-                newsReleasedTime: Date(timeInterval: -10, since: Date.now),
                 newsContent:
                 """
                 In a recent report released today, Chinese tech giant Alibaba is said to have injected billions of rupiah into Gojek Tokopedia (GOTO). This investment is seen as part of Alibaba’s strategy to expand its business reach in Southeast Asia, particularly in Indonesia.
@@ -261,21 +296,18 @@ private extension SwiftDataContextManager {
                 Neither GOTO nor Alibaba has provided an official comment on the report, but analysts predict that this investment will further solidify GOTO’s position as a key player in Indonesia’s digital economy.
                 
                 """,
-                stockFluksPercentage: 10,
-                hasTriggered: true
+                stockFluksPercentage: 10
             ),
             .init(
-                newsID: UUID().uuidString,
+                newsID: "news-mockup-02",
                 stockIDName: "BBRI",
                 newsTitle: "BBRI got positive revenue",
-                newsReleasedTime: Date(timeInterval: -3 * 60 * 60 * 24, since: Date.now),
                 newsContent:
                 """
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum nunc ac purus rutrum mollis. Proin in luctus velit. Morbi mollis mollis enim quis blandit. Donec sollicitudin nunc dui. Integer rhoncus lacus nec urna sagittis, eu facilisis lacus condimentum. Duis massa ex, volutpat ac ullamcorper quis, euismod id ex. Sed sit amet condimentum metus. Duis lobortis arcu ac justo dapibus viverra. Vestibulum sagittis ullamcorper metus, eu malesuada ligula laoreet vulputate. Nam convallis gravida auctor. Sed blandit arcu id luctus ullamcorper. Suspendisse vel feugiat dui. Aenean nec massa velit. Vestibulum ut ullamcorper purus. Fusce fermentum ipsum vitae quam tincidunt, a tincidunt dui ultricies.
                 
                 """,
-                stockFluksPercentage: -5,
-                hasTriggered: true
+                stockFluksPercentage: -5
             )
         ]
     }
@@ -343,6 +375,12 @@ private extension SwiftDataContextManager {
                     "teja-price-init"
                 ]
             )
+        ]
+    }
+    
+    func getUserNotificationData() -> [UserNotificationSchema] {
+        return [
+           
         ]
     }
 }

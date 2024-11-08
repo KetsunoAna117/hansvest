@@ -89,18 +89,6 @@ struct LocalSimulationNewsRepository: StockNewsRepository {
         }
     }
     
-    func update(id: String, newsReleasedTime: Date) throws {
-        if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
-                throw SwiftDataError.notFound()
-            }
-            
-            fetchedNews.update(newsReleasedTime: newsReleasedTime)
-            try context.save()
-        }
-    }
-    
     func update(id: String, newsContent: String) throws {
         if let context = modelContext {
             let fetchedNews = fetch(id: id)

@@ -15,6 +15,7 @@ struct UserDataEntity: Equatable {
     var userInvestmentTransaction: [StockInvestmentEntity]
     var transactionQueue: [StockTransactionQueueEntity]
     var moduleCompletionList: [CompletionEntityType]
+    var notificationList: [UserNotificationEntity]
 }
 
 extension UserDataEntity {

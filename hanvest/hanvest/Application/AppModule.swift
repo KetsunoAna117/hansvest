@@ -18,6 +18,7 @@ struct AppModule {
         let stockTransactionRepository: StockTransactionRepository = LocalStockTransactionRepository(modelContext: modelContext)
         let stockTransactionQueueRepository: StockTransactionQueueRepository = LocalStockTransactionQueueRepository(modelContext: modelContext)
         let stockInvestmentRepository: StockInvestmentRepository = LocalStockInvestmentRepository(modelContext: modelContext)
+        let userNotificationRepository: UserNotificationRepository = LocalUserNotificationRepository(modelContext: modelContext)
         
         // MARK: - USE Case
         
@@ -54,7 +55,9 @@ struct AppModule {
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository,
             transactionQueueRepo: stockTransactionQueueRepository,
-            investmentRepo: stockInvestmentRepository
+            investmentRepo: stockInvestmentRepository,
+            notificationRepo: userNotificationRepository,
+            newsRepo: simulationNewsRepository
         )
         @Provider var saveUserData: SaveUserData = SaveUserDataImpl(
             userRepo: userRepository

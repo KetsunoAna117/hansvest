@@ -11,10 +11,8 @@ struct StockNewsEntity {
     var newsID: String
     var stockIDName: String
     var newsTitle: String
-    var newsReleasedTime: Date
     var newsContent: String
     var stockFluksPercentage: Int
-    var hasTriggered: Bool
 }
 
 extension StockNewsEntity {
@@ -23,10 +21,8 @@ extension StockNewsEntity {
             newsID: self.newsID,
             stockIDName: self.stockIDName,
             newsTitle: self.newsTitle,
-            newsReleasedTime: self.newsReleasedTime,
             newsContent: self.newsContent,
-            stockFluksPercentage: self.stockFluksPercentage,
-            hasTriggered: self.hasTriggered
+            stockFluksPercentage: self.stockFluksPercentage
         )
     }
 }

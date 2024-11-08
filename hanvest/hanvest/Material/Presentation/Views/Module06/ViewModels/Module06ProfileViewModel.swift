@@ -34,7 +34,8 @@ class Module06ProfileViewModel: ObservableObject {
                 )
             ],
             transactionQueue: [],
-            moduleCompletionList: []
+            moduleCompletionList: [],
+            notificationList: []
         )
     }
     
