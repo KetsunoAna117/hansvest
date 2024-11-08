@@ -30,7 +30,7 @@ struct GetUserDataImpl: GetUserData {
             
             let notificationSchema = notificationRepo.fetchBy(userID: user.userId)
             let newsSchema = notificationSchema.compactMap({ notification in
-                newsRepo.fetch(id: notification.notificationID)
+                newsRepo.fetch(id: notification.stockNewsID)
             })
             
             return user.mapToEntity(

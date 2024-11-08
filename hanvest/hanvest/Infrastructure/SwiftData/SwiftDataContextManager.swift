@@ -279,7 +279,7 @@ private extension SwiftDataContextManager {
     
     func getMockNewsSchemaData() -> [StockNewsSchema] {
         // TODO: Fill this later
-            
+        
         return [
             .init(
                 newsID: "news-mockup-01",
@@ -385,7 +385,20 @@ private extension SwiftDataContextManager {
     
     func getUserNotificationData() -> [UserNotificationSchema] {
         return [
-           
+            .init(
+                notificationID: "notification-01",
+                releasedTime: Date.now.addingTimeInterval(-2 * 60 * 60),
+                hasTriggered: true,
+                userID: "user-01",
+                stockNewsID: "news-mockup-01"
+            ),
+            .init(
+                notificationID: "notification-02",
+                releasedTime: Date.now,
+                hasTriggered: true,
+                userID: "user-01",
+                stockNewsID: "news-mockup-02"
+            )
         ]
     }
 }
