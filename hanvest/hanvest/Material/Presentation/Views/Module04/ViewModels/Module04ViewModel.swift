@@ -91,7 +91,7 @@ class Module04ViewModel: ObservableObject {
         }
     }
     
-    func checkUserAnswerTrueOrFalse(currentTab: Int) -> Bool {
+    func checkUserAnswerTrueOrFalse() -> Bool {
         if let currentPage = Module04MultipleChoice(rawValue: currentTab) {
             return userSelectedAnswer == currentPage.answers
         } else {

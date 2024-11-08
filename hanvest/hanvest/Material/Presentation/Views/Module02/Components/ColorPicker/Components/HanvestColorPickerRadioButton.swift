@@ -45,6 +45,8 @@ struct HanvestColorPickerRadioButton: View {
                 self.selectedButtonID = self.id
                 action()
             }
+            
+            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
         }
         .onLongPressGesture(minimumDuration: 0.1, perform: {
             if self.selectedButtonID != self.id {
