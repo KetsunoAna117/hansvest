@@ -53,6 +53,7 @@ struct HanvestModuleNumberButton: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.state = .unpressed
                     action()
+                    HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
                 })
             }
         }

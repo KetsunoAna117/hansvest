@@ -78,6 +78,8 @@ struct HanvestButtonRadioBehavior: View {
                     action()
                 })
             }
+            
+            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
         }
         .onChange(of: selectedButtonID, { oldValue, newValue in
             guard newValue != self.id else { return }

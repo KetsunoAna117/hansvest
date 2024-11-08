@@ -40,6 +40,7 @@ struct HanvestStockOption: View {
                 action()
             }
 
+            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
         }
         .onChange(of: selectedStockID) { oldValue, newValue in
             if newValue != id {

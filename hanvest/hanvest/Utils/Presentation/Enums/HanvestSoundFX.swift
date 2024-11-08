@@ -7,16 +7,16 @@
 
 enum HanvestSoundFX {
     case click
-    case badge
+    case getBadge
     case correct
     case wrong
     
     var name: String  {
         switch self {
-            case .click: return "mixkit-arcade-game-jump-coin-216"
-            case .badge: return "brass-new-level-151765"
-            case .correct: return "correct-6033"
-            case .wrong: return "wrong-answer-126515"
+            case .click: return "click"
+            case .getBadge: return "get-badge"
+            case .correct: return "correct"
+            case .wrong: return "wrong"
         }
     }
 }

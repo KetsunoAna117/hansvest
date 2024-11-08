@@ -35,6 +35,9 @@ struct HanvestConfirmationFeedbackView: View {
         }
         .frame(maxWidth: .infinity)
         .background(state.backgroundColor)
+        .onAppear {
+            HanvestSoundFXManager.playSound(named: state.soundFX)
+        }
     }
 }
 

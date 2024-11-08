@@ -73,6 +73,8 @@ struct HanvestButtonDefault: View {
                     action()
                 })
             }
+            
+            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
         }
         .onAppear {
             setupState()
