@@ -85,11 +85,13 @@ struct Module04View: View {
                         ZStack {
                             if viewModel.showingAnswer == .isNotShowing {
                                 HanvestButtonDefault(
-                                    style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                    style: .filled(
+                                        isDisabled: viewModel.checkIsDisabled(isButtonStyle: true)
+                                    ),
                                     title: viewModel.pageState.buttonStringValue
                                 ) {
-                                    if viewModel.checkIsCurrentPageAQuestion() {
-                                        viewModel.toggleShowingAnswer()
+                                    if viewModel.checkIsDisabled(isButtonStyle: false) {
+                                        viewModel.showingAnswer = .isShowing
                                     } else {
                                         viewModel.goToNextPage(
                                             router: self.router,
@@ -102,11 +104,12 @@ struct Module04View: View {
                                     state: (
                                         viewModel.checkUserAnswerTrueOrFalse()
                                     ) ? .correct : .incorrect, action: {
-                                        viewModel.toggleShowingAnswer()
                                         viewModel.goToNextPage(
                                             router: self.router,
                                             specificModule: .module04
                                         )
+
+                                        viewModel.showingAnswer = .isNotShowing
                                     }
                                 )
                             }
