@@ -33,7 +33,6 @@ class HanvestPlantVisibilityViewModel: ObservableObject {
         }
     }
 
-    
     func customPaddingBottom(defaultPaddingBottom: CGFloat) -> CGFloat {
         switch UIScreen.main.bounds.width {
             case ..<385:
@@ -44,4 +43,5 @@ class HanvestPlantVisibilityViewModel: ObservableObject {
                 return (defaultPaddingBottom + 20)
         }
     }
+    
 }

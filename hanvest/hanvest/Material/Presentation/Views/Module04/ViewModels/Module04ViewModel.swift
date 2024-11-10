@@ -49,7 +49,7 @@ class Module04ViewModel: ObservableObject {
     
     func goToNextPage(router: any AppRouterProtocol, specificModule: CompletionEntityType) {
         if currentTab < lastPage {
-            if !checkIsDisabled() {
+            if !checkIsDisabled(isButtonStyle: true) {
                 currentTab += 1
                 updateProgressBarValue()
                 changePageState()
@@ -71,16 +71,12 @@ class Module04ViewModel: ObservableObject {
         progressBarCurrValue += (progressBarMaxValue / lastPage)
     }
     
-    func checkIsDisabled() -> Bool {
-        return (userSelectedAnswer.isEmpty && checkIsCurrentPageAQuestion())
+    func checkIsDisabled(isButtonStyle: Bool) -> Bool {
+        return (isButtonStyle ? userSelectedAnswer.isEmpty : !userSelectedAnswer.isEmpty) && checkIsCurrentPageAQuestion()
     }
     
     func checkIsCurrentPageAQuestion() -> Bool {
         return (Module04MultipleChoice.allCases.contains { $0.rawValue == currentTab })
-    }
-    
-    func toggleShowingAnswer() {
-        showingAnswer.toggle()
     }
     
     func parseUserAnswerIfIsWrong(page: Module04MultipleChoice) -> String? {
