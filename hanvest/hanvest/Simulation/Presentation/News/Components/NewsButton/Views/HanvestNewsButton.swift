@@ -21,7 +21,7 @@ struct HanvestNewsButton: View {
     var body: some View {
         HStack() {
             VStack(alignment: .leading, spacing: 8) {
-                HStack {
+                HStack(alignment: .top) {
                     Text(notification.stockNews.stockIDName)
                         .font(.nunito(.subhead, .bold))
                     Text("Report: \(notification.stockNews.newsTitle)")

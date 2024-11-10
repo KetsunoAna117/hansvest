@@ -26,10 +26,22 @@ struct HanvestJSONDecoder {
         do {
             let decodedObject = try decoder.decode(T.self, from: data)
             return decodedObject
+        } catch let DecodingError.dataCorrupted(context) {
+            debugPrint(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            debugPrint("Key '\(key)' not found:", context.debugDescription)
+            debugPrint("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            debugPrint("Value '\(value)' not found:", context.debugDescription)
+            debugPrint("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            debugPrint("Type '\(type)' mismatch:", context.debugDescription)
+            debugPrint("codingPath:", context.codingPath)
         } catch {
-            debugPrint("Failed to decode \(filename): \(error.localizedDescription)")
-            return nil
+            debugPrint("error: ", error)
         }
+        
+        return nil
     }
 
 }

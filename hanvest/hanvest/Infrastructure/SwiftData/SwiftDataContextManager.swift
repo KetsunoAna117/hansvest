@@ -279,37 +279,11 @@ private extension SwiftDataContextManager {
     
     func getMockNewsSchemaData() -> [StockNewsSchema] {
         // TODO: Fill this later
+        let newsData: [StockNewsSchema] =
+            HanvestJSONDecoder.decode(from: "HanvestNewsData", as: [StockNewsSchema].self)
+                ?? []
         
-        return [
-            .init(
-                newsID: "news-mockup-01",
-                stockIDName: "GOTO",
-                newsTitle: "GOTO gets billions in funding",
-                newsContent:
-                """
-                In a recent report released today, Chinese tech giant Alibaba is said to have injected billions of rupiah into Gojek Tokopedia (GOTO). This investment is seen as part of Alibaba’s strategy to expand its business reach in Southeast Asia, particularly in Indonesia.
-                
-                Alibaba's move is viewed as an effort to strengthen GOTO’s ecosystem, which spans e-commerce, on-demand services, including transportation, food delivery, and online shopping platforms that are increasingly dominating the domestic market.
-                
-                The Chinese company is no stranger to Southeast Asia, having previously made significant investments in Lazada. With this new capital infusion, GOTO is expected to accelerate its growth and better compete against other global tech giants.
-                
-                Neither GOTO nor Alibaba has provided an official comment on the report, but analysts predict that this investment will further solidify GOTO’s position as a key player in Indonesia’s digital economy.
-                
-                """,
-                stockFluksPercentage: 10
-            ),
-            .init(
-                newsID: "news-mockup-02",
-                stockIDName: "BBRI",
-                newsTitle: "BBRI got positive revenue",
-                newsContent:
-                """
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum nunc ac purus rutrum mollis. Proin in luctus velit. Morbi mollis mollis enim quis blandit. Donec sollicitudin nunc dui. Integer rhoncus lacus nec urna sagittis, eu facilisis lacus condimentum. Duis massa ex, volutpat ac ullamcorper quis, euismod id ex. Sed sit amet condimentum metus. Duis lobortis arcu ac justo dapibus viverra. Vestibulum sagittis ullamcorper metus, eu malesuada ligula laoreet vulputate. Nam convallis gravida auctor. Sed blandit arcu id luctus ullamcorper. Suspendisse vel feugiat dui. Aenean nec massa velit. Vestibulum ut ullamcorper purus. Fusce fermentum ipsum vitae quam tincidunt, a tincidunt dui ultricies.
-                
-                """,
-                stockFluksPercentage: -5
-            )
-        ]
+        return newsData
     }
     
     func getMockProductPriceSchemaData() -> [ProductPriceSchema] {
@@ -390,14 +364,14 @@ private extension SwiftDataContextManager {
                 releasedTime: Date.now.addingTimeInterval(-2 * 60 * 60),
                 hasTriggered: true,
                 userID: "user-01",
-                stockNewsID: "news-mockup-01"
+                stockNewsID: "news-01"
             ),
             .init(
                 notificationID: "notification-02",
                 releasedTime: Date.now,
                 hasTriggered: true,
                 userID: "user-01",
-                stockNewsID: "news-mockup-02"
+                stockNewsID: "news-04"
             )
         ]
     }
