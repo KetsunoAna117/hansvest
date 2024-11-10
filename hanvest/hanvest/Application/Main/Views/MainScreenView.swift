@@ -72,6 +72,8 @@ struct MainScreenView: View {
             .animation(.easeInOut, value: selectionTab)
         }
         .onAppear {
+            UIScrollView.appearance().isScrollEnabled = true
+            
             userDataViewModel.setup()
             
             if !userDataViewModel.isHighlightEverShown {

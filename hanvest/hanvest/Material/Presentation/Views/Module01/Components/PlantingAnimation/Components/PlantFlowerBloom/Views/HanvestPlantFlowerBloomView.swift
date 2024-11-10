@@ -25,10 +25,10 @@ struct HanvestPlantFlowerBloomView: View {
                     )
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.top, viewModel.customPaddingTop(
-                    defaultPaddingTop: viewModel.displayedImages[index].topPadding)
+                .padding(.bottom, viewModel.customPaddingBottom(
+                    defaultPaddingBottom: viewModel.displayedImages[index].bottomPadding)
                 )
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
         }
         .ignoresSafeArea()
