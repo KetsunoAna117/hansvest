@@ -16,5 +16,4 @@ protocol StockRepository {
     func update(id: String, stockName: String) throws
     func update(id: String, stockImageName: String) throws
     func update(id: String, stockDescription: String) throws
-    func update(id: String, stockPriceID: [String]) throws
 }

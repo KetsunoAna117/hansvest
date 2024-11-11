@@ -110,16 +110,5 @@ struct LocalSimulationStockRepository: StockRepository {
         }
     }
     
-    func update(id: String, stockPriceID: [String]) throws {
-        if let context = modelContext {
-            guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound()
-            }
-            
-            stock.update(stockPriceID: stockPriceID)
-            try context.save()
-        }
-    }
-    
     
 }

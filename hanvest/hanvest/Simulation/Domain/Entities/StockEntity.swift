@@ -31,8 +31,7 @@ extension StockEntity {
             stockIDName: self.stockIDName,
             stockName: self.stockName,
             stockImageName: self.stockImageName,
-            stockDescription: self.stockDescription,
-            stockPriceID: self.stockPrice.map({ $0.id })
+            stockDescription: self.stockDescription
         )
     }
 }
