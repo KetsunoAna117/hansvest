@@ -30,7 +30,7 @@ struct SendStockPriceUpdateNotificationImpl: SendStockPriceUpdateNotification {
         
         do {
             // Delete oldest notification
-            if user.notificationList.count > 20 {
+            if user.notificationList.count > 10 {
                 if let oldestNotification = user.notificationList.last {
                     try userNotificationRepo.delete(oldestNotification.notificationID)
                 }
