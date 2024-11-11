@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SimulationStockRepository {
+protocol StockRepository {
     func fetchAll() -> [StockSchema]
     func fetch(stockID: String) -> StockSchema?
     func save(_ stocks: StockSchema) throws
@@ -16,5 +16,4 @@ protocol SimulationStockRepository {
     func update(id: String, stockName: String) throws
     func update(id: String, stockImageName: String) throws
     func update(id: String, stockDescription: String) throws
-    func update(id: String, stockPriceID: [String]) throws
 }

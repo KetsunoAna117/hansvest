@@ -17,7 +17,6 @@ struct MaterialModule06ScreenView: View {
     @StateObject private var contentRouter = Module06Router()
     @StateObject private var simulationViewModel = Module06SimulationViewModel()
     @StateObject private var profileViewModel = Module06ProfileViewModel()
-    @StateObject private var newsViewModel = Module06NewsViewModel()
     @StateObject private var highlightViewModel = HighlightViewModel()
     
     var body: some View {
@@ -46,8 +45,7 @@ struct MaterialModule06ScreenView: View {
                         .simulation(
                             appRouter: appRouter,
                             profileViewModel: profileViewModel,
-                            simulationViewModel: simulationViewModel,
-                            newsViewModel: newsViewModel
+                            simulationViewModel: simulationViewModel
                         )
                     )
                 }
@@ -58,10 +56,6 @@ struct MaterialModule06ScreenView: View {
                 
                 if profileViewModel.userData == nil {
                     profileViewModel.setup()
-                }
-                
-                if newsViewModel.newsList.count <= 0 {
-                    newsViewModel.setup()
                 }
             }
             

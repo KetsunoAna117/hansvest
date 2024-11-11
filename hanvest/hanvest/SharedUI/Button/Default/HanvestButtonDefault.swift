@@ -115,7 +115,7 @@ struct HanvestButtonDefault: View {
                 title: "Button",
                 image: Image(systemName: "person.fill"),
                 action: {
-                    print("Button Pressed!")
+                    debugPrint("Button Pressed!")
                 }
             )
             HanvestButtonDefault(

@@ -25,13 +25,13 @@ class HanvestLoadedUserDataViewModel: ObservableObject {
             if let gotoInvestment = user.userInvestmentTransaction.filter({ investment in
                 investment.stockIDName == "GOTO"
             }).first {
-                print("Total Invested: \(gotoInvestment.totalInvested)")
-                print("Total Lot Purchased: \(gotoInvestment.totalInvested)")
+                debugPrint("Total Invested: \(gotoInvestment.totalInvested)")
+                debugPrint("Total Lot Purchased: \(gotoInvestment.totalInvested)")
                 for transaction in gotoInvestment.stockTransaction {
-                    print("Transaction time: \(transaction.time)")
-                    print("Transaction price: \(transaction.priceAtPurchase)")
-                    print("Transaction lot: \(transaction.stockLotQuantity)")
-                    print()
+                    debugPrint("Transaction time: \(transaction.time)")
+                    debugPrint("Transaction price: \(transaction.priceAtPurchase)")
+                    debugPrint("Transaction lot: \(transaction.stockLotQuantity)")
+                    debugPrint()
                 }
             }
         }

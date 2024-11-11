@@ -14,6 +14,8 @@ struct GetUserDataImpl: GetUserData {
     let transactionRepo: StockTransactionRepository
     let transactionQueueRepo: StockTransactionQueueRepository
     let investmentRepo: StockInvestmentRepository
+    let notificationRepo: UserNotificationRepository
+    let newsRepo: StockNewsRepository
     
     func execute() -> UserDataEntity? {
         if let user = userRepo.fetch(){
@@ -26,10 +28,17 @@ struct GetUserDataImpl: GetUserData {
             
             let transactionQueueSchema = transactionQueueRepo.fetchWith(userID: user.userId)
             
+            let notificationSchema = notificationRepo.fetchBy(userID: user.userId)
+            let newsSchema = notificationSchema.compactMap({ notification in
+                newsRepo.fetch(id: notification.stockNewsID)
+            })
+            
             return user.mapToEntity(
                 stockInvestmentSchema: investmentSchema,
                 stockInvestmentTransaction: transactionSchema,
-                transactionQueue: transactionQueueSchema
+                transactionQueue: transactionQueueSchema,
+                userNotificationList: notificationSchema,
+                stockNewsList: newsSchema
             )
         }
         

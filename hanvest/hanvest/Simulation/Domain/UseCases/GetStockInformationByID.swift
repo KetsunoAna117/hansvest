@@ -12,7 +12,7 @@ protocol GetStockInformationByID {
 }
 
 struct GetStockInformationByIDImpl: GetStockInformationByID {
-    let stockRepository: SimulationStockRepository
+    let stockRepository: StockRepository
     let priceRepository: ProductPriceRepository
     
     func execute(id: String) -> StockEntity? {

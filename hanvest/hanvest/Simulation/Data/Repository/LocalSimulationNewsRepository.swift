@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-struct LocalSimulationNewsRepository: SimulationNewsRepository {
+struct LocalSimulationNewsRepository: StockNewsRepository {
     let modelContext: ModelContext?
     
     func fetch() -> [StockNewsSchema] {
@@ -85,18 +85,6 @@ struct LocalSimulationNewsRepository: SimulationNewsRepository {
             }
             
             fetchedNews.update(newsTitle: newsTitle)
-            try context.save()
-        }
-    }
-    
-    func update(id: String, newsReleasedTime: Date) throws {
-        if let context = modelContext {
-            let fetchedNews = fetch(id: id)
-            guard let fetchedNews else {
-                throw SwiftDataError.notFound()
-            }
-            
-            fetchedNews.update(newsReleasedTime: newsReleasedTime)
             try context.save()
         }
     }

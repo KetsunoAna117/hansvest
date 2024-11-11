@@ -53,7 +53,7 @@ struct HanvestPopup: View {
         title: "Basic Investment",
         description: "This module uses fun tree analogies to teach investing basics. Discover the importance of patience, care, and potential rewards.",
         action: {
-            print("Let's go")
+            debugPrint("Let's go")
         }
     )
     .padding()

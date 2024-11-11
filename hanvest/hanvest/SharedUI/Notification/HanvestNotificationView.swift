@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HanvestNotificationView: View {
     let appRouter: any AppRouterProtocol
-    let notification: StockNewsEntity
+    let notification: UserNotificationEntity
     
     var body: some View {
         HStack() {
@@ -20,7 +20,7 @@ struct HanvestNotificationView: View {
                 VStack(alignment: .leading) {
                     Text("Hanvest News!")
                         .font(.nunito(.subhead, .bold))
-                    Text(notification.newsTitle)
+                    Text(notification.stockNews.newsTitle)
                         .font(.nunito(.subhead))
                 }
                 .padding(.horizontal, 12)
@@ -34,7 +34,7 @@ struct HanvestNotificationView: View {
         .padding(.horizontal, 12)
         .onTapGesture {
             appRouter.dismissNotification()
-            appRouter.push(.newsDetails(news: notification))
+            appRouter.push(.newsDetails(notification: notification))
         }
     }
 }

@@ -82,7 +82,7 @@ struct HanvestModuleNumberButton: View {
             initialState: .unpressed,
             style: .done,
             number: 1, action: {
-                print("Hello World!")
+                debugPrint("Hello World!")
             })
     }
     .padding(.horizontal, 16)

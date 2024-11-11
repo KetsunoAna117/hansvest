@@ -53,7 +53,7 @@ class SellingStockDataViewModel: ObservableObject{
         currentStockPrice: Int
     ){
         guard let userData = userData else {
-            print("[ERROR] User Data is not initialized!")
+            debugPrint("[ERROR] User Data is not initialized!")
             return
         }
         

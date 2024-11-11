@@ -10,7 +10,7 @@ protocol GetStockNewsData {
 }
 
 struct GetStockNewsDataImpl: GetStockNewsData {
-    let newsRepo: SimulationNewsRepository
+    let newsRepo: StockNewsRepository
     
     func execute() -> [StockNewsEntity] {
         return newsRepo.fetch().map { $0.mapToEntity() }

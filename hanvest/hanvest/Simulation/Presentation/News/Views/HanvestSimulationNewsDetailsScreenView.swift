@@ -10,12 +10,12 @@ import SwiftUI
 struct HanvestSimulationNewsDetailsScreenView: View {
     let router: any AppRouterProtocol
     
-    let news: StockNewsEntity
+    let notification: UserNotificationEntity
     
     var body: some View {
         VStack {
             HanvestNavigationBar(
-                label: news.stockIDName,
+                label: notification.stockNews.stockIDName,
                 leadingIcon: Image(systemName: "chevron.left"),
                 leadingAction: {
                     router.pop()
@@ -25,14 +25,14 @@ struct HanvestSimulationNewsDetailsScreenView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
-                        Text(news.newsTitle)
+                        Text(notification.stockNews.newsTitle)
                             .font(.nunito(.title3, .bold))
-                        Text(HanvestDateFormatter.getTimeDifferenceFrom(news.newsReleasedTime))
+                        Text(HanvestDateFormatter.getTimeDifferenceFrom(notification.releasedTime))
                             .font(.nunito(.footnote))
                             .foregroundStyle(Color.secondary)
                     }
                     
-                    Text(news.newsContent)
+                    Text(notification.stockNews.newsContent)
                         .font(.nunito(.body))
                         .foregroundStyle(.primary)
                         .padding(.top, 16)
