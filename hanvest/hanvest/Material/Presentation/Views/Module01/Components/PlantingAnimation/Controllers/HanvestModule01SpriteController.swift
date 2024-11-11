@@ -20,8 +20,9 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     private var waterDropletSpawnRate : TimeInterval
     private var spriteContactCounter: Int
     @Binding var growthProgress: PlantGrowthProgress
+    @Binding var waterCanPosition: CGPoint
     
-    init(size: CGSize, growthProgress: Binding<PlantGrowthProgress>) {
+    init(size: CGSize, growthProgress: Binding<PlantGrowthProgress>, waterCanPosition: Binding<CGPoint>) {
         self.soil = Soil()
         self.waterCan = WaterCan()
         self.draggingBehavior = .isNotDragging
@@ -30,6 +31,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
         self.waterDropletSpawnRate = 0.01
         self.spriteContactCounter = 0
         self._growthProgress = growthProgress
+        self._waterCanPosition = waterCanPosition
         
         super.init(size: size)
     }
@@ -121,7 +123,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     private func handlesSpriteContactCounterForGrowthProgress() {
         self.spriteContactCounter += 1
         
-        if spriteContactCounter % 200 == 0 {
+        if spriteContactCounter % 150 == 0 {
             withAnimation(.easeInOut) {
                 if let nextProgress = growthProgress.nextProgress() {
                     growthProgress = nextProgress
@@ -142,6 +144,8 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
                 waterCan.alpha = 0
 
                 self.addChild(waterCan)
+                
+                self.getParentWaterCanPosition()
 
                 let fadeIn = SKAction.fadeIn(withDuration: 0.25)
                 let scaleUp = SKAction.scale(to: 1.0, duration: 0.25)
@@ -155,4 +159,11 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
             soil.removeFromParent()
         }
     }
+    
+    private func getParentWaterCanPosition() {
+        if let parent = waterCan.parent, let scene = waterCan.scene {
+            self.waterCanPosition = scene.convert(waterCan.position, from: parent)
+        }
+    }
+    
 }

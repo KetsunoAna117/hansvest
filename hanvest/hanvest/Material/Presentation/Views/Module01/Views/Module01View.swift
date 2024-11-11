@@ -11,14 +11,15 @@ struct Module01View: View {
     let router: any AppRouterProtocol
     
     // View Models
-    @StateObject var viewModel = Module01ViewModel()
+    @StateObject private var viewModel = Module01ViewModel()
+    @StateObject private var highlightViewModel = HighlightViewModel()
     
     var body: some View {
         ZStack {
             Color.background
             
             if viewModel.plantingViewVisibility == .isVisible {
-                Module01PlantingView() {
+                Module01PlantingView(highlightViewModel: highlightViewModel) {
                     viewModel.plantingViewVisibility = .isHidden
                     viewModel.updateProgressBarValue()
                 }
@@ -85,6 +86,7 @@ struct Module01View: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .modifier(HighlightHelperView(viewModel: highlightViewModel))
     }
     
 }

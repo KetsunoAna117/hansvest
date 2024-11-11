@@ -10,11 +10,13 @@ import Combine
 
 class Module01PlantingViewModel: ObservableObject {
     @Published var growthProgress: PlantGrowthProgress
+    @Published var highlightWaterCanPosition: CGPoint
     @Published var spriteScene: Module01SpriteController?
     @Published var growthTimer: AnyCancellable?
     
     init() {
         self.growthProgress = .progress01
+        self.highlightWaterCanPosition = .zero
     }
     
     func startGrowthTimer() {
