@@ -18,7 +18,7 @@ class Module01PlantingViewModel: ObservableObject {
     }
     
     func startGrowthTimer() {
-        growthTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+        growthTimer = Timer.publish(every: 3.0, on: .main, in: .common).autoconnect()
             .sink { _ in
                 self.handleGrowthTimerEvent()
             }
@@ -70,7 +70,7 @@ class Module01PlantingViewModel: ObservableObject {
     }
     
     func checkIfReturnToMainView(completion: (() -> Void)?){
-        let delayTimeBeforeReturnToMainView: TimeInterval = 5.0
+        let delayTimeBeforeReturnToMainView: TimeInterval = 3.0
         
         if growthProgress == .progress13 {
             DispatchQueue.main.asyncAfter(deadline: .now() + delayTimeBeforeReturnToMainView) {

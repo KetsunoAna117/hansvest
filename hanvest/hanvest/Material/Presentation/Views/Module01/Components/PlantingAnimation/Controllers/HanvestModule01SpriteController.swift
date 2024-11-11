@@ -121,7 +121,7 @@ class Module01SpriteController: SKScene, SKPhysicsContactDelegate {
     private func handlesSpriteContactCounterForGrowthProgress() {
         self.spriteContactCounter += 1
         
-        if spriteContactCounter % 300 == 0 {
+        if spriteContactCounter % 200 == 0 {
             withAnimation(.easeInOut) {
                 if let nextProgress = growthProgress.nextProgress() {
                     growthProgress = nextProgress

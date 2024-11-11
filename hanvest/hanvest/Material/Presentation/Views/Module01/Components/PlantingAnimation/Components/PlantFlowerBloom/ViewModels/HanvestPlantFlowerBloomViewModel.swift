@@ -18,8 +18,8 @@ class HanvestPlantFlowerBloomViewModel: ObservableObject {
     @Published var isDoneShowing: Bool
     
     init() {
-        self.normalTimeToChangePage = 2.0
-        self.flowerAndAppleAppearTime = 0.2
+        self.normalTimeToChangePage = 1.5
+        self.flowerAndAppleAppearTime = 0.15
         self.allFlowers = FlowerBloomImage.allCases.shuffled()
         self.visibleFlowers = []
         self.displayedImages = []
