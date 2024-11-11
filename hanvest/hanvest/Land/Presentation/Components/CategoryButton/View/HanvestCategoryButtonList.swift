@@ -23,7 +23,7 @@ struct HanvestCategoryButtonList: View {
                             id: value.buttonIDName,
                             imageName: value.buttonImageName
                         ) {
-                            print("\(value.buttonIDName) is pressed")
+                            debugPrint("\(value.buttonIDName) is pressed")
                         }
                         .padding(.bottom, 6)
                     }

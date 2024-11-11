@@ -13,7 +13,7 @@ class HanvestPlantFlowerBloomViewModel: ObservableObject {
     let allFlowers: [FlowerBloomImage]
     
     @Published var visibleFlowers: [FlowerBloomImage]
-    @Published var displayedImages: [(image: Image, topPadding: CGFloat, leadingPadding: CGFloat)]
+    @Published var displayedImages: [(image: Image, bottomPadding: CGFloat, leadingPadding: CGFloat)]
     @Published var currentFlowerIndex: Int
     @Published var isDoneShowing: Bool
     
@@ -41,14 +41,14 @@ class HanvestPlantFlowerBloomViewModel: ObservableObject {
         }
     }
     
-    func replaceFlowersWithApple(with imageKeyPath: KeyPath<FlowerBloomImage, (image: Image, topPadding: CGFloat, leadingPadding: CGFloat)?>) {
+    func replaceFlowersWithApple(with imageKeyPath: KeyPath<FlowerBloomImage, (image: Image, bottomPadding: CGFloat, leadingPadding: CGFloat)?>) {
         for (index, flower) in self.visibleFlowers.enumerated() {
             if let appleImage = flower[keyPath: imageKeyPath]?.image,
-               let topPadding = flower[keyPath: imageKeyPath]?.topPadding,
+               let bottomPadding = flower[keyPath: imageKeyPath]?.bottomPadding,
                let leadingPadding = flower[keyPath: imageKeyPath]?.leadingPadding,
                self.displayedImages[index].image != appleImage {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * flowerAndAppleAppearTime) {
-                    self.displayedImages[index] = (appleImage, topPadding, leadingPadding)
+                    self.displayedImages[index] = (appleImage, bottomPadding, leadingPadding)
                 }
             }
         }
@@ -87,16 +87,14 @@ class HanvestPlantFlowerBloomViewModel: ObservableObject {
         }
     }
     
-    func customPaddingTop(defaultPaddingTop: CGFloat) -> CGFloat {
+    func customPaddingBottom(defaultPaddingBottom: CGFloat) -> CGFloat {
         switch UIScreen.main.bounds.width {
             case ..<385:
-                return (defaultPaddingTop - 46)
-            case 385..<400:
-                return defaultPaddingTop
-            case 400..<410:
-                return (defaultPaddingTop + 20)
+                return (defaultPaddingBottom - 140)
+            case 385..<410:
+                return defaultPaddingBottom
             default:
-                return (defaultPaddingTop + 80)
+                return (defaultPaddingBottom + 20)
         }
     }
 

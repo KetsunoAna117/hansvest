@@ -74,7 +74,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-1",
             imageName: "star-logo"
         ) {
-            print("Stock-1 selected")
+            debugPrint("Stock-1 selected")
         }
         
         HanvestCategoryButton(
@@ -83,7 +83,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-2",
             imageName: "jacket-logo"
         ) {
-            print("Stock-2 selected")
+            debugPrint("Stock-2 selected")
         }
         
         HanvestCategoryButton(
@@ -92,7 +92,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-3",
             imageName: "short-logo"
         ) {
-            print("Stock-3 selected")
+            debugPrint("Stock-3 selected")
         }
         
         HanvestCategoryButton(
@@ -101,7 +101,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-4",
             imageName: "lipstick-logo"
         ) {
-            print("Stock-4 selected")
+            debugPrint("Stock-4 selected")
         }
         
         HanvestCategoryButton(
@@ -110,7 +110,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-5",
             imageName: "beanie-logo"
         ) {
-            print("Stock-5 selected")
+            debugPrint("Stock-5 selected")
         }
         
         HanvestCategoryButton(
@@ -119,7 +119,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-6",
             imageName: "shoe-logo"
         ) {
-            print("Stock-6 selected")
+            debugPrint("Stock-6 selected")
         }
         
         HanvestCategoryButton(
@@ -128,7 +128,7 @@ struct HanvestCategoryButton: View {
             id: "Stock-7",
             imageName: "ring-logo"
         ) {
-            print("Stock-7 selected")
+            debugPrint("Stock-7 selected")
         }
     }
 }

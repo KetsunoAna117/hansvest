@@ -109,7 +109,7 @@ struct SimulationSellingCard: View {
         SimulationSellingCard(viewModel: viewmodel, currentPrice: $currentPrice)
             .onAppear(){
                 guard let userData = getUserData.execute() else {
-                    print("[ERROR] User Data is not initialized")
+                    debugPrint("[ERROR] User Data is not initialized")
                     return
                 }
                 viewmodel.setup(

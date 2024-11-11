@@ -13,7 +13,6 @@ struct Module06NewsView: View {
     
     @ObservedObject var profileViewModel: Module06ProfileViewModel
     @ObservedObject var simulationViewModel: Module06SimulationViewModel
-    @ObservedObject var newsViewModel: Module06NewsViewModel
     
     var body: some View {
         VStack {
@@ -26,28 +25,33 @@ struct Module06NewsView: View {
             )
             
             VStack {
-                if newsViewModel.newsList.count != 0 {
-                    ScrollView {
-                        VStack(spacing: 24) {
-                            ForEach(newsViewModel.newsList, id: \.newsID) { news in
-                                HanvestNewsButton(
-                                    news: news,
-                                    action: {
-                                        moduleRouter.push(
-                                            .newsDetail(
-                                                appRouter: appRouter,
-                                                news: news,
-                                                simulationViewModel: simulationViewModel
+                if let userData = profileViewModel.userData {
+                    if userData.notificationList.count != 0 {
+                        ScrollView {
+                            VStack(spacing: 24) {
+                                ForEach(userData.notificationList, id: \.notificationID) { notification in
+                                    HanvestNewsButton(
+                                        notification: notification,
+                                        action: {
+                                            moduleRouter.push(
+                                                .newsDetail(
+                                                    appRouter: appRouter,
+                                                    notification: notification,
+                                                    simulationViewModel: simulationViewModel
+                                                )
                                             )
-                                        )
-                                    }
-                                )
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
+                    else {
+                        Text("No News Available")
+                    }
                 }
                 else {
-                    Text("No News Available")
+                    Text("No User Data Available")
                 }
             }
             .safeAreaPadding(.vertical, 32)

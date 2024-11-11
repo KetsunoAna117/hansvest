@@ -21,12 +21,19 @@ public class SwiftDataContextManager {
             
             if let container {
                 context = ModelContext(container)
-                prepopulateUserData()
-                prepopulateSystemData()
+                intializeSwiftData()
             }
         } catch {
-            debugPrint("Error initializing database container:", error)
+            debugPrint("Error initializing database container: ", error)
         }
+    }
+    
+    private func intializeSwiftData() {
+        #if DEBUG
+        prepopulateUserData()
+        #endif
+        
+        prepopulateSystemData()
     }
     
     private func setupSchema() -> Schema {
@@ -36,7 +43,8 @@ public class SwiftDataContextManager {
             StockNewsSchema.self,
             ProductPriceSchema.self,
             StockSchema.self,
-            StockInvestmentSchema.self
+            StockInvestmentSchema.self,
+            UserNotificationSchema.self
         ])
     }
 }
@@ -77,6 +85,12 @@ private extension SwiftDataContextManager {
     func saveStockInvestmentData(investment: StockInvestmentSchema) {
         if let context {
             context.insert(investment)
+        }
+    }
+    
+    func saveNotificationSchema(notification: UserNotificationSchema) {
+        if let context {
+            context.insert(notification)
         }
     }
     
@@ -164,6 +178,20 @@ private extension SwiftDataContextManager {
         }
         return 0
     }
+    
+    func fetchNotificationSchema() -> Int {
+        if let context {
+            do {
+                let descriptor = FetchDescriptor<UserNotificationSchema>()
+                let result = try context.fetchCount(descriptor)
+                return result
+            }
+            catch {
+                fatalError("Error Fetch Data: \(error)")
+            }
+        }
+        return 0
+    }
 }
 
 // Prepopulate Data
@@ -188,6 +216,14 @@ private extension SwiftDataContextManager {
             let result = getMockInvestmentData()
             for data in result {
                 saveStockInvestmentData(investment: data)
+            }
+        }
+        
+        let userNotificationData = fetchNotificationSchema()
+        if userNotificationData <= 0 {
+            let result = getUserNotificationData()
+            for data in result {
+                saveNotificationSchema(notification: data)
             }
         }
     }
@@ -225,7 +261,7 @@ private extension SwiftDataContextManager {
             userName: "Bryon",
             userBalance: 100000000,
             userRiskProfile: .conservative,
-            moduleCompletionIDList: [.module01, .module02, .module03, .module04]
+            moduleCompletionIDList: [.module01, .module02, .module03, .module04, .module05, .module06]
         )
     }
     
@@ -242,40 +278,11 @@ private extension SwiftDataContextManager {
     }
     
     func getMockNewsSchemaData() -> [StockNewsSchema] {
-        return [
-            .init(
-                newsID: UUID().uuidString,
-                stockIDName: "GOTO",
-                newsTitle: "GOTO gets billions in funding",
-                newsReleasedTime: Date(timeInterval: -10, since: Date.now),
-                newsContent:
-                """
-                In a recent report released today, Chinese tech giant Alibaba is said to have injected billions of rupiah into Gojek Tokopedia (GOTO). This investment is seen as part of Alibaba’s strategy to expand its business reach in Southeast Asia, particularly in Indonesia.
-                
-                Alibaba's move is viewed as an effort to strengthen GOTO’s ecosystem, which spans e-commerce, on-demand services, including transportation, food delivery, and online shopping platforms that are increasingly dominating the domestic market.
-                
-                The Chinese company is no stranger to Southeast Asia, having previously made significant investments in Lazada. With this new capital infusion, GOTO is expected to accelerate its growth and better compete against other global tech giants.
-                
-                Neither GOTO nor Alibaba has provided an official comment on the report, but analysts predict that this investment will further solidify GOTO’s position as a key player in Indonesia’s digital economy.
-                
-                """,
-                stockFluksPercentage: 10,
-                hasTriggered: true
-            ),
-            .init(
-                newsID: UUID().uuidString,
-                stockIDName: "BBRI",
-                newsTitle: "BBRI got positive revenue",
-                newsReleasedTime: Date(timeInterval: -3 * 60 * 60 * 24, since: Date.now),
-                newsContent:
-                """
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fermentum nunc ac purus rutrum mollis. Proin in luctus velit. Morbi mollis mollis enim quis blandit. Donec sollicitudin nunc dui. Integer rhoncus lacus nec urna sagittis, eu facilisis lacus condimentum. Duis massa ex, volutpat ac ullamcorper quis, euismod id ex. Sed sit amet condimentum metus. Duis lobortis arcu ac justo dapibus viverra. Vestibulum sagittis ullamcorper metus, eu malesuada ligula laoreet vulputate. Nam convallis gravida auctor. Sed blandit arcu id luctus ullamcorper. Suspendisse vel feugiat dui. Aenean nec massa velit. Vestibulum ut ullamcorper purus. Fusce fermentum ipsum vitae quam tincidunt, a tincidunt dui ultricies.
-                
-                """,
-                stockFluksPercentage: -5,
-                hasTriggered: true
-            )
-        ]
+        // TODO: Fill this later
+        let newsData: [StockNewsSchema] =
+            HanvestJSONDecoder.decode(from: "HanvestNewsData", as: [StockNewsSchema].self)
+                ?? []
+        return newsData
     }
     
     func getMockProductPriceSchemaData() -> [ProductPriceSchema] {
@@ -300,46 +307,50 @@ private extension SwiftDataContextManager {
                 stockIDName: "BBSU",
                 stockName: "PT Bank Semua Untung Tbk",
                 stockImageName: "BBSU",
-                stockDescription: "PT Bank Semua Untung Tbk adalah salah satu bank digital terkemuka di Indonesia yang menyediakan layanan keuangan berbasis teknologi. Fokus utama bank ini adalah meningkatkan aksesibilitas layanan perbankan melalui aplikasi mobile yang canggih dan fitur keamanan tingkat tinggi. Bank ini juga menawarkan berbagai produk investasi digital untuk menarik generasi muda. Dengan jaringan luas dan inovasi berkelanjutan, BBSU berkomitmen untuk menjadi pelopor di bidang perbankan digital di Indonesia.",
-                stockPriceID: [
-                    "bbsu-price-init"
-                ]
+                stockDescription: "PT Bank Semua Untung Tbk adalah salah satu bank digital terkemuka di Indonesia yang menyediakan layanan keuangan berbasis teknologi. Fokus utama bank ini adalah meningkatkan aksesibilitas layanan perbankan melalui aplikasi mobile yang canggih dan fitur keamanan tingkat tinggi. Bank ini juga menawarkan berbagai produk investasi digital untuk menarik generasi muda. Dengan jaringan luas dan inovasi berkelanjutan, BBSU berkomitmen untuk menjadi pelopor di bidang perbankan digital di Indonesia."
             ),
             .init(
                 stockIDName: "GOMM",
                 stockName: "PT Goodfood Maju Makmur Tbk",
                 stockImageName: "GOMM",
-                stockDescription: "PT Goodfood Maju Makmur Tbk adalah produsen makanan dan minuman yang dikenal dengan produk sehat berbahan dasar alami dan organik. Perusahaan ini memiliki lini produk makanan ringan dan minuman yang dibuat dari bahan-bahan berkualitas tinggi dan ramah lingkungan. GOMM berfokus pada tren pola hidup sehat dan terus berinovasi untuk memenuhi permintaan konsumen terhadap produk vegan dan rendah gula. Mereka juga bekerja sama dengan petani lokal untuk memastikan keberlanjutan bahan baku.",
-                stockPriceID: [
-                    "gomm-price-init"
-                ]
+                stockDescription: "PT Goodfood Maju Makmur Tbk adalah produsen makanan dan minuman yang dikenal dengan produk sehat berbahan dasar alami dan organik. Perusahaan ini memiliki lini produk makanan ringan dan minuman yang dibuat dari bahan-bahan berkualitas tinggi dan ramah lingkungan. GOMM berfokus pada tren pola hidup sehat dan terus berinovasi untuk memenuhi permintaan konsumen terhadap produk vegan dan rendah gula. Mereka juga bekerja sama dengan petani lokal untuk memastikan keberlanjutan bahan baku."
             ),
             .init(
                 stockIDName: "BIVI",
                 stockName: "PT Brim Vehicel International Tbk.",
                 stockImageName: "BIVI",
-                stockDescription: "PT Brim Vehicle International Tbk adalah perusahaan otomotif yang berfokus pada produksi kendaraan listrik untuk mendukung transisi energi bersih di Indonesia. BIVI terus berinovasi dalam teknologi kendaraan ramah lingkungan, dengan fasilitas produksi modern yang berlokasi di Jawa Tengah. Selain kendaraan listrik, perusahaan juga mengembangkan teknologi otomotif berbasis AI dan terus memperluas pasar internasional untuk mendukung pertumbuhan yang berkelanjutan.",
-                stockPriceID: [
-                    "bivi-price-init"
-                ]
+                stockDescription: "PT Brim Vehicle International Tbk adalah perusahaan otomotif yang berfokus pada produksi kendaraan listrik untuk mendukung transisi energi bersih di Indonesia. BIVI terus berinovasi dalam teknologi kendaraan ramah lingkungan, dengan fasilitas produksi modern yang berlokasi di Jawa Tengah. Selain kendaraan listrik, perusahaan juga mengembangkan teknologi otomotif berbasis AI dan terus memperluas pasar internasional untuk mendukung pertumbuhan yang berkelanjutan."
             ),
             .init(
                 stockIDName: "ENTB",
                 stockName: "PT Energi Tambang Tbk",
                 stockImageName: "ENTB",
-                stockDescription: "PT Energi Tambang Tbk adalah perusahaan energi terkemuka yang beroperasi di sektor eksplorasi dan pengolahan batubara. ENTB memiliki beberapa tambang besar di Indonesia dan berkomitmen untuk menerapkan teknologi ramah lingkungan dalam proses produksinya. Dengan fokus pada efisiensi dan keberlanjutan, perusahaan ini juga telah memulai proyek-proyek energi terbarukan untuk mendukung transisi menuju energi bersih di masa depan.",
-                stockPriceID: [
-                    "entb-price-init"
-                ]
+                stockDescription: "PT Energi Tambang Tbk adalah perusahaan energi terkemuka yang beroperasi di sektor eksplorasi dan pengolahan batubara. ENTB memiliki beberapa tambang besar di Indonesia dan berkomitmen untuk menerapkan teknologi ramah lingkungan dalam proses produksinya. Dengan fokus pada efisiensi dan keberlanjutan, perusahaan ini juga telah memulai proyek-proyek energi terbarukan untuk mendukung transisi menuju energi bersih di masa depan."
             ),
             .init(
                 stockIDName: "TEJA",
                 stockName: "PT Telekim Jaya Tbk",
                 stockImageName: "TEJA",
-                stockDescription: "PT Telekom Jaya Tbk adalah perusahaan telekomunikasi yang menyediakan layanan internet, telepon seluler, dan solusi digital untuk pelanggan di seluruh Indonesia. TEJA terkenal dengan inovasi di bidang jaringan, termasuk pengembangan teknologi 5G dan satelit untuk memperluas jangkauan layanan hingga ke daerah terpencil. Dengan komitmen pada transformasi digital, TEJA berusaha untuk mendukung digitalisasi masyarakat Indonesia melalui produk dan layanan yang andal serta terjangkau.",
-                stockPriceID: [
-                    "teja-price-init"
-                ]
+                stockDescription: "PT Telekom Jaya Tbk adalah perusahaan telekomunikasi yang menyediakan layanan internet, telepon seluler, dan solusi digital untuk pelanggan di seluruh Indonesia. TEJA terkenal dengan inovasi di bidang jaringan, termasuk pengembangan teknologi 5G dan satelit untuk memperluas jangkauan layanan hingga ke daerah terpencil. Dengan komitmen pada transformasi digital, TEJA berusaha untuk mendukung digitalisasi masyarakat Indonesia melalui produk dan layanan yang andal serta terjangkau."
+            )
+        ]
+    }
+    
+    func getUserNotificationData() -> [UserNotificationSchema] {
+        return [
+            .init(
+                notificationID: "notification-01",
+                releasedTime: Date.now.addingTimeInterval(-2 * 60 * 60),
+                hasTriggered: true,
+                userID: "user-01",
+                stockNewsID: "news-01"
+            ),
+            .init(
+                notificationID: "notification-02",
+                releasedTime: Date.now,
+                hasTriggered: true,
+                userID: "user-01",
+                stockNewsID: "news-04"
             )
         ]
     }

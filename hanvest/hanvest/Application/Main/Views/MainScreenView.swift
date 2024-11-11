@@ -20,15 +20,15 @@ struct MainScreenView: View {
             HanvestHeaderView(
                 userDataViewModel: userDataViewModel,
                 bookIconTappedAction: {
-                    print("Book Icon Tapped")
+                    debugPrint("Book Icon Tapped")
                     router.push(.glossary)
                 },
                 bellIconTappedAction: {
-                    print("Bell Icon Tapped")
-                    router.push(.news)
+                    debugPrint("Bell Icon Tapped")
+                    router.push(.news(userViewModel: userDataViewModel))
                 },
                 profileIconTappedAction: {
-                    print("Profile Account Tapped")
+                    debugPrint("Profile Account Tapped")
                     router.push(.profile)
                 }
             )
@@ -72,6 +72,8 @@ struct MainScreenView: View {
             .animation(.easeInOut, value: selectionTab)
         }
         .onAppear {
+            UIScrollView.appearance().isScrollEnabled = true
+            
             userDataViewModel.setup()
             
             if !userDataViewModel.isHighlightEverShown {

@@ -12,7 +12,7 @@ protocol GetAvailableSimulationStocks {
 }
 
 struct GetAvailableSimulationStocksImpl: GetAvailableSimulationStocks {
-    let stockRepo: SimulationStockRepository
+    let stockRepo: StockRepository
     let productPriceRepo: ProductPriceRepository
     
     func execute() -> [StockEntity] {

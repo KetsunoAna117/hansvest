@@ -15,20 +15,20 @@ struct HanvestNewsButton: View {
     var initialState: HanvestNewsButtonState = .unpressed
     @State private var state: HanvestNewsButtonState = .unpressed
     
-    var news: StockNewsEntity
+    var notification: UserNotificationEntity
     var action: () -> ()
     
     var body: some View {
         HStack() {
             VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text(news.stockIDName)
+                HStack(alignment: .top) {
+                    Text(notification.stockNews.stockIDName)
                         .font(.nunito(.subhead, .bold))
-                    Text("Report: \(news.newsTitle)")
+                    Text("Report: \(notification.stockNews.newsTitle)")
                         .font(.nunito(.subhead))
                 }
                 Text(
-                    HanvestDateFormatter.getTimeDifferenceFrom(news.newsReleasedTime)
+                    HanvestDateFormatter.getTimeDifferenceFrom(notification.releasedTime)
                 )
                     .font(.nunito(.caption1))
                     .foregroundStyle(.secondary)
@@ -74,7 +74,7 @@ struct HanvestNewsButton: View {
 //    HanvestNewsButton(
 //        news: StockNewsEntity.mock().first!,
 //        action: {
-//            print("News Pressed!")
+//            debugPrint("News Pressed!")
 //        }
 //    )
 //    .padding(.horizontal, 16)

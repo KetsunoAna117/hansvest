@@ -29,7 +29,7 @@ struct hanvestApp: App {
                         }
                 }
                 else {
-                    Text("ERROR: View is not routed anywhere!")
+                    Text("Loading...")
                 }
             }
             .onAppear {

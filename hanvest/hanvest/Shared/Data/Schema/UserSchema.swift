@@ -57,23 +57,39 @@ import SwiftData
     func mapToEntity(
         stockInvestmentSchema: [StockInvestmentSchema],
         stockInvestmentTransaction: [StockTransactionSchema],
-        transactionQueue: [StockTransactionQueueSchema]
+        transactionQueue: [StockTransactionQueueSchema],
+        userNotificationList: [UserNotificationSchema],
+        stockNewsList: [StockNewsSchema]
     ) -> UserDataEntity {
+        
+        // Group transactions and stock news for efficient lookups
+        let transactionsByInvestmentID = Dictionary(grouping: stockInvestmentTransaction, by: { $0.investmentID })
+        
         return UserDataEntity(
             userId: self.userId,
             userName: self.userName,
             userBalance: self.userBalance,
             userRiskProfile: self.userRiskProfile,
+            
             userInvestmentTransaction: stockInvestmentSchema.map { investment in
                 investment.mapToEntity(
-                    stockTransactionSchema: stockInvestmentTransaction.filter({ transaction in
-                        transaction.investmentID == investment.investmentID
-                    })
-                    .sorted(by: { $0.time < $1.time })
+                    stockTransactionSchema: (transactionsByInvestmentID[investment.investmentID] ?? [])
+                        .sorted(by: { $0.time < $1.time })
                 )
             },
-            transactionQueue: transactionQueue.map { $0.mapToEntity() }.sorted(by: { $0.time < $1.time }),
-            moduleCompletionList: self.moduleCompletionIDList
+            
+            transactionQueue: transactionQueue
+                .map { $0.mapToEntity() }
+                .sorted(by: { $0.time < $1.time }),
+            
+            moduleCompletionList: self.moduleCompletionIDList,
+            
+            notificationList: userNotificationList.map { notification in
+                notification.mapToEntity(stockNews: stockNewsList.first(where: { news in
+                    notification.stockNewsID == news.newsID
+                }) ?? .init(newsID: "nodata-404", stockIDName: "No Data", newsTitle: "No Data", newsContent: "No Data", stockFluksPercentage: 0))
+            }
         )
     }
+    
 }

@@ -138,10 +138,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .news:
+        case .news(let userViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSimulationNewsScreenView(router: self)
+                HanvestSimulationNewsScreenView(
+                    router: self,
+                    userDataViewModel: userViewModel
+                )
             }
             .navigationBarBackButtonHidden()
             
@@ -164,10 +167,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .newsDetails(news: let news):
+        case .newsDetails(let notification):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSimulationNewsDetailsScreenView(router: self, news: news)
+                HanvestSimulationNewsDetailsScreenView(
+                    router: self,
+                    notification: notification
+                )
             }
             .navigationBarBackButtonHidden()
             

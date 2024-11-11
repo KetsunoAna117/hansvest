@@ -152,7 +152,7 @@ struct HanvestButtonRadioBehavior: View {
                 style: .bordered(isDisabled: selectedButtonID.isEmpty),
                 title: "Continue",
                 action: {
-                    print("Continue Tapped!")
+                    debugPrint("Continue Tapped!")
                     selectedButtonID = ""
             })
             .padding(.top, 32)
