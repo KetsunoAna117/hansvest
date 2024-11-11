@@ -47,7 +47,7 @@ struct LocalSimulationStockRepository: StockRepository {
     func save(_ stocks: StockSchema) throws {
         if let context = modelContext {
             if fetch(stockID: stocks.stockIDName) != nil {
-                throw SwiftDataError.alreadyExists(object: stocks)
+                throw SwiftDataError.alreadyExists(stocks)
             }
             
             context.insert(stocks)

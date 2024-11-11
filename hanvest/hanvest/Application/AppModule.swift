@@ -35,8 +35,15 @@ struct AppModule {
             stockRepository: simulationStockRepository,
             priceRepository: productPriceRepository
         )
-        @Provider var getStockNewsData: GetStockNewsData = GetStockNewsDataImpl(
-            newsRepo: simulationNewsRepository
+        @Provider var getStockNewsData: UpdateStockPriceByNews = UpdateStockPriceByNewsImpl(
+            stockPriceRepo: productPriceRepository
+        )
+        @Provider var triggerLatestNotification: TriggerLatestNotification = TriggerLatestNotificationImpl(
+            notificationRepo: userNotificationRepository
+        )
+        @Provider var sendStockPriceUpdateNotification: SendStockPriceUpdateNotification = SendStockPriceUpdateNotificationImpl(
+            newsRepo: simulationNewsRepository,
+            userNotificationRepo: userNotificationRepository
         )
         @Provider var purchaseStock: PurchaseStocks = PurchaseStocksImpl(
             userRepo: userRepository,

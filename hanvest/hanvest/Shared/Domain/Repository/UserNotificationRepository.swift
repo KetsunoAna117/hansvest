@@ -11,6 +11,7 @@ protocol UserNotificationRepository {
     func fetch(id: String) -> UserNotificationSchema?
     func fetchBy(userID: String) -> [UserNotificationSchema]
     func fetchBy(stockNewsID: String) -> [UserNotificationSchema]
+    func update(notificationID: String, hasTriggered: Bool) throws -> Void
     func save(_ notification: UserNotificationSchema) throws -> Void
     func delete(_ notificationID: String) throws -> Void
 }

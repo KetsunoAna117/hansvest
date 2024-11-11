@@ -32,7 +32,10 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
         if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<UserNotificationSchema>(
-                    predicate: #Predicate { $0.userID == userID}
+                    predicate: #Predicate { $0.userID == userID},
+                    sortBy: [
+                        .init(\.releasedTime)
+                    ]
                 )
                 let result = try context.fetch(descriptor)
                 return result
@@ -49,7 +52,10 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
         if let context = modelContext {
             do {
                 let descriptor = FetchDescriptor<UserNotificationSchema>(
-                    predicate: #Predicate { $0.stockNewsID == stockNewsID }
+                    predicate: #Predicate { $0.stockNewsID == stockNewsID },
+                    sortBy: [
+                        .init(\.releasedTime)
+                    ]
                 )
                 let result = try context.fetch(descriptor)
                 return result
@@ -71,7 +77,7 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
             )
              
             guard try context.fetch(descriptor).first == nil else {
-                throw SwiftDataError.alreadyExists(object: notification)
+                throw SwiftDataError.alreadyExists( notification)
             }
             
             context.insert(notification)
@@ -86,13 +92,29 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
             )
             
             guard let notification = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound(object: notificationID)
+                throw SwiftDataError.notFound( notificationID)
             }
             
             context.delete(notification)
             try context.save()
         }
     }
+    
+    func update(notificationID: String, hasTriggered: Bool) throws {
+        if let context = modelContext {
+            let descriptor = FetchDescriptor<UserNotificationSchema>(
+                predicate: #Predicate { $0.notificationID == notificationID }
+            )
+            
+            guard let notification = try context.fetch(descriptor).first else {
+                throw SwiftDataError.notFound( notificationID)
+            }
+            
+            notification.hasTriggered = hasTriggered
+            try context.save()
+        }
+    }
+    
     
     
 }

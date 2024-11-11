@@ -38,13 +38,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     }
     
     func presentNotification(_ notification: HanvestNotification) {
-        withAnimation(.easeInOut(duration: 0.5)) {
+        withAnimation(.linear(duration: 0.5)) {
             self.notification = notification
         }
     }
     
     func dismissNotification(){
-        withAnimation(.easeInOut(duration: 0.5)) {
+        withAnimation(.linear(duration: 0.5)) {
             self.notification = nil
         }
     }
@@ -302,8 +302,6 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     notification: news
                 )
             }
-            .transition(.move(edge: .top)) // Slide-in and slide-out effect
-            .animation(.easeInOut(duration: 0.5), value: self.notification)
             .gesture(
                 DragGesture()
                     .onEnded { value in

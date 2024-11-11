@@ -19,7 +19,7 @@ struct LocalSimulationNewsRepository: StockNewsRepository {
                 return result
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                debugPrint("Error Fetch News Data with error: ",error)
             }
         }
         return []
@@ -35,9 +35,37 @@ struct LocalSimulationNewsRepository: StockNewsRepository {
                 return result.first
             }
             catch {
-                debugPrint("Error Fetch Data:",error)
+                debugPrint("Error Fetch News Data by ID with error: ",error)
             }
         }
+        return nil
+    }
+    
+    func fetchRandom() -> StockNewsSchema? {
+        if let context = modelContext {
+            do {
+                let countDescriptor = FetchDescriptor<StockNewsSchema>()
+                let dataCount = try context.fetchCount(countDescriptor)
+                
+                guard dataCount > 0 else { return nil }
+                
+                let randomOffset = Int.random(in: 0..<dataCount)
+                var newsDescriptor: FetchDescriptor<StockNewsSchema> {
+                    var descriptor = FetchDescriptor<StockNewsSchema>()
+                    descriptor.fetchLimit = 1
+                    descriptor.fetchOffset = randomOffset
+                    return descriptor
+                }
+                
+                let result = try context.fetch(newsDescriptor)
+                return result.first
+
+            }
+            catch {
+                debugPrint("Error Fetch Random News Data: ", error)
+            }
+        }
+        
         return nil
     }
     
@@ -45,7 +73,7 @@ struct LocalSimulationNewsRepository: StockNewsRepository {
         if let context = modelContext {
             let fetchedNews = fetch(id: news.newsID)
             if fetchedNews != nil {
-                throw SwiftDataError.alreadyExists(object: news)
+                throw SwiftDataError.alreadyExists(news)
             }
             
             context.insert(news)

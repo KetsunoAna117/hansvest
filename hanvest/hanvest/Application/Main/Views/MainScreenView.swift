@@ -82,7 +82,10 @@ struct MainScreenView: View {
             }
             
             if simulationViewModel.stockList.isEmpty {
-                simulationViewModel.setup(appRouter: router)
+                simulationViewModel.setup(
+                    appRouter: router,
+                    loadedUserViewModel: userDataViewModel
+                )
             }
         }
         .modifier(HighlightHelperView(viewModel: highlightViewModel))
