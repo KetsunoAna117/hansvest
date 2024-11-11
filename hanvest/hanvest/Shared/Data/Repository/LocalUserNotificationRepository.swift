@@ -21,7 +21,7 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
                 return result.first
             }
             catch {
-                debugPrint("Error Fetching news for newsID: \(id)")
+                debugPrint("Error Fetching Notification for NotificationID: \(id)")
             }
         }
         
@@ -34,18 +34,34 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
                 let descriptor = FetchDescriptor<UserNotificationSchema>(
                     predicate: #Predicate { $0.userID == userID},
                     sortBy: [
-                        .init(\.releasedTime)
+                        .init(\.releasedTime, order: .reverse)
                     ]
                 )
                 let result = try context.fetch(descriptor)
                 return result
             }
             catch {
-                debugPrint("Error Fetching news for userID: \(userID)")
+                debugPrint("Error Fetching Notification for userID: \(userID)")
             }
         }
         
         return []
+    }
+    
+    func fetchCount(userID: String) -> Int {
+        if let context = modelContext {
+            do {
+                let descriptor = FetchDescriptor<UserNotificationSchema>(
+                    predicate: #Predicate { $0.userID == userID}
+                )
+                let result = try context.fetchCount(descriptor)
+                return result
+            }
+            catch {
+                debugPrint("Error Fetching Notification for userID: \(userID)")
+            }
+        }
+        return 0
     }
     
     func fetchBy(stockNewsID: String) -> [UserNotificationSchema] {
@@ -54,14 +70,14 @@ struct LocalUserNotificationRepository: UserNotificationRepository {
                 let descriptor = FetchDescriptor<UserNotificationSchema>(
                     predicate: #Predicate { $0.stockNewsID == stockNewsID },
                     sortBy: [
-                        .init(\.releasedTime)
+                        .init(\.releasedTime, order: .reverse)
                     ]
                 )
                 let result = try context.fetch(descriptor)
                 return result
             }
             catch {
-                debugPrint("Error Fetching news for userID: \(stockNewsID)")
+                debugPrint("Error Fetching Notification for userID: \(stockNewsID)")
             }
         }
         

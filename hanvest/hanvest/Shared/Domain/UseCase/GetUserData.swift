@@ -29,7 +29,6 @@ struct GetUserDataImpl: GetUserData {
             let transactionQueueSchema = transactionQueueRepo.fetchWith(userID: user.userId)
             
             let notificationSchema = notificationRepo.fetchBy(userID: user.userId)
-                .sorted(by: { $0.releasedTime < $1.releasedTime })
             let newsSchema = notificationSchema.compactMap({ notification in
                 newsRepo.fetch(id: notification.stockNewsID)
             })

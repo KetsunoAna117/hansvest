@@ -14,8 +14,8 @@ struct TriggerLatestNotificationImpl: TriggerLatestNotification {
     
     func execute(user: UserDataEntity) -> Result<UserNotificationEntity?, Error> {
         // Validate if there's a notification
-        guard let latestNotification = user.notificationList.last else {
-            return .success(nil)
+        guard let latestNotification = user.notificationList.first else {
+            return .failure(NotificationError.noNotificationsAvailable)
         }
         
         // Validate if latest notification has triggered
@@ -23,7 +23,7 @@ struct TriggerLatestNotificationImpl: TriggerLatestNotification {
             return .success(nil)
         }
         
-        // Update
+    
         do {
             try notificationRepo.update(
                 notificationID: latestNotification.notificationID,

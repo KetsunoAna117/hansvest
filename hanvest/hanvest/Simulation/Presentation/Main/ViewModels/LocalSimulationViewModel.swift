@@ -10,7 +10,11 @@ import SwiftUI
 
 class LocalSimulationViewModel: HanvestSimulationViewModel {
     // CONSTANT
+    #if DEBUG
     let TIMER_PRICE_UPDATE_INTERVAL: Double = 10
+    #else
+    let TIMER_PRICE_UPDATE_INTERVAL: Double = 45
+    #endif
     
     @Inject var getStockList: GetAvailableSimulationStocks
     @Inject var updateStockPriceByNews: UpdateStockPriceByNews
@@ -34,49 +38,51 @@ class LocalSimulationViewModel: HanvestSimulationViewModel {
 
 extension LocalSimulationViewModel {
     func simulatePrice(loadedUserViewModel: HanvestLoadedUserDataViewModel){
-        debugPrint("[TEST] Timer to Update Stock Price Started!")
-        if timer != nil {
-            timer = nil
-        }
-    
+        // User timer to schedule stock price changing
         timer = Timer.scheduledTimer(withTimeInterval: TIMER_PRICE_UPDATE_INTERVAL, repeats: true) { timer in
-//            guard let userData = loadedUserViewModel.userData else {
-//                debugPrint("ERROR: User Data is not found")
-//                return
-//            }
-//            
-//            let isNotificationTriggered = self.triggerLatestNotification.execute(user: userData)
-//            switch isNotificationTriggered {
-//            case .success(let success):
-//                if let notification = success {
-//                    self.updateStockPrice(notification: notification)
-//                }
-//            case .failure(let failure):
-//                debugPrint("ERROR: \(failure)")
-//            }
-//            
-//            self.sendNotification(loadedUserViewModel: loadedUserViewModel)
+            guard let userData = loadedUserViewModel.userData else {
+                debugPrint("ERROR: User Data is not found")
+                return
+            }
+            
+            // Check if latest notification has been triggered or not
+            let isNotificationTriggered = self.triggerLatestNotification.execute(user: userData)
+            switch isNotificationTriggered {
+                case .success(let notification):
+                    // If latest notification is not triggered, trigger first
+                    if let notification = notification {
+                        self.updateStockPrice(notification: notification)
+                    }
+                case .failure(let failure):
+                    debugPrint(failure)
+            }
+            
+            // Push Notification to user
+            self.sendNotification(loadedUserViewModel: loadedUserViewModel)
         }
     }
     
     private func sendNotification(loadedUserViewModel: HanvestLoadedUserDataViewModel){
         // Validate UserID
-        guard let userID = loadedUserViewModel.userData?.userId else {
+        guard let user = loadedUserViewModel.userData else {
             debugPrint("ERROR: User Data is Not Detected")
             return
         }
         
-        let notificationResult = sendStockPriceUpdateNotification.execute(userID: userID)
+        // Send Notification to the user
+        let notificationResult = sendStockPriceUpdateNotification.execute(user: user)
         loadedUserViewModel.setup()
         
         switch notificationResult {
-        case .success(let notification):
-            displayNotification(notification: notification)
-        case .failure(let failure):
-            debugPrint("ERROR: \(failure.localizedDescription)")
+            case .success(let notification):
+                // If user receive the notification, display it
+                displayNotification(notification: notification)
+            case .failure(let failure):
+                debugPrint("ERROR: \(failure.localizedDescription)")
         }
     }
     
+    // Function to update Stock Price from Stock List
     private func updateStockPrice(notification: UserNotificationEntity){
         let result = self.updateStockPriceByNews.execute(stockList: &self.stockList, news: notification.stockNews)
         
@@ -88,6 +94,7 @@ extension LocalSimulationViewModel {
         }
     }
     
+    // Function to display notification animation in the app
     private func displayNotification(notification: UserNotificationEntity){
         if let appRouter = appRouter {
             appRouter.presentNotification(

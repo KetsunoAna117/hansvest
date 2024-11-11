@@ -8,14 +8,14 @@
 import Foundation
 
 protocol SendStockPriceUpdateNotification {
-    func execute(userID: String) -> Result<UserNotificationEntity, Error>
+    func execute(user: UserDataEntity) -> Result<UserNotificationEntity, Error>
 }
 
 struct SendStockPriceUpdateNotificationImpl: SendStockPriceUpdateNotification {
     let newsRepo: StockNewsRepository
     let userNotificationRepo: UserNotificationRepository
     
-    func execute(userID: String) -> Result<UserNotificationEntity, any Error> {
+    func execute(user: UserDataEntity) -> Result<UserNotificationEntity, any Error> {
         guard let news = newsRepo.fetchRandom() else {
             return .failure(SwiftDataError.noData("News Data is not found"))
         }
@@ -29,7 +29,15 @@ struct SendStockPriceUpdateNotificationImpl: SendStockPriceUpdateNotification {
         )
         
         do {
-            try userNotificationRepo.save(userNotification.mapToSchema(userID: userID))
+            // Delete oldest notification
+            if user.notificationList.count > 20 {
+                if let oldestNotification = user.notificationList.last {
+                    try userNotificationRepo.delete(oldestNotification.notificationID)
+                }
+            }
+            
+            // Create new Notification
+            try userNotificationRepo.save(userNotification.mapToSchema(userID: user.userId))
         }
         catch {
             return .failure(error)
