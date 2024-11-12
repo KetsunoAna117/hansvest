@@ -30,7 +30,10 @@ struct Module06ConclusionView: View {
                 HanvestButtonDefault(
                     title: "Continue",
                     action: {
-                        simulationViewModel.onCompletionModule(appRouter: appRouter)
+                        simulationViewModel.onConclusionButtonTapped(
+                            moduleRouter: moduleRouter,
+                            appRouter: appRouter
+                        )
                     }
                 )
                 .padding(.bottom, 54)
