@@ -7,46 +7,46 @@
 
 import Foundation
 
-enum Module06ContentView: Equatable, Hashable, Identifiable  {
+enum NewsModuleContentView: Equatable, Hashable, Identifiable  {
     case simulation(
         appRouter: any AppRouterProtocol,
-        profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel
+        profileViewModel: NewsModuleProfileViewModel,
+        simulationViewModel: NewsModuleSimulationViewModel
     )
     case confirmBuy(
         appRouter: any AppRouterProtocol,
-        profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel
+        profileViewModel: NewsModuleProfileViewModel,
+        simulationViewModel: NewsModuleSimulationViewModel
     )
     case confirmSell(
         appRouter: any AppRouterProtocol,
-        profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel
+        profileViewModel: NewsModuleProfileViewModel,
+        simulationViewModel: NewsModuleSimulationViewModel
     )
     case transactionComplete(
-        profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel,
+        profileViewModel: NewsModuleProfileViewModel,
+        simulationViewModel: NewsModuleSimulationViewModel,
         transactionViewModel: TransactionStatusViewModel
     )
     case notification(
         appRouter: any AppRouterProtocol,
-        profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel
+        profileViewModel: NewsModuleProfileViewModel,
+        simulationViewModel: NewsModuleSimulationViewModel
     )
     case newsDetail(
         appRouter: any AppRouterProtocol,
         notification: UserNotificationEntity,
-        simulationViewModel: Module06SimulationViewModel
+        simulationViewModel: NewsModuleSimulationViewModel
     )
     case conclusion(
         appRouter: any AppRouterProtocol,
-        simulationViewModel: Module06SimulationViewModel
+        simulationViewModel: NewsModuleSimulationViewModel
     )
     
     var id: Self { return self }
 }
 
-extension Module06ContentView {
+extension NewsModuleContentView {
     // Conform to Hashable
     func hash(into hasher: inout Hasher) {
         switch self {
@@ -62,7 +62,7 @@ extension Module06ContentView {
     }
     
     // Conform to Equatable
-    static func == (lhs: Module06ContentView, rhs: Module06ContentView) -> Bool {
+    static func == (lhs: NewsModuleContentView, rhs: NewsModuleContentView) -> Bool {
         switch (lhs, rhs){
         case (.simulation, .simulation),
             (.notification, .notification),

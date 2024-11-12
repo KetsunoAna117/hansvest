@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct Module06HeaderView: View {
-    @ObservedObject var userDataViewModel: Module06ProfileViewModel
+struct NewsModuleHeaderView: View {
+    @ObservedObject var userDataViewModel: NewsModuleProfileViewModel
     
     var bookIconTappedAction: () -> ()
     var bellIconTappedAction: () -> ()
@@ -49,10 +49,10 @@ struct Module06HeaderView: View {
                             bellIconTappedAction()
                         }
                         .showCase(
-                            order: Module06TipData.notification.index,
-                            title: Module06TipData.notification.title,
-                            detail: Module06TipData.notification.detail,
-                            stage: Module06HighlightStage.mainStage.stringValue
+                            order: NewsModuleTipData.notification.index,
+                            title: NewsModuleTipData.notification.title,
+                            detail: NewsModuleTipData.notification.detail,
+                            stage: NewsModuleHighlightStage.mainStage.stringValue
                         )
                     Image(systemName: "person")
                         .resizable()

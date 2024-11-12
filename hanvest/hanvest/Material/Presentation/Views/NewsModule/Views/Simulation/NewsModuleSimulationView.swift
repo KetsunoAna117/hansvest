@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct Module06SimulationView: View {
+struct NewsModuleSimulationView: View {
     let appRouter: any AppRouterProtocol
-    let moduleRouter: any Module06RouterProtocol
+    let moduleRouter: any NewsModuleRouterProtocol
     
-    @ObservedObject var profileViewModel: Module06ProfileViewModel
-    @ObservedObject var simulationViewModel: Module06SimulationViewModel
+    @ObservedObject var profileViewModel: NewsModuleProfileViewModel
+    @ObservedObject var simulationViewModel: NewsModuleSimulationViewModel
     
     var body: some View {
         VStack {

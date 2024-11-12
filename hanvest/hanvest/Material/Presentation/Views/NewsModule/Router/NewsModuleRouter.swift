@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-class Module06Router: Module06RouterProtocol, ObservableObject {
-    @Published var content: [Module06ContentView] = []
-    @Published var overlay: Module06Overlay?
+class NewsModuleRouter: NewsModuleRouterProtocol, ObservableObject {
+    @Published var content: [NewsModuleContentView] = []
+    @Published var overlay: NewsModuleOverlay?
     
     @Published var progress: Int = 0
     
-    func push(_ content: Module06ContentView) {
+    func push(_ content: NewsModuleContentView) {
         self.content.append(content)
     }
     
@@ -29,7 +29,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         self.content.removeLast(content.count - 1)
     }
     
-    func displayOverlay(_ overlay: Module06Overlay) {
+    func displayOverlay(_ overlay: NewsModuleOverlay) {
         withAnimation(.easeInOut(duration: 0.2)) {
             self.overlay = overlay
         }
@@ -46,7 +46,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
     }
     
     @ViewBuilder
-    func build(_ content: Module06ContentView) -> some View {
+    func build(_ content: NewsModuleContentView) -> some View {
         switch content {
         case .simulation(
             let appRouter,
@@ -56,7 +56,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    Module06HeaderView(
+                    NewsModuleHeaderView(
                         userDataViewModel: profileViewModel,
                         bookIconTappedAction: {
                             // User can't use this button in this module, hence this will do nothing.
@@ -74,7 +74,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
                             // User can't use this button in this module, hence this will do nothing.
                         }
                     )
-                    Module06SimulationView(
+                    NewsModuleSimulationView(
                         appRouter: appRouter,
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
@@ -88,7 +88,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         case .confirmBuy(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module06ConfirmationBuyView(
+                NewsModuleConfirmationBuyView(
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
                     simulationViewModel: simulationViewModel
@@ -102,7 +102,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         case .confirmSell(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module06ConfirmationSellView(
+                NewsModuleConfirmationSellView(
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
                     simulationViewModel: simulationViewModel
@@ -117,7 +117,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
             ZStack {
                 Color.background.ignoresSafeArea()
                 VStack {
-                    Module06TransactionStatusView(
+                    NewsModuleTransactionStatusView(
                         moduleRouter: self,
                         profileViewModel: profileViewModel,
                         simulationViewModel: simulationViewModel,
@@ -130,7 +130,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         case .notification(let appRouter, let profileViewModel, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module06NewsView(
+                NewsModuleView(
                     appRouter: appRouter,
                     moduleRouter: self,
                     profileViewModel: profileViewModel,
@@ -157,7 +157,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         case .newsDetail(let appRouter, let news, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module06NewsDetailsView(
+                NewsModuleDetailsView(
                     moduleRouter: self,
                     notification: news
                 )
@@ -182,7 +182,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
         case .conclusion(let appRouter, let simulationViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module06ConclusionView(
+                NewsModuleConclusionView(
                     appRouter: appRouter,
                     moduleRouter: self,
                     simulationViewModel: simulationViewModel
@@ -195,7 +195,7 @@ class Module06Router: Module06RouterProtocol, ObservableObject {
     }
     
     @ViewBuilder
-    func build(_ overlay: Module06Overlay) -> some View {
+    func build(_ overlay: NewsModuleOverlay) -> some View {
         switch overlay {
         case .withHanvestPopup(let title, let desc, let dismissAction):
             ZStack {

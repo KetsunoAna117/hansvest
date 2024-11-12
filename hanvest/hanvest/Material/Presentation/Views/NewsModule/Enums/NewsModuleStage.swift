@@ -5,7 +5,7 @@
 //  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
-enum Module06Stage: Equatable {
+enum NewsModuleStage: Equatable {
     case openNews(appRouter: any AppRouterProtocol)
     case openNewsDetails(appRouter: any AppRouterProtocol)
     case buyState(appRouter: any AppRouterProtocol)
@@ -38,9 +38,9 @@ enum Module06Stage: Equatable {
     }
     
     func onTransactionSuccess(
-        moduleRouter: any Module06RouterProtocol,
-        profileViewModel: Module06ProfileViewModel,
-        simulationViewModel: Module06SimulationViewModel,
+        moduleRouter: any NewsModuleRouterProtocol,
+        profileViewModel: NewsModuleProfileViewModel,
+        simulationViewModel: NewsModuleSimulationViewModel,
         transaction: TransactionStatusViewModel
     ) {
         switch self {
@@ -96,9 +96,9 @@ enum Module06Stage: Equatable {
     }
 }
 
-extension Module06Stage {
+extension NewsModuleStage {
     // Conform to Equatable
-    static func == (lhs: Module06Stage, rhs: Module06Stage) -> Bool {
+    static func == (lhs: NewsModuleStage, rhs: NewsModuleStage) -> Bool {
         switch (lhs, rhs) {
         case (.openNews, .openNews),
             (.openNewsDetails, .openNewsDetails),

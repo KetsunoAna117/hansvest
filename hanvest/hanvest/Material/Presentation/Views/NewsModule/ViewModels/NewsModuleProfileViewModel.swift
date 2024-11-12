@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Module06ProfileViewModel: ObservableObject {
+class NewsModuleProfileViewModel: ObservableObject {
     var userData: UserDataEntity?
     
     func setup(){

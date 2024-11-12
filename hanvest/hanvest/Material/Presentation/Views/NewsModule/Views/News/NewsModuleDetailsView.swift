@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct Module06NewsDetailsView: View {
-    let moduleRouter: any Module06RouterProtocol
+struct NewsModuleDetailsView: View {
+    let moduleRouter: any NewsModuleRouterProtocol
     
     let notification: UserNotificationEntity
     

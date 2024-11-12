@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct Module06ConfirmationBuyView: View {
-    let moduleRouter: any Module06RouterProtocol
+struct NewsModuleConfirmationBuyView: View {
+    let moduleRouter: any NewsModuleRouterProtocol
     
-    @ObservedObject var profileViewModel: Module06ProfileViewModel
-    @ObservedObject var simulationViewModel: Module06SimulationViewModel
+    @ObservedObject var profileViewModel: NewsModuleProfileViewModel
+    @ObservedObject var simulationViewModel: NewsModuleSimulationViewModel
     
     @StateObject var viewmodel = BuyingStockDataViewModel()
     

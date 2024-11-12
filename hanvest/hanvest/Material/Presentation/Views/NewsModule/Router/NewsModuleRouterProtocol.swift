@@ -5,16 +5,16 @@
 //  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
-protocol Module06RouterProtocol {
-    var content: [Module06ContentView] { get set }
-    var overlay: Module06Overlay? { get set }
+protocol NewsModuleRouterProtocol {
+    var content: [NewsModuleContentView] { get set }
+    var overlay: NewsModuleOverlay? { get set }
     var progress: Int { get set }
     
-    func push(_ content: Module06ContentView)
+    func push(_ content: NewsModuleContentView)
     func pop()
     func popToRoot()
     
-    func displayOverlay(_ overlay: Module06Overlay)
+    func displayOverlay(_ overlay: NewsModuleOverlay)
     func dismissOverlay()
     
     func addProgress()

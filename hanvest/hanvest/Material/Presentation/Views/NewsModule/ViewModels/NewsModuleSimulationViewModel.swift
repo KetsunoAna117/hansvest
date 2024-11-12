@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Module06SimulationViewModel: HanvestSimulationViewModel {
-    @Published var currentStage: Module06Stage?
+class NewsModuleSimulationViewModel: HanvestSimulationViewModel {
+    @Published var currentStage: NewsModuleStage?
     
     override func setup(){
         self.stockList = self.prepareStockData()
@@ -34,7 +34,7 @@ class Module06SimulationViewModel: HanvestSimulationViewModel {
     }
 }
 
-private extension Module06SimulationViewModel {
+private extension NewsModuleSimulationViewModel {
     func prepareStockData() -> [StockEntity] {
         return [
             .init(

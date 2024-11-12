@@ -5,11 +5,11 @@
 //  Created by Bryan Vernanda on 01/11/24.
 //
 
-enum Module06TipData: CaseIterable {
+enum NewsModuleTipData: CaseIterable {
     case notification
     
     var index: Int {
-        return Module06TipData.allCases.firstIndex(of: self) ?? 0
+        return NewsModuleTipData.allCases.firstIndex(of: self) ?? 0
     }
     
     var title: String {

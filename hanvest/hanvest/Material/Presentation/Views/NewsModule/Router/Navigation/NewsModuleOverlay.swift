@@ -5,7 +5,7 @@
 //  Created by Hans Arthur Cupiterson on 27/10/24.
 //
 
-enum Module06Overlay: Equatable, Hashable, Identifiable {
+enum NewsModuleOverlay: Equatable, Hashable, Identifiable {
     case withHanvestPopup(title: String? = nil, desc: String, dismissAction: () -> Void)
     case withBuyConfirmationPopup(
         buyingStockDataViewModel: BuyingStockDataViewModel,
@@ -22,7 +22,7 @@ enum Module06Overlay: Equatable, Hashable, Identifiable {
     var id: Self { return self }
 }
 
-extension Module06Overlay {
+extension NewsModuleOverlay {
     // Conform to Hashable
     func hash(into hasher: inout Hasher) {
         switch self {
@@ -34,7 +34,7 @@ extension Module06Overlay {
     }
     
     // Conform to Equatable
-    static func == (lhs: Module06Overlay, rhs: Module06Overlay) -> Bool {
+    static func == (lhs: NewsModuleOverlay, rhs: NewsModuleOverlay) -> Bool {
         switch (lhs, rhs){
         case (.withBuyConfirmationPopup, .withBuyConfirmationPopup),
             (.withSellConfirmationPopup, .withSellConfirmationPopup),

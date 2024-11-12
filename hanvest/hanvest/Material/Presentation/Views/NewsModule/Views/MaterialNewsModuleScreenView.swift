@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct MaterialModule06ScreenView: View {
+struct MaterialNewsModuleScreenView: View {
     // CONSTANT
     let MIN_PROGRESS = 0
     let MAX_PROGRESS = 1
     
     let appRouter: any AppRouterProtocol
     
-    @StateObject private var contentRouter = Module06Router()
-    @StateObject private var simulationViewModel = Module06SimulationViewModel()
-    @StateObject private var profileViewModel = Module06ProfileViewModel()
+    @StateObject private var contentRouter = NewsModuleRouter()
+    @StateObject private var simulationViewModel = NewsModuleSimulationViewModel()
+    @StateObject private var profileViewModel = NewsModuleProfileViewModel()
     @StateObject private var highlightViewModel = HighlightViewModel()
     
     var body: some View {
@@ -61,7 +61,7 @@ struct MaterialModule06ScreenView: View {
             
         }
         .onAppear {
-            highlightViewModel.stage = Module06HighlightStage.mainStage.stringValue
+            highlightViewModel.stage = NewsModuleHighlightStage.mainStage.stringValue
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .overlay {
