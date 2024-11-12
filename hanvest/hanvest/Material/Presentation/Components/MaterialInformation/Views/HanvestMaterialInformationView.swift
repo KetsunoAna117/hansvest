@@ -33,7 +33,7 @@ struct HanvestMaterialnformationView: View {
                         detailText
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        HanvestModule04NumberedLists(numberedLists: numberedList)
+                        StockRegulatorModuleNumberedListsView(numberedLists: numberedList)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     } else {
                         if let bulletPoints = bulletPoints {

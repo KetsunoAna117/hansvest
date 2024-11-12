@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestModule04NumberedLists: View {
+struct StockRegulatorModuleNumberedListsView: View {
     // Constants
     let numberedLists: [String]
     
@@ -26,5 +26,5 @@ struct HanvestModule04NumberedLists: View {
 }
 
 #Preview {
-    HanvestModule04NumberedLists(numberedLists: ["First", "Second", "Third"])
+    StockRegulatorModuleNumberedListsView(numberedLists: ["First", "Second", "Third"])
 }

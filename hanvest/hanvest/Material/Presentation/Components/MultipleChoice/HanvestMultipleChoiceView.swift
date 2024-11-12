@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestMultipleChoice: View {
+struct HanvestMultipleChoiceView: View {
     // Constants
     let question: String
     let options: [String]
@@ -101,7 +101,7 @@ struct HanvestMultipleChoice: View {
     @Previewable let question = RiskAndReturnModuleMultipleChoicePageContent.page01.question
     @Previewable let options = ["Swift", "Java", "Python"]
     
-    HanvestMultipleChoice(
+    HanvestMultipleChoiceView(
         question: question,
         options: options,
         onSelectAnswer: {_ in }

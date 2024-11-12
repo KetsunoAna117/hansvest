@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Module04ViewModel: ObservableObject {
+class StockRegulatorModuleViewModel: ObservableObject {
     @Inject var validateIfUserHasCompletedTheModule: ValidateIfUserHasCompletedTheModule
     
     let progressBarMinValue: Int
@@ -16,14 +16,14 @@ class Module04ViewModel: ObservableObject {
     
     @Published var currentTab: Int
     @Published var progressBarCurrValue: Int
-    @Published var pageState: Module04PageState
-    @Published var showingAnswer: Module04ShowingCorrectOrWrongAnswer
+    @Published var pageState: StockRegulatorModulePageState
+    @Published var showingAnswer: StockRegulatorModuleCorrectOrWrongAnswerState
     @Published var userSelectedAnswer: String
     
     init() {
         self.progressBarMinValue = 0
         self.progressBarMaxValue = 100
-        self.lastPage = Module04NumberedListContent.page11.rawValue
+        self.lastPage = StockRegulatorModuleNumberedListPageContent.page11.rawValue
         self.currentTab = 0
         self.progressBarCurrValue = 4
         self.pageState = .pageStartQuiz
@@ -76,10 +76,10 @@ class Module04ViewModel: ObservableObject {
     }
     
     func checkIsCurrentPageAQuestion() -> Bool {
-        return (Module04MultipleChoice.allCases.contains { $0.rawValue == currentTab })
+        return (StockRegulatorModuleMultipleChoicePageContent.allCases.contains { $0.rawValue == currentTab })
     }
     
-    func parseUserAnswerIfIsWrong(page: Module04MultipleChoice) -> String? {
+    func parseUserAnswerIfIsWrong(page: StockRegulatorModuleMultipleChoicePageContent) -> String? {
         if userSelectedAnswer != page.answers {
             return userSelectedAnswer
         } else {
@@ -88,7 +88,7 @@ class Module04ViewModel: ObservableObject {
     }
     
     func checkUserAnswerTrueOrFalse() -> Bool {
-        if let currentPage = Module04MultipleChoice(rawValue: currentTab) {
+        if let currentPage = StockRegulatorModuleMultipleChoicePageContent(rawValue: currentTab) {
             return userSelectedAnswer == currentPage.answers
         } else {
             return false

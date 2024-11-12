@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum BasicInvestmentModuleSpriteDraggingBehavior {
+enum BasicInvestmentModuleSpriteDraggingBehaviorState {
     case isDragging
     case isNotDragging
 }

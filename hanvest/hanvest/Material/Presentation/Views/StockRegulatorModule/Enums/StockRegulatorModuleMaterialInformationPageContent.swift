@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Module04MaterialInformationContent: Int, CaseIterable {
+enum StockRegulatorModuleMaterialInformationPageContent: Int, CaseIterable {
     case page01 = 0
     case page03 = 2
     case page05 = 4

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Module04ShowingCorrectOrWrongAnswer {
+enum StockRegulatorModuleCorrectOrWrongAnswerState {
     case isShowing
     case isNotShowing
     

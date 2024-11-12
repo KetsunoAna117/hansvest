@@ -15,7 +15,7 @@ enum FundamentalModuleStage: Equatable {
         moduleRouter: any FundamentalModuleRouterProtocol,
         profileViewModel: FundamentalModuleProfileViewModel,
         simulationViewModel: FundamentalModuleSimulationViewModel,
-        highlightViewModel: HighlightViewModel,
+        highlightViewModel: HanvestHighlightViewModel,
         transaction: TransactionStatusViewModel
     ) {
         switch self {

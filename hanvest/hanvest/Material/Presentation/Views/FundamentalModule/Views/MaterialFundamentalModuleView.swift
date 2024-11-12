@@ -17,7 +17,7 @@ struct MaterialFundamentalModuleScreenView: View {
     @StateObject private var contentRouter = FundamentalModuleRouter()
     @StateObject private var simulationViewModel = FundamentalModuleSimulationViewModel()
     @StateObject private var profileViewModel = FundamentalModuleProfileViewModel()
-    @StateObject private var highlightViewModel = HighlightViewModel()
+    @StateObject private var highlightViewModel = HanvestHighlightViewModel()
     
     var body: some View {
         VStack {
@@ -79,7 +79,7 @@ struct MaterialFundamentalModuleScreenView: View {
                 .animation(.easeInOut(duration: 0.3), value: contentRouter.overlay)
             }
         }
-        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifier(HanvestHighlightHelperView(viewModel: highlightViewModel))
     }
 }
 

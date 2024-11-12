@@ -10,7 +10,7 @@ import SpriteKit
 
 struct BasicInvestmentModulePlantingView: View {
     @StateObject private var viewModel = BasicInvestmentModulePlantingViewModel()
-    @ObservedObject var highlightViewModel: HighlightViewModel
+    @ObservedObject var highlightViewModel: HanvestHighlightViewModel
     
     var onCompletion: (() -> Void)?
     
@@ -95,5 +95,5 @@ struct BasicInvestmentModulePlantingView: View {
 }
 
 #Preview {
-    BasicInvestmentModulePlantingView(highlightViewModel: HighlightViewModel())
+    BasicInvestmentModulePlantingView(highlightViewModel: HanvestHighlightViewModel())
 }

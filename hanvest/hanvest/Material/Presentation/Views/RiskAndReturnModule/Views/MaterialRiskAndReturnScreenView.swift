@@ -31,7 +31,7 @@ struct MaterialRiskAndReturnScreenView: View {
                     VStack(spacing: 48) {
                         TabView(selection: $viewModel.currentTab) {
                             
-                            HanvestMultipleChoice(
+                            HanvestMultipleChoiceView(
                                 question: RiskAndReturnModuleMultipleChoicePageContent.page01.question,
                                 options: RiskAndReturnModuleMultipleChoicePageContent.page01.options
                             ){ answer in
@@ -43,7 +43,7 @@ struct MaterialRiskAndReturnScreenView: View {
                             
                             ForEach(Array(RiskAndReturnModuleProductOfInvestmentPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                RiskAndReturnModuleAllProductOfInvestmentView(
+                                RiskAndReturnModuleProductOfInvestmentView(
                                     title: page.title,
                                     selectedProductIndex: (viewModel.selectedProductIndex != -1) ? viewModel.selectedProductIndex : 0,
                                     productStage: index

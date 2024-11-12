@@ -14,7 +14,7 @@ class BasicInvestmentModuleSpriteController: SKScene, SKPhysicsContactDelegate {
     private var waterCan: BasicInvestmentModuleWaterCanSprite
     
     // Variables
-    private var draggingBehavior: BasicInvestmentModuleSpriteDraggingBehavior
+    private var draggingBehavior: BasicInvestmentModuleSpriteDraggingBehaviorState
     private var lastUpdatedTime : TimeInterval
     private var currentWaterDropletSpawnTime : TimeInterval
     private var waterDropletSpawnRate : TimeInterval

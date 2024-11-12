@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Module04PageState {
+enum StockRegulatorModulePageState {
     case pageStartQuiz
     case pageContinue
     

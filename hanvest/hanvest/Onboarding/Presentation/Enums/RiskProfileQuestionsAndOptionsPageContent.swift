@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RiskProfileQuestionsAndOptions: Int, CaseIterable {
+enum RiskProfileQuestionsAndOptionsPageContent: Int, CaseIterable {
     case page1 = 1
     case page2 = 2
     case page3 = 3

@@ -12,7 +12,7 @@ struct MaterialBasicInvestmentModuleScreenView: View {
     
     // View Models
     @StateObject private var viewModel = BasicInvestmentModuleViewModel()
-    @StateObject private var highlightViewModel = HighlightViewModel()
+    @StateObject private var highlightViewModel = HanvestHighlightViewModel()
     
     var body: some View {
         ZStack {
@@ -86,7 +86,7 @@ struct MaterialBasicInvestmentModuleScreenView: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifier(HanvestHighlightHelperView(viewModel: highlightViewModel))
     }
     
 }

@@ -12,7 +12,7 @@ struct FundamentalModuleTransactionStatusView: View {
     
     @ObservedObject var profileViewModel: FundamentalModuleProfileViewModel
     @ObservedObject var simulationViewModel: FundamentalModuleSimulationViewModel
-    @ObservedObject var highlightViewModel: HighlightViewModel
+    @ObservedObject var highlightViewModel: HanvestHighlightViewModel
     
     let transaction: TransactionStatusViewModel
     

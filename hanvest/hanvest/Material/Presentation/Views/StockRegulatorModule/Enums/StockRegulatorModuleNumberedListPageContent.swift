@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Module04NumberedListContent: Int {
+enum StockRegulatorModuleNumberedListPageContent: Int {
     case page11 = 10
     
     var title: Text {

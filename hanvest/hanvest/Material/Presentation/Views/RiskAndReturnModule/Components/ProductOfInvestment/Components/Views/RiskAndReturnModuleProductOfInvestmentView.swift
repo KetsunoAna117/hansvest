@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RiskAndReturnModuleAllProductOfInvestmentView: View {
+struct RiskAndReturnModuleProductOfInvestmentView: View {
     // Constants
     let title: String
     let selectedProductIndex: Int
@@ -51,7 +51,7 @@ struct RiskAndReturnModuleAllProductOfInvestmentView: View {
     @Previewable let productID = 0
     @Previewable let selectedProductIndex = 0
     
-    RiskAndReturnModuleAllProductOfInvestmentView(
+    RiskAndReturnModuleProductOfInvestmentView(
         title: headerText,
         selectedProductIndex: 0,
         productStage: productStage

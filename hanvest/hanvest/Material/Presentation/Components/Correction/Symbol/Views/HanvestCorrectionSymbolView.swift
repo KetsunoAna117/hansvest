@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestCorrectionSymbol: View {
+struct HanvestCorrectionSymbolView: View {
     var state: HanvestCorrectionSymbolState
     
     var body: some View {
@@ -24,5 +24,5 @@ struct HanvestCorrectionSymbol: View {
 }
 
 #Preview {
-    HanvestCorrectionSymbol(state: .correct)
+    HanvestCorrectionSymbolView(state: .correct)
 }

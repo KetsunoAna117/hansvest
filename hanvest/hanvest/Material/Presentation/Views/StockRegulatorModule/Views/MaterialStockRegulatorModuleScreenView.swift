@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct Module04View: View {
+struct MaterialStockRegulatorModuleScreenView: View {
     let router: any AppRouterProtocol
     
     // View Model
-    @StateObject private var viewModel = Module04ViewModel()
+    @StateObject private var viewModel = StockRegulatorModuleViewModel()
     
     var body: some View {
         ZStack {
@@ -32,7 +32,7 @@ struct Module04View: View {
                     VStack(spacing: 48) {
                         TabView(selection: $viewModel.currentTab) {
                             
-                            ForEach(Array(Module04MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
+                            ForEach(Array(StockRegulatorModuleMaterialInformationPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
                                 HanvestMaterialnformationView(
                                     title: Text(page.title).font(.nunito(.title2, .bold)),
@@ -45,9 +45,9 @@ struct Module04View: View {
                                 
                             }
                             
-                            ForEach(Array(Module04MultipleChoice.allCases.enumerated()), id: \.offset) { index, page in
+                            ForEach(Array(StockRegulatorModuleMultipleChoicePageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMultipleChoice(
+                                HanvestMultipleChoiceView(
                                     question: page.questions,
                                     options: page.options,
                                     image: page.image,
@@ -65,12 +65,12 @@ struct Module04View: View {
                             }
                             
                             HanvestMaterialnformationView(
-                                title: Module04NumberedListContent.page11.title,
-                                detailText: Module04NumberedListContent.page11.detailText,
-                                image: Module04NumberedListContent.page11.image,
-                                numberedList: Module04NumberedListContent.page11.numberedLists
+                                title: StockRegulatorModuleNumberedListPageContent.page11.title,
+                                detailText: StockRegulatorModuleNumberedListPageContent.page11.detailText,
+                                image: StockRegulatorModuleNumberedListPageContent.page11.image,
+                                numberedList: StockRegulatorModuleNumberedListPageContent.page11.numberedLists
                             )
-                            .tag(Module04NumberedListContent.page11.rawValue)
+                            .tag(StockRegulatorModuleNumberedListPageContent.page11.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
                             

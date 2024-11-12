@@ -10,28 +10,28 @@ enum FundamentalModuleContentView: Equatable, Hashable, Identifiable {
         appRouter: any AppRouterProtocol,
         profileViewModel: FundamentalModuleProfileViewModel,
         simulationViewModel: FundamentalModuleSimulationViewModel,
-        highlightViewModel: HighlightViewModel
+        highlightViewModel: HanvestHighlightViewModel
     )
     case sellStage(
         appRouter: any AppRouterProtocol,
         profileViewModel: FundamentalModuleProfileViewModel,
         simulationViewModel: FundamentalModuleSimulationViewModel,
-        highlightViewModel: HighlightViewModel
+        highlightViewModel: HanvestHighlightViewModel
     )
     case confirmBuy(
         profileViewModel: FundamentalModuleProfileViewModel,
         simulationViewModel: FundamentalModuleSimulationViewModel,
-        highlightViewModel: HighlightViewModel
+        highlightViewModel: HanvestHighlightViewModel
     )
     case confirmSell(
         profileViewModel: FundamentalModuleProfileViewModel,
         simulationViewModel: FundamentalModuleSimulationViewModel,
-        highlightViewModel: HighlightViewModel
+        highlightViewModel: HanvestHighlightViewModel
     )
     case transactionComplete(
         profileViewModel: FundamentalModuleProfileViewModel,
         simulationViewModel: FundamentalModuleSimulationViewModel,
-        highlightViewModel: HighlightViewModel,
+        highlightViewModel: HanvestHighlightViewModel,
         transactionViewModel: TransactionStatusViewModel
     )
     

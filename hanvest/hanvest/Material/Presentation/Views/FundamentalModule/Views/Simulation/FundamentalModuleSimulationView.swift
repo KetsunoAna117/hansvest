@@ -13,7 +13,7 @@ struct FundamentalModuleSimulationView: View {
     
     @ObservedObject var profileViewModel: FundamentalModuleProfileViewModel
     @ObservedObject var simulationViewModel: FundamentalModuleSimulationViewModel
-    @ObservedObject var highlightViewModel: HighlightViewModel
+    @ObservedObject var highlightViewModel: HanvestHighlightViewModel
     
     var body: some View {
         ZStack {

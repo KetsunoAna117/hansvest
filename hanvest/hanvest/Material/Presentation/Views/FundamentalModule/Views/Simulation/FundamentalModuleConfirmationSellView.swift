@@ -12,7 +12,7 @@ struct FundamentalModuleConfirmationSellView: View {
     
     @ObservedObject var profileViewModel: FundamentalModuleProfileViewModel
     @ObservedObject var simulationViewModel: FundamentalModuleSimulationViewModel
-    @ObservedObject var highlightViewModel: HighlightViewModel
+    @ObservedObject var highlightViewModel: HanvestHighlightViewModel
     
     @StateObject var viewmodel = SellingStockDataViewModel()
     

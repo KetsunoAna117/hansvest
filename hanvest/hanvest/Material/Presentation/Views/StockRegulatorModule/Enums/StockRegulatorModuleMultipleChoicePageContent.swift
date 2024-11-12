@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Module04MultipleChoice: Int, CaseIterable {
+enum StockRegulatorModuleMultipleChoicePageContent: Int, CaseIterable {
     case page02 = 1
     case page04 = 3
     case page06 = 5

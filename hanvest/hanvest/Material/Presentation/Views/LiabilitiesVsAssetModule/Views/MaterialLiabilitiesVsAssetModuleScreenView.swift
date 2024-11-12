@@ -46,7 +46,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                             
                             ForEach(Array(LiabilitiesVsAssetModuleMultipleChoicePageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMultipleChoice(
+                                HanvestMultipleChoiceView(
                                     question: page.questions,
                                     options: page.options,
                                     image: page.image,

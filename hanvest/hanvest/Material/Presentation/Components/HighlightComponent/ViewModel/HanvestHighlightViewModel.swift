@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class HighlightViewModel: ObservableObject {
+class HanvestHighlightViewModel: ObservableObject {
     /// View properties
     @Published var stage: String
     @Published var highlightOrder: [Int]
@@ -44,7 +44,7 @@ class HighlightViewModel: ObservableObject {
 //        debugPrint("\(highlightRect.height), \(screenHeight)")
     }
     
-    func updateHighlightOrderIfNeeded(from preferences: [Int: Highlight]) {
+    func updateHighlightOrderIfNeeded(from preferences: [Int: HanvestHighlightModel]) {
         // Filter and sort highlights based on the current stage
         let newHighlightOrder = preferences
             .filter { $0.value.stage == stage }
@@ -57,7 +57,7 @@ class HighlightViewModel: ObservableObject {
         }
     }
     
-    func currentHighlightToShow(from preferences: [Int: Highlight]) -> Highlight? {
+    func currentHighlightToShow(from preferences: [Int: HanvestHighlightModel]) -> HanvestHighlightModel? {
         guard highlightOrder.indices.contains(currentHighlight), showView else {
             return nil
         }

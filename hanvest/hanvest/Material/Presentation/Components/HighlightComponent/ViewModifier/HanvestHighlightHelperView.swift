@@ -20,31 +20,31 @@ extension View {
     ) -> some View {
         self
         /// storing it in Anchor Preference
-            .anchorPreference(key: HighlightAnchorKey.self, value: .bounds) { anchor in
-                let highlight = Highlight(anchor: anchor, title: title, detail: detail, cornerRadius: cornerRadius, style: style, scale: scale, stage: stage)
+            .anchorPreference(key: HanvestHighlightAnchorKey.self, value: .bounds) { anchor in
+                let highlight = HanvestHighlightModel(anchor: anchor, title: title, detail: detail, cornerRadius: cornerRadius, style: style, scale: scale, stage: stage)
                 return [order: highlight]
             }
     }
 }
 
 /// showcase root view modifier
-struct HighlightHelperView: ViewModifier {
+struct HanvestHighlightHelperView: ViewModifier {
     /// view model
-    @ObservedObject var viewModel: HighlightViewModel
+    @ObservedObject var viewModel: HanvestHighlightViewModel
     
     /// Namespace ID, for smooth shape transitions (must be attached to view directly)
     @Namespace private var animation
     
     func body(content: Content) -> some View {
         content
-            .onPreferenceChange(HighlightAnchorKey.self) { value in
+            .onPreferenceChange(HanvestHighlightAnchorKey.self) { value in
                 viewModel.updateHighlightOrderIfNeeded(from: value)
             }
             .onChange(of: viewModel.stage) { _, newValue in
                 // Reset showcase state when `changeShowState` updates
                 viewModel.resetHighlightViewState()
             }
-            .overlayPreferenceValue(HighlightAnchorKey.self) { preferences in
+            .overlayPreferenceValue(HanvestHighlightAnchorKey.self) { preferences in
                 if let highlight = viewModel.currentHighlightToShow(from: preferences) {
                     HighlightView(highlight)
                 }
@@ -52,7 +52,7 @@ struct HighlightHelperView: ViewModifier {
     }
     
     @ViewBuilder
-     func HighlightView(_ highlight: Highlight) -> some View {
+     func HighlightView(_ highlight: HanvestHighlightModel) -> some View {
          GeometryReader { proxy in
              let highlightRect = proxy[highlight.anchor]
              let safeArea = proxy.safeAreaInsets
