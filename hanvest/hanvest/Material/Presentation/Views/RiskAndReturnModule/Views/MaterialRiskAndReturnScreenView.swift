@@ -60,7 +60,8 @@ struct MaterialRiskAndReturnScreenView: View {
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
                                     image: (page == .page05) ? [Image("high-risk-low-risk-triangle")] : nil,
-                                    bulletPoints: page.bulletPoints
+                                    pointListStyle: .bulleted,
+                                    pointListContents: page.bulletPoints
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
