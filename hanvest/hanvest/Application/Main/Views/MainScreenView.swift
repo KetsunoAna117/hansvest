@@ -68,8 +68,6 @@ struct MainScreenView: View {
                     }
                 }
             }
-            .transition(.slide)
-            .animation(.easeInOut, value: selectionTab)
         }
         .onAppear {
             UIScrollView.appearance().isScrollEnabled = true
@@ -89,6 +87,7 @@ struct MainScreenView: View {
             }
         }
         .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .animation(.easeInOut, value: selectionTab)
     }
 }
 
