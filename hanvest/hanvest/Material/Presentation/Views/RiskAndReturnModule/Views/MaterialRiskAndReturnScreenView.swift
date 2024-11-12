@@ -31,7 +31,7 @@ struct MaterialRiskAndReturnScreenView: View {
                     VStack(spacing: 48) {
                         TabView(selection: $viewModel.currentTab) {
                             
-                            HanvestMultipleChoiceView(
+                            RiskAndReturnModuleMultipleChoiceView(
                                 question: RiskAndReturnModuleMultipleChoicePageContent.page01.question,
                                 options: RiskAndReturnModuleMultipleChoicePageContent.page01.options
                             ){ answer in
