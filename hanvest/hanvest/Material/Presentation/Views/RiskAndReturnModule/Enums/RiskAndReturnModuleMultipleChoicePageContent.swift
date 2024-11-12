@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Module03MultipleChoice: Int, CaseIterable {
+enum RiskAndReturnModuleMultipleChoicePageContent: Int, CaseIterable {
     case page01 = 0
     
     var question: String {

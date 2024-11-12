@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestProductOfInvestmentTable: View {
+struct RiskAndReturnModuleProductOfInvestmentTableView: View {
     // Constants
     let productStage: Int
     let productID: Int
@@ -33,7 +33,7 @@ struct HanvestProductOfInvestmentTable: View {
             .completionCardStyle()
             
             
-            HanvestModule03ProductOfInvestmentChart(
+            RiskAndReturnModuleProductOfInvestmentChart(
                 viewmodel: HanvestProductPriceChartViewModel(
                     prices: Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices),
                 symbolCategoryKeyPath: \.name
@@ -65,7 +65,7 @@ struct HanvestProductOfInvestmentTable: View {
     @Previewable let productStage = 0
     @Previewable let productID = 0
     
-    HanvestProductOfInvestmentTable(
+    RiskAndReturnModuleProductOfInvestmentTableView(
         productStage: productStage,
         productID: productID
     )

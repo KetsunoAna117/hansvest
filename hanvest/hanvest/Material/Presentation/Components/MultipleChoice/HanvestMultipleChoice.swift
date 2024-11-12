@@ -78,7 +78,7 @@ struct HanvestMultipleChoice: View {
     }
     
     private func checkIfQuestionIsModule03() -> Bool {
-        return (question.contains(Module03MultipleChoice.page01.question))
+        return (question.contains(RiskAndReturnModuleMultipleChoicePageContent.page01.question))
     }
     
     private func determineButtonStyle(option: String) -> HanvestButtonMultipleChoiceIsChecked {
@@ -98,7 +98,7 @@ struct HanvestMultipleChoice: View {
 }
 
 #Preview {
-    @Previewable let question = Module03MultipleChoice.page01.question
+    @Previewable let question = RiskAndReturnModuleMultipleChoicePageContent.page01.question
     @Previewable let options = ["Swift", "Java", "Python"]
     
     HanvestMultipleChoice(

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Module03PageState {
+enum RiskAndReturnModulePageState {
     case pageContinue
     case pageNextMonth
     

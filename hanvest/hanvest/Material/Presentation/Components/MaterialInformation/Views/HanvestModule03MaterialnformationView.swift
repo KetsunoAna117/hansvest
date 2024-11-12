@@ -41,7 +41,7 @@ struct HanvestMaterialnformationView: View {
                                 .font(.nunito(.callout, .bold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            HanvestModule03BulletPointList(bulletPoints: bulletPoints)
+                            RiskAndReturnModuleBulletPointList(bulletPoints: bulletPoints)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestModule03AllProductOfInvestmentView: View {
+struct RiskAndReturnModuleAllProductOfInvestmentView: View {
     // Constants
     let title: String
     let selectedProductIndex: Int
@@ -31,7 +31,7 @@ struct HanvestModule03AllProductOfInvestmentView: View {
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
                     ForEach(Module03ProductOfInvestmentEntity.getMockData()[productStage].indices, id: \.self) { productID in
-                        HanvestProductOfInvestmentTable(
+                        RiskAndReturnModuleProductOfInvestmentTableView(
                             productStage: productStage,
                             productID: productID
                         )
@@ -51,7 +51,7 @@ struct HanvestModule03AllProductOfInvestmentView: View {
     @Previewable let productID = 0
     @Previewable let selectedProductIndex = 0
     
-    HanvestModule03AllProductOfInvestmentView(
+    RiskAndReturnModuleAllProductOfInvestmentView(
         title: headerText,
         selectedProductIndex: 0,
         productStage: productStage

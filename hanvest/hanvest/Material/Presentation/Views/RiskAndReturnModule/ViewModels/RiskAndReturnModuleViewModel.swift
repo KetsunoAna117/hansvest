@@ -16,13 +16,13 @@ class RiskAndReturnModuleViewModel: ObservableObject {
     
     @Published var currentTab: Int
     @Published var progressBarCurrValue: Int
-    @Published var pageState: Module03PageState
+    @Published var pageState: RiskAndReturnModulePageState
     @Published var selectedProductIndex: Int
     
     init() {
         self.progressBarMinValue = 0
         self.progressBarMaxValue = 100
-        self.lastPage = Module03MaterialInformationContent.page06.rawValue
+        self.lastPage = RiskAndReturnModuleMaterialInformationPageContent.page06.rawValue
         self.currentTab = 0
         self.progressBarCurrValue = 4
         self.pageState = .pageContinue
@@ -59,7 +59,7 @@ class RiskAndReturnModuleViewModel: ObservableObject {
     
     func changePageState() {
         switch currentTab {
-            case Module03ProductOfInvestmentContent.page02.rawValue...Module03ProductOfInvestmentContent.page03.rawValue:
+            case RiskAndReturnModuleProductOfInvestmentPageContent.page02.rawValue...RiskAndReturnModuleProductOfInvestmentPageContent.page03.rawValue:
                 pageState = .pageNextMonth
             default:
                 pageState = .pageContinue
@@ -71,11 +71,11 @@ class RiskAndReturnModuleViewModel: ObservableObject {
     }
     
     func checkIsDisabled() -> Bool {
-        return (selectedProductIndex == -1) && (currentTab == Module03MultipleChoice.page01.rawValue)
+        return (selectedProductIndex == -1) && (currentTab == RiskAndReturnModuleMultipleChoicePageContent.page01.rawValue)
     }
     
     func setSelectedProductIndex(answer: String) {
-        for optionCase in Module03MultipleChoice.allCases {
+        for optionCase in RiskAndReturnModuleMultipleChoicePageContent.allCases {
             if let index = optionCase.options.firstIndex(of: answer) {
                 self.selectedProductIndex = index
                 return

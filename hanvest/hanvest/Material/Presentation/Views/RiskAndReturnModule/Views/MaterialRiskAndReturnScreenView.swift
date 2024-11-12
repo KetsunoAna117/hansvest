@@ -32,18 +32,18 @@ struct MaterialRiskAndReturnScreenView: View {
                         TabView(selection: $viewModel.currentTab) {
                             
                             HanvestMultipleChoice(
-                                question: Module03MultipleChoice.page01.question,
-                                options: Module03MultipleChoice.page01.options
+                                question: RiskAndReturnModuleMultipleChoicePageContent.page01.question,
+                                options: RiskAndReturnModuleMultipleChoicePageContent.page01.options
                             ){ answer in
                                     viewModel.setSelectedProductIndex(answer: answer)
                             }
-                            .tag(Module03MultipleChoice.page01.rawValue)
+                            .tag(RiskAndReturnModuleMultipleChoicePageContent.page01.rawValue)
                             .transition(.slide)
                             .frame(maxHeight: .infinity, alignment: .top)
                             
-                            ForEach(Array(Module03ProductOfInvestmentContent.allCases.enumerated()), id: \.offset) { index, page in
+                            ForEach(Array(RiskAndReturnModuleProductOfInvestmentPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestModule03AllProductOfInvestmentView(
+                                RiskAndReturnModuleAllProductOfInvestmentView(
                                     title: page.title,
                                     selectedProductIndex: (viewModel.selectedProductIndex != -1) ? viewModel.selectedProductIndex : 0,
                                     productStage: index
@@ -54,7 +54,7 @@ struct MaterialRiskAndReturnScreenView: View {
                                 
                             }
                             
-                            ForEach(Array(Module03MaterialInformationContent.allCases.enumerated()), id: \.offset) { index, page in
+                            ForEach(Array(RiskAndReturnModuleMaterialInformationPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
                                 HanvestMaterialnformationView(
                                     title: Text(page.title).font(.nunito(.title2)),

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HanvestModule03BulletPointList: View {
+struct RiskAndReturnModuleBulletPointList: View {
     // Constants
     let bulletPoints: [String]
     
@@ -34,7 +34,7 @@ struct HanvestModule03BulletPointList: View {
         "Understanding assets (anything of value), liabilities (debts), income, and expenses is key to managing personal finances. Assets generate income streams, while liabilities represent financial obligations. A personal balance sheet helps individuals clearly monitor their financial position, showing the difference between what they own (assets) and what they owe (liabilities)."
     ]
     
-    HanvestModule03BulletPointList(
+    RiskAndReturnModuleBulletPointList(
         bulletPoints: bulletPoints
     )
 }

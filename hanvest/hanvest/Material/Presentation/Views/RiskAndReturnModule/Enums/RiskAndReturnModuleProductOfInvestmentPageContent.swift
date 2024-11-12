@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Module03ProductOfInvestmentContent: Int, CaseIterable {
+enum RiskAndReturnModuleProductOfInvestmentPageContent: Int, CaseIterable {
     case page02 = 1
     case page03 = 2
     case page04 = 3

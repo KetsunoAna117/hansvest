@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct HanvestModule03ProductOfInvestmentChart: View {
+struct RiskAndReturnModuleProductOfInvestmentChart: View {
     @ObservedObject var viewmodel: HanvestProductPriceChartViewModel
     let symbolCategoryKeyPath: KeyPath<ProductPriceEntity, String>
     
@@ -92,7 +92,7 @@ struct HanvestModule03ProductOfInvestmentChart: View {
 #Preview {
     @Previewable @State var productPrices = Module03ProductOfInvestmentEntity.getMockData()[0][0].productPrices
     
-    HanvestModule03ProductOfInvestmentChart(
+    RiskAndReturnModuleProductOfInvestmentChart(
         viewmodel: HanvestProductPriceChartViewModel(prices: productPrices),
         symbolCategoryKeyPath: \.name,
         displayStep: 15
