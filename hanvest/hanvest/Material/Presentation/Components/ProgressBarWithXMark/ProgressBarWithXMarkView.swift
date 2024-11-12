@@ -19,6 +19,7 @@ struct ProgressBarWithXMarkView: View {
         HStack(spacing: 0) {
             Button {
                 action()
+                HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
             } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 24))

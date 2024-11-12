@@ -29,7 +29,7 @@ struct hanvestApp: App {
                         }
                 }
                 else {
-                    Text("ERROR: View is not routed anywhere!")
+                    Text("Loading...")
                 }
             }
             .onAppear {
@@ -50,9 +50,13 @@ struct hanvestApp: App {
             }
             .overlay {
                 if let notification = appRouter.notification {
-                    appRouter.build(notification)
+                    ZStack {
+                        appRouter.build(notification)
+                    }
+                    .transition(.move(edge: .top)) // Slide-in and slide-out effect
                 }
             }
+            .animation(.linear(duration: 0.5), value: appRouter.notification != nil)
             .overlay {
                 if let popup = appRouter.popup {
                     ZStack {
@@ -60,9 +64,9 @@ struct hanvestApp: App {
                     }
                     // Apply transition and animation
                     .transition(.opacity) // You can use other transitions like .scale, .move, etc.
-                    .animation(.easeInOut(duration: 0.2), value: appRouter.popup)
                 }
             }
+            .animation(.easeInOut(duration: 0.2), value: appRouter.popup != nil)
 
         }
     }

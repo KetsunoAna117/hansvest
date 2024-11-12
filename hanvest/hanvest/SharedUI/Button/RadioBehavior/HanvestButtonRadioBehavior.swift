@@ -74,10 +74,13 @@ struct HanvestButtonRadioBehavior: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.selectedButtonID = self.id
-                    print("Selected Button ID: \(selectedButtonID)")
+//                    print("Selected Button ID: \(selectedButtonID)")
                     action()
                 })
             }
+            
+//            HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+//            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onChange(of: selectedButtonID, { oldValue, newValue in
             guard newValue != self.id else { return }
@@ -149,7 +152,7 @@ struct HanvestButtonRadioBehavior: View {
                 style: .bordered(isDisabled: selectedButtonID.isEmpty),
                 title: "Continue",
                 action: {
-                    print("Continue Tapped!")
+                    debugPrint("Continue Tapped!")
                     selectedButtonID = ""
             })
             .padding(.top, 32)

@@ -55,4 +55,13 @@ enum HanvestConfirmationFeedbackState {
                 return .incorrect
         }
     }
+    
+    var soundFX: HanvestSoundFX {
+        switch self {
+            case .correct:
+                return HanvestSoundFX.correct
+            case .incorrect:
+                return HanvestSoundFX.wrong
+        }
+    }
 }

@@ -56,12 +56,12 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
         }
         else if let firstStock = stockList.first {
             // Fallback to the first stock if no matching stock is found
-            print("[ERROR]: Stock with ID \(selectedStockID) not found. Defaulting to the first stock.")
+            debugPrint("[ERROR]: Stock with ID \(selectedStockID) not found. Defaulting to the first stock.")
             self.selectedStock = firstStock
         }
         else {
             // Handle case where stockList is empty
-            print("[ERROR]: No Stock Data in Stock List!")
+            debugPrint("[ERROR]: No Stock Data in Stock List!")
             self.selectedStock = nil
         }
     }

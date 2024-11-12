@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-struct LocalSimulationStockRepository: SimulationStockRepository {
+struct LocalSimulationStockRepository: StockRepository {
     let modelContext: ModelContext?
     
     func fetchAll() -> [StockSchema] {
@@ -47,7 +47,7 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
     func save(_ stocks: StockSchema) throws {
         if let context = modelContext {
             if fetch(stockID: stocks.stockIDName) != nil {
-                throw SwiftDataError.alreadyExists(object: stocks)
+                throw SwiftDataError.alreadyExists(stocks)
             }
             
             context.insert(stocks)
@@ -106,17 +106,6 @@ struct LocalSimulationStockRepository: SimulationStockRepository {
             }
             
             stock.update(stockDescription: stockDescription)
-            try context.save()
-        }
-    }
-    
-    func update(id: String, stockPriceID: [String]) throws {
-        if let context = modelContext {
-            guard let stock = fetch(stockID: id) else {
-                throw SwiftDataError.notFound()
-            }
-            
-            stock.update(stockPriceID: stockPriceID)
             try context.save()
         }
     }

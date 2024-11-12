@@ -11,8 +11,8 @@ enum Screen: Identifiable, Hashable, Equatable {
     case debug
     case onboarding
     case main
-    case news
-    case newsDetails(news: StockNewsEntity)
+    case news(userViewModel: HanvestLoadedUserDataViewModel)
+    case newsDetails(notification: UserNotificationEntity)
     case glossary
     case searchGlossary(glossaryViewModel: GlossaryViewModel)
     case profile

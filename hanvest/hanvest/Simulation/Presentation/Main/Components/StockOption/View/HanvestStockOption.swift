@@ -34,12 +34,14 @@ struct HanvestStockOption: View {
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
         .onTapGesture {
+            HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+            HanvestHapticManager.hapticNotif(type: .success)
+            
             if selectedStockID != id {
                 self.selectedStockID = self.id
                 state = .selected
                 action()
             }
-
         }
         .onChange(of: selectedStockID) { oldValue, newValue in
             if newValue != id {
@@ -64,7 +66,7 @@ struct HanvestStockOption: View {
             id: "Stock-1",
             imageName: "Amazon-logo"
         ) {
-            print("Stock-1 selected")
+            debugPrint("Stock-1 selected")
         }
         
         HanvestStockOption(
@@ -73,7 +75,7 @@ struct HanvestStockOption: View {
             id: "Stock-2",
             imageName: "BBRI-logo"
         ) {
-            print("Stock-2 selected")
+            debugPrint("Stock-2 selected")
         }
         
         HanvestStockOption(
@@ -82,7 +84,7 @@ struct HanvestStockOption: View {
             id: "Stock-3",
             imageName: "Apple-logo"
         ) {
-            print("Stock-3 selected")
+            debugPrint("Stock-3 selected")
         }
         
         HanvestStockOption(
@@ -91,7 +93,7 @@ struct HanvestStockOption: View {
             id: "Stock-4",
             imageName: "BBCA-logo"
         ) {
-            print("Stock-4 selected")
+            debugPrint("Stock-4 selected")
         }
         
         HanvestStockOption(
@@ -100,7 +102,7 @@ struct HanvestStockOption: View {
             id: "Stock-5",
             imageName: "GOTO-logo"
         ) {
-            print("Stock-5 selected")
+            debugPrint("Stock-5 selected")
         }
     }
 }

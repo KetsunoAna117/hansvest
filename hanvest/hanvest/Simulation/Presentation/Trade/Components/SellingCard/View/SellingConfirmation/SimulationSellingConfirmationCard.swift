@@ -49,10 +49,10 @@ struct SimulationSellingConfirmationCard: View {
     SimulationSellingConfirmationCard(
         viewModel: SellingStockDataViewModel(),
         cancelAction: {
-            print("Cancel Action Pressed")
+            debugPrint("Cancel Action Pressed")
         },
         confirmAction: {
-            print("Confirm Action Pressed")
+            debugPrint("Confirm Action Pressed")
         }
     )
 }

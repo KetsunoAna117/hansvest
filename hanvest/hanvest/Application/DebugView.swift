@@ -20,7 +20,7 @@ struct DebugView: View {
                     label: "Label",
                     leadingIcon: Image(systemName: "chevron.left"),
                     leadingAction: {
-                        print("Leading Icon Pressed!")
+                        debugPrint("Leading Icon Pressed!")
                     }
                 )
                 Image(systemName: "globe")
@@ -40,7 +40,7 @@ struct DebugView: View {
                                     title: "News",
                                     desc: "Learn action to take based on news",
                                     dismissAction: {
-                                        print("Button Action trigerred")
+                                        debugPrint("Button Action trigerred")
                                     }
                                 )
                             )

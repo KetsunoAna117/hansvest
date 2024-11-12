@@ -50,6 +50,10 @@ struct HanvestModuleNumberButton: View {
         .onTapGesture {
             if self.style != .next {
                 self.state = .pressed
+                
+                HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+                HanvestHapticManager.hapticNotif(type: .success)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.state = .unpressed
                     action()
@@ -78,7 +82,7 @@ struct HanvestModuleNumberButton: View {
             initialState: .unpressed,
             style: .done,
             number: 1, action: {
-                print("Hello World!")
+                debugPrint("Hello World!")
             })
     }
     .padding(.horizontal, 16)

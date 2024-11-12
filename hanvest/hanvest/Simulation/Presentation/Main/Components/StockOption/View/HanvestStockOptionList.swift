@@ -45,7 +45,7 @@ struct HanvestStockOptionList: View {
 //        selectedStockID: $selectedStockID,
 //        simulationStockList: StockEntity.getMockData(),
 //        onPressed: { data in
-//            print("On Pressed \(data)")
+//            debugPrint("On Pressed \(data)")
 //        }
 //    )
 //}

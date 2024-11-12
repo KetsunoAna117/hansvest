@@ -13,22 +13,22 @@ struct MainScreenView: View {
     @State private var selectionTab: HanvestMainViewTabSelection = .material
     @StateObject var simulationViewModel = LocalSimulationViewModel()
     @StateObject var userDataViewModel: HanvestLoadedUserDataViewModel = .init()
-    @StateObject private var highlightViewModel = HighlightViewModel()
+    @StateObject private var highlightViewModel = HanvestHighlightViewModel()
     
     var body: some View {
         VStack {
             HanvestHeaderView(
                 userDataViewModel: userDataViewModel,
                 bookIconTappedAction: {
-                    print("Book Icon Tapped")
+                    debugPrint("Book Icon Tapped")
                     router.push(.glossary)
                 },
                 bellIconTappedAction: {
-                    print("Bell Icon Tapped")
-                    router.push(.news)
+                    debugPrint("Bell Icon Tapped")
+                    router.push(.news(userViewModel: userDataViewModel))
                 },
                 profileIconTappedAction: {
-                    print("Profile Account Tapped")
+                    debugPrint("Profile Account Tapped")
                     router.push(.profile)
                 }
             )
@@ -72,6 +72,8 @@ struct MainScreenView: View {
             .animation(.easeInOut, value: selectionTab)
         }
         .onAppear {
+            UIScrollView.appearance().isScrollEnabled = true
+            
             userDataViewModel.setup()
             
             if !userDataViewModel.isHighlightEverShown {
@@ -80,10 +82,13 @@ struct MainScreenView: View {
             }
             
             if simulationViewModel.stockList.isEmpty {
-                simulationViewModel.setup(appRouter: router)
+                simulationViewModel.setup(
+                    appRouter: router,
+                    loadedUserViewModel: userDataViewModel
+                )
             }
         }
-        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifier(HanvestHighlightHelperView(viewModel: highlightViewModel))
     }
 }
 

@@ -68,6 +68,9 @@ struct HanvestButtonDefault: View {
             if self.style.isDisabled == false {
                 self.state = .pressed
                 
+                HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+                HanvestHapticManager.hapticNotif(type: .success)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.state = .unpressed
                     action()
@@ -112,7 +115,7 @@ struct HanvestButtonDefault: View {
                 title: "Button",
                 image: Image(systemName: "person.fill"),
                 action: {
-                    print("Button Pressed!")
+                    debugPrint("Button Pressed!")
                 }
             )
             HanvestButtonDefault(

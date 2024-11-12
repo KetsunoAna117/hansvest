@@ -15,7 +15,7 @@ struct HanvestConfirmationFeedbackView: View {
         VStack {
             VStack {
                 HStack {
-                    HanvestCorrectionSymbol(state: state.iconType)
+                    HanvestCorrectionSymbolView(state: state.iconType)
                         .padding(.trailing, 8)
                     Text(state.content)
                         .font(.nunito(.title2, .bold))
@@ -35,13 +35,17 @@ struct HanvestConfirmationFeedbackView: View {
         }
         .frame(maxWidth: .infinity)
         .background(state.backgroundColor)
+        .onAppear {
+            HanvestSoundFXManager.playSound(soundFX: state.soundFX)
+            HanvestHapticManager.hapticNotif(type: .success)
+        }
     }
 }
 
 #Preview {
     HanvestConfirmationFeedbackView(
         state: .correct, action: {
-            print("Button Pressed!")
+            debugPrint("Button Pressed!")
         }
     )
 }

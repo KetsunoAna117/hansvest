@@ -30,10 +30,10 @@ struct SimulationSellingCard: View {
                         .font(.nunito(.body, .bold))
                         .foregroundStyle(amountState.textColor)
                         .showCase(
-                            order: Module05TipData.yourAmountOfStock.index,
-                            title: Module05TipData.yourAmountOfStock.title,
-                            detail: Module05TipData.yourAmountOfStock.detail,
-                            stage: Module05HighlightStage.sellStage.stringValue
+                            order: FundamentalModuleTipData.yourAmountOfStock.index,
+                            title: FundamentalModuleTipData.yourAmountOfStock.title,
+                            detail: FundamentalModuleTipData.yourAmountOfStock.detail,
+                            stage: FundamentalModuleHighlightStage.sellStage.stringValue
                         )
                 }
                 
@@ -56,10 +56,10 @@ struct SimulationSellingCard: View {
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.stockSellAmount))")
                         .font(.nunito(.body, .regular))
                         .showCase(
-                            order: Module05TipData.amountSell.index,
-                            title: Module05TipData.amountSell.title,
-                            detail: Module05TipData.amountSell.detail,
-                            stage: Module05HighlightStage.sellStage.stringValue
+                            order: FundamentalModuleTipData.amountSell.index,
+                            title: FundamentalModuleTipData.amountSell.title,
+                            detail: FundamentalModuleTipData.amountSell.detail,
+                            stage: FundamentalModuleHighlightStage.sellStage.stringValue
                         )
                 }
                 
@@ -71,10 +71,10 @@ struct SimulationSellingCard: View {
                     
                     Text("\(currentPrice)")
                         .showCase(
-                            order: Module05TipData.priceSell.index,
-                            title: Module05TipData.priceSell.title,
-                            detail: Module05TipData.priceSell.detail,
-                            stage: Module05HighlightStage.sellStage.stringValue
+                            order: FundamentalModuleTipData.priceSell.index,
+                            title: FundamentalModuleTipData.priceSell.title,
+                            detail: FundamentalModuleTipData.priceSell.detail,
+                            stage: FundamentalModuleHighlightStage.sellStage.stringValue
                         )
                 }
                 
@@ -87,7 +87,7 @@ struct SimulationSellingCard: View {
                     HanvestNumberStepper(
                         value: $viewModel.stockSellLot,
                         raise: lotRaise,
-                        stage: Module05HighlightStage.sellStage.stringValue
+                        stage: FundamentalModuleHighlightStage.sellStage.stringValue
                     )
                 }
             }
@@ -109,7 +109,7 @@ struct SimulationSellingCard: View {
         SimulationSellingCard(viewModel: viewmodel, currentPrice: $currentPrice)
             .onAppear(){
                 guard let userData = getUserData.execute() else {
-                    print("[ERROR] User Data is not initialized")
+                    debugPrint("[ERROR] User Data is not initialized")
                     return
                 }
                 viewmodel.setup(

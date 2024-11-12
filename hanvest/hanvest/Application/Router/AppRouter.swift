@@ -12,6 +12,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     @Published var popup: Popup?
     @Published var notification: HanvestNotification?
     @Published var startScreen: Screen?
+    @Published var notificationPermission: Bool = true
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -38,15 +39,24 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     }
     
     func presentNotification(_ notification: HanvestNotification) {
-        withAnimation(.easeInOut(duration: 0.5)) {
-            self.notification = notification
+        if self.notificationPermission == true {
+            withAnimation(.linear(duration: 0.5)) {
+                self.notification = notification
+            }
         }
     }
     
     func dismissNotification(){
-        withAnimation(.easeInOut(duration: 0.5)) {
+        withAnimation(.linear(duration: 0.5)) {
             self.notification = nil
         }
+    }
+    
+    func setNotificationPermission(_ permission: Bool) {
+        if permission == false {
+            dismissNotification()
+        }
+        self.notificationPermission = permission
     }
     
     // MARK: - Presentation Style Providers
@@ -66,6 +76,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 RiskProfileView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .main:
             ZStack {
@@ -73,48 +86,69 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MainScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(true)
+            }
             
         case .materialModule01:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module01View(router: self)
+                MaterialBasicInvestmentModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule02:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module02View(router: self)
+                MaterialLiabilitiesVsAssetModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule03:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module03View(router: self)
+                MaterialRiskAndReturnScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule04:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module04View(router: self)
+                MaterialStockRegulatorModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule05:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialModule05ScreenView(appRouter: self)
+                MaterialFundamentalModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule06:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialModule06ScreenView(appRouter: self)
+                MaterialNewsModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .simulationBuyingConfirmation(let simulationViewModel, let userData):
             ZStack {
@@ -138,10 +172,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .news:
+        case .news(let userViewModel):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSimulationNewsScreenView(router: self)
+                HanvestSimulationNewsScreenView(
+                    router: self,
+                    userDataViewModel: userViewModel
+                )
             }
             .navigationBarBackButtonHidden()
             
@@ -164,10 +201,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             }
             .navigationBarBackButtonHidden()
             
-        case .newsDetails(news: let news):
+        case .newsDetails(let notification):
             ZStack {
                 Color.background.ignoresSafeArea()
-                HanvestSimulationNewsDetailsScreenView(router: self, news: news)
+                HanvestSimulationNewsDetailsScreenView(
+                    router: self,
+                    notification: notification
+                )
             }
             .navigationBarBackButtonHidden()
             
@@ -296,8 +336,6 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                     notification: news
                 )
             }
-            .transition(.move(edge: .top)) // Slide-in and slide-out effect
-            .animation(.easeInOut(duration: 0.5), value: self.notification)
             .gesture(
                 DragGesture()
                     .onEnded { value in
@@ -309,7 +347,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             )
             .frame(maxHeight: .infinity, alignment: .top)
             .onAppear(){
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                     self.dismissNotification()
                 })
             }

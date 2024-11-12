@@ -12,12 +12,13 @@ struct AppModule {
         
         let modelContext = SwiftDataContextManager.shared.context
         let userRepository: UserRepository = LocalUserRepository(modelContext: modelContext)
-        let simulationNewsRepository: SimulationNewsRepository = LocalSimulationNewsRepository(modelContext: modelContext)
-        let simulationStockRepository: SimulationStockRepository = LocalSimulationStockRepository(modelContext: modelContext)
+        let simulationNewsRepository: StockNewsRepository = LocalSimulationNewsRepository(modelContext: modelContext)
+        let simulationStockRepository: StockRepository = LocalSimulationStockRepository(modelContext: modelContext)
         let productPriceRepository: ProductPriceRepository = LocalProductPriceRepository(modelContext: modelContext)
         let stockTransactionRepository: StockTransactionRepository = LocalStockTransactionRepository(modelContext: modelContext)
         let stockTransactionQueueRepository: StockTransactionQueueRepository = LocalStockTransactionQueueRepository(modelContext: modelContext)
         let stockInvestmentRepository: StockInvestmentRepository = LocalStockInvestmentRepository(modelContext: modelContext)
+        let userNotificationRepository: UserNotificationRepository = LocalUserNotificationRepository(modelContext: modelContext)
         
         // MARK: - USE Case
         
@@ -34,8 +35,15 @@ struct AppModule {
             stockRepository: simulationStockRepository,
             priceRepository: productPriceRepository
         )
-        @Provider var getStockNewsData: GetStockNewsData = GetStockNewsDataImpl(
-            newsRepo: simulationNewsRepository
+        @Provider var getStockNewsData: UpdateStockPriceByNews = UpdateStockPriceByNewsImpl(
+            stockPriceRepo: productPriceRepository
+        )
+        @Provider var triggerLatestNotification: TriggerLatestNotification = TriggerLatestNotificationImpl(
+            notificationRepo: userNotificationRepository
+        )
+        @Provider var sendStockPriceUpdateNotification: SendStockPriceUpdateNotification = SendStockPriceUpdateNotificationImpl(
+            newsRepo: simulationNewsRepository,
+            userNotificationRepo: userNotificationRepository
         )
         @Provider var purchaseStock: PurchaseStocks = PurchaseStocksImpl(
             userRepo: userRepository,
@@ -54,7 +62,9 @@ struct AppModule {
             userRepo: userRepository,
             transactionRepo: stockTransactionRepository,
             transactionQueueRepo: stockTransactionQueueRepository,
-            investmentRepo: stockInvestmentRepository
+            investmentRepo: stockInvestmentRepository,
+            notificationRepo: userNotificationRepository,
+            newsRepo: simulationNewsRepository
         )
         @Provider var saveUserData: SaveUserData = SaveUserDataImpl(
             userRepo: userRepository
