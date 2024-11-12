@@ -86,7 +86,7 @@ struct MainScreenView: View {
                 )
             }
         }
-        .modifier(HighlightHelperView(viewModel: highlightViewModel))
+        .modifier(HanvestHighlightHelperView(viewModel: highlightViewModel))
         .animation(.easeInOut, value: selectionTab)
     }
 }
