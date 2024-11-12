@@ -15,7 +15,7 @@ struct CalculateUserRiskProfileImpl: CalculateUserRiskProfile {
         var total = 0
         
         for (index, answer) in userSelectedAnswers.enumerated() {
-            if let specificPageOption = RiskProfileQuestionsAndOptions(rawValue: (index + 1)) {
+            if let specificPageOption = RiskProfileQuestionsAndOptionsPageContent(rawValue: (index + 1)) {
                 if let optionIndex = specificPageOption.options.firstIndex(of: answer) {
                     total += (optionIndex + 1)
                 }
