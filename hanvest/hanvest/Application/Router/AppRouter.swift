@@ -77,21 +77,21 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule01:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module01View(router: self)
+                MaterialBasicInvestmentModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule02:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module02View(router: self)
+                MaterialLiabilitiesVsAssetModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             
         case .materialModule03:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module03View(router: self)
+                MaterialRiskAndReturnScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             
