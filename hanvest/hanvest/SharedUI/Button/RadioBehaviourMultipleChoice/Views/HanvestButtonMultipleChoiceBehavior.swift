@@ -107,7 +107,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     private func doUnpressedAction() {
         self.state = .unpressed
         
-        HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+        HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
         HanvestHapticManager.hapticNotif(type: .success)
         
         if self.selectedButtonID != self.id {
