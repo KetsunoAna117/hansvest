@@ -105,7 +105,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule05:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialModule05ScreenView(appRouter: self)
+                MaterialFundamentalModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
             

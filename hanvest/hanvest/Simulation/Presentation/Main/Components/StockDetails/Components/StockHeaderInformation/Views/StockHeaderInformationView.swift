@@ -22,10 +22,10 @@ struct StockHeaderInformationView: View {
                         Text(stockCodeName)
                             .font(.nunito(.largeTitle, .bold))
                             .showCase(
-                                order: Module05TipData.stocksName.index,
-                                title: Module05TipData.stocksName.title,
-                                detail: Module05TipData.stocksName.detail,
-                                stage: Module05HighlightStage.mainStage.stringValue
+                                order: FundamentalModuleTipData.stocksName.index,
+                                title: FundamentalModuleTipData.stocksName.title,
+                                detail: FundamentalModuleTipData.stocksName.detail,
+                                stage: FundamentalModuleHighlightStage.mainStage.stringValue
                             )
                         Text(stockName)
                             .font(.nunito(.caption1))
@@ -38,20 +38,20 @@ struct StockHeaderInformationView: View {
                         Text(HanvestPriceFormatter.formatIntToIDR(currentPrice))
                             .font(.nunito(.title2, .bold))
                             .showCase(
-                                order: Module05TipData.stocksPrice.index,
-                                title: Module05TipData.stocksPrice.title,
-                                detail: Module05TipData.stocksPrice.detail,
-                                stage: Module05HighlightStage.mainStage.stringValue
+                                order: FundamentalModuleTipData.stocksPrice.index,
+                                title: FundamentalModuleTipData.stocksPrice.title,
+                                detail: FundamentalModuleTipData.stocksPrice.detail,
+                                stage: FundamentalModuleHighlightStage.mainStage.stringValue
                             )
                         HanvestProfitLossLabelView(
                             initialValue: $initialPrice,
                             currentValue: $currentPrice
                         )
                         .showCase(
-                            order: Module05TipData.gainLoss.index,
-                            title: Module05TipData.gainLoss.title,
-                            detail: Module05TipData.gainLoss.detail,
-                            stage: Module05HighlightStage.mainStage.stringValue
+                            order: FundamentalModuleTipData.gainLoss.index,
+                            title: FundamentalModuleTipData.gainLoss.title,
+                            detail: FundamentalModuleTipData.gainLoss.detail,
+                            stage: FundamentalModuleHighlightStage.mainStage.stringValue
                         )
                     }
                 }
