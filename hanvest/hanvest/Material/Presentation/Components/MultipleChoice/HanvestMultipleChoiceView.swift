@@ -50,7 +50,6 @@ struct HanvestMultipleChoiceView: View {
                 .multilineTextAlignment(.center)
             }
         }
-        .frame(maxWidth: .infinity)
     }
     
     private func buttonAction(option: String) {
