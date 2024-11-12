@@ -12,6 +12,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     @Published var popup: Popup?
     @Published var notification: HanvestNotification?
     @Published var startScreen: Screen?
+    @Published var notificationPermission: Bool = true
     
     func push(_ screen: Screen) {
         path.append(screen)
@@ -38,8 +39,10 @@ class AppRouter: AppRouterProtocol, ObservableObject {
     }
     
     func presentNotification(_ notification: HanvestNotification) {
-        withAnimation(.linear(duration: 0.5)) {
-            self.notification = notification
+        if self.notificationPermission == true {
+            withAnimation(.linear(duration: 0.5)) {
+                self.notification = notification
+            }
         }
     }
     
@@ -47,6 +50,13 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         withAnimation(.linear(duration: 0.5)) {
             self.notification = nil
         }
+    }
+    
+    func setNotificationPermission(_ permission: Bool) {
+        if permission == false {
+            dismissNotification()
+        }
+        self.notificationPermission = permission
     }
     
     // MARK: - Presentation Style Providers
@@ -66,6 +76,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 RiskProfileView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .main:
             ZStack {
@@ -73,6 +86,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MainScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(true)
+            }
             
         case .materialModule01:
             ZStack {
@@ -80,6 +96,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MaterialBasicInvestmentModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule02:
             ZStack {
@@ -87,6 +106,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MaterialLiabilitiesVsAssetModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule03:
             ZStack {
@@ -94,6 +116,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MaterialRiskAndReturnScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule04:
             ZStack {
@@ -101,6 +126,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MaterialStockRegulatorModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule05:
             ZStack {
@@ -108,6 +136,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MaterialFundamentalModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .materialModule06:
             ZStack {
@@ -115,6 +146,9 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 MaterialNewsModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
             
         case .simulationBuyingConfirmation(let simulationViewModel, let userData):
             ZStack {
@@ -313,7 +347,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
             )
             .frame(maxHeight: .infinity, alignment: .top)
             .onAppear(){
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                     self.dismissNotification()
                 })
             }

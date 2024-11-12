@@ -12,6 +12,7 @@ protocol AppRouterProtocol: ObservableObject {
     var path: NavigationPath { get set }
     var popup: Popup? { get set }
     var notification: HanvestNotification? { get set }
+    var notificationPermission: Bool { get set }
     var startScreen: Screen? { get set }
 
     func push(_ screen:  Screen)
@@ -23,4 +24,5 @@ protocol AppRouterProtocol: ObservableObject {
     
     func presentNotification(_ notification: HanvestNotification)
     func dismissNotification()
+    func setNotificationPermission(_ permission: Bool)
 }
