@@ -34,39 +34,30 @@ struct MainScreenView: View {
             )
             
             TabView(selection: $selectionTab) {
-                Tab("Material",
-                    systemImage: "books.vertical",
-                    value: .material
-                ) {
-                    ZStack {
-                        Color.background.ignoresSafeArea()
-                        HanvestMaterialScreenView(router: router)
-                    }
+                // Material View
+                ZStack {
+                    Color.background.ignoresSafeArea()
+                    HanvestMaterialScreenView(router: router)
                 }
+                .tag(HanvestMainViewTabSelection.material)
                 
-                Tab("Simulation",
-                    systemImage: "chart.xyaxis.line",
-                    value: .simulation
-                ) {
-                    ZStack {
-                        Color.background.ignoresSafeArea()
-                        HanvestSimulationView(
-                            router: router,
-                            userDataViewModel: userDataViewModel,
-                            simulationViewModel: simulationViewModel
-                        )
-                    }
+                // Simulation View
+                ZStack {
+                    Color.background.ignoresSafeArea()
+                    HanvestSimulationView(
+                        router: router,
+                        userDataViewModel: userDataViewModel,
+                        simulationViewModel: simulationViewModel
+                    )
                 }
+                .tag(HanvestMainViewTabSelection.simulation)
                 
-                Tab("My Land",
-                    systemImage: "globe.americas",
-                    value: .land
-                ) {
-                    ZStack {
-                        Color.background.ignoresSafeArea()
-                        HanvestLandScreenView()
-                    }
+                // Land View
+                ZStack {
+                    Color.background.ignoresSafeArea()
+                    HanvestLandScreenView()
                 }
+                .tag(HanvestMainViewTabSelection.land)
             }
         }
         .onAppear {
