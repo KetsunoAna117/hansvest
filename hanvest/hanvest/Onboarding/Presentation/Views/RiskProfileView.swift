@@ -38,9 +38,9 @@ struct RiskProfileView: View {
                                 .transition(.slide)
                                 .frame(maxHeight: .infinity, alignment: .top)
                             
-                            ForEach(Array(RiskProfileQuestionsAndOptions.allCases.enumerated()), id: \.offset) { index, page in
+                            ForEach(Array(RiskProfileQuestionsAndOptionsPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMultipleChoice(
+                                HanvestMultipleChoiceView(
                                     question: page.questions,
                                     options: page.options,
                                     onSelectAnswer: { answer in

@@ -29,10 +29,10 @@ struct SimulationBuyingCard: View {
                     Text("\(HanvestPriceFormatter.formatIntToIDR(viewModel.tradingBalance))")
                         .font(.nunito(.body, .bold))
                         .showCase(
-                            order: Module05TipData.tradingBalance.index,
-                            title: Module05TipData.tradingBalance.title,
-                            detail: Module05TipData.tradingBalance.detail,
-                            stage: Module05HighlightStage.buyStage.stringValue
+                            order: FundamentalModuleTipData.tradingBalance.index,
+                            title: FundamentalModuleTipData.tradingBalance.title,
+                            detail: FundamentalModuleTipData.tradingBalance.detail,
+                            stage: FundamentalModuleHighlightStage.buyStage.stringValue
                         )
                 }
                 
@@ -57,10 +57,10 @@ struct SimulationBuyingCard: View {
                         .font(.nunito(.body, .regular))
                         .foregroundStyle(amountState.textColor)
                         .showCase(
-                            order: Module05TipData.amountBuy.index,
-                            title: Module05TipData.amountBuy.title,
-                            detail: Module05TipData.amountBuy.detail,
-                            stage: Module05HighlightStage.buyStage.stringValue
+                            order: FundamentalModuleTipData.amountBuy.index,
+                            title: FundamentalModuleTipData.amountBuy.title,
+                            detail: FundamentalModuleTipData.amountBuy.detail,
+                            stage: FundamentalModuleHighlightStage.buyStage.stringValue
                         )
                 }
                 
@@ -72,10 +72,10 @@ struct SimulationBuyingCard: View {
                     
                     Text("\(currentPrice)")
                         .showCase(
-                            order: Module05TipData.priceBuy.index,
-                            title: Module05TipData.priceBuy.title,
-                            detail: Module05TipData.priceBuy.detail,
-                            stage: Module05HighlightStage.buyStage.stringValue
+                            order: FundamentalModuleTipData.priceBuy.index,
+                            title: FundamentalModuleTipData.priceBuy.title,
+                            detail: FundamentalModuleTipData.priceBuy.detail,
+                            stage: FundamentalModuleHighlightStage.buyStage.stringValue
                         )
                 }
                 
@@ -88,7 +88,7 @@ struct SimulationBuyingCard: View {
                     HanvestNumberStepper(
                         value: $viewModel.stockBuyLot,
                         raise: lotRaise,
-                        stage: Module05HighlightStage.buyStage.stringValue
+                        stage: FundamentalModuleHighlightStage.buyStage.stringValue
                     )
                 }
             }

@@ -93,7 +93,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule01:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module01View(router: self)
+                MaterialBasicInvestmentModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             .onAppear(){
@@ -103,7 +103,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule02:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module02View(router: self)
+                MaterialLiabilitiesVsAssetModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             .onAppear(){
@@ -113,7 +113,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule03:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module03View(router: self)
+                MaterialRiskAndReturnScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             .onAppear(){
@@ -123,7 +123,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule04:
             ZStack {
                 Color.background.ignoresSafeArea()
-                Module04View(router: self)
+                MaterialStockRegulatorModuleScreenView(router: self)
             }
             .navigationBarBackButtonHidden()
             .onAppear(){
@@ -133,7 +133,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule05:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialModule05ScreenView(appRouter: self)
+                MaterialFundamentalModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
             .onAppear(){
@@ -143,7 +143,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
         case .materialModule06:
             ZStack {
                 Color.background.ignoresSafeArea()
-                MaterialModule06ScreenView(appRouter: self)
+                MaterialNewsModuleScreenView(appRouter: self)
             }
             .navigationBarBackButtonHidden()
             .onAppear(){

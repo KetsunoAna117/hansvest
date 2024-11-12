@@ -13,7 +13,7 @@ struct MainScreenView: View {
     @State private var selectionTab: HanvestMainViewTabSelection = .material
     @StateObject var simulationViewModel = LocalSimulationViewModel()
     @StateObject var userDataViewModel: HanvestLoadedUserDataViewModel = .init()
-    @StateObject private var highlightViewModel = HighlightViewModel()
+    @StateObject private var highlightViewModel = HanvestHighlightViewModel()
     
     var body: some View {
         VStack {
