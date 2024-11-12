@@ -8,7 +8,7 @@
 import Foundation
 
 class NewsModuleSimulationViewModel: HanvestSimulationViewModel {
-    @Published var currentStage: Module06Stage?
+    @Published var currentStage: NewsModuleStage?
     @Published var otherChoiceIsViewed: Bool = false
     
     override func setup(){
@@ -17,7 +17,7 @@ class NewsModuleSimulationViewModel: HanvestSimulationViewModel {
     }
     
     func onConclusionButtonTapped(
-        moduleRouter: any Module06RouterProtocol,
+        moduleRouter: any NewsModuleRouterProtocol,
         appRouter: any AppRouterProtocol
     ) {
         // Validate if user has viewed other choice
