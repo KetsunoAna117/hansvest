@@ -9,13 +9,37 @@ import Foundation
 
 class Module06SimulationViewModel: HanvestSimulationViewModel {
     @Published var currentStage: Module06Stage?
+    @Published var otherChoiceIsViewed: Bool = false
     
     override func setup(){
         self.stockList = self.prepareStockData()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
     }
     
-    func onCompletionModule(appRouter: any AppRouterProtocol) {
+    func onConclusionButtonTapped(
+        moduleRouter: any Module06RouterProtocol,
+        appRouter: any AppRouterProtocol
+    ) {
+        // Validate if user has viewed other choice
+        guard otherChoiceIsViewed else {
+            if currentStage == .buyState(appRouter: appRouter) {
+                currentStage = .sellState(appRouter: appRouter)
+            }
+            else {
+                currentStage = .buyState(appRouter: appRouter)
+            }
+            
+            otherChoiceIsViewed = true
+            moduleRouter.push(
+                .conclusion(
+                    appRouter: appRouter,
+                    simulationViewModel: self
+                )
+            )
+            return
+        }
+        
+        // If user has viewed other choice, go to the completion
         @Inject var validateIfUserComplete: ValidateIfUserHasCompletedTheModule
         
         if let userComplete = try? validateIfUserComplete.execute(specificModule: .module06){
