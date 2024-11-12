@@ -46,7 +46,7 @@ struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
                 action()
             }
             
-            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+            HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
         }
         .onLongPressGesture(minimumDuration: 0.1, perform: {
             if self.selectedButtonID != self.id {

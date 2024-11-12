@@ -79,7 +79,7 @@ struct HanvestButtonRadioBehavior: View {
                 })
             }
             
-//            HanvestSoundFXManager.playSound(named: HanvestSoundFX.click.name)
+//            HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
 //            HanvestHapticManager.hapticNotif(type: .success)
         }
         .onChange(of: selectedButtonID, { oldValue, newValue in
