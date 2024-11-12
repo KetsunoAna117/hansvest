@@ -36,7 +36,7 @@ struct SellStocksImpl: SellStocks {
                 )
                 
                 guard fetchedTransactionList.isEmpty == false else {
-                    return .failure(SwiftDataError.noData(object: "no transaction found"))
+                    return .failure(SwiftDataError.noData( "no transaction found"))
                 }
                 
                 let averageTransactionPrice = getAverage(transactionList: fetchedTransactionList)

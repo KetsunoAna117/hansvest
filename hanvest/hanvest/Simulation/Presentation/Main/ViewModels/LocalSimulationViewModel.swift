@@ -9,63 +9,96 @@ import Foundation
 import SwiftUI
 
 class LocalSimulationViewModel: HanvestSimulationViewModel {
+    // CONSTANT
+    #if DEBUG
+    let TIMER_PRICE_UPDATE_INTERVAL: Double = 10
+    #else
+    let TIMER_PRICE_UPDATE_INTERVAL: Double = 45
+    #endif
+    
     @Inject var getStockList: GetAvailableSimulationStocks
+    @Inject var updateStockPriceByNews: UpdateStockPriceByNews
+    @Inject var sendStockPriceUpdateNotification: SendStockPriceUpdateNotification
+    @Inject var triggerLatestNotification: TriggerLatestNotification
     
     var timer: Timer?
     var appRouter: (any AppRouterProtocol)?
     
-    func setup(appRouter: any AppRouterProtocol) {
+    func setup(
+        appRouter: any AppRouterProtocol,
+        loadedUserViewModel: HanvestLoadedUserDataViewModel
+    ) {
         super.setup()
         self.stockList = getStockList.execute()
         self.selectedStockID = stockList.first?.stockIDName ?? ""
         self.appRouter = appRouter
-        simulatePrice()
+        simulatePrice(loadedUserViewModel: loadedUserViewModel)
     }
 }
 
 extension LocalSimulationViewModel {
-    func simulatePrice(){
-        debugPrint("[TEST] Timer to Update Stock Price Started!")
-        if timer != nil {
-            timer = nil
-        }
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { timer in
-            self.addPriceUsingRandom()
-            //            self.displayNotification()
+    func simulatePrice(loadedUserViewModel: HanvestLoadedUserDataViewModel){
+        // User timer to schedule stock price changing
+        timer = Timer.scheduledTimer(withTimeInterval: TIMER_PRICE_UPDATE_INTERVAL, repeats: true) { timer in
+            guard let userData = loadedUserViewModel.userData else {
+                debugPrint("ERROR: User Data is not found")
+                return
+            }
             
+            // Check if latest notification has been triggered or not
+            let isNotificationTriggered = self.triggerLatestNotification.execute(user: userData)
+            switch isNotificationTriggered {
+                case .success(let notification):
+                    // If latest notification is not triggered, trigger first
+                    if let notification = notification {
+                        self.updateStockPrice(notification: notification)
+                    }
+                case .failure(let failure):
+                    debugPrint(failure)
+            }
+            
+            // Push Notification to user
+            self.sendNotification(loadedUserViewModel: loadedUserViewModel)
         }
     }
     
-    private func displayNotification(){
-        debugPrint("[!] Event Trigger Notification")
+    private func sendNotification(loadedUserViewModel: HanvestLoadedUserDataViewModel){
+        // Validate UserID
+        guard let user = loadedUserViewModel.userData else {
+            debugPrint("ERROR: User Data is Not Detected")
+            return
+        }
+        
+        // Send Notification to the user
+        let notificationResult = sendStockPriceUpdateNotification.execute(user: user)
+        loadedUserViewModel.setup()
+        
+        switch notificationResult {
+            case .success(let notification):
+                // If user receive the notification, display it
+                displayNotification(notification: notification)
+            case .failure(let failure):
+                debugPrint("ERROR: \(failure.localizedDescription)")
+        }
+    }
+    
+    // Function to update Stock Price from Stock List
+    private func updateStockPrice(notification: UserNotificationEntity){
+        let result = self.updateStockPriceByNews.execute(stockList: &self.stockList, news: notification.stockNews)
+        
+        switch result {
+        case .success(_):
+            debugPrint("[!] Update Stock price for \(notification.stockNews.stockIDName)")
+        case .failure(let failure):
+            debugPrint("ERROR: \(failure)")
+        }
+    }
+    
+    // Function to display notification animation in the app
+    private func displayNotification(notification: UserNotificationEntity){
         if let appRouter = appRouter {
             appRouter.presentNotification(
-                .notification(
-                    notification:
-                            .init(
-                                notificationID: UUID().uuidString,
-                                releasedTime: Date.now,
-                                hasTriggered: false,
-                                stockNews: .init(
-                                    newsID: UUID().uuidString,
-                                    stockIDName: "GOTO",
-                                    newsTitle: "GOTO gets billions in funding",
-                                    newsContent:
-                                            """
-                                            In a recent report released today, Chinese tech giant Alibaba is said to have injected billions of rupiah into Gojek Tokopedia (GOTO). This investment is seen as part of Alibaba’s strategy to expand its business reach in Southeast Asia, particularly in Indonesia.
-                                            
-                                            Alibaba's move is viewed as an effort to strengthen GOTO’s ecosystem, which spans e-commerce, on-demand services, including transportation, food delivery, and online shopping platforms that are increasingly dominating the domestic market.
-                                            
-                                            The Chinese company is no stranger to Southeast Asia, having previously made significant investments in Lazada. With this new capital infusion, GOTO is expected to accelerate its growth and better compete against other global tech giants.
-                                            
-                                            Neither GOTO nor Alibaba has provided an official comment on the report, but analysts predict that this investment will further solidify GOTO’s position as a key player in Indonesia’s digital economy.
-                                            
-                                            """,
-                                    stockFluksPercentage: 10
-                                )
-                            )
-                )
+                .notification(notification: notification)
             )
         }
     }

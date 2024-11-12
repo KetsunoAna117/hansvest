@@ -82,7 +82,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                 context.insert(investment)
             }
             else {
-                throw SwiftDataError.alreadyExists(object: investment)
+                throw SwiftDataError.alreadyExists( investment)
             }
             
             try context.save()
@@ -103,7 +103,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                     try context.save()
                 }
                 else {
-                    throw SwiftDataError.notFound(object: investmentID)
+                    throw SwiftDataError.notFound( investmentID)
                 }
             }
         }
@@ -123,7 +123,7 @@ struct LocalStockInvestmentRepository: StockInvestmentRepository {
                     try context.save()
                 }
                 else {
-                    throw SwiftDataError.notFound(object: investmentID)
+                    throw SwiftDataError.notFound( investmentID)
                 }
             }
         }

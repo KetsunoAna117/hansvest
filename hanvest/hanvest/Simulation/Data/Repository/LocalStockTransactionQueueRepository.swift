@@ -64,7 +64,7 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
             )
             
             if try context.fetch(descriptor).first != nil {
-                throw SwiftDataError.alreadyExists(object: transaction)
+                throw SwiftDataError.alreadyExists( transaction)
             }
             
             context.insert(transaction)
@@ -79,7 +79,7 @@ struct LocalStockTransactionQueueRepository: StockTransactionQueueRepository {
             )
             
             guard let result = try context.fetch(descriptor).first else {
-                throw SwiftDataError.notFound(object: transactionID)
+                throw SwiftDataError.notFound( transactionID)
             }
             
             context.delete(result)
