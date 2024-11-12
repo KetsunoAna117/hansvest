@@ -20,44 +20,50 @@ struct MainScreenView: View {
             HanvestHeaderView(
                 userDataViewModel: userDataViewModel,
                 bookIconTappedAction: {
-                    debugPrint("Book Icon Tapped")
                     router.push(.glossary)
                 },
                 bellIconTappedAction: {
-                    debugPrint("Bell Icon Tapped")
                     router.push(.news(userViewModel: userDataViewModel))
                 },
                 profileIconTappedAction: {
-                    debugPrint("Profile Account Tapped")
                     router.push(.profile)
                 }
             )
             
             TabView(selection: $selectionTab) {
-                // Material View
-                ZStack {
-                    Color.background.ignoresSafeArea()
-                    HanvestMaterialScreenView(router: router)
+                Tab("Material",
+                    systemImage: "books.vertical",
+                    value: .material
+                ) {
+                    ZStack {
+                        Color.background.ignoresSafeArea()
+                        HanvestMaterialScreenView(router: router)
+                    }
                 }
-                .tag(HanvestMainViewTabSelection.material)
                 
-                // Simulation View
-                ZStack {
-                    Color.background.ignoresSafeArea()
-                    HanvestSimulationView(
-                        router: router,
-                        userDataViewModel: userDataViewModel,
-                        simulationViewModel: simulationViewModel
-                    )
+                Tab("Simulation",
+                    systemImage: "chart.xyaxis.line",
+                    value: .simulation
+                ) {
+                    ZStack {
+                        Color.background.ignoresSafeArea()
+                        HanvestSimulationView(
+                            router: router,
+                            userDataViewModel: userDataViewModel,
+                            simulationViewModel: simulationViewModel
+                        )
+                    }
                 }
-                .tag(HanvestMainViewTabSelection.simulation)
                 
-                // Land View
-                ZStack {
-                    Color.background.ignoresSafeArea()
-                    HanvestLandScreenView()
+                Tab("My Land",
+                    systemImage: "globe.americas",
+                    value: .land
+                ) {
+                    ZStack {
+                        Color.background.ignoresSafeArea()
+                        HanvestLandScreenView()
+                    }
                 }
-                .tag(HanvestMainViewTabSelection.land)
             }
         }
         .onAppear {

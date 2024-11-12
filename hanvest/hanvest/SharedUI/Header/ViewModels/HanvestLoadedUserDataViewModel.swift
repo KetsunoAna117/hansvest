@@ -21,19 +21,19 @@ class HanvestLoadedUserDataViewModel: ObservableObject {
         if let user = getUserData.execute() {
             userData = user
             
-            // Debug user transaction
-            if let gotoInvestment = user.userInvestmentTransaction.filter({ investment in
-                investment.stockIDName == "GOTO"
-            }).first {
-                debugPrint("Total Invested: \(gotoInvestment.totalInvested)")
-                debugPrint("Total Lot Purchased: \(gotoInvestment.totalInvested)")
-                for transaction in gotoInvestment.stockTransaction {
-                    debugPrint("Transaction time: \(transaction.time)")
-                    debugPrint("Transaction price: \(transaction.priceAtPurchase)")
-                    debugPrint("Transaction lot: \(transaction.stockLotQuantity)")
-                    debugPrint()
-                }
-            }
+//            // Debug user transaction
+//            if let gotoInvestment = user.userInvestmentTransaction.filter({ investment in
+//                investment.stockIDName == "GOTO"
+//            }).first {
+//                debugPrint("Total Invested: \(gotoInvestment.totalInvested)")
+//                debugPrint("Total Lot Purchased: \(gotoInvestment.totalInvested)")
+//                for transaction in gotoInvestment.stockTransaction {
+//                    debugPrint("Transaction time: \(transaction.time)")
+//                    debugPrint("Transaction price: \(transaction.priceAtPurchase)")
+//                    debugPrint("Transaction lot: \(transaction.stockLotQuantity)")
+//                    debugPrint()
+//                }
+//            }
         }
         
     }
