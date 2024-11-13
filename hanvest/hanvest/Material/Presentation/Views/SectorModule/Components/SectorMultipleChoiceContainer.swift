@@ -73,13 +73,19 @@ struct SectorMultipleChoiceContainer: View {
     }
     
     func getButtonStyle(id: String) -> HanvestButtonStyle {
+        let idx = data.correctAnswerIdx - 1
+        guard idx >= 0 else {
+            debugPrint("ERROR: Wrong Choice Index")
+            return .bordered(isDisabled: false)
+        }
+        
         if userPressSubmitButton {
             // If the button is correct and is selected
-            if id == data.choices[data.correctAnswerIdx] {
+            if id == data.choices[idx] {
                 return .filledCorrect(isDisabled: false)
             }
             // If the button is incorrect and is selected
-            else if id != data.choices[data.correctAnswerIdx]
+            else if id != data.choices[idx]
                 && selectedButtonID == id {
                 return .filledIncorrect(isDisabled: false)
             }
@@ -93,13 +99,19 @@ struct SectorMultipleChoiceContainer: View {
     }
     
     func validateChoice() -> Bool {
-        return selectedButtonID == data.choices[data.correctAnswerIdx]
+        let idx = data.correctAnswerIdx - 1
+        guard idx >= 0 else {
+            debugPrint("ERROR: Wrong Choice Index")
+            return false
+        }
+        return selectedButtonID == data.choices[idx]
     }
 }
 
 #Preview {
     SectorMultipleChoiceContainer(
         data: .init(
+            id: "1",
             question: "Which sector on the Indonesia Stock Exchange (IDX) includes banks and insurance firms, often sensitive to interest rate changes?",
             choices: [
                 "Consumer Goods",

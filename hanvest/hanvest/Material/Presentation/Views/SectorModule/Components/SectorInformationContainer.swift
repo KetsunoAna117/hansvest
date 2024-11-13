@@ -47,6 +47,7 @@ struct SectorInformationContainer: View {
 #Preview {
     SectorInformationContainer(
         data: .init(
+            id: "1",
             title: "What's a Stock Sector",
             image: Image(._12StockSector),
             content: """

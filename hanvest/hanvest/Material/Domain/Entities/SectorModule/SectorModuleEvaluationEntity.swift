@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct SectorModuleEvaluationEntity {
+struct SectorModuleEvaluationEntity: HanvestModuleContent {
+    var id: String
+    
     var question: String
     var choices: [String]
     var correctAnswerIdx: Int
