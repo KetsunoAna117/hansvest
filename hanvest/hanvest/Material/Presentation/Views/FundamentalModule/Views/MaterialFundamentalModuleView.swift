@@ -29,10 +29,10 @@ struct MaterialFundamentalModuleScreenView: View {
                 },
                 progressBarCurrValue: $contentRouter.progress
             )
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 12)
             
             Divider()
-                .padding(.top, 20)
+                .padding(.top, 4)
             
             VStack {
                 if let content = contentRouter.content.last {

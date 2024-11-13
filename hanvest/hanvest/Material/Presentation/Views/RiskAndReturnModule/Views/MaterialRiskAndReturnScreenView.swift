@@ -18,7 +18,7 @@ struct MaterialRiskAndReturnScreenView: View {
             Color.background
             
             ZStack {
-                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 25 : 49) {
+                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                     ProgressBarWithXMarkView(
                         progressBarMinValue: viewModel.progressBarMinValue,
                         progressBarMaxValue: viewModel.progressBarMaxValue,
@@ -27,8 +27,9 @@ struct MaterialRiskAndReturnScreenView: View {
                         },
                         progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
+                    .padding(.horizontal, -8)
                     
-                    VStack(spacing: (UIScreen.main.bounds.width < 385) ? 24 : 48) {
+                    VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                         TabView(selection: $viewModel.currentTab) {
                             
                             RiskAndReturnModuleMultipleChoiceView(
@@ -93,7 +94,7 @@ struct MaterialRiskAndReturnScreenView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, (UIScreen.main.bounds.width < 385) ? 31 : 71)
+            .padding(.top, (UIScreen.main.bounds.width < 385) ? 16 : 56)
             .padding(.bottom, (UIScreen.main.bounds.width < 385) ? 30 : 54)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

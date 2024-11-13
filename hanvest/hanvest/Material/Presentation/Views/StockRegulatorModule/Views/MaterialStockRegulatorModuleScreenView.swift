@@ -18,7 +18,7 @@ struct MaterialStockRegulatorModuleScreenView: View {
             Color.background
             
             ZStack {
-                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 25 : 49) {
+                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                     ProgressBarWithXMarkView(
                         progressBarMinValue: viewModel.progressBarMinValue,
                         progressBarMaxValue: viewModel.progressBarMaxValue,
@@ -27,7 +27,7 @@ struct MaterialStockRegulatorModuleScreenView: View {
                         },
                         progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
-                    .padding(.horizontal, (viewModel.showingAnswer == .isShowing) ? 20 : 0)
+                    .padding(.horizontal, (viewModel.showingAnswer == .isShowing) ? 12 : -8)
                     
                     VStack(spacing: (UIScreen.main.bounds.width < 385) ? 24 : 48) {
                         TabView(selection: $viewModel.currentTab) {
@@ -121,7 +121,7 @@ struct MaterialStockRegulatorModuleScreenView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, (UIScreen.main.bounds.width < 385) ? 31 : 71)
+            .padding(.top, (UIScreen.main.bounds.width < 385) ? 16 : 56)
             .padding(.bottom, (viewModel.showingAnswer == .isNotShowing) ? 54 - ((UIScreen.main.bounds.width < 385) ? 24 : 0) : 0)
             .padding(.horizontal, (viewModel.showingAnswer == .isNotShowing) ? 20 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
