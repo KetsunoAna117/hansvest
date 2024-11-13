@@ -24,6 +24,7 @@ struct ProgressBarWithXMarkView: View {
                 Image(systemName: "xmark")
                     .font(.system(size: 24))
                     .foregroundStyle(.labelPrimary)
+                    .padding(8)
             }
             
             
@@ -37,7 +38,7 @@ struct ProgressBarWithXMarkView: View {
                         progressBarMaxValue
                 )
             }
-            .padding(.leading, 16)
+            .padding(8)
         }
         .frame(maxWidth: .infinity)
     }
