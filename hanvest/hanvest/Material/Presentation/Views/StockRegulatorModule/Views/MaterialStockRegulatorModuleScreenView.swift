@@ -68,7 +68,8 @@ struct MaterialStockRegulatorModuleScreenView: View {
                                 title: StockRegulatorModuleNumberedListPageContent.page11.title,
                                 detailText: StockRegulatorModuleNumberedListPageContent.page11.detailText,
                                 image: StockRegulatorModuleNumberedListPageContent.page11.image,
-                                numberedList: StockRegulatorModuleNumberedListPageContent.page11.numberedLists
+                                pointListStyle: .numbered,
+                                pointListContents: StockRegulatorModuleNumberedListPageContent.page11.numberedLists
                             )
                             .tag(StockRegulatorModuleNumberedListPageContent.page11.rawValue)
                             .transition(.slide)

@@ -31,7 +31,7 @@ struct MaterialRiskAndReturnScreenView: View {
                     VStack(spacing: (UIScreen.main.bounds.width < 385) ? 24 : 48) {
                         TabView(selection: $viewModel.currentTab) {
                             
-                            HanvestMultipleChoiceView(
+                            RiskAndReturnModuleMultipleChoiceView(
                                 question: RiskAndReturnModuleMultipleChoicePageContent.page01.question,
                                 options: RiskAndReturnModuleMultipleChoicePageContent.page01.options
                             ){ answer in
@@ -60,7 +60,8 @@ struct MaterialRiskAndReturnScreenView: View {
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
                                     image: (page == .page05) ? [Image("high-risk-low-risk-triangle")] : nil,
-                                    bulletPoints: page.bulletPoints
+                                    pointListStyle: .bulleted,
+                                    pointListContents: page.bulletPoints
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)

@@ -29,56 +29,50 @@ enum HanvestButtonStyle: Equatable {
     var backgroundColor: Color {
         switch self {
         case .filled(let isDisabled):
-            return isDisabled ? .fillTertiary : .seagull400
+            return isDisabled ? .mineShaft400 : .seagull400
         case .bordered(let isDisabled):
             return isDisabled ? .clear : .mineShaft50
         case .borderless:
             return .clear
         case .filledCorrect(let isDisabled):
-            return isDisabled ? .fillTertiary : .blizzardBlue400
+            return isDisabled ? .mineShaft400 : .blizzardBlue400
         case .filledIncorrect(let isDisabled):
-            return isDisabled ? .fillTertiary : .sundown500
+            return isDisabled ? .mineShaft400 : .sundown500
         }
     }
     
     var fontColor: Color {
         switch self {
-        case .filled(let isDisabled):
-            return isDisabled ? .labelTertiary : .mineShaft50
+        case .filled, .filledCorrect, .filledIncorrect:
+            return .mineShaft50
         case .bordered(let isDisabled):
             return isDisabled ? .labelTertiary : .seagull500
         case .borderless(let isDisabled):
             return isDisabled ? .labelTertiary : .seagull500
-        case .filledCorrect(let isDisabled):
-            return isDisabled ? .labelTertiary : .mineShaft50
-        case .filledIncorrect(let isDisabled):
-            return isDisabled ? .labelTertiary : .mineShaft50
         }
     }
     
     var borderColor: Color {
         switch self {
-        case .filled(_):
+        case .filled, .borderless, .filledCorrect, .filledIncorrect:
             return .clear
         case .bordered(let isDisabled):
             return isDisabled ? .labelTertiary : .seagull300
-        case .borderless, .filledCorrect, .filledIncorrect:
-            return .clear
         }
     }
     
     var shadowColor: Color {
         switch self {
         case .filled(let isDisabled):
-            return isDisabled ? .clear : .seagull500
+            return isDisabled ? .mineShaft500 : .seagull500
         case .bordered(let isDisabled):
             return isDisabled ? .clear : .seagull300
         case .borderless:
             return .clear
         case .filledCorrect(let isDisabled):
-            return isDisabled ? .clear : .blizzardBlue500
+            return isDisabled ? .mineShaft500 : .blizzardBlue500
         case .filledIncorrect(let isDisabled):
-            return isDisabled ? .clear : .sundown600
+            return isDisabled ? .mineShaft500 : .sundown600
         }
     }
 }
