@@ -16,19 +16,12 @@ struct BasicInvestmentModulePlantFlowerBloomView: View {
     var body: some View {
         ZStack {
             ForEach(viewModel.visibleFlowers.indices, id: \.self) { index in
-                ZStack {
-                    HStack {
-                        viewModel.displayedImages[index].image
-                    }
-                    .padding(.leading, viewModel.customPaddingLeading(
-                        defaultPaddingLeading: viewModel.displayedImages[index].leadingPadding)
-                    )
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(.bottom, viewModel.customPaddingBottom(
-                    defaultPaddingBottom: viewModel.displayedImages[index].bottomPadding)
-                )
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                viewModel.displayedImages[index].image
+//                ZStack {
+//                    viewModel.displayedImages[index].image
+//                }
+//                .padding(.bottom, viewModel.displayedImages[index].bottomPadding)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
         }
         .ignoresSafeArea()
@@ -57,4 +50,5 @@ struct BasicInvestmentModulePlantFlowerBloomView: View {
 
 #Preview {
     BasicInvestmentModulePlantFlowerBloomView(growthProgress: .constant(.progress01))
+        .position(CGPoint(x: 200, y: 500))
 }

@@ -44,21 +44,24 @@ struct BasicInvestmentModulePlantingView: View {
                 if viewModel.soilPosition != .zero {
                     BasicInvestmentModulePlantVisibilityView(growthProgress: $viewModel.growthProgress)
                         .position(
-                            CGPoint(
-                                x: viewModel.soilPosition.x - 10,
-                                y: UIScreen.main.bounds.height - (viewModel.soilPosition.y + 255)
+                            viewModel.adjustPositionFromSpriteKitToSwiftUI(
+                                adjustPositionBy: BasicInvestmentPositionOffset.plant.offset
                             )
                         )
-                }
-                
-                if viewModel.checkEligibilityPlantFlowerBloom() {
-                    BasicInvestmentModulePlantFlowerBloomView(
-                        growthProgress: $viewModel.growthProgress
-                    ) {
-                        viewModel.getNextGrowthProgress()
-                        
-                        viewModel.checkIfReturnToMainView(
-                            completion: onCompletion
+                    
+                    if viewModel.checkEligibilityPlantFlowerBloom() {
+                        BasicInvestmentModulePlantFlowerBloomView(
+                            growthProgress: $viewModel.growthProgress
+                        ) {
+                            viewModel.getNextGrowthProgress()
+                            
+                            viewModel.checkIfReturnToMainView(
+                                completion: onCompletion
+                            )
+                        }
+                        .position(                            viewModel.adjustPositionFromSpriteKitToSwiftUI(
+                                adjustPositionBy: BasicInvestmentPositionOffset.flowerAndApple.offset
+                            )
                         )
                     }
                 }
@@ -73,10 +76,7 @@ struct BasicInvestmentModulePlantingView: View {
                             stage: BasicInvestmentModuleHighlightStage.waterCanStage.stringValue
                         )
                         .position(
-                            CGPoint(
-                                x: viewModel.highlightWaterCanPosition.x,
-                                y: UIScreen.main.bounds.height - viewModel.highlightWaterCanPosition.y
-                            )
+                            viewModel.adjustPositionFromSpriteKitToSwiftUI()
                         )
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.85) {

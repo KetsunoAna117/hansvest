@@ -103,4 +103,13 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
         }
     }
     
+    func adjustPositionFromSpriteKitToSwiftUI(adjustPositionBy: CGPoint = .zero) -> CGPoint {
+        let spritePosition = (adjustPositionBy == .zero) ? self.highlightWaterCanPosition : self.soilPosition
+        
+        return CGPoint(
+            x: spritePosition.x - adjustPositionBy.x,
+            y: UIScreen.main.bounds.height - (spritePosition.y + adjustPositionBy.y)
+        )
+    }
+    
 }
