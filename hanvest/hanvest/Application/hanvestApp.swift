@@ -31,6 +31,7 @@ struct hanvestApp: App {
                     Text("Loading...")
                 }
             }
+            .preferredColorScheme(.light)
             .onAppear {
                 let getUserData = getUserData.execute()
                 
