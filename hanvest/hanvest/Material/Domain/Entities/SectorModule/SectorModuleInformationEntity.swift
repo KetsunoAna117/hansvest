@@ -9,6 +9,6 @@ import SwiftUI
 
 struct SectorModuleInformationEntity {
     var title: String
-    var imageName: String?
+    var image: Image?
     var content: String
 }
