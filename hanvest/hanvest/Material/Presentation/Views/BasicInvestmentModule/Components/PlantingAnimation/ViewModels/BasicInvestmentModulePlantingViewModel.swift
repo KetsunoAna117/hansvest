@@ -11,12 +11,34 @@ import Combine
 class BasicInvestmentModulePlantingViewModel: ObservableObject {
     @Published var growthProgress: BasicInvestmentModulePlantGrowthProgress
     @Published var highlightWaterCanPosition: CGPoint
+    @Published var soilPosition: CGPoint
     @Published var spriteScene: BasicInvestmentModuleSpriteController?
     @Published var growthTimer: AnyCancellable?
     
     init() {
         self.growthProgress = .progress01
         self.highlightWaterCanPosition = .zero
+        self.soilPosition = .zero
+        self.setupSpriteScene()
+    }
+    
+    func setupSpriteScene() {
+        let scene = BasicInvestmentModuleSpriteController(
+            size: UIScreen.main.bounds.size,
+            growthProgress: Binding(
+                get: { self.growthProgress },
+                set: { self.growthProgress = $0 }
+            ),
+            onWaterCanPositionDetermined: { position in
+                self.highlightWaterCanPosition = position
+            },
+            onSoilPositionDetermined: { position in
+                self.soilPosition = position
+            }
+        )
+        
+        scene.scaleMode = .resizeFill
+        self.spriteScene = scene
     }
     
     func startGrowthTimer() {

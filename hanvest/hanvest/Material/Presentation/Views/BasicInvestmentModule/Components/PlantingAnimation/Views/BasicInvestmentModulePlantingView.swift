@@ -41,7 +41,15 @@ struct BasicInvestmentModulePlantingView: View {
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
-                BasicInvestmentModulePlantVisibilityView(growthProgress: $viewModel.growthProgress)
+                if viewModel.soilPosition != .zero {
+                    BasicInvestmentModulePlantVisibilityView(growthProgress: $viewModel.growthProgress)
+                        .position(
+                            CGPoint(
+                                x: viewModel.soilPosition.x - 10,
+                                y: UIScreen.main.bounds.height - (viewModel.soilPosition.y + 255)
+                            )
+                        )
+                }
                 
                 if viewModel.checkEligibilityPlantFlowerBloom() {
                     BasicInvestmentModulePlantFlowerBloomView(
@@ -79,16 +87,6 @@ struct BasicInvestmentModulePlantingView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
-            .onAppear {
-                let scene = BasicInvestmentModuleSpriteController(
-                    size: UIScreen.main.bounds.size,
-                    growthProgress: $viewModel.growthProgress,
-                    waterCanPosition: $viewModel.highlightWaterCanPosition
-                )
-                
-                scene.scaleMode = .resizeFill
-                viewModel.spriteScene = scene
-            }
         }
     }
     
