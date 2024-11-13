@@ -18,74 +18,79 @@ struct RiskProfileView: View {
             Color.background
             
             ZStack {
-                VStack(spacing: 58) {
-                    if viewModel.pageState == .pageQuestion {
-                        HanvestProgressBar(
-                            value:
-                                $viewModel.progressBarCurrValue,
-                            minimum:
-                                viewModel.progressBarMinValue,
-                            maximum:
-                                viewModel.progressBarMaxValue
-                        )
-                        .frame(maxWidth: .infinity)
-                    }
-                    
-                    VStack(spacing: 0) {
-                        TabView(selection: $viewModel.currentTab) {
-                            HanvestRiskProfileOpeningView()
-                                .tag(RiskProfilePageState.pageOpening.rawValue)
-                                .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .top)
-                            
-                            ForEach(Array(RiskProfileQuestionsAndOptionsPageContent.allCases.enumerated()), id: \.offset) { index, page in
-                                
-                                HanvestMultipleChoiceView(
-                                    question: page.questions,
-                                    options: page.options,
-                                    onSelectAnswer: { answer in
-                                        viewModel.userSelectedAnswers[index] = answer
-                                    }
-                                )
-                                .tag(page.rawValue)
-                                .transition(.slide)
-                                .frame(maxHeight: .infinity, alignment: .top)
-
-                            }
-                            
-                            HanvestRiskProfileResultView(
-                                resultState: viewModel.resultState
+                ZStack {
+                    VStack(spacing: (UIScreen.main.bounds.width < 385) ? 25 : 49) {
+                        if viewModel.pageState == .pageQuestion {
+                            HanvestProgressBar(
+                                value:
+                                    $viewModel.progressBarCurrValue,
+                                minimum:
+                                    viewModel.progressBarMinValue,
+                                maximum:
+                                    viewModel.progressBarMaxValue
                             )
-                            .tag(RiskProfilePageState.pageRiskResult.rawValue)
-                            .transition(.slide)
-                            .frame(maxHeight: .infinity, alignment: .top)
-                            .onAppear {
-                                viewModel.getUserRiskProfile()
-                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
-                        .tabViewStyle(.page(indexDisplayMode: .never))
-                        .indexViewStyle(.page(backgroundDisplayMode: .always))
-                        .onAppear {
-                            UIScrollView.appearance().isScrollEnabled = false
-                        }
-                        ZStack {
-                            HanvestButtonDefault(
-                                style: .filled(isDisabled: viewModel.checkIsDisabled()),
-                                title: viewModel.pageState.buttonStringValue
-                            ) {
-                                viewModel.goToNextPage(
-                                    router: self.router
+                        
+                        VStack(spacing: (UIScreen.main.bounds.width < 385) ? 24 : 48) {
+                            TabView(selection: $viewModel.currentTab) {
+                                HanvestRiskProfileOpeningView()
+                                    .tag(RiskProfilePageState.pageOpening.rawValue)
+                                    .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .top)
+                                
+                                ForEach(Array(RiskProfileQuestionsAndOptionsPageContent.allCases.enumerated()), id: \.offset) { index, page in
+                                    
+                                    HanvestMultipleChoiceView(
+                                        question: page.questions,
+                                        options: page.options,
+                                        onSelectAnswer: { answer in
+                                            viewModel.userSelectedAnswers[index] = answer
+                                        }
+                                    )
+                                    .tag(page.rawValue)
+                                    .transition(.slide)
+                                    .frame(maxHeight: .infinity, alignment: .top)
+                                    
+                                }
+                                
+                                HanvestRiskProfileResultView(
+                                    resultState: viewModel.resultState
                                 )
+                                .tag(RiskProfilePageState.pageRiskResult.rawValue)
+                                .transition(.slide)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                .onAppear {
+                                    viewModel.getUserRiskProfile()
+                                }
                             }
+                            .frame(maxWidth: .infinity)
+                            .tabViewStyle(.page(indexDisplayMode: .never))
+                            .indexViewStyle(.page(backgroundDisplayMode: .always))
+                            .onAppear {
+                                UIScrollView.appearance().isScrollEnabled = false
+                            }
+                            
+                            ZStack {
+                                HanvestButtonDefault(
+                                    style: .filled(isDisabled: viewModel.checkIsDisabled()),
+                                    title: viewModel.pageState.buttonStringValue
+                                ) {
+                                    viewModel.goToNextPage(
+                                        router: self.router
+                                    )
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
                     }
                 }
+                .padding(.top, viewModel.pageState == .pageQuestion ? 31 : 100)
+                .padding(.bottom, (UIScreen.main.bounds.width < 385) ? 30 : 54)
+                .padding(.horizontal, 20)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .padding(.top, (viewModel.pageState == .pageQuestion) ? 74 : 140)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 54)
+            .padding(.top, (UIScreen.main.bounds.width < 385 ? 0 : 40))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
