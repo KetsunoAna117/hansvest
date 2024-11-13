@@ -9,6 +9,7 @@ import Foundation
 
 class RiskProfileViewModel: ObservableObject {
     @Inject var calculateUserRiskProfile: CalculateUserRiskProfile
+    @Inject var saveUserData: SaveUserData
     
     let progressBarMinValue: Int
     let progressBarMaxValue: Int
@@ -48,8 +49,17 @@ class RiskProfileViewModel: ObservableObject {
                 changePageState()
             }
         } else {
+            doSaveUserData()
             router.startScreen = .main
             router.popToRoot()
+        }
+    }
+    
+    func doSaveUserData() {
+        do {
+            try saveUserData.execute()
+        } catch {
+            debugPrint("Error creating new user:", error)
         }
     }
     
