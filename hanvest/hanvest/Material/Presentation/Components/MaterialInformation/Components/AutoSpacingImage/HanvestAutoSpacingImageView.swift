@@ -13,18 +13,15 @@ struct HanvestAutoSpacingImageView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            if images.count == 1 {
-                images.first
-            } else {
-                ForEach(0..<images.count, id: \.self) { index in
-                    images[index]
-                        .resizable()
-                        .scaledToFit()
-                }
+            ForEach(0..<images.count, id: \.self) { index in
+                images[index]
+                    .resizable()
+                    .scaledToFit()
             }
         }
         .frame(maxWidth: .infinity)
     }
+    
 }
 
 #Preview {

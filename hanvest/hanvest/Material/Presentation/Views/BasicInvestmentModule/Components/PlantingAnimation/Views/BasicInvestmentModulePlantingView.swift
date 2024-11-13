@@ -37,7 +37,7 @@ struct BasicInvestmentModulePlantingView: View {
                         .transition(.opacity)
                         .id(viewModel.growthProgress)
                 }
-                .padding(.top, (UIScreen.main.bounds.width < 385) ? 100 : 140)
+                .padding(.top, (UIScreen.main.bounds.width < 385) ? 76 : 140)
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 

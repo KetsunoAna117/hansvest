@@ -7,34 +7,35 @@
 
 import SwiftUI
 
-struct RiskAndReturnModuleBulletPointList: View {
+struct HanvestPointListView: View {
     // Constants
-    let bulletPoints: [String]
+    let pointListContents: [String]
+    let pointListStyle: HanvestPointListStyle
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ForEach(bulletPoints, id: \.self) { bulletPoint in
+            ForEach(Array(pointListContents.enumerated()), id: \.offset) { index, content in
                 HStack(alignment: .top) {
-                    Text("•")
-                        .font(.nunito(.callout, .bold))
+                    Text((pointListStyle == .bulleted) ? "•" : "\(index + 1).")
                     
-                    Text(bulletPoint)
-                        .font(.nunito(.callout))
+                    Text(content)
                 }
+                .font(.nunito(.body))
             }
         }
     }
 }
 
 #Preview {
-    @Previewable let bulletPoints = [
+    @Previewable let pointListContents = [
         "Understanding assets (anything of value), liabilities (debts), income, and expenses is key to managing personal finances. Assets generate income streams, while liabilities represent financial obligations. A personal balance sheet helps individuals clearly monitor their financial position, showing the difference between what they own (assets) and what they owe (liabilities).",
         "Understanding assets (anything of value), liabilities (debts), income, and expenses is key to managing personal finances. Assets generate income streams, while liabilities represent financial obligations. A personal balance sheet helps individuals clearly monitor their financial position, showing the difference between what they own (assets) and what they owe (liabilities).",
         "Understanding assets (anything of value), liabilities (debts), income, and expenses is key to managing personal finances. Assets generate income streams, while liabilities represent financial obligations. A personal balance sheet helps individuals clearly monitor their financial position, showing the difference between what they own (assets) and what they owe (liabilities).",
         "Understanding assets (anything of value), liabilities (debts), income, and expenses is key to managing personal finances. Assets generate income streams, while liabilities represent financial obligations. A personal balance sheet helps individuals clearly monitor their financial position, showing the difference between what they own (assets) and what they owe (liabilities)."
     ]
     
-    RiskAndReturnModuleBulletPointList(
-        bulletPoints: bulletPoints
+    HanvestPointListView(
+        pointListContents: pointListContents,
+        pointListStyle: .bulleted
     )
 }

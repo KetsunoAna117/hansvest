@@ -18,7 +18,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
             Color.background
             
             ZStack {
-                VStack(spacing: 49) {
+                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 25 : 49) {
                     ProgressBarWithXMarkView(
                         progressBarMinValue: viewModel.progressBarMinValue,
                         progressBarMaxValue: viewModel.progressBarMaxValue,
@@ -28,7 +28,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                         progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
                     
-                    VStack(spacing: 48) {
+                    VStack(spacing: (UIScreen.main.bounds.width < 385) ? 24 : 48) {
                         TabView(selection: $viewModel.currentTab) {
                             
                             ForEach(Array(LiabilitiesVsAssetModuleTextImagePageContent.allCases.enumerated()), id: \.offset) { index, page in
@@ -116,7 +116,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                 }
             }
             .padding(.top, (UIScreen.main.bounds.width < 385) ? 31 : 71)
-            .padding(.bottom, 54)
+            .padding(.bottom, (UIScreen.main.bounds.width < 385) ? 30 : 54)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
