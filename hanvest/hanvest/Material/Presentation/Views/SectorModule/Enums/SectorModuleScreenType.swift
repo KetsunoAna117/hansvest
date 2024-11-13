@@ -8,6 +8,6 @@
 import Foundation
 
 enum SectorModuleScreenType {
-    case information
-    case multipleChoice
+    case information(data: SectorModuleEvaluationEntity)
+    case multipleChoice(data: SectorModuleInformationEntity)
 }

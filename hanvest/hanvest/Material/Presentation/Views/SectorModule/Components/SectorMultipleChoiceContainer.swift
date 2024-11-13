@@ -22,14 +22,13 @@ struct SectorMultipleChoiceContainer: View {
             VStack(spacing: 24) {
                 ForEach(data.choices, id: \.self) { choice in
                     HanvestButtonDefault(
-                        style: selectedButtonID == choice ?
-                            .filled(isDisabled: false) :
-                                .bordered(isDisabled: false),
+                        style: getButtonStyle(id: choice),
                         title: choice,
                         action: {
                             self.selectedButtonID = choice
                         }
                     )
+                    .disabled(userPressSubmitButton)
                 }
             }
             .padding(.horizontal, 16)
@@ -37,7 +36,7 @@ struct SectorMultipleChoiceContainer: View {
             Spacer()
             
             if userPressSubmitButton {
-                if selectedButtonID == data.choices[data.correctAnswerIdx] && selectedButtonID.isEmpty == false {
+                if validateChoice() == true && selectedButtonID.isEmpty == false {
                     HanvestConfirmationFeedbackView(
                         state: .correct,
                         action: {
@@ -45,7 +44,7 @@ struct SectorMultipleChoiceContainer: View {
                         }
                     )
                 }
-                else if selectedButtonID != data.choices[data.correctAnswerIdx] && selectedButtonID.isEmpty == false {
+                else if validateChoice() == false && selectedButtonID.isEmpty == false {
                     HanvestConfirmationFeedbackView(
                         state: .incorrect,
                         action: {
@@ -71,6 +70,30 @@ struct SectorMultipleChoiceContainer: View {
 
         }
         .frame(maxHeight: .infinity, alignment: .top)
+    }
+    
+    func getButtonStyle(id: String) -> HanvestButtonStyle {
+        if userPressSubmitButton {
+            // If the button is correct and is selected
+            if id == data.choices[data.correctAnswerIdx] {
+                return .filledCorrect(isDisabled: false)
+            }
+            // If the button is incorrect and is selected
+            else if id != data.choices[data.correctAnswerIdx]
+                && selectedButtonID == id {
+                return .filledIncorrect(isDisabled: false)
+            }
+            return .bordered(isDisabled: false)
+        }
+        
+        if selectedButtonID == id {
+            return .filled(isDisabled: false)
+        }
+        return .bordered(isDisabled: false)
+    }
+    
+    func validateChoice() -> Bool {
+        return selectedButtonID == data.choices[data.correctAnswerIdx]
     }
 }
 
