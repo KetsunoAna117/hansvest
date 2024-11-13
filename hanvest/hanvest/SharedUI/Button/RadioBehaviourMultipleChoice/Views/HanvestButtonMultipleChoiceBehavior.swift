@@ -25,7 +25,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     // Button content
     var id: String = UUID().uuidString
     var title: String
-    var action: () -> Void
+    var action: (() -> Void)? = nil
     
     var body: some View {
         ZStack(alignment: iconPosition.alignment) {
@@ -117,7 +117,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 self.style = .selected
             }
             
-            action()
+            action?()
         }
     }
     
