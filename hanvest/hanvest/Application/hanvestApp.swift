@@ -19,7 +19,6 @@ struct hanvestApp: App {
     var body: some Scene {
         WindowGroup {
             @Inject var getUserData: GetUserData
-            @Inject var saveUserData: SaveUserData
             
             NavigationStack(path: $appRouter.path) {
                 if let startScreen = appRouter.startScreen {
@@ -32,17 +31,12 @@ struct hanvestApp: App {
                     Text("Loading...")
                 }
             }
+            .preferredColorScheme(.light)
             .onAppear {
                 let getUserData = getUserData.execute()
                 
                 switch getUserData {
                     case nil:
-                        do {
-                            try saveUserData.execute()
-                        } catch {
-                            debugPrint("Error creating new user:", error)
-                        }
-                    
                         appRouter.startScreen = .onboarding
                     default:
                         appRouter.startScreen = .main
