@@ -13,4 +13,5 @@ struct ReusableModuleInformationEntity: HanvestModuleContent {
     var title: String
     var image: Image?
     var content: String
+    var pointList: [String]?
 }

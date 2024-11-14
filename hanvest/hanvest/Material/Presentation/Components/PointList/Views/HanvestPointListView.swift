@@ -10,7 +10,8 @@ import SwiftUI
 struct HanvestPointListView: View {
     // Constants
     let pointListContents: [String]
-    let pointListStyle: HanvestPointListStyle
+    
+    var pointListStyle: HanvestPointListStyle = .bulleted
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

@@ -93,7 +93,7 @@ class ReusableContentViewModels: ObservableObject {
         // If user has viewed other choice, go to the completion
         @Inject var validateIfUserComplete: ValidateIfUserHasCompletedTheModule
         
-        if let userComplete = try? validateIfUserComplete.execute(specificModule: .module07){
+        if let userComplete = try? validateIfUserComplete.execute(specificModule: completionEntityType){
             if userComplete {
                 appRouter.popToRoot()
             }
