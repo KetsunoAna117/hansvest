@@ -14,7 +14,7 @@ enum BasicInvestmentPositionOffset {
     var offset: CGPoint {
         switch self {
             case .plant: return CGPoint(x: 10, y: 255)
-            case .flowerAndApple: return CGPoint(x: 0, y: 255)
+            case .flowerAndApple: return CGPoint(x: 90, y: 205) //x naik maka makin kekiri, y naik malah makin naik
         }
     }
 }

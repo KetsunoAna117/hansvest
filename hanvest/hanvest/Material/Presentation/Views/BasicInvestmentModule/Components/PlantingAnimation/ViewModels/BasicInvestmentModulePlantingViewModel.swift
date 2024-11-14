@@ -16,7 +16,7 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
     @Published var growthTimer: AnyCancellable?
     
     init() {
-        self.growthProgress = .progress01
+        self.growthProgress = .progress08
         self.highlightWaterCanPosition = .zero
         self.soilPosition = .zero
         self.setupSpriteScene()
