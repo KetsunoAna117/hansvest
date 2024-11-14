@@ -27,6 +27,7 @@ struct BasicInvestmentModulePlantingView: View {
                                 viewModel.startGrowthTimer()
                             }
                         }
+                        .disabled(highlightViewModel.stage.isEmpty)
                 }
                 
                 ZStack {
@@ -45,7 +46,7 @@ struct BasicInvestmentModulePlantingView: View {
                     BasicInvestmentModulePlantVisibilityView(growthProgress: $viewModel.growthProgress)
                         .position(
                             viewModel.adjustPositionFromSpriteKitToSwiftUI(
-                                adjustPositionBy: BasicInvestmentPositionOffset.plant.offset
+                                adjustPositionBy: (viewModel.growthProgress == .progress13) ? BasicInvestmentPositionOffset.appleBasket.offset : BasicInvestmentPositionOffset.plant.offset
                             )
                         )
                     

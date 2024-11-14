@@ -18,12 +18,9 @@ struct BasicInvestmentModulePlantFlowerBloomView: View {
             ForEach(viewModel.visibleFlowers.indices, id: \.self) { index in
                 ZStack {
                     viewModel.displayedImages[index].image
-                        
-//                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.bottom, viewModel.displayedImages[index].bottomPadding)
                 .padding(.leading, viewModel.displayedImages[index].leadingPadding)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
         }
         .ignoresSafeArea()

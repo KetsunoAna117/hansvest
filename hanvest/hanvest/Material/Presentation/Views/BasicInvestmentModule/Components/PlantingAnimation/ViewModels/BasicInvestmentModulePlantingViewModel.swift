@@ -16,7 +16,7 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
     @Published var growthTimer: AnyCancellable?
     
     init() {
-        self.growthProgress = .progress08
+        self.growthProgress = .progress01
         self.highlightWaterCanPosition = .zero
         self.soilPosition = .zero
         self.setupSpriteScene()
@@ -48,6 +48,10 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
             }
     }
     
+    func stopGrowthTimer() {
+        self.growthTimer?.cancel()
+    }
+    
     func handleGrowthTimerEvent() {
         if (checkForPauseGrowthProgress()) {
             getNextGrowthProgress()
@@ -66,14 +70,6 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
                 }
             }
         }
-    }
-    
-    func stopGrowthTimer() {
-        self.growthTimer?.cancel()
-    }
-    
-    func resumeGrowthTimer() {
-        startGrowthTimer()
     }
     
     func checkForPauseGrowthProgress() -> Bool {
