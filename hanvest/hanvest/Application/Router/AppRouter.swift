@@ -231,6 +231,19 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 SearchView(router: self, glossaryViewModel: glossaryViewModel)
             }
             .navigationBarBackButtonHidden()
+            
+        case .reusableMaterialModule(let materialViewModel):
+            ZStack {
+                Color.background.ignoresSafeArea()
+                ReusableModuleMainScreenView(
+                    appRouter: self,
+                    viewModel: materialViewModel
+                )
+            }
+            .navigationBarBackButtonHidden()
+            .onAppear(){
+                self.setNotificationPermission(false)
+            }
         }
     }
     

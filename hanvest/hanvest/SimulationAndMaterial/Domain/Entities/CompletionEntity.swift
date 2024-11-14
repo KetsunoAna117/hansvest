@@ -22,6 +22,7 @@ enum CompletionEntityType: String, Codable, CaseIterable {
     case module04
     case module05
     case module06
+    case module07
     
     var value: CompletionEntity {
         switch self {
@@ -71,6 +72,14 @@ enum CompletionEntityType: String, Codable, CaseIterable {
                 badgeName: "Investor-II",
                 badgeImageName: "badge-module-06",
                 achievedAfterCompleting: "Module 6",
+                bonusMoney: 1000000
+            )
+        case .module07:
+            return CompletionEntity(
+                moduleID: "module07",
+                badgeName: "Sector",
+                badgeImageName: "badge-module-07",
+                achievedAfterCompleting: "Module 07",
                 bonusMoney: 1000000
             )
         }
