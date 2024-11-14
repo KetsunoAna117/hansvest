@@ -8,8 +8,71 @@
 import Foundation
 import SwiftUI
 
-class SectorContentViewModels: ObservableObject {
-    @Published var content: [any HanvestModuleContent] = []
+class ReusableContentViewModels: ObservableObject {
+    @Published var content: [any HanvestModuleContent]
+    @Published var completionEntityType: CompletionEntityType
+    
+    init(
+        content: [any HanvestModuleContent],
+        completionEntityType: CompletionEntityType
+    ){
+        self.content = content
+        self.completionEntityType = completionEntityType
+    }
+    
+    func next(moduleRouter: any ReusableModuleRouterProtocol){
+        guard moduleRouter.progress < content.count - 1 else {
+            // Use App Router to end
+            debugPrint("End of file")
+            return
+        }
+        
+        moduleRouter.addProgress() // Add Progress
+        
+        let nextContent = content[moduleRouter.progress]
+        executeContent(content: nextContent, moduleRouter: moduleRouter)
+        
+    }
+    
+    func setup(moduleRouter: any ReusableModuleRouterProtocol){
+        guard let content = self.content.first else {
+            debugPrint("ERROR: No Content detected!")
+            return
+        }
+        
+        executeContent(content: content, moduleRouter: moduleRouter)
+    }
+    
+    func executeContent(
+        content: any HanvestModuleContent,
+        moduleRouter: any ReusableModuleRouterProtocol
+    ) {
+        switch content {
+        case let content as ReusableModuleInformationEntity:
+            moduleRouter.push(
+                .information(
+                    data: content,
+                    onContinueAction: {
+                        self.next(moduleRouter: moduleRouter)
+                    }
+                )
+            )
+            
+        case let content as ReusableModuleEvaluationEntity:
+            moduleRouter.push(
+                .multipleChoice(
+                    data: content,
+                    onContinueAction: {
+                        self.next(moduleRouter: moduleRouter)
+                    }
+                )
+            )
+            
+        default:
+            debugPrint("ERROR: Can't Type Cast")
+            break
+        }
+    }
     
     func onModuleCompletion(
         appRouter: any AppRouterProtocol
@@ -23,7 +86,7 @@ class SectorContentViewModels: ObservableObject {
             }
             else {
                 appRouter.push(
-                    .moduleCompletion(completionItem: .module07)
+                    .moduleCompletion(completionItem: completionEntityType)
                 )
             }
         }
@@ -33,10 +96,10 @@ class SectorContentViewModels: ObservableObject {
     }
 }
 
-extension SectorContentViewModels {
-    func getContent() -> [any HanvestModuleContent] {
+extension ReusableContentViewModels {
+    static func getContent() -> [any HanvestModuleContent] {
         return [
-            SectorModuleInformationEntity(
+            ReusableModuleInformationEntity(
                 id: "sector-1",
                 title: "What's a Stock Sector",
                 image: Image(._12StockSector),
@@ -47,7 +110,7 @@ extension SectorContentViewModels {
                     Each sector has its own index that tracks the performance of companies within that sector, providing insight into sector-specific trends. For instance, the financial sector index may respond differently to economic events compared to the consumer goods index, allowing for targeted sector investments. Platforms like TradingView and Indonesia Investments provide real-time data and sectoral performance analysis to support investors in making informed decisions on the IDX.
                 """
             ),
-            SectorModuleEvaluationEntity(
+            ReusableModuleEvaluationEntity(
                 id: "sector-2",
                 question: "Which sector on the Indonesia Stock Exchange (IDX) includes banks and insurance firms, often sensitive to interest rate changes?",
                 choices: [
@@ -58,7 +121,7 @@ extension SectorContentViewModels {
                 ],
                 correctAnswerIdx: 2
             ),
-            SectorModuleInformationEntity(
+            ReusableModuleInformationEntity(
                 id: "sector-3",
                 title: "Explanation",
                 image: Image(._12StockSector),
@@ -66,7 +129,7 @@ extension SectorContentViewModels {
                     The Financials sector on the IDX includes companies like banks and insurance firms. This sector is particularly sensitive to interest rate changes and broader economic conditions. For instance, when interest rates rise, it can impact loan demand and profitability for banks, while lower rates might encourage more borrowing and spending
                 """
             ),
-            SectorModuleEvaluationEntity(
+            ReusableModuleEvaluationEntity(
                 id: "sector-4",
                 question: "What sector is most likely to be influenced by consumer demand and economic stability, encompassing products like food and beverages?",
                 choices: [
@@ -77,7 +140,7 @@ extension SectorContentViewModels {
                 ],
                 correctAnswerIdx: 1
             ),
-            SectorModuleInformationEntity(
+            ReusableModuleInformationEntity(
                 id: "sector-4",
                 title: "Explanation",
                 image: Image(._12StockSector),
@@ -85,7 +148,7 @@ extension SectorContentViewModels {
                     The Consumer Goods sector is influenced heavily by consumer spending and economic stability. This sector includes companies that produce everyday items such as food, beverages, and personal care products, which tend to see steady demand. However, during economic downturns, consumers may reduce spending, impacting this sector’s performance​
                 """
             ),
-            SectorModuleEvaluationEntity(
+            ReusableModuleEvaluationEntity(
                 id: "sector-5",
                 question: "Which of the following is a primary factor affecting the performance of the Infrastructure sector on the IDX?",
                 choices: [
@@ -96,7 +159,7 @@ extension SectorContentViewModels {
                 ],
                 correctAnswerIdx: 4
             ),
-            SectorModuleInformationEntity(
+            ReusableModuleInformationEntity(
                 id: "sector-6",
                 title: "Explanation",
                 image: Image(._12StockSector),
@@ -104,7 +167,7 @@ extension SectorContentViewModels {
                     The Infrastructure sector on the IDX, which includes utilities and construction companies, is largely driven by government investments in public works and urbanization projects. This spending can fuel demand for infrastructure and utilities, leading to growth in this sector. Economic policies and urban expansion directly impact the performance of these stocks​
                 """
             ),
-            SectorModuleEvaluationEntity(
+            ReusableModuleEvaluationEntity(
                 id: "sector-7",
                 question: "What is one benefit of the IDX sector-based classification system for investors?",
                 choices: [
@@ -115,7 +178,7 @@ extension SectorContentViewModels {
                 ],
                 correctAnswerIdx: 4
             ),
-            SectorModuleInformationEntity(
+            ReusableModuleInformationEntity(
                 id: "sector-8",
                 title: "Explanation",
                 image: Image(._12StockSector),
@@ -123,7 +186,7 @@ extension SectorContentViewModels {
                     The IDX sector-based classification helps investors by grouping companies with similar business activities. This allows for targeted analysis and performance comparisons, enabling investors to make more informed decisions about which sectors or individual stocks to invest in, based on specific economic trends or forecasts
                 """
             ),
-            SectorModuleEvaluationEntity(
+            ReusableModuleEvaluationEntity(
                 id: "sector-9",
                 question: "What is one benefit of the IDX sector-based classification system for investors?",
                 choices: [
@@ -134,7 +197,7 @@ extension SectorContentViewModels {
                 ],
                 correctAnswerIdx: 3
             ),
-            SectorModuleInformationEntity(
+            ReusableModuleInformationEntity(
                 id: "sector-10",
                 title: "Explanation",
                 image: Image(._12StockSector),

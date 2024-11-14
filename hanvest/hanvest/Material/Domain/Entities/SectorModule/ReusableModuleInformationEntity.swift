@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SectorModuleInformationEntity: HanvestModuleContent {
+struct ReusableModuleInformationEntity: HanvestModuleContent {
     var id: String
     
     var title: String

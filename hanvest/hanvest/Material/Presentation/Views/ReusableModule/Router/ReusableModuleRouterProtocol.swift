@@ -7,10 +7,11 @@
 
 import Foundation
 
-protocol SectorModuleRouterProtocol {
-    var content: [SectorModuleScreenType] { get set }
+protocol ReusableModuleRouterProtocol {
+    var content: [ReusableModuleScreenType] { get set }
     var progress: Int { get set }
     
-    func push(_ content: SectorModuleScreenType)
+    func push(_ content: ReusableModuleScreenType)
     func pop()
+    func addProgress()
 }

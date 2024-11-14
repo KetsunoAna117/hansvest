@@ -1,5 +1,5 @@
 //
-//  SectorModuleEvaluationEntity.swift
+//  ReusableModuleEvaluationEntity.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 13/11/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SectorModuleEvaluationEntity: HanvestModuleContent {
+struct ReusableModuleEvaluationEntity: HanvestModuleContent {
     var id: String
     
     var question: String

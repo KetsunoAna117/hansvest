@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct SectorMultipleChoiceContainer: View {
-    var data: SectorModuleEvaluationEntity
+struct ReusableMultipleChoiceContainer: View {
+    var data: ReusableModuleEvaluationEntity
     var onContinueButtonAction: () -> Void
     
     @State private var selectedButtonID: String = ""
@@ -40,6 +40,7 @@ struct SectorMultipleChoiceContainer: View {
                     HanvestConfirmationFeedbackView(
                         state: .correct,
                         action: {
+                            resetData()
                             onContinueButtonAction()
                         }
                     )
@@ -48,6 +49,7 @@ struct SectorMultipleChoiceContainer: View {
                     HanvestConfirmationFeedbackView(
                         state: .incorrect,
                         action: {
+                            resetData()
                             onContinueButtonAction()
                         }
                     )
@@ -106,10 +108,15 @@ struct SectorMultipleChoiceContainer: View {
         }
         return selectedButtonID == data.choices[idx]
     }
+    
+    func resetData(){
+        selectedButtonID = ""
+        userPressSubmitButton = false
+    }
 }
 
 #Preview {
-    SectorMultipleChoiceContainer(
+    ReusableMultipleChoiceContainer(
         data: .init(
             id: "1",
             question: "Which sector on the Indonesia Stock Exchange (IDX) includes banks and insurance firms, often sensitive to interest rate changes?",

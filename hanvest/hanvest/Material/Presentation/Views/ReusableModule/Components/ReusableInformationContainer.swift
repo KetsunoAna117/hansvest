@@ -1,5 +1,5 @@
 //
-//  SectorInformationContainer.swift
+//  ReusableInformationContainer.swift
 //  hanvest
 //
 //  Created by Hans Arthur Cupiterson on 13/11/24.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct SectorInformationContainer: View {
-    var data: SectorModuleInformationEntity
+struct ReusableInformationContainer: View {
+    var data: ReusableModuleInformationEntity
     var buttonLabel: String = "Continue"
     var onContinueButtonAction: () -> Void
     
@@ -45,7 +45,7 @@ struct SectorInformationContainer: View {
 }
 
 #Preview {
-    SectorInformationContainer(
+    ReusableInformationContainer(
         data: .init(
             id: "1",
             title: "What's a Stock Sector",
