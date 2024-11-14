@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReusableModuleMainScreenView: View {
-//    let appRouter: any AppRouterProtocol
+    let appRouter: any AppRouterProtocol
     let viewModel: ReusableContentViewModels
     @StateObject private var moduleRouter: ReusableModuleRouter = .init()
     
@@ -20,7 +20,7 @@ struct ReusableModuleMainScreenView: View {
                     progressBarMinValue: 0,
                     progressBarMaxValue: viewModel.content.count - 1,
                     action: {
-                        // Use App Router to go back
+                        appRouter.popToRoot()
                     },
                     progressBarCurrValue: $moduleRouter.progress
                 )
@@ -33,18 +33,21 @@ struct ReusableModuleMainScreenView: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .onAppear() {
-                viewModel.setup(moduleRouter: moduleRouter)
+                viewModel.setup(
+                    appRouter: appRouter,
+                    moduleRouter: moduleRouter
+                )
             }
         }
     }
 }
 
-#Preview {
-    let viewModel : ReusableContentViewModels = .init(
-        content: ReusableContentViewModels.getContent(),
-        completionEntityType: .module07
-    )
-    ReusableModuleMainScreenView(
-        viewModel: viewModel
-    )
-}
+//#Preview {
+//    let viewModel : ReusableContentViewModels = .init(
+//        content: ReusableContentViewModels.getContent(),
+//        completionEntityType: .module07
+//    )
+//    ReusableModuleMainScreenView(
+//        viewModel: viewModel
+//    )
+//}

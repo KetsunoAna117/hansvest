@@ -91,6 +91,21 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                         """
                 ),
                 completionEntity: .module06
+            ),
+            ModuleNavigatiorEntity(
+                moduleID: "module07",
+                moduleScreenID: .reusableMaterialModule(
+                    material: .init(
+                        content: SectorModuleViewModel.getContent(),
+                        completionEntityType: .module07
+                    )
+                ),
+                state: .next,
+                popup: .init(
+                    title: "Sector",
+                    desc: "Let’s Learn About Stock Sectors: Imagine a Neighborhood of Businesses!"
+                ),
+                completionEntity: .module07
             )
         ]
     }
