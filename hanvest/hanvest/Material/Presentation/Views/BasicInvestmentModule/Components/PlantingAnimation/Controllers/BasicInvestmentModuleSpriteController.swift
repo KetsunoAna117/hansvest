@@ -20,9 +20,12 @@ class BasicInvestmentModuleSpriteController: SKScene, SKPhysicsContactDelegate {
     private var waterDropletSpawnRate : TimeInterval
     private var spriteContactCounter: Int
     @Binding var growthProgress: BasicInvestmentModulePlantGrowthProgress
-    @Binding var waterCanPosition: CGPoint
+
+    // Send Position When Spawned To Parent View
+    var onWaterCanPositionDetermined: ((CGPoint) -> Void)?
+    var onSoilPositionDetermined: ((CGPoint) -> Void)?
     
-    init(size: CGSize, growthProgress: Binding<BasicInvestmentModulePlantGrowthProgress>, waterCanPosition: Binding<CGPoint>) {
+    init(size: CGSize, growthProgress: Binding<BasicInvestmentModulePlantGrowthProgress>, onWaterCanPositionDetermined: ((CGPoint) -> Void)?, onSoilPositionDetermined: ((CGPoint) -> Void)?) {
         self.soil = BasicInvestmentModuleSoilSprite()
         self.waterCan = BasicInvestmentModuleWaterCanSprite()
         self.draggingBehavior = .isNotDragging
@@ -31,7 +34,8 @@ class BasicInvestmentModuleSpriteController: SKScene, SKPhysicsContactDelegate {
         self.waterDropletSpawnRate = 0.01
         self.spriteContactCounter = 0
         self._growthProgress = growthProgress
-        self._waterCanPosition = waterCanPosition
+        self.onWaterCanPositionDetermined = onWaterCanPositionDetermined
+        self.onSoilPositionDetermined = onSoilPositionDetermined
         
         super.init(size: size)
     }
@@ -45,6 +49,7 @@ class BasicInvestmentModuleSpriteController: SKScene, SKPhysicsContactDelegate {
         self.size = view.frame.size
         self.physicsWorld.contactDelegate = self
         self.addChild(soil)
+        self.getSpriteNodePositionFromParent(node: soil, onCompletion: onSoilPositionDetermined)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -144,8 +149,7 @@ class BasicInvestmentModuleSpriteController: SKScene, SKPhysicsContactDelegate {
                 waterCan.alpha = 0
 
                 self.addChild(waterCan)
-                
-                self.getParentWaterCanPosition()
+                self.getSpriteNodePositionFromParent(node: waterCan, onCompletion: onWaterCanPositionDetermined)
 
                 let fadeIn = SKAction.fadeIn(withDuration: 0.25)
                 let scaleUp = SKAction.scale(to: 1.0, duration: 0.25)
@@ -160,9 +164,9 @@ class BasicInvestmentModuleSpriteController: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    private func getParentWaterCanPosition() {
-        if let parent = waterCan.parent, let scene = waterCan.scene {
-            self.waterCanPosition = scene.convert(waterCan.position, from: parent)
+    private func getSpriteNodePositionFromParent(node: SKNode, onCompletion: ((CGPoint) -> Void)? = nil) {
+        if let parent = node.parent, let scene = node.scene {
+            onCompletion?(scene.convert(node.position, from: parent))
         }
     }
     
