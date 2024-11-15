@@ -5,7 +5,6 @@
 //  Created by Hans Arthur Cupiterson on 14/11/24.
 //
 
-import Foundation
 import SwiftUI
 
 class SectorModuleViewModel: ReusableContentViewModels {
@@ -53,7 +52,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 correctAnswerIdx: 1
             ),
             ReusableModuleInformationEntity(
-                id: "sector-4",
+                id: "sector-5",
                 title: "Explanation",
                 image: Image(._12StockSector),
                 content: """
@@ -61,7 +60,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 """
             ),
             ReusableModuleEvaluationEntity(
-                id: "sector-5",
+                id: "sector-6",
                 question: "Which of the following is a primary factor affecting the performance of the Infrastructure sector on the IDX?",
                 choices: [
                     "Technology Advancements",
@@ -72,7 +71,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 correctAnswerIdx: 4
             ),
             ReusableModuleInformationEntity(
-                id: "sector-6",
+                id: "sector-7",
                 title: "Explanation",
                 image: Image(._12StockSector),
                 content: """
@@ -80,7 +79,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 """
             ),
             ReusableModuleEvaluationEntity(
-                id: "sector-7",
+                id: "sector-8",
                 question: "What is one benefit of the IDX sector-based classification system for investors?",
                 choices: [
                     "It limits trading hours based on sector.",
@@ -91,7 +90,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 correctAnswerIdx: 4
             ),
             ReusableModuleInformationEntity(
-                id: "sector-8",
+                id: "sector-9",
                 title: "Explanation",
                 image: Image(._12StockSector),
                 content: """
@@ -99,7 +98,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 """
             ),
             ReusableModuleEvaluationEntity(
-                id: "sector-9",
+                id: "sector-10",
                 question: "What is one benefit of the IDX sector-based classification system for investors?",
                 choices: [
                     "Energy",
@@ -110,7 +109,7 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 correctAnswerIdx: 3
             ),
             ReusableModuleInformationEntity(
-                id: "sector-10",
+                id: "sector-11",
                 title: "Explanation",
                 image: Image(._12StockSector),
                 content: """

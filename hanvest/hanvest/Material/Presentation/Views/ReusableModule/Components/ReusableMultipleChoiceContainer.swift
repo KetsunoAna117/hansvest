@@ -15,11 +15,12 @@ struct ReusableMultipleChoiceContainer: View {
     @State private var userPressSubmitButton: Bool = false
     
     var body: some View {
-        VStack(spacing: 24) {
-            Text(data.question)
-                .font(.nunito(.title2, .regular))
-                .multilineTextAlignment(.center)
+        VStack(spacing: 48) {
             VStack(spacing: 24) {
+                Text(data.question)
+                    .font(.nunito(.title2, .regular))
+                    .multilineTextAlignment(.center)
+                
                 ForEach(data.choices, id: \.self) { choice in
                     HanvestButtonDefault(
                         style: getButtonStyle(id: choice),
@@ -31,9 +32,8 @@ struct ReusableMultipleChoiceContainer: View {
                     .disabled(userPressSubmitButton)
                 }
             }
-            .padding(.horizontal, 16)
-            
-            Spacer()
+            .padding(.horizontal, 20)
+            .frame(maxHeight: .infinity, alignment: .top)
             
             if userPressSubmitButton {
                 if validateChoice() == true && selectedButtonID.isEmpty == false {
@@ -56,22 +56,21 @@ struct ReusableMultipleChoiceContainer: View {
                 }
             }
             else {
-                VStack {
-                    HanvestButtonDefault(
-                        style: .filled(
-                            isDisabled: selectedButtonID.isEmpty
-                        ),
-                        title: "Continue",
-                        action: {
-                            self.userPressSubmitButton = true
-                        }
-                    )
-                }
+                HanvestButtonDefault(
+                    style: .filled(
+                        isDisabled: selectedButtonID.isEmpty
+                    ),
+                    title: "Continue",
+                    action: {
+                        self.userPressSubmitButton = true
+                    }
+                )
+                .padding(.horizontal, 20)
                 .padding(.bottom, 54)
             }
-
+            
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+        .frame(maxHeight: .infinity, alignment: .bottom)
     }
     
     func getButtonStyle(id: String) -> HanvestButtonStyle {
@@ -88,7 +87,7 @@ struct ReusableMultipleChoiceContainer: View {
             }
             // If the button is incorrect and is selected
             else if id != data.choices[idx]
-                && selectedButtonID == id {
+                        && selectedButtonID == id {
                 return .filledIncorrect(isDisabled: false)
             }
             return .bordered(isDisabled: false)

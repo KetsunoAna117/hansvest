@@ -13,22 +13,30 @@ struct ReusableInformationContainer: View {
     var onContinueButtonAction: () -> Void
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack(spacing: 40) {
-                    Text(data.title)
-                        .font(.nunito(.title2, .bold))
-                    
-                    if let image = data.image {
-                        image.resizable().frame(width: 270, height: 212)
-                    }
-                    
+        VStack(spacing: 48) {
+            VStack(spacing: 24) {
+                Text(data.title)
+                    .font(.nunito(.title2, .bold))
+                
+                if let image = data.image {
+                    image.resizable().frame(width: 270, height: 212)
+                }
+                
+                ScrollView {
                     Text(data.content)
                         .font(.nunito(.body))
                         .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if let pointLists = data.pointList {
+                        HanvestPointListView(
+                            pointListContents: pointLists
+                        )
+                    }
                 }
+                .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
             }
-            .padding(.horizontal, 16)
+            .frame(maxHeight: .infinity, alignment: .top)
             
             HanvestButtonDefault(
                 title: buttonLabel,
@@ -36,11 +44,11 @@ struct ReusableInformationContainer: View {
                     onContinueButtonAction()
                 }
             )
-            .padding(.top, 16)
             .padding(.bottom, 54)
-            
+
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+        .padding(.horizontal, 20)
+        .frame(maxHeight: .infinity, alignment: .bottom)
     }
 }
 
@@ -52,7 +60,7 @@ struct ReusableInformationContainer: View {
             image: Image(._12StockSector),
             content: """
                 The Indonesia Stock Exchange (IDX) offers a sector-based classification system, which organizes companies into industry sectors to facilitate investment analysis. These sectors include financials, consumer goods, infrastructure, energy, healthcare, and more, each further divided into subsectors. The system allows investors to analyze trends within specific sectors and compare companies against their industry peers
-
+            
                 Each sector has its own index that tracks the performance of companies within that sector, providing insight into sector-specific trends. For instance, the financial sector index may respond differently to economic events compared to the consumer goods index, allowing for targeted sector investments. Platforms like TradingView and Indonesia Investments provide real-time data and sectoral performance analysis to support investors in making informed decisions on the IDX.
             """
         ),

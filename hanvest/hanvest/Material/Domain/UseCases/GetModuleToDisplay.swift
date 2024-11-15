@@ -106,6 +106,21 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: "Let’s Learn About Stock Sectors: Imagine a Neighborhood of Businesses!"
                 ),
                 completionEntity: .module07
+            ),
+            ModuleNavigatiorEntity(
+                moduleID: "module08",
+                moduleScreenID: .reusableMaterialModule(
+                    material: .init(
+                        content: MacroEconomicsModuleViewModel.getContent(),
+                        completionEntityType: .module08
+                    )
+                ),
+                state: .next,
+                popup: .init(
+                    title: "MacroEconomics",
+                    desc: "The economic cycle is a fluctuating pattern that the economy experiences over time."
+                ),
+                completionEntity: .module08
             )
         ]
     }

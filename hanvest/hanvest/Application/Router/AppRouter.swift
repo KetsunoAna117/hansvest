@@ -241,7 +241,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 )
             }
             .navigationBarBackButtonHidden()
-            .onAppear(){
+            .onAppear {
                 self.setNotificationPermission(false)
             }
         }
