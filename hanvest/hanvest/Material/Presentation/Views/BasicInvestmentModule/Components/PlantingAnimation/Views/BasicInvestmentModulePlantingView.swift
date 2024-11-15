@@ -27,6 +27,7 @@ struct BasicInvestmentModulePlantingView: View {
                                 viewModel.startGrowthTimer()
                             }
                         }
+                        .disabled(highlightViewModel.stage.isEmpty)
                 }
                 
                 ZStack {
@@ -41,16 +42,27 @@ struct BasicInvestmentModulePlantingView: View {
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 
-                BasicInvestmentModulePlantVisibilityView(growthProgress: $viewModel.growthProgress)
-                
-                if viewModel.checkEligibilityPlantFlowerBloom() {
-                    BasicInvestmentModulePlantFlowerBloomView(
-                        growthProgress: $viewModel.growthProgress
-                    ) {
-                        viewModel.getNextGrowthProgress()
-                        
-                        viewModel.checkIfReturnToMainView(
-                            completion: onCompletion
+                if viewModel.soilPosition != .zero {
+                    BasicInvestmentModulePlantVisibilityView(growthProgress: $viewModel.growthProgress)
+                        .position(
+                            viewModel.adjustPositionFromSpriteKitToSwiftUI(
+                                adjustPositionBy: (viewModel.growthProgress == .progress13) ? BasicInvestmentPositionOffset.appleBasket.offset : BasicInvestmentPositionOffset.plant.offset
+                            )
+                        )
+                    
+                    if viewModel.checkEligibilityPlantFlowerBloom() {
+                        BasicInvestmentModulePlantFlowerBloomView(
+                            growthProgress: $viewModel.growthProgress
+                        ) {
+                            viewModel.getNextGrowthProgress()
+                            
+                            viewModel.checkIfReturnToMainView(
+                                completion: onCompletion
+                            )
+                        }
+                        .position(                            viewModel.adjustPositionFromSpriteKitToSwiftUI(
+                                adjustPositionBy: BasicInvestmentPositionOffset.flowerAndApple.offset
+                            )
                         )
                     }
                 }
@@ -65,10 +77,7 @@ struct BasicInvestmentModulePlantingView: View {
                             stage: BasicInvestmentModuleHighlightStage.waterCanStage.stringValue
                         )
                         .position(
-                            CGPoint(
-                                x: viewModel.highlightWaterCanPosition.x,
-                                y: UIScreen.main.bounds.height - viewModel.highlightWaterCanPosition.y
-                            )
+                            viewModel.adjustPositionFromSpriteKitToSwiftUI()
                         )
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.85) {
@@ -79,16 +88,6 @@ struct BasicInvestmentModulePlantingView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
-            .onAppear {
-                let scene = BasicInvestmentModuleSpriteController(
-                    size: UIScreen.main.bounds.size,
-                    growthProgress: $viewModel.growthProgress,
-                    waterCanPosition: $viewModel.highlightWaterCanPosition
-                )
-                
-                scene.scaleMode = .resizeFill
-                viewModel.spriteScene = scene
-            }
         }
     }
     
