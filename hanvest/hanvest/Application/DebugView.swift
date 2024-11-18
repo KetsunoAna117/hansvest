@@ -52,7 +52,7 @@ private struct CustomButtonStyle: ButtonStyle {
                     )
                 
             )
-            .frame(maxWidth: size.minWidth)
+            .frame(maxWidth: size.maxWidth)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(style.borderColor, lineWidth: 0.5)
