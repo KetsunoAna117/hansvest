@@ -47,9 +47,6 @@ struct NewsModuleHeaderView: View {
                         .accessibilityLabel("glossary icon")
                     
                     Image(systemName: "bell")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bellIconTappedAction()
                         }
@@ -70,6 +67,7 @@ struct NewsModuleHeaderView: View {
                             profileIconTappedAction()
                         }
                 }
+                .font(.system(size: 25))
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)

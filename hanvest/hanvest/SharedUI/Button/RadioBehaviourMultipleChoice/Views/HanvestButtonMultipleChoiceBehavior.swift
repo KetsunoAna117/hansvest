@@ -51,7 +51,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                     .accessibilityHidden(true)
             }
         }
-        .frame(maxWidth: size.minWidth)
+        .frame(maxWidth: size.maxWidth)
         .padding(.horizontal, size.horizontalPadding)
         .padding(.vertical, size.verticalPadding)
         .multilineTextAlignment(.center)
