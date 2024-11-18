@@ -36,15 +36,13 @@ struct NewsModuleHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 20) {
-                    Image(systemName: "character.book.closed")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            bookIconTappedAction()
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityLabel("glossary icon")
+//                    Image(systemName: "character.book.closed")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            bookIconTappedAction()
+//                        }
                     
                     Image(systemName: "bell")
                         .onTapGesture {
@@ -59,13 +57,13 @@ struct NewsModuleHeaderView: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel("notification icon")
                     
-                    Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            profileIconTappedAction()
-                        }
+//                    Image(systemName: "person")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            profileIconTappedAction()
+//                        }
                 }
                 .font(.system(size: 25))
             }
