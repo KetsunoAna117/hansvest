@@ -98,6 +98,8 @@ struct CompletionPageView: View {
         .onAppear {
             HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.getBadge)
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(completionItem.value.achievedAfterCompleting) award page")
     }
 }
 

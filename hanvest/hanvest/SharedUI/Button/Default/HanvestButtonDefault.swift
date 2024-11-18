@@ -64,6 +64,8 @@ struct HanvestButtonDefault: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(style.borderColor, lineWidth: 0.5) // Default stroke
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(accessibilityLabelString())
         )
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
@@ -84,8 +86,6 @@ struct HanvestButtonDefault: View {
             setupState()
         }
         .disabled(style.isDisabled)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(title) button")
     }
     
     func getPressedStatus() -> Bool {
@@ -97,6 +97,16 @@ struct HanvestButtonDefault: View {
         self.state = initialState
     }
     
+    private func accessibilityLabelString() -> String {
+        switch style {
+            case .filledCorrect(_):
+                return "\(title) correct answer"
+            case .filledIncorrect(_):
+                return "\(title) Incorrect answer"
+            default:
+                return "\(title) button"
+        }
+    }
     
 }
 

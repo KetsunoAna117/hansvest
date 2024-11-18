@@ -62,16 +62,16 @@ struct MainScreenView: View {
                     .accessibilityLabel("Simulation tab. Contains stock simulation tools.")
                 }
                 
-                Tab("My Land",
-                    systemImage: "globe.americas",
-                    value: .land
-                ) {
-                    ZStack {
-                        Color.background.ignoresSafeArea()
-                        HanvestLandScreenView()
-                    }
-                    .accessibilityLabel("My Land tab. Displays information about your portofolio.")
-                }
+//                Tab("My Land",
+//                    systemImage: "globe.americas",
+//                    value: .land
+//                ) {
+//                    ZStack {
+//                        Color.background.ignoresSafeArea()
+//                        HanvestLandScreenView()
+//                    }
+//                    .accessibilityLabel("My Land tab. Displays information about your portofolio.")
+//                }
             }
             .transition(.slide)
             .animation(.easeInOut, value: selectionTab)

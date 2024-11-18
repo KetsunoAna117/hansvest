@@ -59,15 +59,15 @@ struct HanvestHeaderView: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel("notification icon")
                     
-                    Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            profileIconTappedAction()
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityLabel("user profile icon")
+//                    Image(systemName: "person")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            profileIconTappedAction()
+//                        }
+//                        .accessibilityElement(children: .ignore)
+//                        .accessibilityLabel("user profile icon")
                 }
                 .font(.system(size: 25))
             }

@@ -67,6 +67,8 @@ struct HanvestButtonMultipleChoiceBehavior: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(style.borderColor, lineWidth: 0.5) // Default stroke
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(accessibilityLabelString())
         )
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
@@ -100,8 +102,6 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 self.style = .filledIncorrect
             }
         })
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(accessibilityLabelString())
         
     }
     
@@ -127,10 +127,15 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     }
     
     private func accessibilityLabelString() -> String {
-        if case .isChecked(let isCorrect) = isChecked {
-            return isCorrect ? "\(title) right answer" : "\(title) wrong answer"
-        } else {
-            return "\(title) choice button"
+        switch style {
+            case .filledCorrect:
+                return "\(title) correct choice answer"
+            case .filledIncorrect:
+                return "\(title) your incorrect choice answer"
+            case .selected:
+                return "\(title) selected choice button"
+            case .unselected:
+                return "\(title) choice button"
         }
     }
     
