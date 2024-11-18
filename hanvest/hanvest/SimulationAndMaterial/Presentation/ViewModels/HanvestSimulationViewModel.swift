@@ -82,7 +82,7 @@ class HanvestSimulationViewModel: ObservableObject, HanvestSimulatable {
         let idx = getSelectedStockIdx(selectedStockID: news.stockIDName)
         
         let currentStockPrice = self.stockList[idx].stockPrice.last?.price ?? 0
-        let newStockPrice = currentStockPrice + (currentStockPrice * news.stockFluksPercentage / 100)
+        let newStockPrice = currentStockPrice &+ (currentStockPrice &* news.stockFluksPercentage / 100)
         let lastTime = self.stockList[idx].stockPrice.last?.time ?? Date.now
         
         let newPriceEntity = ProductPriceEntity(
