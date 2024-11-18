@@ -58,15 +58,15 @@ struct MainScreenView: View {
                     }
                 }
                 
-                Tab("My Land",
-                    systemImage: "globe.americas",
-                    value: .land
-                ) {
-                    ZStack {
-                        Color.background.ignoresSafeArea()
-                        HanvestLandScreenView()
-                    }
-                }
+//                Tab("My Land",
+//                    systemImage: "globe.americas",
+//                    value: .land
+//                ) {
+//                    ZStack {
+//                        Color.background.ignoresSafeArea()
+//                        HanvestLandScreenView()
+//                    }
+//                }
             }
             .transition(.slide)
             .animation(.easeInOut, value: selectionTab)
