@@ -87,6 +87,9 @@ struct MaterialBasicInvestmentModuleScreenView: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            viewModel.setupPlantingViewVisibility()
+        }
         .modifier(HanvestHighlightHelperView(viewModel: highlightViewModel))
     }
     

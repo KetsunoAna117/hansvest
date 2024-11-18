@@ -27,24 +27,24 @@ struct NewsModuleHeaderView: View {
                                 userDataViewModel.userData?.userBalance ?? 0
                             )
                         )
-                            .font(.nunito(.title2))
+                        .font(.nunito(.title2))
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? 0)) rupiah")
                 
                 Spacer()
                 
                 HStack(spacing: 20) {
-                    Image(systemName: "character.book.closed")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            bookIconTappedAction()
-                        }
+//                    Image(systemName: "character.book.closed")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            bookIconTappedAction()
+//                        }
+                    
                     Image(systemName: "bell")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bellIconTappedAction()
                         }
@@ -54,20 +54,26 @@ struct NewsModuleHeaderView: View {
                             detail: NewsModuleTipData.notification.detail,
                             stage: NewsModuleHighlightStage.mainStage.stringValue
                         )
-                    Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            profileIconTappedAction()
-                        }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("notification icon")
+                    
+//                    Image(systemName: "person")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            profileIconTappedAction()
+//                        }
                 }
+                .font(.system(size: 25))
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
         }
         .background(Color.background)
         .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 1)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("navigation bar")
     }
 }
 

@@ -50,6 +50,8 @@ struct HanvestMultipleChoiceView: View {
                 .multilineTextAlignment(.center)
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(question) question page")
     }
     
     private func buttonAction(option: String) {

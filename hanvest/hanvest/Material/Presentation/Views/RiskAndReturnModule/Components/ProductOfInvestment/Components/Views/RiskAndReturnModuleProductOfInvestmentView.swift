@@ -20,13 +20,13 @@ struct RiskAndReturnModuleProductOfInvestmentView: View {
                     .font(.nunito(.title2))
                     .frame(maxWidth: .infinity)
                 
-                if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][selectedProductIndex].productPrices.last?.price {
-                    Text("Equity: Rp. \(lastPrice)")
-                        .font(.nunito(.callout))
-                        .frame(maxWidth: .infinity)
-                }
+                Text("Equity: Rp. \(getLastProductOfInvestmentPrice())")
+                    .font(.nunito(.callout))
+                    .frame(maxWidth: .infinity)
             }
             .multilineTextAlignment(.center)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(title) with your equity Rp. \(getLastProductOfInvestmentPrice())")
             
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
@@ -43,6 +43,15 @@ struct RiskAndReturnModuleProductOfInvestmentView: View {
         }
         .frame(maxWidth: .infinity)
     }
+    
+    func getLastProductOfInvestmentPrice() -> Int {
+        if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][selectedProductIndex].productPrices.last?.price {
+            return lastPrice
+        } else {
+            return 0
+        }
+    }
+
 }
 
 #Preview {

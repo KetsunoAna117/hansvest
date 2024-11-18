@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class BasicInvestmentModuleViewModel: ObservableObject {
     @Inject var validateIfUserHasCompletedTheModule: ValidateIfUserHasCompletedTheModule
@@ -25,6 +26,14 @@ class BasicInvestmentModuleViewModel: ObservableObject {
         self.currentTab = 0
         self.progressBarCurrValue = 4
         self.plantingViewVisibility = .isVisible
+    }
+    
+    func setupPlantingViewVisibility() {
+        if UIAccessibility.isVoiceOverRunning {
+            self.plantingViewVisibility = .isHidden
+        } else {
+            self.plantingViewVisibility = .isVisible
+        }
     }
     
     
