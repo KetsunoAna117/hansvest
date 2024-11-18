@@ -25,6 +25,8 @@ struct ProgressBarWithXMarkView: View {
                     .font(.system(size: 24))
                     .foregroundStyle(.labelPrimary)
                     .padding(8)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("xmark button")
             }
             
             
@@ -37,6 +39,8 @@ struct ProgressBarWithXMarkView: View {
                     maximum:
                         progressBarMaxValue
                 )
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Progress bar")
             }
             .padding(8)
         }

@@ -30,6 +30,7 @@ struct HanvestButtonDefault: View {
             if iconPosition == .leading, let image = image {
                 image
                     .foregroundStyle(style.fontColor)
+                    .accessibilityHidden(true)
             }
             
             Text(title)
@@ -38,11 +39,13 @@ struct HanvestButtonDefault: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.nunito(.body))
                 .padding(.horizontal, size.textHorizontalPadding)
+                .accessibilityHidden(true)
             
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = image {
                 image
                     .foregroundStyle(style.fontColor)
+                    .accessibilityHidden(true)
             }
         }
         .frame(maxWidth: size.minWidth)
@@ -81,6 +84,8 @@ struct HanvestButtonDefault: View {
             setupState()
         }
         .disabled(style.isDisabled)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title) button")
     }
     
     func getPressedStatus() -> Bool {

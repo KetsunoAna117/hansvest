@@ -32,6 +32,8 @@ struct MainScreenView: View {
                     router.push(.profile)
                 }
             )
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("toolbar")
             
             TabView(selection: $selectionTab) {
                 Tab("Material",
@@ -42,6 +44,7 @@ struct MainScreenView: View {
                         Color.background.ignoresSafeArea()
                         HanvestMaterialScreenView(router: router)
                     }
+                    .accessibilityLabel("Material tab. Contains learning materials.")
                 }
                 
                 Tab("Simulation",
@@ -56,6 +59,7 @@ struct MainScreenView: View {
                             simulationViewModel: simulationViewModel
                         )
                     }
+                    .accessibilityLabel("Simulation tab. Contains stock simulation tools.")
                 }
                 
                 Tab("My Land",
@@ -66,10 +70,13 @@ struct MainScreenView: View {
                         Color.background.ignoresSafeArea()
                         HanvestLandScreenView()
                     }
+                    .accessibilityLabel("My Land tab. Displays information about your portofolio.")
                 }
             }
             .transition(.slide)
             .animation(.easeInOut, value: selectionTab)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("navigation bar")
         }
         .onAppear {
             UIScrollView.appearance().isScrollEnabled = true

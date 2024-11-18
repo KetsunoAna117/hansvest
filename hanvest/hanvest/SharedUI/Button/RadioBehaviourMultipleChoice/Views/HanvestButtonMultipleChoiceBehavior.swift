@@ -33,6 +33,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
             if iconPosition == .leading, let image = style.image {
                 image
                     .foregroundStyle(style.fontColor)
+                    .accessibilityHidden(true)
             }
             
             Text(title)
@@ -41,11 +42,13 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.nunito(.body))
                 .padding(.horizontal, size.textHorizontalPadding)
+                .accessibilityHidden(true)
             
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = style.image {
                 image
                     .foregroundStyle(style.fontColor)
+                    .accessibilityHidden(true)
             }
         }
         .frame(maxWidth: size.minWidth)
@@ -97,6 +100,8 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 self.style = .filledIncorrect
             }
         })
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelString())
         
     }
     
@@ -118,6 +123,14 @@ struct HanvestButtonMultipleChoiceBehavior: View {
             }
             
             action?()
+        }
+    }
+    
+    private func accessibilityLabelString() -> String {
+        if case .isChecked(let isCorrect) = isChecked {
+            return isCorrect ? "\(title) right answer" : "\(title) wrong answer"
+        } else {
+            return "\(title) choice button"
         }
     }
     
