@@ -46,9 +46,6 @@ struct HanvestHeaderView: View {
                 
                 HStack(spacing: 20) {
                     Image(systemName: "character.book.closed")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bookIconTappedAction()
                         }
@@ -56,9 +53,6 @@ struct HanvestHeaderView: View {
                         .accessibilityLabel("glossary icon")
                     
                     Image(systemName: "bell")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bellIconTappedAction()
                         }
@@ -75,6 +69,7 @@ struct HanvestHeaderView: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel("user profile icon")
                 }
+                .font(.system(size: 25))
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
