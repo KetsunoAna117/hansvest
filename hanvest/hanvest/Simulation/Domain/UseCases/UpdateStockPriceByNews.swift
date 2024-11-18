@@ -28,7 +28,7 @@ struct UpdateStockPriceByNewsImpl: UpdateStockPriceByNews {
         }
         
         // Calculate New price
-        let newPrice = stockLastPriceEntity.price + (stockLastPriceEntity.price * news.stockFluksPercentage / 100)
+        let newPrice = stockLastPriceEntity.price &+ (stockLastPriceEntity.price &* news.stockFluksPercentage / 100)
         let newDate = stockLastPriceEntity.time.addingTimeInterval(30 * 60)
     
         let newPriceEntity = ProductPriceEntity(
