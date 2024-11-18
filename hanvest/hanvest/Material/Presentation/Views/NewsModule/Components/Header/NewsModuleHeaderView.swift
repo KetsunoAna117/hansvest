@@ -34,17 +34,14 @@ struct NewsModuleHeaderView: View {
                 Spacer()
                 
                 HStack(spacing: 20) {
-                    Image(systemName: "character.book.closed")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            bookIconTappedAction()
-                        }
+//                    Image(systemName: "character.book.closed")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            bookIconTappedAction()
+//                        }
                     Image(systemName: "bell")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bellIconTappedAction()
                         }
@@ -54,14 +51,15 @@ struct NewsModuleHeaderView: View {
                             detail: NewsModuleTipData.notification.detail,
                             stage: NewsModuleHighlightStage.mainStage.stringValue
                         )
-                    Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            profileIconTappedAction()
-                        }
+//                    Image(systemName: "person")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            profileIconTappedAction()
+//                        }
                 }
+                .font(.system(size: 25))
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
