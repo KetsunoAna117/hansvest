@@ -34,6 +34,7 @@ struct SimulationBuyingCard: View {
                             detail: FundamentalModuleTipData.tradingBalance.detail,
                             stage: FundamentalModuleHighlightStage.buyStage.stringValue
                         )
+                        .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(viewModel.tradingBalance)))
                 }
                 
                 HStack{
@@ -62,6 +63,7 @@ struct SimulationBuyingCard: View {
                             detail: FundamentalModuleTipData.amountBuy.detail,
                             stage: FundamentalModuleHighlightStage.buyStage.stringValue
                         )
+                        .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(viewModel.stockBuyAmount)))
                 }
                 
                 HStack{
@@ -77,6 +79,7 @@ struct SimulationBuyingCard: View {
                             detail: FundamentalModuleTipData.priceBuy.detail,
                             stage: FundamentalModuleHighlightStage.buyStage.stringValue
                         )
+                        .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("\(currentPrice)"))
                 }
                 
                 HStack{

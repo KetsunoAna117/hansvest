@@ -31,7 +31,7 @@ struct NewsModuleHeaderView: View {
                     }
                 }
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? 0)) rupiah")
+                .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? 0))"))
                 
                 Spacer()
                 

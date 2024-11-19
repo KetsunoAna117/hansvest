@@ -27,6 +27,7 @@ struct RiskAndReturnModuleMultipleChoiceView: View {
                 Text("Balance: Rp. \(moneyBalance)")
                     .font(.nunito(.callout))
                     .frame(maxWidth: .infinity)
+                    .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("Balance: Rp \(moneyBalance)"))
 
             }
             .multilineTextAlignment(.center)

@@ -18,6 +18,7 @@ struct ConfirmationRow: View {
                 .frame(width: 120, alignment: .topLeading)
             Text(value)
                 .font(.nunito(.body))
+                .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(value))
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
     }
