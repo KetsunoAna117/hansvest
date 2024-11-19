@@ -63,6 +63,8 @@ struct HanvestModuleNumberButton: View {
         .onAppear {
             self.state = self.initialState
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Module \(number ?? 0)")
     }
     
     func getPressedStatus() -> Bool {

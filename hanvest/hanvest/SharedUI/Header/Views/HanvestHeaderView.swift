@@ -22,6 +22,7 @@ struct HanvestHeaderView: View {
                     VStack(alignment: .leading) {
                         Text("Virtual Balance")
                             .font(.nunito(.caption2))
+                            .accessibilityHidden(true)
                         Text(
                             HanvestPriceFormatter.formatIntToIDR(
                                 userDataViewModel.userData?.userBalance ?? -100
@@ -34,7 +35,11 @@ struct HanvestHeaderView: View {
                             detail: MainViewTipData.virtualBalance.detail,
                             stage: HanvestMainViewHighlightStage.mainStage.stringValue
                         )
+                        .accessibilityHidden(true)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? -100)) rupiah")
+                    
                 }
                 
                 Spacer()
@@ -44,10 +49,16 @@ struct HanvestHeaderView: View {
                         .onTapGesture {
                             bookIconTappedAction()
                         }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("glossary icon")
+                    
                     Image(systemName: "bell")
                         .onTapGesture {
                             bellIconTappedAction()
                         }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("notification icon")
+                    
 //                    Image(systemName: "person")
 //                        .resizable()
 //                        .scaledToFill()
@@ -55,6 +66,8 @@ struct HanvestHeaderView: View {
 //                        .onTapGesture {
 //                            profileIconTappedAction()
 //                        }
+//                        .accessibilityElement(children: .ignore)
+//                        .accessibilityLabel("user profile icon")
                 }
                 .font(.system(size: 25))
             }
@@ -75,5 +88,6 @@ struct HanvestHeaderLogo: View {
                 .foregroundStyle(.sundown50)
         }
         .frame(width: 43, height: 43)
+        .accessibilityHidden(true)
     }
 }

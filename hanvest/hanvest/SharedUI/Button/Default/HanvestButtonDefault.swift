@@ -57,6 +57,18 @@ struct HanvestButtonDefault: View {
         .buttonStyle(HanvestButtonType(size: size, style: style))
         .disabled(style.isDisabled)
     }
+    
+    private func accessibilityLabelString() -> String {
+        switch style {
+            case .filledCorrect(_):
+                return "\(title) correct answer"
+            case .filledIncorrect(_):
+                return "\(title) Incorrect answer"
+            default:
+                return "\(title) button"
+        }
+    }
+    
 }
 
 #Preview {

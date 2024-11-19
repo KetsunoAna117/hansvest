@@ -63,6 +63,8 @@ struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
                 self.state = .unpressed
             }
         })
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("color option")
     }
     
     func getPressedStatus() -> Bool {

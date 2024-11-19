@@ -52,6 +52,8 @@ struct HanvestMaterialnformationView: View {
             
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(title) material information")
     }
 }
 

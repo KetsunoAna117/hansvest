@@ -27,9 +27,11 @@ struct NewsModuleHeaderView: View {
                                 userDataViewModel.userData?.userBalance ?? 0
                             )
                         )
-                            .font(.nunito(.title2))
+                        .font(.nunito(.title2))
                     }
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? 0)) rupiah")
                 
                 Spacer()
                 
@@ -41,6 +43,7 @@ struct NewsModuleHeaderView: View {
 //                        .onTapGesture {
 //                            bookIconTappedAction()
 //                        }
+                    
                     Image(systemName: "bell")
                         .onTapGesture {
                             bellIconTappedAction()
@@ -51,6 +54,9 @@ struct NewsModuleHeaderView: View {
                             detail: NewsModuleTipData.notification.detail,
                             stage: NewsModuleHighlightStage.mainStage.stringValue
                         )
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("notification icon")
+                    
 //                    Image(systemName: "person")
 //                        .resizable()
 //                        .scaledToFill()
@@ -66,6 +72,8 @@ struct NewsModuleHeaderView: View {
         }
         .background(Color.background)
         .shadow(color: Color.black.opacity(0.1), radius: 0, x: 0, y: 1)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("navigation bar")
     }
 }
 
