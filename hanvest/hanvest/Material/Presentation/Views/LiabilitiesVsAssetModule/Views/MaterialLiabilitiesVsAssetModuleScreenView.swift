@@ -64,7 +64,6 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                             LiabilitiesVsAssetModuleTextImageColorPickerView(
                                 title: LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.title,
                                 image: LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.image,
-                                customSpacing: LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.customSpacing,
                                 needColorPicker: true,
                                 onSelectAnswer: { answer in
                                     viewModel.userSelectedAnswers[LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.rawValue] = answer
