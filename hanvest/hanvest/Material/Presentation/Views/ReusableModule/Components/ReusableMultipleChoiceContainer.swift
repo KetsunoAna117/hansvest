@@ -21,6 +21,10 @@ struct ReusableMultipleChoiceContainer: View {
                     .font(.nunito(.title2, .regular))
                     .multilineTextAlignment(.center)
                 
+                if let image = data.image {
+                    image
+                }
+                
                 ForEach(data.choices, id: \.self) { choice in
                     HanvestButtonDefault(
                         style: getButtonStyle(id: choice),
