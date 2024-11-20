@@ -13,7 +13,7 @@ struct HanvestConfirmationFeedbackView: View {
     
     var body: some View {
         VStack {
-            VStack {
+            VStack(spacing: 12) {
                 HStack {
                     HanvestCorrectionSymbolView(state: state.iconType)
                         .padding(.trailing, 8)
@@ -22,7 +22,6 @@ struct HanvestConfirmationFeedbackView: View {
                         .foregroundStyle(state.fontColor)
                     Spacer()
                 }
-                .padding(.bottom, 8)
                 
                 HanvestButtonDefault(
                     style: state.buttonStyle, title: "Continue",
