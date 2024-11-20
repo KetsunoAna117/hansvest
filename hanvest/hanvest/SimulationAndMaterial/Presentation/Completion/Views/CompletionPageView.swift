@@ -8,72 +8,79 @@
 import SwiftUI
 
 struct CompletionPageView: View {
-    // Constant
+    // Constants
     let router: any AppRouterProtocol
     let completionItem: CompletionEntityType
     
     private let viewmodel = CompletionPageViewModel()
     
     var body: some View {
-        ZStack {
-            Color.background
-            
+        GeometryReader { geometry in
             ZStack {
-                VStack(spacing: 48) {
-                    VStack(spacing: 54){
-                        VStack(spacing: 78) {
-                            VStack(spacing: 15) {
-                                Text("Congratulations!")
-                                    .font(.nunito(.title1, .bold))
+                Color.background
+                
+                VStack {
+                    ScrollView {
+                        VStack(spacing: 48) {
+                            VStack(spacing: 54) {
+                                VStack(spacing: 78) {
+                                    VStack(spacing: 15) {
+                                        Text("Congratulations!")
+                                            .font(.nunito(.title1, .bold))
+                                            .frame(maxWidth: .infinity)
+                                        
+                                        Image(completionItem.value.badgeImageName)
+                                    }
+                                    
+                                    VStack(spacing: 0) {
+                                        HStack {
+                                            Text(
+                                                "You earned "
+                                            ).font(.nunito(.body)) +
+                                            Text(
+                                                "\"\(completionItem.value.badgeName)\""
+                                            ).font(.nunito(.body, .bold))
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                        
+                                        HStack {
+                                            Text(
+                                                "for completing "
+                                            ).font(.nunito(.body)) +
+                                            Text(
+                                                "\"\(completionItem.value.achievedAfterCompleting)\""
+                                            ).font(.nunito(.body, .bold))
+                                        }
+                                        .frame(maxWidth: .infinity)
+                                    }
                                     .frame(maxWidth: .infinity)
-                                
-                                Image(completionItem.value.badgeImageName)
-                            }
-                            
-                            VStack(spacing: 0) {
-                                HStack {
-                                    Text(
-                                        "You earned "
-                                    ).font(.nunito(.body)) +
-                                    Text(
-                                        "\"\(completionItem.value.badgeName)\""
-                                    ).font(.nunito(.body, .bold))
                                 }
-                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 20)
+                                .completionCardStyle()
                                 
-                                HStack {
-                                    Text(
-                                        "for completing "
-                                    ).font(.nunito(.body)) +
-                                    Text(
-                                        "\"\(completionItem.value.achievedAfterCompleting)\""
-                                    ).font(.nunito(.body, .bold))
+                                ZStack {
+                                    VStack(spacing: 4) {
+                                        Text("Bonus:")
+                                            .font(.nunito(.body))
+                                            .frame(maxWidth: .infinity)
+                                        
+                                        Text(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney))
+                                            .font(.nunito(.title1, .bold))
+                                            .frame(maxWidth: .infinity)
+                                            .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney)))
+                                        
+                                    }
+                                    .frame(maxWidth: .infinity)
                                 }
-                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 46)
+                                .completionCardStyle()
                             }
-                            .frame(maxWidth: .infinity)
                         }
-                        .padding(.vertical, 20)
-                        .completionCardStyle()
-                        
-                        ZStack {
-                            VStack(spacing: 4) {
-                                Text("Bonus:")
-                                    .font(.nunito(.body))
-                                    .frame(maxWidth: .infinity)
-                                
-                                Text(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney))
-                                    .font(.nunito(.title1, .bold))
-                                    .frame(maxWidth: .infinity)
-                                    .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney)))
-                                
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 46)
-                        .completionCardStyle()
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 20)
                     }
+                    .safeAreaPadding(.top, 100)
                     
                     ZStack {
                         HanvestButtonDefault(
@@ -86,23 +93,20 @@ struct CompletionPageView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    
+                    .padding(.bottom, 54)
                 }
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 54)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .ignoresSafeArea()
+            .onAppear {
+                HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.getBadge)
+            }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("\(completionItem.value.achievedAfterCompleting) award page")
         }
-        .ignoresSafeArea()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onAppear {
-            HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.getBadge)
-        }
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel("\(completionItem.value.achievedAfterCompleting) award page")
     }
 }
+
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
