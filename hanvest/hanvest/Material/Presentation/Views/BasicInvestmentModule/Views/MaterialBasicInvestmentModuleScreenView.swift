@@ -44,7 +44,7 @@ struct MaterialBasicInvestmentModuleScreenView: View {
                                 
                                 ForEach(Array(BasicInvestmentModuleContent.allCases.enumerated()), id: \.offset) { index, content in
                                         
-                                        HanvestMaterialnformationView(
+                                        HanvestMaterialInformationView(
                                             title: Text(content.headerContent).font(.nunito(.title2)),
                                             detailText:
                                                 content.detailContent

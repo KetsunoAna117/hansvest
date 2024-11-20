@@ -18,8 +18,8 @@ struct ReusableInformationContainer: View {
                 Text(data.title)
                     .font(.nunito(.title2, .bold))
                 
-                if let images = data.images {
-                    HanvestAutoSpacingImageView(images: images)
+                if let imageNames = data.imageNames {
+                    HanvestAutoSpacingImageView(imageNames: imageNames)
                 }
                 
                 ScrollView {
@@ -58,8 +58,8 @@ struct ReusableInformationContainer: View {
         data: .init(
             id: "1",
             title: "What's a Stock Sector",
-            images: [
-                Image(._12StockSector)
+            imageNames: [
+                "12-stock-sector-image"
             ],
             content: """
                 The Indonesia Stock Exchange (IDX) offers a sector-based classification system, which organizes companies into industry sectors to facilitate investment analysis. These sectors include financials, consumer goods, infrastructure, energy, healthcare, and more, each further divided into subsectors. The system allows investors to analyze trends within specific sectors and compare companies against their industry peers
