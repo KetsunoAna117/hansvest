@@ -38,7 +38,7 @@ struct HanvestHeaderView: View {
                         .accessibilityHidden(true)
                     }
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? -100)) rupiah")
+                    .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? -100))"))
                     
                 }
                 

@@ -56,16 +56,24 @@ struct HanvestButtonDefault: View {
         )
         .buttonStyle(HanvestButtonType(size: size, style: style))
         .disabled(style.isDisabled)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelString())
     }
     
     private func accessibilityLabelString() -> String {
+        if title == "Continue" {
+            return "\(title) button"
+        }
+        
         switch style {
-            case .filledCorrect(_):
+            case .bordered, .borderless:
+                return "\(title) choice button"
+            case .filled:
+                return "\(title) selected choice button"
+            case .filledCorrect:
                 return "\(title) correct answer"
-            case .filledIncorrect(_):
+            case .filledIncorrect:
                 return "\(title) Incorrect answer"
-            default:
-                return "\(title) button"
         }
     }
     

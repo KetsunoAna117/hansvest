@@ -25,11 +25,10 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel("\(getProductName()) with equity Rp. \(getLastPrice())")
+                .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("\(getProductName()) with equity Rp \(getLastPrice()) \(countPercentage(productID: productID, productStage: productStage))"))
             }
             .padding(.vertical, 8)
             .completionCardStyle()
-            
             
             RiskAndReturnModuleProductOfInvestmentChart(
                 viewmodel: HanvestProductPriceChartViewModel(

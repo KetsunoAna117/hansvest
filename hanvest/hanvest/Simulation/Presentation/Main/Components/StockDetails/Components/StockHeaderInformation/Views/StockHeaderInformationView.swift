@@ -43,6 +43,7 @@ struct StockHeaderInformationView: View {
                                 detail: FundamentalModuleTipData.stocksPrice.detail,
                                 stage: FundamentalModuleHighlightStage.mainStage.stringValue
                             )
+                            .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(currentPrice)))
                         HanvestProfitLossLabelView(
                             initialValue: $initialPrice,
                             currentValue: $currentPrice

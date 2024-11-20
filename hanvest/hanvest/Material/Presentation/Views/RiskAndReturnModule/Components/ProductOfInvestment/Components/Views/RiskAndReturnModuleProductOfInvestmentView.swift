@@ -26,7 +26,7 @@ struct RiskAndReturnModuleProductOfInvestmentView: View {
             }
             .multilineTextAlignment(.center)
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("\(title) with your equity Rp. \(getLastProductOfInvestmentPrice())")
+            .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("\(title) with your equity Rp \(getLastProductOfInvestmentPrice())"))
             
             ScrollView(.vertical) {
                 VStack(spacing: 24) {

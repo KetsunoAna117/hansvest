@@ -127,15 +127,17 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     }
     
     private func accessibilityLabelString() -> String {
+        let convertedTitle =  HanvestPriceFormatter.formatRupiahStringToSpelledOut(title)
+        
         switch style {
             case .filledCorrect:
-                return "\(title) correct choice answer"
+                return "\(convertedTitle) correct choice answer"
             case .filledIncorrect:
-                return "\(title) your incorrect choice answer"
+                return "\(convertedTitle) your incorrect choice answer"
             case .selected:
-                return "\(title) selected choice button"
+                return "\(convertedTitle) selected choice button"
             case .unselected:
-                return "\(title) choice button"
+                return "\(convertedTitle) choice button"
         }
     }
     

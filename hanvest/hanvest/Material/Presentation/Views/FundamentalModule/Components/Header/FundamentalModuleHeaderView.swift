@@ -27,8 +27,10 @@ struct FundamentalModuleHeaderView: View {
                                 userDataViewModel.userData?.userBalance ?? 0
                             )
                         )
-                            .font(.nunito(.title2))
+                        .font(.nunito(.title2))
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? 0))"))
                 }
                 
                 Spacer()
