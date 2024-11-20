@@ -13,8 +13,8 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "stock-regulator-1",
                 title: "What are stocks, stock invest, and capital market?",
-                images: [
-                    Image("stock-chart-cartoon")
+                imageNames: [
+                    "stock-chart-cartoon"
                 ],
                 content: """
                     Stocks represent a portion of ownership in a company. When you buy them, you own a small part of the business and may earn dividends or profit if the stock's price increases. Investing in stocks means buying shares with the expectation that their value will rise. The capital market is where these stocks and other financial assets are traded, allowing companies to raise money for growth while giving investors the opportunity to earn returns.
@@ -36,8 +36,8 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "stock-regulator-3",
                 title: "Explanation about stocks",
-                images: [
-                    Image("stock-chart-cartoon")
+                imageNames: [
+                    "stock-chart-cartoon"
                 ],
                 content: """
                     Stocks represent ownership in a company. When someone purchases stock, they acquire a small percentage of the company, entitling them to dividends and the potential appreciation of the stock's value. Options A and B refer to bonds, while option D describes mutual funds, not stocks.
@@ -55,8 +55,8 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "stock-regulator-5",
                 title: "Explanation about market that allow company to sell equity",
-                images: [
-                    Image("investment-plan-cartoon")
+                imageNames: [
+                    "investment-plan-cartoon"
                 ],
                 content: """
                     Mutual funds pool money from many investors to purchase a diversified portfolio of assets, including stocks and bonds. This allows investors to access a broader range of investments than they could individually.
@@ -74,8 +74,8 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "stock-regulator-7",
                 title: "Explanation about role of capital market in the economy",
-                images: [
-                    Image("money-trades-cartoon")
+                imageNames: [
+                    "money-trades-cartoon"
                 ],
                 content: """
                     Capital markets enable companies to raise funds by issuing stocks and bonds, which allows for growth, expansion, and innovation. This process benefits the economy by increasing productivity and creating jobs.
@@ -84,7 +84,7 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleEvaluationEntity(
                 id: "stock-regulator-8",
                 question: "What is the function of these organizations?",
-                image: Image("kpei-logo"),
+                imageName: "kpei-logo",
                 choices: [
                     "A platform for buying and selling securities.",
                     "clearing stock exchange settlements",
@@ -95,7 +95,7 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleEvaluationEntity(
                 id: "stock-regulator-9",
                 question: "What is the function of these organizations?",
-                image: Image("IDX-logo"),
+                imageName: "IDX-logo",
                 choices: [
                     "A platform for buying and selling securities.",
                     "clearing stock exchange settlements",
@@ -106,7 +106,7 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleEvaluationEntity(
                 id: "stock-regulator-10",
                 question: "What is the function of these organizations?",
-                image: Image("ksei-logo"),
+                imageName: "ksei-logo",
                 choices: [
                     "A platform for buying and selling securities.",
                     "clearing stock exchange settlements",
@@ -117,10 +117,10 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "stock-regulator-11",
                 title: "Measuring the Economic Cycle",
-                images: [
-                    Image("kpei-logo"),
-                    Image("IDX-logo"),
-                    Image("ksei-logo")
+                imageNames: [
+                    "kpei-logo",
+                    "IDX-logo",
+                    "ksei-logo"
                 ],
                 content: """
                     In Indonesia's capital market, Self-Regulatory Organizations (SROs) have the authority to create rules for their members. There are three key SROs:

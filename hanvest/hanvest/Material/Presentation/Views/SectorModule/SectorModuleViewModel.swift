@@ -13,8 +13,8 @@ class SectorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "sector-1",
                 title: "What's a Stock Sector",
-                images: [
-                    Image(._12StockSector)
+                imageNames: [
+                    "12-stock-sector-image"
                 ],
                 content: """
                     The Indonesia Stock Exchange (IDX) offers a sector-based classification system, which organizes companies into industry sectors to facilitate investment analysis. These sectors include financials, consumer goods, infrastructure, energy, healthcare, and more, each further divided into subsectors. The system allows investors to analyze trends within specific sectors and compare companies against their industry peers
@@ -37,8 +37,8 @@ class SectorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "sector-3",
                 title: "Explanation",
-                images: [
-                    Image(._12StockSector)
+                imageNames: [
+                    "12-stock-sector-image"
                 ],
                 content: """
                     The Financials sector on the IDX includes companies like banks and insurance firms. This sector is particularly sensitive to interest rate changes and broader economic conditions. For instance, when interest rates rise, it can impact loan demand and profitability for banks, while lower rates might encourage more borrowing and spending
@@ -58,8 +58,8 @@ class SectorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "sector-5",
                 title: "Explanation",
-                images: [
-                    Image(._12StockSector)
+                imageNames: [
+                    "12-stock-sector-image"
                 ],
                 content: """
                     The Consumer Goods sector is influenced heavily by consumer spending and economic stability. This sector includes companies that produce everyday items such as food, beverages, and personal care products, which tend to see steady demand. However, during economic downturns, consumers may reduce spending, impacting this sector’s performance​
@@ -79,8 +79,8 @@ class SectorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "sector-7",
                 title: "Explanation",
-                images: [
-                    Image(._12StockSector)
+                imageNames: [
+                    "12-stock-sector-image"
                 ],
                 content: """
                     The Infrastructure sector on the IDX, which includes utilities and construction companies, is largely driven by government investments in public works and urbanization projects. This spending can fuel demand for infrastructure and utilities, leading to growth in this sector. Economic policies and urban expansion directly impact the performance of these stocks​
@@ -100,8 +100,8 @@ class SectorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "sector-9",
                 title: "Explanation",
-                images: [
-                    Image(._12StockSector)
+                imageNames: [
+                    "12-stock-sector-image"
                 ],
                 content: """
                     The IDX sector-based classification helps investors by grouping companies with similar business activities. This allows for targeted analysis and performance comparisons, enabling investors to make more informed decisions about which sectors or individual stocks to invest in, based on specific economic trends or forecasts
@@ -121,8 +121,8 @@ class SectorModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "sector-11",
                 title: "Explanation",
-                images: [
-                    Image(._12StockSector)
+                imageNames: [
+                    "12-stock-sector-image"
                 ],
                 content: """
                     The Technology sector on the IDX has experienced rapid growth due to digital transformation, which has led to increased demand for tech services and innovation. This sector includes software, hardware, and digital service companies, which are highly responsive to technological advancements and shifts in consumer behavior toward online and digital solutions

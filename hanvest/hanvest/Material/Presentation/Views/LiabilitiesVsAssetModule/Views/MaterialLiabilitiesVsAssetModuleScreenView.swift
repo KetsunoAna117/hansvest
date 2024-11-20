@@ -76,7 +76,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                             
                             ForEach(Array(LiabilitiesVsAssetModuleHeaderWithDetailTextPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMaterialnformationView(
+                                HanvestMaterialInformationView(
                                     title: page.title(
                                         chosenPhone: viewModel.userSelectedAnswers[LiabilitiesVsAssetModuleMultipleChoicePageContent.page03.rawValue],
                                         chosenMethod: viewModel.userSelectedAnswers[LiabilitiesVsAssetModuleMultipleChoicePageContent.page07.rawValue]

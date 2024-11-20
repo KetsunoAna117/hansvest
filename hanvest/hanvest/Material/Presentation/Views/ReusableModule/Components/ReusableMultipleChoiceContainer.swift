@@ -21,8 +21,8 @@ struct ReusableMultipleChoiceContainer: View {
                     .font(.nunito(.title2, .regular))
                     .multilineTextAlignment(.center)
                 
-                if let image = data.image {
-                    image
+                if let imageName = data.imageName {
+                    Image(imageName)
                 }
                 
                 ForEach(data.choices, id: \.self) { choice in

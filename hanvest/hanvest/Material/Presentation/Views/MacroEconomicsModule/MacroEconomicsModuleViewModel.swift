@@ -13,8 +13,8 @@ class MacroEconomicsModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "macro-economics-1",
                 title: "MacroEconomics",
-                images: [
-                    Image("gdp-vs-time")
+                imageNames: [
+                    "gdp-vs-time"
                 ],
                 content: "The economic cycle has four key stages:",
                 pointContent: ReusableModulePointEntity(
@@ -40,8 +40,8 @@ class MacroEconomicsModuleViewModel: ReusableContentViewModels {
             ReusableModuleInformationEntity(
                 id: "macro-economics-3",
                 title: "Strategic Investing Across Economic Cycles: What to Do in Each Phase",
-                images: [
-                    Image("gdp-vs-time")
+                imageNames: [
+                    "gdp-vs-time"
                 ],
                 content: "Here’s how investors can strategically navigate each phase of the economic cycle:",
                 pointContent:
