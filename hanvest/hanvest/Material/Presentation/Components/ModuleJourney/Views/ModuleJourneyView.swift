@@ -18,56 +18,47 @@ struct ModuleJourneyView: View {
     // View Model
     @ObservedObject var viewModel: ModuleJourneyViewModel
     
-    @ViewBuilder
-    var moduleListView: some View {
-        VStack(spacing: 4) {
-            ForEach(viewModel.moduleProgressList, id: \.moduleID) { module in
-                let moduleNumber = viewModel.getModuleIdx(module: module) + 1
-                
-                HStack {
-                    if moduleNumber == 2 {
-                        Image("hanvest-app-mascot")
-                            .resizable()
-                            .frame(width: 79, height: 106)
-                            .padding(.trailing, 157.94)
-                    }
-                    
-                    HanvestModuleNumberButton(
-                        style: module.state,
-                        number: moduleNumber,
-                        action: {
-                            router.presentOverlay(
-                                .withHanvestPopupButton(
-                                    title: module.popup.title,
-                                    desc: module.popup.desc,
-                                    buttonAction: {
-                                        router.push(module.moduleScreenID)
-                                    }
-                                )
-                            )
-                        }
-                    )
-                }
-                .padding(10)
-                .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: moduleNumber))
-            }
-        }
-        .padding(.horizontal, 20)
-        .frame(maxWidth: .infinity)
-        .onAppear(){
-            viewModel.setup()
-        }
-    }
-    
     var body: some View {
-        if viewModel.numberOfModules >= maxModulesVisible {
-            ScrollView {
-                moduleListView
+        ScrollView {
+            VStack(spacing: 4) {
+                ForEach(viewModel.moduleProgressList, id: \.moduleID) { module in
+                    let moduleNumber = viewModel.getModuleIdx(module: module) + 1
+                    
+                    HStack {
+                        if moduleNumber == 2 {
+                            Image("hanvest-app-mascot")
+                                .resizable()
+                                .frame(width: 79, height: 106)
+                                .padding(.trailing, 157.94)
+                        }
+                        
+                        HanvestModuleNumberButton(
+                            style: module.state,
+                            number: moduleNumber,
+                            action: {
+                                router.presentOverlay(
+                                    .withHanvestPopupButton(
+                                        title: module.popup.title,
+                                        desc: module.popup.desc,
+                                        buttonAction: {
+                                            router.push(module.moduleScreenID)
+                                        }
+                                    )
+                                )
+                            }
+                        )
+                    }
+                    .safeAreaPadding(10)
+                    .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: moduleNumber))
+                }
             }
-            .frame(height: countTotalMaxHeightForScrollView())
-        } else {
-            moduleListView
+            .safeAreaPadding(.horizontal, 20)
+            .frame(maxWidth: .infinity)
+            .onAppear(){
+                viewModel.setup()
+            }
         }
+        .scrollIndicators(.hidden)
     }
     
     func moduleNumberButtonAlignmentLayout(for number: Int) -> Alignment {
@@ -83,12 +74,6 @@ struct ModuleJourneyView: View {
             default:
                 return .center
         }
-    }
-    
-    func countTotalMaxHeightForScrollView() -> CGFloat {
-        let totalHeight = CGFloat(maxModulesVisible) * (eachModuleNumberHeight + moduleSpacing) - moduleSpacing
-        
-        return totalHeight
     }
 }
 
