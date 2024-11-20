@@ -95,12 +95,16 @@ struct HanvestHighlightHelperView: ViewModifier {
                      VStack(alignment: .leading, spacing: 8) {
                          Text(highlight.title)
                              .font(.nunito(.body, .bold))
+                             .accessibilityElement(children: .ignore)
+                             .accessibilityLabel("\(highlight.title) popover")
                          
                          Text(highlight.detail)
                              .font(.nunito(.subhead))
                              .foregroundStyle(.labelSecondary)
                              .lineLimit(nil)
                              .fixedSize(horizontal: false, vertical: true)
+                             .accessibilityElement(children: .ignore)
+                             .accessibilityLabel("\(highlight.detail) popover")
                      }
                      .padding(16)
                      .frame(maxWidth: 277, alignment: .leading)

@@ -11,45 +11,55 @@ struct DebugView: View {
     // Router
     let router: any AppRouterProtocol
     
-    @State var presentOverlay: Bool = true
-    
     var body: some View {
-        ZStack {
-            VStack {
-                HanvestNavigationBar(
-                    label: "Label",
-                    leadingIcon: Image(systemName: "chevron.left"),
-                    leadingAction: {
-                        debugPrint("Leading Icon Pressed!")
-                    }
+        VStack(spacing: 16) {
+            Text("This is a Button")
+            
+            Button(action: {
+                print("Button Pressed")
+            }, label: {
+                Text("Press me!")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+            })
+            .buttonStyle(
+                CustomButtonStyle(
+                    size: .large,
+                    style: .filled(isDisabled: false)
                 )
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                
-                Text("Hello, world!")
-                
-                HanvestButtonDefault(
-                    size: .medium,
-                    style: .filledCorrect(isDisabled: false),
-                    title: "Show Overlay") {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                            presentOverlay = true
-                            router.presentOverlay(
-                                .withHanvestPopup(
-                                    title: "News",
-                                    desc: "Learn action to take based on news",
-                                    dismissAction: {
-                                        debugPrint("Button Action trigerred")
-                                    }
-                                )
-                            )
-                        })
-                    }
-                    .zIndex(presentOverlay ? 100 : 0)
-            }
-            .padding()
+            )
         }
+        .padding(.horizontal, 16)
+    }
+}
+
+private struct CustomButtonStyle: ButtonStyle {
+    let SHADOW_OFFSET: CGFloat = 5
+    
+    var size: HanvestButtonSize = .large
+    var style: HanvestButtonStyle = .filled(isDisabled: false)
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(style.backgroundColor)
+                    .shadow(
+                        color: configuration.isPressed ? .clear : style.shadowColor,
+                        radius: 0,
+                        x: 0,
+                        y: configuration.isPressed ? 0 : SHADOW_OFFSET
+                    )
+                
+            )
+            .frame(maxWidth: size.maxWidth)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(style.borderColor, lineWidth: 0.5)
+            )
+            .offset(y: configuration.isPressed ? SHADOW_OFFSET : 0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: configuration.isPressed)
+            .foregroundStyle(style.fontColor)
     }
 }
 

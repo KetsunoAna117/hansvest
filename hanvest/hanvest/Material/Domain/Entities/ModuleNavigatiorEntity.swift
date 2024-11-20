@@ -10,4 +10,5 @@ struct ModuleNavigatiorEntity {
     var moduleScreenID: Screen
     var state: HanvestModuleNumberDefaultStyle
     var popup: ModulePopupNavigatiorEntity
+    var completionEntity: CompletionEntityType
 }

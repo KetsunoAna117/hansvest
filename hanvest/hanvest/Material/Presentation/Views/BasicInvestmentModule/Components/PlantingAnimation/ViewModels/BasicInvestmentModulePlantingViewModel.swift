@@ -11,12 +11,34 @@ import Combine
 class BasicInvestmentModulePlantingViewModel: ObservableObject {
     @Published var growthProgress: BasicInvestmentModulePlantGrowthProgress
     @Published var highlightWaterCanPosition: CGPoint
+    @Published var soilPosition: CGPoint
     @Published var spriteScene: BasicInvestmentModuleSpriteController?
     @Published var growthTimer: AnyCancellable?
     
     init() {
         self.growthProgress = .progress01
         self.highlightWaterCanPosition = .zero
+        self.soilPosition = .zero
+        self.setupSpriteScene()
+    }
+    
+    func setupSpriteScene() {
+        let scene = BasicInvestmentModuleSpriteController(
+            size: UIScreen.main.bounds.size,
+            growthProgress: Binding(
+                get: { self.growthProgress },
+                set: { self.growthProgress = $0 }
+            ),
+            onWaterCanPositionDetermined: { position in
+                self.highlightWaterCanPosition = position
+            },
+            onSoilPositionDetermined: { position in
+                self.soilPosition = position
+            }
+        )
+        
+        scene.scaleMode = .resizeFill
+        self.spriteScene = scene
     }
     
     func startGrowthTimer() {
@@ -24,6 +46,10 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
             .sink { _ in
                 self.handleGrowthTimerEvent()
             }
+    }
+    
+    func stopGrowthTimer() {
+        self.growthTimer?.cancel()
     }
     
     func handleGrowthTimerEvent() {
@@ -44,14 +70,6 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
                 }
             }
         }
-    }
-    
-    func stopGrowthTimer() {
-        self.growthTimer?.cancel()
-    }
-    
-    func resumeGrowthTimer() {
-        startGrowthTimer()
     }
     
     func checkForPauseGrowthProgress() -> Bool {
@@ -79,6 +97,15 @@ class BasicInvestmentModulePlantingViewModel: ObservableObject {
                 completion?()
             }
         }
+    }
+    
+    func adjustPositionFromSpriteKitToSwiftUI(adjustPositionBy: CGPoint = .zero) -> CGPoint {
+        let spritePosition = (adjustPositionBy == .zero) ? self.highlightWaterCanPosition : self.soilPosition
+        
+        return CGPoint(
+            x: spritePosition.x - adjustPositionBy.x,
+            y: UIScreen.main.bounds.height - (spritePosition.y + adjustPositionBy.y)
+        )
     }
     
 }

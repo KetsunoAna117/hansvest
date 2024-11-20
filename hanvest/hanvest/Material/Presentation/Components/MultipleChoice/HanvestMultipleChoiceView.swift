@@ -18,30 +18,18 @@ struct HanvestMultipleChoiceView: View {
     var customSpacing: CGFloat?
     var onSelectAnswer: ((String) -> Void)
     
-    @State private var moneyBalance: Int = 10000000
     @State private var selectedButtonID = ""
     
     var body: some View {
         VStack(spacing: 24) {
-            VStack(spacing: (customSpacing != nil) ? customSpacing : 0) {
-                VStack(spacing: (customSpacing != nil) ? customSpacing : 24) {
-                    
-                    Text(question)
-                        .font(.nunito(.title2))
-                        .frame(maxWidth: .infinity)
-                    
-                    if let image = image{
-                        image
-                    }
-                    
-                }
+            VStack(spacing: (customSpacing != nil) ? customSpacing : 24) {
+                Text(question)
+                    .font(.nunito(.title2))
+                    .frame(maxWidth: .infinity)
                 
-                if checkIfQuestionIsModule03() {
-                    Text("Balance: Rp. \(moneyBalance)")
-                        .font(.nunito(.callout))
-                        .frame(maxWidth: .infinity)
+                if let image = image{
+                    image
                 }
-
             }
             .multilineTextAlignment(.center)
             
@@ -53,9 +41,7 @@ struct HanvestMultipleChoiceView: View {
                         id: "Item: \(index)",
                         title: option,
                         action: {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                radioButtonAction(option: option)
-                            }
+                            buttonAction(option: option)
                         }
                     )
                 }
@@ -64,21 +50,14 @@ struct HanvestMultipleChoiceView: View {
                 .multilineTextAlignment(.center)
             }
         }
-        .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(question) question page")
     }
     
-    private func radioButtonAction(option: String) {
-        if checkIfQuestionIsModule03() {
-            moneyBalance = 0
-        }
-        
+    private func buttonAction(option: String) {
         if correctAnswer == nil {
             onSelectAnswer(option)
         }
-    }
-    
-    private func checkIfQuestionIsModule03() -> Bool {
-        return (question.contains(RiskAndReturnModuleMultipleChoicePageContent.page01.question))
     }
     
     private func determineButtonStyle(option: String) -> HanvestButtonMultipleChoiceIsChecked {

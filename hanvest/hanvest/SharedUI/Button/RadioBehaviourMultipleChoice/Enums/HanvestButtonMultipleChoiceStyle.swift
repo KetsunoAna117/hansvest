@@ -41,8 +41,10 @@ enum HanvestButtonMultipleChoiceStyle {
                 return .seagull400
             case .unselected:
                 return .seagull300
-            case .filledCorrect, .filledIncorrect:
+            case .filledCorrect:
                 return .blizzardBlue400
+            case .filledIncorrect:
+                return .sundown500
         }
     }
     

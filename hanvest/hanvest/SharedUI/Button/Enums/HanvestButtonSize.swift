@@ -11,7 +11,7 @@ enum HanvestButtonSize {
     case large
     case medium
     
-    var minWidth: CGFloat {
+    var maxWidth: CGFloat {
         switch self {
         case .large:
             return 351

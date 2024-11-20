@@ -50,7 +50,6 @@ struct ModuleJourneyView: View {
                 }
                 .padding(10)
                 .frame(maxWidth: .infinity, alignment: moduleNumberButtonAlignmentLayout(for: moduleNumber))
-                .frame(height: 100)
             }
         }
         .padding(.horizontal, 20)

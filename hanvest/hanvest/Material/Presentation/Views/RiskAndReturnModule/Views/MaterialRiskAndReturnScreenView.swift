@@ -18,7 +18,7 @@ struct MaterialRiskAndReturnScreenView: View {
             Color.background
             
             ZStack {
-                VStack(spacing: 49) {
+                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                     ProgressBarWithXMarkView(
                         progressBarMinValue: viewModel.progressBarMinValue,
                         progressBarMaxValue: viewModel.progressBarMaxValue,
@@ -27,11 +27,12 @@ struct MaterialRiskAndReturnScreenView: View {
                         },
                         progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
+                    .padding(.horizontal, -8)
                     
-                    VStack(spacing: 48) {
+                    VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                         TabView(selection: $viewModel.currentTab) {
                             
-                            HanvestMultipleChoiceView(
+                            RiskAndReturnModuleMultipleChoiceView(
                                 question: RiskAndReturnModuleMultipleChoicePageContent.page01.question,
                                 options: RiskAndReturnModuleMultipleChoicePageContent.page01.options
                             ){ answer in
@@ -60,7 +61,8 @@ struct MaterialRiskAndReturnScreenView: View {
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
                                     image: (page == .page05) ? [Image("high-risk-low-risk-triangle")] : nil,
-                                    bulletPoints: page.bulletPoints
+                                    pointListStyle: .bulleted,
+                                    pointListContents: page.bulletPoints
                                 )
                                 .tag(page.rawValue)
                                 .transition(.slide)
@@ -92,8 +94,8 @@ struct MaterialRiskAndReturnScreenView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, (UIScreen.main.bounds.width < 385) ? 31 : 71)
-            .padding(.bottom, 54)
+            .padding(.top, (UIScreen.main.bounds.width < 385) ? 16 : 56)
+            .padding(.bottom, (UIScreen.main.bounds.width < 385) ? 30 : 54)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }

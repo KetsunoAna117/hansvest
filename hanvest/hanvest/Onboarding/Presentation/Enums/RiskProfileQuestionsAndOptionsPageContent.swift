@@ -43,17 +43,17 @@ enum RiskProfileQuestionsAndOptionsPageContent: Int, CaseIterable {
                 ]
             case .page2:
                 [
-                    "< Rp 50.000.000",
-                    "Rp 50.000.000 - Rp 100.000.000",
-                    "Rp 100.000.000 - Rp 500.000.000",
-                    "> Rp 500.000.000"
+                    "Less than Rp 50.000.000",
+                    "Rp 50.000.000 until Rp 100.000.000",
+                    "Rp 100.000.000 until Rp 500.000.000",
+                    "More than Rp 500.000.000"
                 ]
             case .page3:
                 [
-                    "< Rp 5.000.000",
-                    "Rp 5.000.000 - Rp 10.000.000",
-                    "Rp 10.000.000 - Rp 50.000.000",
-                    "> Rp 50.000.000"
+                    "Less than Rp 5.000.000",
+                    "Rp 5.000.000 until Rp 10.000.000",
+                    "Rp 10.000.000 until Rp 50.000.000",
+                    "More than Rp 50.000.000"
                 ]
             case .page4:
                 [
@@ -72,8 +72,8 @@ enum RiskProfileQuestionsAndOptionsPageContent: Int, CaseIterable {
             case .page6:
                 [
                     "Less than 1 year",
-                    "1-3 years",
-                    "4-7 years",
+                    "1 until 3 years",
+                    "4 until 7 years",
                     "More than 7 years"
                 ]
         }

@@ -35,6 +35,7 @@ struct SimulationSellingCard: View {
                             detail: FundamentalModuleTipData.yourAmountOfStock.detail,
                             stage: FundamentalModuleHighlightStage.sellStage.stringValue
                         )
+                        .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("\(viewModel.availableLot)"))
                 }
                 
                 HStack{
@@ -61,6 +62,7 @@ struct SimulationSellingCard: View {
                             detail: FundamentalModuleTipData.amountSell.detail,
                             stage: FundamentalModuleHighlightStage.sellStage.stringValue
                         )
+                        .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(viewModel.stockSellAmount)))
                 }
                 
                 HStack{
@@ -76,6 +78,7 @@ struct SimulationSellingCard: View {
                             detail: FundamentalModuleTipData.priceSell.detail,
                             stage: FundamentalModuleHighlightStage.sellStage.stringValue
                         )
+                        .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("\(currentPrice)"))
                 }
                 
                 HStack{

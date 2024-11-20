@@ -25,7 +25,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
     // Button content
     var id: String = UUID().uuidString
     var title: String
-    var action: () -> Void
+    var action: (() -> Void)? = nil
     
     var body: some View {
         ZStack(alignment: iconPosition.alignment) {
@@ -33,6 +33,7 @@ struct HanvestButtonMultipleChoiceBehavior: View {
             if iconPosition == .leading, let image = style.image {
                 image
                     .foregroundStyle(style.fontColor)
+                    .accessibilityHidden(true)
             }
             
             Text(title)
@@ -41,14 +42,16 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.nunito(.body))
                 .padding(.horizontal, size.textHorizontalPadding)
+                .accessibilityHidden(true)
             
             // If the icon position is trailing, place the image first
             if iconPosition == .trailing, let image = style.image {
                 image
                     .foregroundStyle(style.fontColor)
+                    .accessibilityHidden(true)
             }
         }
-        .frame(maxWidth: size.minWidth)
+        .frame(maxWidth: size.maxWidth)
         .padding(.horizontal, size.horizontalPadding)
         .padding(.vertical, size.verticalPadding)
         .multilineTextAlignment(.center)
@@ -64,6 +67,8 @@ struct HanvestButtonMultipleChoiceBehavior: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(style.borderColor, lineWidth: 0.5) // Default stroke
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(accessibilityLabelString())
         )
         .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
         .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
@@ -117,7 +122,22 @@ struct HanvestButtonMultipleChoiceBehavior: View {
                 self.style = .selected
             }
             
-            action()
+            action?()
+        }
+    }
+    
+    private func accessibilityLabelString() -> String {
+        let convertedTitle =  HanvestPriceFormatter.formatRupiahStringToSpelledOut(title)
+        
+        switch style {
+            case .filledCorrect:
+                return "\(convertedTitle) correct choice answer"
+            case .filledIncorrect:
+                return "\(convertedTitle) your incorrect choice answer"
+            case .selected:
+                return "\(convertedTitle) selected choice button"
+            case .unselected:
+                return "\(convertedTitle) choice button"
         }
     }
     
