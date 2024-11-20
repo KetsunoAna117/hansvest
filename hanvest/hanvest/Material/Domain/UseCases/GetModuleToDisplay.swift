@@ -58,13 +58,16 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module04",
-                moduleScreenID: .materialModule04,
+                moduleScreenID: .reusableMaterialModule(
+                    material: .init(
+                        content: StockRegulatorModuleViewModel.getContent(),
+                        completionEntityType: .module04
+                    )
+                ),
                 state: .next,
-                popup: ModulePopupNavigatiorEntity(
+                popup: .init(
                     title: "Stock Regulator",
-                    desc: """
-                            Identify the three key Self-Regulatory Organizations (SROs) in Indonesia's capital market.
-                        """
+                    desc: "Identify the three key Self-Regulatory Organizations (SROs) in Indonesia's capital market."
                 ),
                 completionEntity: .module04
             ),

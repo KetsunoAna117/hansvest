@@ -120,16 +120,6 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 self.setNotificationPermission(false)
             }
             
-        case .materialModule04:
-            ZStack {
-                Color.background.ignoresSafeArea()
-                MaterialStockRegulatorModuleScreenView(router: self)
-            }
-            .navigationBarBackButtonHidden()
-            .onAppear(){
-                self.setNotificationPermission(false)
-            }
-            
         case .materialModule05:
             ZStack {
                 Color.background.ignoresSafeArea()
