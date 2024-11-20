@@ -83,9 +83,9 @@ struct CompletionPageView: View {
             .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 20)
-        .padding(.top, 30)
+        .padding(.top, 40)
         .padding(.bottom, 54)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .onAppear {
             HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.getBadge)
         }
