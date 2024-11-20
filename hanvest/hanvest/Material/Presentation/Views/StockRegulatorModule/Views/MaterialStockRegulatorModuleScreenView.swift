@@ -18,7 +18,7 @@ struct MaterialStockRegulatorModuleScreenView: View {
             Color.background
             
             ZStack {
-                VStack(spacing: 49) {
+                VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                     ProgressBarWithXMarkView(
                         progressBarMinValue: viewModel.progressBarMinValue,
                         progressBarMaxValue: viewModel.progressBarMaxValue,
@@ -27,9 +27,9 @@ struct MaterialStockRegulatorModuleScreenView: View {
                         },
                         progressBarCurrValue: $viewModel.progressBarCurrValue
                     )
-                    .padding(.horizontal, (viewModel.showingAnswer == .isShowing) ? 20 : 0)
+                    .padding(.horizontal, (viewModel.showingAnswer == .isShowing) ? 12 : -8)
                     
-                    VStack(spacing: 48) {
+                    VStack(spacing: (UIScreen.main.bounds.width < 385) ? 24 : 48) {
                         TabView(selection: $viewModel.currentTab) {
                             
                             ForEach(Array(StockRegulatorModuleMaterialInformationPageContent.allCases.enumerated()), id: \.offset) { index, page in
@@ -68,7 +68,8 @@ struct MaterialStockRegulatorModuleScreenView: View {
                                 title: StockRegulatorModuleNumberedListPageContent.page11.title,
                                 detailText: StockRegulatorModuleNumberedListPageContent.page11.detailText,
                                 image: StockRegulatorModuleNumberedListPageContent.page11.image,
-                                numberedList: StockRegulatorModuleNumberedListPageContent.page11.numberedLists
+                                pointListStyle: .numbered,
+                                pointListContents: StockRegulatorModuleNumberedListPageContent.page11.numberedLists
                             )
                             .tag(StockRegulatorModuleNumberedListPageContent.page11.rawValue)
                             .transition(.slide)
@@ -120,8 +121,8 @@ struct MaterialStockRegulatorModuleScreenView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, (UIScreen.main.bounds.width < 385) ? 31 : 71)
-            .padding(.bottom, (viewModel.showingAnswer == .isNotShowing) ? 54 : 0)
+            .padding(.top, (UIScreen.main.bounds.width < 385) ? 16 : 56)
+            .padding(.bottom, (viewModel.showingAnswer == .isNotShowing) ? 54 - ((UIScreen.main.bounds.width < 385) ? 24 : 0) : 0)
             .padding(.horizontal, (viewModel.showingAnswer == .isNotShowing) ? 20 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }

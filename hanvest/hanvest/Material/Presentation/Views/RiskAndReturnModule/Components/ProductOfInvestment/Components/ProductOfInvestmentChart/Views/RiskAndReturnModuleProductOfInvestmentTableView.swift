@@ -16,22 +16,19 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
         VStack {
             VStack(spacing: 8) {
                 VStack(spacing: 4) {
-                    Text(Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productName)
+                    Text(getProductName())
                         .font(.nunito(.subhead, .bold))
                         .frame(maxWidth: .infinity)
                     
-                    if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price {
-                        
-                        Text("Rp. \(lastPrice) \(countPercentage(productID: productID, productStage: productStage))")
-                            .font(.nunito(.caption2))
-                            .frame(maxWidth: .infinity)
-                        
-                    }
+                    Text("Rp. \(getLastPrice()) \(countPercentage(productID: productID, productStage: productStage))")
+                        .font(.nunito(.caption2))
+                        .frame(maxWidth: .infinity)
                 }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("\(getProductName()) with equity Rp \(getLastPrice()) \(countPercentage(productID: productID, productStage: productStage))"))
             }
             .padding(.vertical, 8)
             .completionCardStyle()
-            
             
             RiskAndReturnModuleProductOfInvestmentChart(
                 viewmodel: HanvestProductPriceChartViewModel(
@@ -39,6 +36,8 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
                 symbolCategoryKeyPath: \.name
             )
             .completionCardStyle()
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(getProductName()) bar chart")
         }
         .frame(maxWidth: .infinity)
     }
@@ -57,6 +56,18 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
         let formattedPercentage = String(format: "%+.1f%%", countPricePercentage)
         
         return formattedPercentage
+    }
+    
+    private func getProductName() -> String {
+        return Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productName
+    }
+    
+    private func getLastPrice() -> Int {
+        if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price {
+            return lastPrice
+        } else {
+            return 0
+        }
     }
     
 }

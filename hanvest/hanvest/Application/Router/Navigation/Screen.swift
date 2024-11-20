@@ -26,6 +26,7 @@ enum Screen: Identifiable, Hashable, Equatable {
     case simulationSellingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case transactionStatus(transaction: TransactionStatusViewModel)
     case moduleCompletion(completionItem: CompletionEntityType)
+    case reusableMaterialModule(material: ReusableContentViewModels)
     
     var id: Self { return self }
 }
@@ -70,6 +71,8 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .moduleCompletion:
             hasher.combine(self.hashValue)
+        case .reusableMaterialModule:
+            hasher.combine(self.hashValue)
         }
     }
     
@@ -93,7 +96,8 @@ extension Screen {
             (.searchGlossary, .searchGlossary),
             (.newsDetails, .newsDetails),
             (.transactionStatus, .transactionStatus),
-            (.moduleCompletion, .moduleCompletion):
+            (.moduleCompletion, .moduleCompletion),
+            (.reusableMaterialModule, .reusableMaterialModule):
             return true
         default:
             return false

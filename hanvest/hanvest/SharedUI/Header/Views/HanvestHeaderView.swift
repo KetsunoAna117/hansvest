@@ -22,6 +22,7 @@ struct HanvestHeaderView: View {
                     VStack(alignment: .leading) {
                         Text("Virtual Balance")
                             .font(.nunito(.caption2))
+                            .accessibilityHidden(true)
                         Text(
                             HanvestPriceFormatter.formatIntToIDR(
                                 userDataViewModel.userData?.userBalance ?? -100
@@ -34,34 +35,41 @@ struct HanvestHeaderView: View {
                             detail: MainViewTipData.virtualBalance.detail,
                             stage: HanvestMainViewHighlightStage.mainStage.stringValue
                         )
+                        .accessibilityHidden(true)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut("virtual money balance \(HanvestPriceFormatter.formatIntToIDR(userDataViewModel.userData?.userBalance ?? -100))"))
+                    
                 }
                 
                 Spacer()
                 
                 HStack(spacing: 20) {
                     Image(systemName: "character.book.closed")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bookIconTappedAction()
                         }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("glossary icon")
+                    
                     Image(systemName: "bell")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
                         .onTapGesture {
                             bellIconTappedAction()
                         }
-                    Image(systemName: "person")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
-                        .onTapGesture {
-                            profileIconTappedAction()
-                        }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("notification icon")
+                    
+//                    Image(systemName: "person")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 25, height: 25)
+//                        .onTapGesture {
+//                            profileIconTappedAction()
+//                        }
+//                        .accessibilityElement(children: .ignore)
+//                        .accessibilityLabel("user profile icon")
                 }
+                .font(.system(size: 25))
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
@@ -80,5 +88,6 @@ struct HanvestHeaderLogo: View {
                 .foregroundStyle(.sundown50)
         }
         .frame(width: 43, height: 43)
+        .accessibilityHidden(true)
     }
 }

@@ -22,6 +22,7 @@ struct StockInvestmentDataView: View {
                             .font(.nunito(.subhead))
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userStockInvestment))
                             .font(.nunito(.subhead, .bold))
+                            .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(viewmodel.userStockInvestment)))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .showCase(
@@ -41,6 +42,7 @@ struct StockInvestmentDataView: View {
                             .font(.nunito(.subhead))
                         Text(HanvestPriceFormatter.formatIntToIDR(viewmodel.userTotalEquity))
                             .font(.nunito(.subhead, .bold))
+                            .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(viewmodel.userTotalEquity)))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .showCase(
@@ -71,6 +73,8 @@ struct StockInvestmentDataView: View {
                         detail: FundamentalModuleTipData.profitLoss.detail,
                         stage: FundamentalModuleHighlightStage.mainStage.stringValue
                     )
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("profit or loss: \(HanvestProfitLossLabelView(initialValue: $viewmodel.userStockInvestment, currentValue: $viewmodel.userTotalEquity))")
                 }
                 .background(
                     Rectangle()

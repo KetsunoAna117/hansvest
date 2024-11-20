@@ -29,7 +29,8 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: """
                             This module uses fun tree analogies to teach investing basics. Discover the importance of patience, care, and potential rewards.
                         """
-                )
+                ),
+                completionEntity: .module01
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module02",
@@ -40,7 +41,8 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: """
                             This module uses simulated shopping to teach the difference between assets and liabilities.
                         """
-                )
+                ),
+                completionEntity: .module02
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module03",
@@ -51,7 +53,8 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: """
                             Recognize that different investments have varying risk and reward profiles
                         """
-                )
+                ),
+                completionEntity: .module03
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module04",
@@ -62,7 +65,8 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: """
                             Identify the three key Self-Regulatory Organizations (SROs) in Indonesia's capital market.
                         """
-                )
+                ),
+                completionEntity: .module04
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module05",
@@ -73,7 +77,8 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: """
                             Exploring the overview of market and its component
                         """
-                )
+                ),
+                completionEntity: .module05
             ),
             ModuleNavigatiorEntity(
                 moduleID: "module06",
@@ -84,7 +89,38 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     desc: """
                             Learn action to take based on news
                         """
-                )
+                ),
+                completionEntity: .module06
+            ),
+            ModuleNavigatiorEntity(
+                moduleID: "module07",
+                moduleScreenID: .reusableMaterialModule(
+                    material: .init(
+                        content: SectorModuleViewModel.getContent(),
+                        completionEntityType: .module07
+                    )
+                ),
+                state: .next,
+                popup: .init(
+                    title: "Sector",
+                    desc: "Let’s Learn About Stock Sectors: Imagine a Neighborhood of Businesses!"
+                ),
+                completionEntity: .module07
+            ),
+            ModuleNavigatiorEntity(
+                moduleID: "module08",
+                moduleScreenID: .reusableMaterialModule(
+                    material: .init(
+                        content: MacroEconomicsModuleViewModel.getContent(),
+                        completionEntityType: .module08
+                    )
+                ),
+                state: .next,
+                popup: .init(
+                    title: "MacroEconomics",
+                    desc: "The economic cycle is a fluctuating pattern that the economy experiences over time."
+                ),
+                completionEntity: .module08
             )
         ]
     }

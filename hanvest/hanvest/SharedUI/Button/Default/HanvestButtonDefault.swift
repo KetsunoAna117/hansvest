@@ -15,9 +15,6 @@ struct HanvestButtonDefault: View {
     var size: HanvestButtonSize = .large
     var style: HanvestButtonStyle = .filled(isDisabled: false)
     var iconPosition: HanvestButtonIconPosition = .leading
-    var initialState: HanvestButtonState = .unpressed
-    
-    @State private var state: HanvestButtonState = .unpressed
     
     // Button content
     var title: String
@@ -25,73 +22,60 @@ struct HanvestButtonDefault: View {
     var action: () -> Void
     
     var body: some View {
-        ZStack(alignment: iconPosition.alignment) {
-            // If the icon position is leading, place the image first
-            if iconPosition == .leading, let image = image {
-                image
-                    .foregroundStyle(style.fontColor)
-            }
-            
-            Text(title)
-                .foregroundStyle(style.fontColor)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .font(.nunito(.body))
-                .padding(.horizontal, size.textHorizontalPadding)
-            
-            // If the icon position is trailing, place the image first
-            if iconPosition == .trailing, let image = image {
-                image
-                    .foregroundStyle(style.fontColor)
-            }
-        }
-        .frame(maxWidth: size.minWidth)
-        .padding(.horizontal, size.horizontalPadding)
-        .padding(.vertical, size.verticalPadding)
-        .multilineTextAlignment(.center)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(style.backgroundColor)
-                .shadow(
-                    color: getPressedStatus() ? .clear : style.shadowColor,
-                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET // Shadow changes when pressed
-                )
-            
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(style.borderColor, lineWidth: 0.5) // Default stroke
-        )
-        .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
-        .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-        .onTapGesture {
-            if self.style.isDisabled == false {
-                self.state = .pressed
-                
-                HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
-                HanvestHapticManager.hapticNotif(type: .success)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                    self.state = .unpressed
+        Button(
+            action: {
+                if self.style.isDisabled == false {
+                    HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+                    HanvestHapticManager.hapticNotif(type: .success)
+    
                     action()
+                }
+            }, label: {
+                ZStack(alignment: iconPosition.alignment, content: {
+                    // If the icon position is leading, place the image first
+                    if iconPosition == .leading, let image = image {
+                        image
+                            .foregroundStyle(style.fontColor)
+                            .padding(.leading, 16)
+                    }
+                    
+                    Text(title)
+                        .foregroundStyle(style.fontColor)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(.nunito(.body))
+                        .padding(.horizontal, size.textHorizontalPadding)
+                    
+                    // If the icon position is trailing, place the image first
+                    if iconPosition == .trailing, let image = image {
+                        image
+                            .foregroundStyle(style.fontColor)
+                            .padding(.trailing, 16)
+                    }
                 })
             }
-        }
-        .onAppear {
-            setupState()
-        }
+        )
+        .buttonStyle(HanvestButtonType(size: size, style: style))
         .disabled(style.isDisabled)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelString())
     }
     
-    func getPressedStatus() -> Bool {
-        return state == .pressed
+    private func accessibilityLabelString() -> String {
+        if title == "Continue" {
+            return "\(title) button"
+        }
+        
+        switch style {
+            case .bordered, .borderless:
+                return "\(title) choice button"
+            case .filled:
+                return "\(title) selected choice button"
+            case .filledCorrect:
+                return "\(title) correct answer"
+            case .filledIncorrect:
+                return "\(title) Incorrect answer"
+        }
     }
-
-    
-    func setupState() {
-        self.state = initialState
-    }
-    
     
 }
 
