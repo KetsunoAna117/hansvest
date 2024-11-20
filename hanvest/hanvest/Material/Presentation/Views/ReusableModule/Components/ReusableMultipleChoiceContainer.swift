@@ -29,6 +29,7 @@ struct ReusableMultipleChoiceContainer: View {
                     HanvestButtonDefault(
                         style: getButtonStyle(id: choice),
                         title: choice,
+                        image: getButtonImage(id: choice),
                         action: {
                             self.selectedButtonID = choice
                         }
@@ -101,6 +102,19 @@ struct ReusableMultipleChoiceContainer: View {
             return .filled(isDisabled: false)
         }
         return .bordered(isDisabled: false)
+    }
+    
+    func getButtonImage(id: String) -> Image? {
+        let buttonStyle = getButtonStyle(id: id)
+        
+        switch buttonStyle {
+        case .filledCorrect(isDisabled: false):
+            return Image(systemName: "checkmark")
+        case .filledIncorrect(isDisabled: false):
+            return Image(systemName: "xmark")
+        default:
+            return nil
+        }
     }
     
     func validateChoice() -> Bool {
