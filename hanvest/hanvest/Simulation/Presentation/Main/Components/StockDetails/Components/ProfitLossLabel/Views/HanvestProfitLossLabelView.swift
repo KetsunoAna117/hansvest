@@ -19,6 +19,7 @@ struct HanvestProfitLossLabelView: View {
             Text("\(labelState.symbolType)\(String(format: "%.0f", abs(viewModel.deficit)))")
                 .foregroundColor(labelState.textColor)
                 .font(.nunito(.caption1))
+                .accessibilityLabel("\(labelState.symbolType)\(String(format: "%.0f", abs(viewModel.deficit))) rupiah")
             
             Text("(\(labelState.symbolType)\(String(format: "%.2f", viewModel.percentageValue))%)")
                 .foregroundColor(labelState.textColor)

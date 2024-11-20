@@ -65,6 +65,7 @@ struct CompletionPageView: View {
                                 Text(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney))
                                     .font(.nunito(.title1, .bold))
                                     .frame(maxWidth: .infinity)
+                                    .accessibilityLabel(HanvestPriceFormatter.formatRupiahStringToSpelledOut(HanvestPriceFormatter.formatIntToIDR(completionItem.value.bonusMoney)))
                                 
                             }
                             .frame(maxWidth: .infinity)
