@@ -20,7 +20,6 @@ struct HanvestStockOptionList: View {
                     ForEach(simulationStockList, id: \.stockIDName) { stock in
                         HanvestStockOption(
                             selectedStockID: $selectedStockID,
-                            state: self.selectedStockID == stock.stockIDName ? .selected : .unselected,
                             id: stock.stockIDName,
                             imageName: stock.stockImageName,
                             action: {
