@@ -21,8 +21,8 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
         
         return [
             ModuleNavigatiorEntity(
-                moduleID: "module01",
-                moduleScreenID: .materialModule01,
+                moduleID: "basicInvestmentModule",
+                moduleScreenID: .materialBasicInvestmentModule,
                 state: .next,
                 popup: ModulePopupNavigatiorEntity(
                     title: "Basic Investment",
@@ -30,11 +30,11 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                             This module uses fun tree analogies to teach investing basics. Discover the importance of patience, care, and potential rewards.
                         """
                 ),
-                completionEntity: .module01
+                completionEntity: .basicInvestmentModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module02",
-                moduleScreenID: .materialModule02,
+                moduleID: "liabilitiesVsAssetModule",
+                moduleScreenID: .materialLiabilitiesVsAsset,
                 state: .next,
                 popup: ModulePopupNavigatiorEntity(
                     title: "Liabilities vs Assets",
@@ -42,11 +42,11 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                             This module uses simulated shopping to teach the difference between assets and liabilities.
                         """
                 ),
-                completionEntity: .module02
+                completionEntity: .liabilitiesVsAssetModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module03",
-                moduleScreenID: .materialModule03,
+                moduleID: "riskAndReturnModule",
+                moduleScreenID: .materialRiskAndReturnModule,
                 state: .next,
                 popup: ModulePopupNavigatiorEntity(
                     title: "Risk and return",
@@ -54,14 +54,14 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                             Recognize that different investments have varying risk and reward profiles
                         """
                 ),
-                completionEntity: .module03
+                completionEntity: .riskAndReturnModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module04",
+                moduleID: "stockRegulatorModule",
                 moduleScreenID: .reusableMaterialModule(
                     material: .init(
                         content: StockRegulatorModuleViewModel.getContent(),
-                        completionEntityType: .module04
+                        completionEntityType: .stockRegulatorModule
                     )
                 ),
                 state: .next,
@@ -69,11 +69,11 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     title: "Stock Regulator",
                     desc: "Identify the three key Self-Regulatory Organizations (SROs) in Indonesia's capital market."
                 ),
-                completionEntity: .module04
+                completionEntity: .stockRegulatorModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module05",
-                moduleScreenID: .materialModule05,
+                moduleID: "fundamentalModule",
+                moduleScreenID: .materialFundamentalModule,
                 state: .next,
                 popup: ModulePopupNavigatiorEntity(
                     title: "Fundamental Part 1",
@@ -81,11 +81,11 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                             Exploring the overview of market and its component
                         """
                 ),
-                completionEntity: .module05
+                completionEntity: .fundamentalModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module06",
-                moduleScreenID: .materialModule06,
+                moduleID: "newsModule",
+                moduleScreenID: .materialNewsModule,
                 state: .next,
                 popup: ModulePopupNavigatiorEntity(
                     title: "News",
@@ -93,14 +93,14 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                             Learn action to take based on news
                         """
                 ),
-                completionEntity: .module06
+                completionEntity: .newsModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module07",
+                moduleID: "sectorModule",
                 moduleScreenID: .reusableMaterialModule(
                     material: .init(
                         content: SectorModuleViewModel.getContent(),
-                        completionEntityType: .module07
+                        completionEntityType: .sectorModule
                     )
                 ),
                 state: .next,
@@ -108,14 +108,14 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     title: "Sector",
                     desc: "Let’s Learn About Stock Sectors: Imagine a Neighborhood of Businesses!"
                 ),
-                completionEntity: .module07
+                completionEntity: .sectorModule
             ),
             ModuleNavigatiorEntity(
-                moduleID: "module08",
+                moduleID: "macroEconomicsModule",
                 moduleScreenID: .reusableMaterialModule(
                     material: .init(
                         content: MacroEconomicsModuleViewModel.getContent(),
-                        completionEntityType: .module08
+                        completionEntityType: .macroEconomicsModule
                     )
                 ),
                 state: .next,
@@ -123,7 +123,7 @@ struct GetModuleToDisplayImpl: GetModuleToDisplay {
                     title: "MacroEconomics",
                     desc: "The economic cycle is a fluctuating pattern that the economy experiences over time."
                 ),
-                completionEntity: .module08
+                completionEntity: .macroEconomicsModule
             )
         ]
     }

@@ -32,7 +32,7 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
             
             RiskAndReturnModuleProductOfInvestmentChart(
                 viewmodel: HanvestProductPriceChartViewModel(
-                    prices: Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices),
+                    prices: ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices),
                 symbolCategoryKeyPath: \.name
             )
             .completionCardStyle()
@@ -43,11 +43,11 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
     }
     
     private func countPercentage(productID: Int, productStage: Int) -> String {
-        guard let firstPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.first?.price else {
+        guard let firstPrice = ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.first?.price else {
             return "0.0%"
         }
         
-        guard let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price else {
+        guard let lastPrice = ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price else {
             return "0.0%"
         }
         
@@ -59,11 +59,11 @@ struct RiskAndReturnModuleProductOfInvestmentTableView: View {
     }
     
     private func getProductName() -> String {
-        return Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productName
+        return ProductOfInvestmentEntity.getMockData()[productStage][productID].productName
     }
     
     private func getLastPrice() -> Int {
-        if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price {
+        if let lastPrice = ProductOfInvestmentEntity.getMockData()[productStage][productID].productPrices.last?.price {
             return lastPrice
         } else {
             return 0

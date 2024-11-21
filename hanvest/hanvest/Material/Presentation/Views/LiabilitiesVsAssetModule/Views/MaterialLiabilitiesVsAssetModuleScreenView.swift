@@ -107,7 +107,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                             ) {
                                 viewModel.goToNextPage(
                                     router: self.router,
-                                    specificModule: .module02
+                                    specificModule: .liabilitiesVsAssetModule
                                 )
                             }
                         }
@@ -129,7 +129,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .materialModule02
+    @Previewable @State var startScreen: Screen? = .materialLiabilitiesVsAsset
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

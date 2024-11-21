@@ -110,7 +110,7 @@ struct CompletionPageView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .moduleCompletion(completionItem: .module01)
+    @Previewable @State var startScreen: Screen? = .moduleCompletion(completionItem: .basicInvestmentModule)
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

@@ -90,7 +90,7 @@ struct RiskAndReturnModuleProductOfInvestmentChart: View {
 }
 
 #Preview {
-    @Previewable @State var productPrices = Module03ProductOfInvestmentEntity.getMockData()[0][0].productPrices
+    @Previewable @State var productPrices = ProductOfInvestmentEntity.getMockData()[0][0].productPrices
     
     RiskAndReturnModuleProductOfInvestmentChart(
         viewmodel: HanvestProductPriceChartViewModel(prices: productPrices),

@@ -30,7 +30,7 @@ struct RiskAndReturnModuleProductOfInvestmentView: View {
             
             ScrollView(.vertical) {
                 VStack(spacing: 24) {
-                    ForEach(Module03ProductOfInvestmentEntity.getMockData()[productStage].indices, id: \.self) { productID in
+                    ForEach(ProductOfInvestmentEntity.getMockData()[productStage].indices, id: \.self) { productID in
                         RiskAndReturnModuleProductOfInvestmentTableView(
                             productStage: productStage,
                             productID: productID
@@ -45,7 +45,7 @@ struct RiskAndReturnModuleProductOfInvestmentView: View {
     }
     
     func getLastProductOfInvestmentPrice() -> Int {
-        if let lastPrice = Module03ProductOfInvestmentEntity.getMockData()[productStage][selectedProductIndex].productPrices.last?.price {
+        if let lastPrice = ProductOfInvestmentEntity.getMockData()[productStage][selectedProductIndex].productPrices.last?.price {
             return lastPrice
         } else {
             return 0
