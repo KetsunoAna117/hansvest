@@ -14,9 +14,9 @@ struct ReusableModuleMainScreenView: View {
     
     var body: some View {
         ZStack {
-            Color.background
+            Color.background.ignoresSafeArea()
             
-            VStack(spacing: 40) {
+            VStack(spacing: (UIScreen.main.bounds.width < 385) ? 20 : 40) {
                 ProgressBarWithXMarkView(
                     progressBarMinValue: 0,
                     progressBarMaxValue: viewModel.content.count - 1,
@@ -31,7 +31,6 @@ struct ReusableModuleMainScreenView: View {
                     moduleRouter.build(screen)
                 }
             }
-            .padding(.top, 56)
             .frame(maxHeight: .infinity, alignment: .top)
             .onAppear() {
                 viewModel.setup(
@@ -40,7 +39,6 @@ struct ReusableModuleMainScreenView: View {
                 )
             }
         }
-        .ignoresSafeArea()
     }
 }
 

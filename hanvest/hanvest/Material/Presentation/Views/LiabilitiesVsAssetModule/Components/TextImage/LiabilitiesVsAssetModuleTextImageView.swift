@@ -21,8 +21,6 @@ struct LiabilitiesVsAssetModuleTextImageView: View {
                 .multilineTextAlignment(.center)
             
             image
-                .resizable()
-                .scaledToFit()
                 .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
@@ -33,6 +31,6 @@ struct LiabilitiesVsAssetModuleTextImageView: View {
     LiabilitiesVsAssetModuleTextImageView(
         title: "Now you go the store to get one for yourself",
         image: Image("iphone-pic-01"),
-        customSpacing: 65
+        customSpacing: 78
     )
 }

@@ -11,7 +11,6 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
     // Constants
     let title: String
     let image: Image
-    let customSpacing: CGFloat
     
     // Components
     var needColorPicker: Bool?
@@ -20,13 +19,14 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
     @State private var selectedButtonID = ""
     
     var body: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 24) {
+            Text(title)
+                .font(.nunito(.title2))
+                .frame(maxWidth: .infinity, alignment: .center)
+                .multilineTextAlignment(.center)
             
-            LiabilitiesVsAssetModuleTextImageView(
-                title: title,
-                image: image,
-                customSpacing: customSpacing
-            )
+            image
+                .frame(maxWidth: .infinity)
             
             if let _ = needColorPicker {
                 HStack(spacing: 24) {
@@ -53,7 +53,6 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
     LiabilitiesVsAssetModuleTextImageColorPickerView(
         title: "There’s a brand new iphone just released",
         image: Image("iphone-pic-01"),
-        customSpacing: 65,
         onSelectAnswer: {
             _ in
         }
