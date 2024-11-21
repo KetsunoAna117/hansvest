@@ -35,9 +35,10 @@ enum LiabilitiesVsAssetModuleTextImagePageContent: Int, CaseIterable {
     var customSpacing: CGFloat {
         switch self {
             case .page01, .page02:
-                65
+                24
             case .page06:
-                78
+                65
         }
     }
+    
 }

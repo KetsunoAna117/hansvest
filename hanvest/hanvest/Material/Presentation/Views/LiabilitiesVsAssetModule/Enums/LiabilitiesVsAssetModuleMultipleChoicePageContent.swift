@@ -17,7 +17,7 @@ enum LiabilitiesVsAssetModuleMultipleChoicePageContent: Int, CaseIterable {
             case .page03:
                 "Now choose the type of iphone you want to get"
             case .page05:
-                "Choose the storage of the iphone"
+                "Choose the storage capacity for your brand new iphone"
             case .page07:
                 "Now it's time for you to pay, choose wisely your payment method"
         }
@@ -42,4 +42,5 @@ enum LiabilitiesVsAssetModuleMultipleChoicePageContent: Int, CaseIterable {
                 ["Pay with Debit Card (Rp 24.999.000)", "Pay with PayLater (Rp 24.999.000)"]
         }
     }
+    
 }

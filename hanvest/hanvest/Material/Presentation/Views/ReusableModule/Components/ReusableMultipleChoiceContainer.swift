@@ -15,25 +15,33 @@ struct ReusableMultipleChoiceContainer: View {
     @State private var userPressSubmitButton: Bool = false
     
     var body: some View {
-        VStack(spacing: 48) {
-            VStack(spacing: 24) {
-                Text(data.question)
-                    .font(.nunito(.title2, .regular))
-                    .multilineTextAlignment(.center)
-                
-                ForEach(data.choices, id: \.self) { choice in
-                    HanvestButtonDefault(
-                        style: getButtonStyle(id: choice),
-                        title: choice,
-                        action: {
-                            self.selectedButtonID = choice
-                        }
-                    )
-                    .disabled(userPressSubmitButton)
+        VStack(spacing: (!userPressSubmitButton) ? 48 : 0) {
+            ScrollView {
+                VStack(spacing: 24) {
+                    Text(data.question)
+                        .font(.nunito(.title2, .regular))
+                        .multilineTextAlignment(.center)
+                    
+                    if let imageName = data.imageName {
+                        Image(imageName)
+                    }
+                    
+                    ForEach(data.choices, id: \.self) { choice in
+                        HanvestButtonDefault(
+                            style: getButtonStyle(id: choice),
+                            title: choice,
+                            image: getButtonImage(id: choice),
+                            action: {
+                                self.selectedButtonID = choice
+                            }
+                        )
+                        .disabled(userPressSubmitButton)
+                    }
                 }
+                .padding(.horizontal, 20)
+                .frame(maxHeight: .infinity, alignment: .top)
             }
-            .padding(.horizontal, 20)
-            .frame(maxHeight: .infinity, alignment: .top)
+            .scrollBounceBehavior(.basedOnSize, axes: [.vertical])
             
             if userPressSubmitButton {
                 if validateChoice() == true && selectedButtonID.isEmpty == false {
@@ -97,6 +105,19 @@ struct ReusableMultipleChoiceContainer: View {
             return .filled(isDisabled: false)
         }
         return .bordered(isDisabled: false)
+    }
+    
+    func getButtonImage(id: String) -> Image? {
+        let buttonStyle = getButtonStyle(id: id)
+        
+        switch buttonStyle {
+        case .filledCorrect(isDisabled: false):
+            return Image(systemName: "checkmark")
+        case .filledIncorrect(isDisabled: false):
+            return Image(systemName: "xmark")
+        default:
+            return nil
+        }
     }
     
     func validateChoice() -> Bool {

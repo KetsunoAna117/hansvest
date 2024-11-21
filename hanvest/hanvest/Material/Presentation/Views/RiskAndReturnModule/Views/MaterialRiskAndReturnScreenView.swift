@@ -57,10 +57,10 @@ struct MaterialRiskAndReturnScreenView: View {
                             
                             ForEach(Array(RiskAndReturnModuleMaterialInformationPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMaterialnformationView(
+                                HanvestMaterialInformationView(
                                     title: Text(page.title).font(.nunito(.title2)),
                                     detailText: page.detailText,
-                                    image: (page == .page05) ? [Image("high-risk-low-risk-triangle")] : nil,
+                                    imageNames: (page == .page05) ? ["high-risk-low-risk-triangle"] : nil,
                                     pointListStyle: .bulleted,
                                     pointListContents: page.bulletPoints
                                 )

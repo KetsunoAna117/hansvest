@@ -1,5 +1,5 @@
 //
-//  HanvestMaterialnformationView.swift
+//  HanvestMaterialInformationView.swift
 //  hanvest
 //
 //  Created by Bryan Vernanda on 18/10/24.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct HanvestMaterialnformationView: View {
+struct HanvestMaterialInformationView: View {
     // Constants
     let title: Text
     let detailText: Text
     
     // Component Contents
-    var image: [Image]?
+    var imageNames: [String]?
     var pointListStyle: HanvestPointListStyle?
     var pointListContents: [String]?
     
@@ -23,8 +23,8 @@ struct HanvestMaterialnformationView: View {
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.center)
             
-            if let images = image {
-                HanvestAutoSpacingImageView(images: images)
+            if let imageNames = imageNames {
+                HanvestAutoSpacingImageView(imageNames: imageNames)
             }
             
             ScrollView {
@@ -62,7 +62,7 @@ struct HanvestMaterialnformationView: View {
     @Previewable let detailText = "Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd Preview detail text asudh asduha asudh asudh asudhas duusahd asudh aushda uahs udaushd ausudha sd"
     @Previewable let bulletPoint = ["Preview bullet point 1", "Preview bullet point 2"]
 
-    HanvestMaterialnformationView(
+    HanvestMaterialInformationView(
         title: Text(title).font(.nunito(.title2)),
         detailText: Text(detailText).font(.callout),
         pointListStyle: .bulleted,

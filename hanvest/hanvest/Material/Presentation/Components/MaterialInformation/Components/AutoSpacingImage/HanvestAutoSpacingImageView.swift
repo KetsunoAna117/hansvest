@@ -9,12 +9,12 @@ import SwiftUI
 
 struct HanvestAutoSpacingImageView: View {
     // Constant
-    let images: [Image]
+    let imageNames: [String]
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(0..<images.count, id: \.self) { index in
-                images[index]
+            ForEach(0..<imageNames.count, id: \.self) { index in
+                Image(imageNames[index])
                     .resizable()
                     .scaledToFit()
             }
@@ -25,6 +25,6 @@ struct HanvestAutoSpacingImageView: View {
 }
 
 #Preview {
-    @Previewable let image = Image("IDX-logo")
-    HanvestAutoSpacingImageView(images: [image, image, image])
+    @Previewable let imageNames = "IDX-logo"
+    HanvestAutoSpacingImageView(imageNames: [imageNames, imageNames, imageNames])
 }

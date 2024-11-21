@@ -64,7 +64,6 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                             LiabilitiesVsAssetModuleTextImageColorPickerView(
                                 title: LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.title,
                                 image: LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.image,
-                                customSpacing: LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.customSpacing,
                                 needColorPicker: true,
                                 onSelectAnswer: { answer in
                                     viewModel.userSelectedAnswers[LiabilitiesVsAssetModuleTextImageColorPickerPageContent.page04.rawValue] = answer
@@ -76,7 +75,7 @@ struct MaterialLiabilitiesVsAssetModuleScreenView: View {
                             
                             ForEach(Array(LiabilitiesVsAssetModuleHeaderWithDetailTextPageContent.allCases.enumerated()), id: \.offset) { index, page in
                                 
-                                HanvestMaterialnformationView(
+                                HanvestMaterialInformationView(
                                     title: page.title(
                                         chosenPhone: viewModel.userSelectedAnswers[LiabilitiesVsAssetModuleMultipleChoicePageContent.page03.rawValue],
                                         chosenMethod: viewModel.userSelectedAnswers[LiabilitiesVsAssetModuleMultipleChoicePageContent.page07.rawValue]
