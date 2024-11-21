@@ -77,6 +77,7 @@ struct NewsModuleConfirmationSellView: View {
                     }
                 )
                 .padding(.bottom, 48)
+                .padding(.horizontal, 20)
             }
             .onAppear(){
                 viewmodel.setup(
