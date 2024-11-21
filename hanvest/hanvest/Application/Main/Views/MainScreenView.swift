@@ -16,7 +16,7 @@ struct MainScreenView: View {
     @StateObject private var highlightViewModel = HanvestHighlightViewModel()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HanvestHeaderView(
                 userDataViewModel: userDataViewModel,
                 bookIconTappedAction: {
@@ -34,6 +34,8 @@ struct MainScreenView: View {
             )
             .accessibilityElement(children: .contain)
             .accessibilityLabel("toolbar")
+            
+            Divider()
             
             TabView(selection: $selectionTab) {
                 Tab("Material",

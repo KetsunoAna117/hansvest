@@ -18,7 +18,7 @@ struct FundamentalModuleSimulationView: View {
     var body: some View {
         ZStack {
             VStack {
-                VStack {
+                VStack(spacing: 0) {
                     HanvestStockOptionList(
                         selectedStockID: $simulationViewModel.selectedStockID,
                         simulationStockList: simulationViewModel.stockList,
@@ -48,6 +48,7 @@ struct FundamentalModuleSimulationView: View {
                                             currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                                         )
                                         .id(FundamentalModuleTipData.stocks.index)
+                                        .padding(.top, 12)
                                         
                                         HanvestStockPriceChart(
                                             viewmodel: HanvestProductPriceChartViewModel(
@@ -70,6 +71,7 @@ struct FundamentalModuleSimulationView: View {
                                                 stage: FundamentalModuleHighlightStage.mainStage.stringValue
                                             )
                                             .id(FundamentalModuleTipData.companyProfile.index)
+                                            .padding(.bottom, 12)
                                         
                                     }
                                 }
@@ -81,7 +83,6 @@ struct FundamentalModuleSimulationView: View {
                             }
                             .padding(.horizontal, 20)
                         }
-                        .padding(.top, 12)
                         .onChange(of: highlightViewModel.currentHighlight) { _, newValue in
                             if simulationViewModel.checkForCurrentHighlightedValue(newValue) {
                                 withAnimation {
@@ -91,11 +92,10 @@ struct FundamentalModuleSimulationView: View {
                         }
                     }
                     
-                    Divider()
-                        .padding(.top, -6)
-                    
                     // Button
                     VStack {
+                        Divider()
+                        
                         HStack(spacing: 12) {
                             HanvestButtonDefault(
                                 size: .medium,
@@ -143,8 +143,8 @@ struct FundamentalModuleSimulationView: View {
                                     stage: FundamentalModuleHighlightStage.mainStage.stringValue
                                 )
                         }
+                        .padding(.horizontal, 20)
                     }
-                    .padding(.horizontal, 20)
                     .padding(.bottom, 13)
                     
                     Divider()
