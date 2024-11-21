@@ -261,7 +261,7 @@ private extension SwiftDataContextManager {
             userName: "Bryon",
             userBalance: 100000000,
             userRiskProfile: .conservative,
-            moduleCompletionIDList: [.module01, .module02, .module03, .module04, .module05, .module06]
+            moduleCompletionIDList: [.basicInvestmentModule, .liabilitiesVsAssetModule, .riskAndReturnModule, .stockRegulatorModule, .fundamentalModule, .newsModule]
         )
     }
     
@@ -317,7 +317,7 @@ private extension SwiftDataContextManager {
             ),
             .init(
                 stockIDName: "BIVI",
-                stockName: "PT Brim Vehicel International Tbk.",
+                stockName: "PT Brim Vehicle International Tbk.",
                 stockImageName: "BIVI",
                 stockDescription: "PT Brim Vehicle International Tbk adalah perusahaan otomotif yang berfokus pada produksi kendaraan listrik untuk mendukung transisi energi bersih di Indonesia. BIVI terus berinovasi dalam teknologi kendaraan ramah lingkungan, dengan fasilitas produksi modern yang berlokasi di Jawa Tengah. Selain kendaraan listrik, perusahaan juga mengembangkan teknologi otomotif berbasis AI dan terus memperluas pasar internasional untuk mendukung pertumbuhan yang berkelanjutan."
             ),
@@ -329,7 +329,7 @@ private extension SwiftDataContextManager {
             ),
             .init(
                 stockIDName: "TEJA",
-                stockName: "PT Telekim Jaya Tbk",
+                stockName: "PT Telekom Jaya Tbk",
                 stockImageName: "TEJA",
                 stockDescription: "PT Telekom Jaya Tbk adalah perusahaan telekomunikasi yang menyediakan layanan internet, telepon seluler, dan solusi digital untuk pelanggan di seluruh Indonesia. TEJA terkenal dengan inovasi di bidang jaringan, termasuk pengembangan teknologi 5G dan satelit untuk memperluas jangkauan layanan hingga ke daerah terpencil. Dengan komitmen pada transformasi digital, TEJA berusaha untuk mendukung digitalisasi masyarakat Indonesia melalui produk dan layanan yang andal serta terjangkau."
             )

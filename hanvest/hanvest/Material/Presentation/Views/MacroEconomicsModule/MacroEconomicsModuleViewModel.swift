@@ -30,10 +30,10 @@ class MacroEconomicsModuleViewModel: ReusableContentViewModels {
                 id: "macro-economics-2",
                 question: "What Investors Can Do in Each Phase of the Economic Cycle During expansion phase?",
                 choices: [
-                    "Diversify the portfolio or consider more stable assets like bonds.",
-                    "Focus on stocks and risky assets due to high growth potential.",
-                    "Switch to defensive assets, such as government bonds or gold.",
-                    "Start taking greater risks by buying stocks, as growth potential is high at the start of an expansion."
+                    "Diversify the portfolio or consider more stable assets like bonds",
+                    "Focus on stocks and risky assets due to high growth potential",
+                    "Switch to defensive assets, such as government bonds or gold",
+                    "Start taking greater risks by buying stocks, as growth potential is high at the start of an expansion"
                 ],
                 correctAnswerIdx: 2
             ),

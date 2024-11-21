@@ -85,7 +85,7 @@ struct MaterialRiskAndReturnScreenView: View {
                             ) {
                                 viewModel.goToNextPage(
                                     router: self.router,
-                                    specificModule: .module03
+                                    specificModule: .riskAndReturnModule
                                 )
                             }
                         }
@@ -107,7 +107,7 @@ struct MaterialRiskAndReturnScreenView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .materialModule03
+    @Previewable @State var startScreen: Screen? = .materialRiskAndReturnModule
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

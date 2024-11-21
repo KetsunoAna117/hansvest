@@ -90,7 +90,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 self.setNotificationPermission(true)
             }
             
-        case .materialModule01:
+        case .materialBasicInvestmentModule:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MaterialBasicInvestmentModuleScreenView(router: self)
@@ -100,7 +100,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 self.setNotificationPermission(false)
             }
             
-        case .materialModule02:
+        case .materialLiabilitiesVsAsset:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MaterialLiabilitiesVsAssetModuleScreenView(router: self)
@@ -110,7 +110,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 self.setNotificationPermission(false)
             }
             
-        case .materialModule03:
+        case .materialRiskAndReturnModule:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MaterialRiskAndReturnScreenView(router: self)
@@ -120,7 +120,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 self.setNotificationPermission(false)
             }
             
-        case .materialModule05:
+        case .materialFundamentalModule:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MaterialFundamentalModuleScreenView(appRouter: self)
@@ -130,7 +130,7 @@ class AppRouter: AppRouterProtocol, ObservableObject {
                 self.setNotificationPermission(false)
             }
             
-        case .materialModule06:
+        case .materialNewsModule:
             ZStack {
                 Color.background.ignoresSafeArea()
                 MaterialNewsModuleScreenView(appRouter: self)
