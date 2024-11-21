@@ -16,79 +16,79 @@ struct CompletionEntity {
 }
 
 enum CompletionEntityType: String, Codable, CaseIterable {
-    case module01
-    case module02
-    case module03
-    case module04
-    case module05
-    case module06
-    case module07
-    case module08
+    case basicInvestmentModule
+    case liabilitiesVsAssetModule
+    case riskAndReturnModule
+    case stockRegulatorModule
+    case fundamentalModule
+    case newsModule
+    case sectorModule
+    case macroEconomicsModule
     
     var value: CompletionEntity {
         switch self {
-        case .module01:
+        case .basicInvestmentModule:
             return CompletionEntity(
-                moduleID: "module01",
+                moduleID: "basicInvestmentModule",
                 badgeName: "Basvestment",
-                badgeImageName: "badge-module-01",
-                achievedAfterCompleting: "Module 1",
+                badgeImageName: "badge-basic-investment",
+                achievedAfterCompleting: "BasicInvestment Module",
                 bonusMoney: 1000000
             )
-        case .module02:
+        case .liabilitiesVsAssetModule:
             return CompletionEntity(
-                moduleID: "module02",
+                moduleID: "liabilitiesVsAssetModule",
                 badgeName: "LvA",
-                badgeImageName: "badge-module-02",
-                achievedAfterCompleting: "Module 2",
+                badgeImageName: "badge-liabilities-vs-asset",
+                achievedAfterCompleting: "LiabilitiesVsAsset Module",
                 bonusMoney: 1000000
             )
-        case .module03:
+        case .riskAndReturnModule:
             return CompletionEntity(
-                moduleID: "module03",
+                moduleID: "riskAndReturnModule",
                 badgeName: "Risk Analyzer",
-                badgeImageName: "badge-module-03",
-                achievedAfterCompleting: "Module 3",
+                badgeImageName: "badge-risk-and-return",
+                achievedAfterCompleting: "RiskAndReturn Module",
                 bonusMoney: 1000000
             )
-        case .module04:
+        case .stockRegulatorModule:
             return CompletionEntity(
-                moduleID: "module04",
+                moduleID: "stockRegulatorModule",
                 badgeName: "Profile Hunter",
-                badgeImageName: "badge-module-04",
-                achievedAfterCompleting: "Module 4",
+                badgeImageName: "badge-stock-regulator",
+                achievedAfterCompleting: "StockRegulator Module",
                 bonusMoney: 1000000
             )
-        case .module05:
+        case .fundamentalModule:
             return CompletionEntity(
-                moduleID: "module05",
+                moduleID: "fundamentalModule",
                 badgeName: "Investor",
-                badgeImageName: "badge-module-05",
-                achievedAfterCompleting: "Module 5",
+                badgeImageName: "badge-fundamental",
+                achievedAfterCompleting: "Fundamental Module",
                 bonusMoney: 1000000
             )
-        case .module06:
+        case .newsModule:
             return CompletionEntity(
-                moduleID: "module06",
+                moduleID: "newsModule",
                 badgeName: "Investor-II",
-                badgeImageName: "badge-module-06",
-                achievedAfterCompleting: "Module 6",
+                badgeImageName: "badge-news",
+                achievedAfterCompleting: "News Module",
                 bonusMoney: 1000000
             )
-        case .module07:
+        case .sectorModule:
             return CompletionEntity(
-                moduleID: "module07",
+                moduleID: "sectorModule",
                 badgeName: "Sector",
-                badgeImageName: "badge-module-07",
-                achievedAfterCompleting: "Module 07",
+                badgeImageName: "badge-sector",
+                achievedAfterCompleting: "Sector Module",
                 bonusMoney: 1000000
             )
-        case .module08:
+        case .macroEconomicsModule:
             return CompletionEntity(
-                moduleID: "module08",
+                moduleID: "macroEconomicsModule",
                 badgeName: "MacroEconomics",
-                badgeImageName: "badge-module-08",
-                achievedAfterCompleting: "Module 08",
+                badgeImageName: "badge-macro-economics",
+                achievedAfterCompleting: "MacroEconomics Module",
                 bonusMoney: 1000000
             )
         }

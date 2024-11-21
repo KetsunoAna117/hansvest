@@ -261,7 +261,7 @@ private extension SwiftDataContextManager {
             userName: "Bryon",
             userBalance: 100000000,
             userRiskProfile: .conservative,
-            moduleCompletionIDList: [.module01, .module02, .module03, .module04, .module05, .module06]
+            moduleCompletionIDList: [.basicInvestmentModule, .liabilitiesVsAssetModule, .riskAndReturnModule, .stockRegulatorModule, .fundamentalModule, .newsModule]
         )
     }
     

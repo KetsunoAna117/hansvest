@@ -85,7 +85,7 @@ private struct TransactionStatusLogo: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .materialModule05
+    @Previewable @State var startScreen: Screen? = .materialFundamentalModule
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

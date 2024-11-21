@@ -55,7 +55,7 @@ extension UserDataEntity {
 //                    time: Date.now
 //                )
 //            ],
-//            moduleCompletionList: [.module01, .module02]
+//            moduleCompletionList: [.basicInvestmentModule, .liabilitiesVsAssetModule]
 //        )
 //    }
 //}

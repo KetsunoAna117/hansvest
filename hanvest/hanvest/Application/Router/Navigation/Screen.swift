@@ -16,11 +16,11 @@ enum Screen: Identifiable, Hashable, Equatable {
     case glossary
     case searchGlossary(glossaryViewModel: GlossaryViewModel)
     case profile
-    case materialModule01
-    case materialModule02
-    case materialModule03
-    case materialModule05
-    case materialModule06
+    case materialBasicInvestmentModule
+    case materialLiabilitiesVsAsset
+    case materialRiskAndReturnModule
+    case materialFundamentalModule
+    case materialNewsModule
     case simulationBuyingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case simulationSellingConfirmation(viewModel: HanvestSimulationViewModel, userData: UserDataEntity)
     case transactionStatus(transaction: TransactionStatusViewModel)
@@ -46,15 +46,15 @@ extension Screen {
             hasher.combine(self.hashValue)
         case .main:
             hasher.combine(self.hashValue)
-        case .materialModule01:
+        case .materialBasicInvestmentModule:
             hasher.combine(self.hashValue)
-        case .materialModule02:
+        case .materialLiabilitiesVsAsset:
             hasher.combine(self.hashValue)
-        case .materialModule03:
+        case .materialRiskAndReturnModule:
             hasher.combine(self.hashValue)
-        case .materialModule05:
+        case .materialFundamentalModule:
             hasher.combine(self.hashValue)
-        case .materialModule06:
+        case .materialNewsModule:
             hasher.combine(self.hashValue)
         case .news:
             hasher.combine(self.hashValue)
@@ -82,11 +82,11 @@ extension Screen {
             (.simulationSellingConfirmation, .simulationSellingConfirmation),
             (.profile, .profile),
             (.main, .main),
-            (.materialModule01, .materialModule01),
-            (.materialModule02, .materialModule02),
-            (.materialModule03, .materialModule03),
-            (.materialModule05, .materialModule05),
-            (.materialModule06, .materialModule06),
+            (.materialBasicInvestmentModule, .materialBasicInvestmentModule),
+            (.materialLiabilitiesVsAsset, .materialLiabilitiesVsAsset),
+            (.materialRiskAndReturnModule, .materialRiskAndReturnModule),
+            (.materialFundamentalModule, .materialFundamentalModule),
+            (.materialNewsModule, .materialNewsModule),
             (.news, .news),
             (.glossary, .glossary),
             (.searchGlossary, .searchGlossary),

@@ -7,20 +7,20 @@
 
 import Foundation
 
-struct Module03ProductOfInvestmentEntity: Equatable {
+struct ProductOfInvestmentEntity: Equatable {
     var productName: String
     var productPrices: [ProductPriceEntity]
     
-    static func == (lhs: Module03ProductOfInvestmentEntity, rhs: Module03ProductOfInvestmentEntity) -> Bool {
+    static func == (lhs: ProductOfInvestmentEntity, rhs: ProductOfInvestmentEntity) -> Bool {
         return
             lhs.productName == rhs.productName &&
             lhs.productPrices == rhs.productPrices
     }
     
-    static func getMockData() -> [[Module03ProductOfInvestmentEntity]] {
+    static func getMockData() -> [[ProductOfInvestmentEntity]] {
         return [
             [
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Deposito",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Deposito", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -29,7 +29,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
                         ProductPriceEntity(id: UUID().uuidString, name: "Deposito", price: 10010000, time: HanvestDateFormatter.stringToDate("2024-11-25 00:00:00"))
                     ]
                 ),
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Government Bonds",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Government Bonds", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -38,7 +38,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
                         ProductPriceEntity(id: UUID().uuidString, name: "Government Bonds", price: 9960000, time: HanvestDateFormatter.stringToDate("2024-11-25 00:00:00"))
                     ]
                 ),
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Stocks",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Stocks", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -50,7 +50,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
             ],
             
             [
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Deposito",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Deposito", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -60,7 +60,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
                         ProductPriceEntity(id: UUID().uuidString, name: "Deposito", price: 10020000, time: HanvestDateFormatter.stringToDate("2024-12-10 00:00:00"))
                     ]
                 ),
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Government Bonds",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Government Bonds", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -70,7 +70,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
                         ProductPriceEntity(id: UUID().uuidString, name: "Government Bonds", price: 10140000, time: HanvestDateFormatter.stringToDate("2024-12-10 00:00:00"))
                     ]
                 ),
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Stocks",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Stocks", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -83,7 +83,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
             ],
             
             [
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Deposito",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Deposito", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -94,7 +94,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
                         ProductPriceEntity(id: UUID().uuidString, name: "Deposito", price: 10030000, time: HanvestDateFormatter.stringToDate("2024-12-31 00:00:00"))
                     ]
                 ),
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Government Bonds",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Government Bonds", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),
@@ -105,7 +105,7 @@ struct Module03ProductOfInvestmentEntity: Equatable {
                         ProductPriceEntity(id: UUID().uuidString, name: "Government Bonds", price: 10240000, time: HanvestDateFormatter.stringToDate("2024-12-31 00:00:00"))
                     ]
                 ),
-                Module03ProductOfInvestmentEntity(
+                ProductOfInvestmentEntity(
                     productName: "Stocks",
                     productPrices: [
                         ProductPriceEntity(id: UUID().uuidString, name: "Stocks", price: 10000000, time: HanvestDateFormatter.stringToDate("2024-10-11 00:00:00")),

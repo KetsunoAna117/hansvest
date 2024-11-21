@@ -56,14 +56,14 @@ enum FundamentalModuleStage: Equatable {
             @Inject var validateModule: ValidateIfUserHasCompletedTheModule
             
             do {
-                let hasCompletedModule = try validateModule.execute(specificModule: .module05)
+                let hasCompletedModule = try validateModule.execute(specificModule: .fundamentalModule)
                 
                 if hasCompletedModule {
                     appRouter.popToRoot()
                 }
                 else {
                     appRouter.push(
-                        .moduleCompletion(completionItem: .module05)
+                        .moduleCompletion(completionItem: .fundamentalModule)
                     )
                 }
             }

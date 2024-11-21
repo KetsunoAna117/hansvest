@@ -42,13 +42,13 @@ class NewsModuleSimulationViewModel: HanvestSimulationViewModel {
         // If user has viewed other choice, go to the completion
         @Inject var validateIfUserComplete: ValidateIfUserHasCompletedTheModule
         
-        if let userComplete = try? validateIfUserComplete.execute(specificModule: .module06){
+        if let userComplete = try? validateIfUserComplete.execute(specificModule: .newsModule){
             if userComplete {
                 appRouter.popToRoot()
             }
             else {
                 appRouter.push(
-                    .moduleCompletion(completionItem: .module06)
+                    .moduleCompletion(completionItem: .newsModule)
                 )
             }
         }

@@ -69,7 +69,7 @@ struct MaterialBasicInvestmentModuleScreenView: View {
                                 ) {
                                     viewModel.goToNextPage(
                                         router: self.router,
-                                        specificModule: .module01
+                                        specificModule: .basicInvestmentModule
                                     )
                                 }
                             }
@@ -97,7 +97,7 @@ struct MaterialBasicInvestmentModuleScreenView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .materialModule01
+    @Previewable @State var startScreen: Screen? = .materialBasicInvestmentModule
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

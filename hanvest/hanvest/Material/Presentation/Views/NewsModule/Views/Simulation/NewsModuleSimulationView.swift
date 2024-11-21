@@ -112,7 +112,7 @@ struct NewsModuleSimulationView: View {
 
 #Preview {
     @Previewable @StateObject var appRouter = AppRouter()
-    @Previewable @State var startScreen: Screen? = .materialModule06
+    @Previewable @State var startScreen: Screen? = .materialNewsModule
     
     NavigationStack(path: $appRouter.path) {
         if let startScreen = startScreen {

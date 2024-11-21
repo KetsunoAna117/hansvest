@@ -45,7 +45,7 @@ struct ReusableModuleMainScreenView: View {
 //#Preview {
 //    let viewModel : ReusableContentViewModels = .init(
 //        content: ReusableContentViewModels.getContent(),
-//        completionEntityType: .module07
+//        completionEntityType: .sectorModule
 //    )
 //    ReusableModuleMainScreenView(
 //        viewModel: viewModel
