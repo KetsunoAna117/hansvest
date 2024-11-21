@@ -13,8 +13,6 @@ struct HanvestMultipleChoiceView: View {
     let options: [String]
     
     var image: Image?
-    var correctAnswer: String?
-    var wrongAnswer: String?
     var customSpacing: CGFloat?
     var onSelectAnswer: ((String) -> Void)
     
@@ -33,47 +31,29 @@ struct HanvestMultipleChoiceView: View {
             }
             .multilineTextAlignment(.center)
             
-            ForEach(Array(options.enumerated()), id: \.element) { index, option in
-                VStack(spacing: 0) {
-                    HanvestButtonMultipleChoiceBehavior(
-                        isChecked: determineButtonStyle(option: option),
-                        selectedButtonID: $selectedButtonID,
-                        id: "Item: \(index)",
-                        title: option,
-                        action: {
-                            buttonAction(option: option)
-                        }
-                    )
-                }
-                .font(.nunito(.body))
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
+            ForEach(options, id: \.self) { option in
+                HanvestButtonDefault(
+                    style: getButtonStyle(id: option),
+                    title: option,
+                    action: {
+                        self.selectedButtonID = option
+                        onSelectAnswer(option)
+                    }
+                )
             }
+
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel("\(question) question page")
     }
     
-    private func buttonAction(option: String) {
-        if correctAnswer == nil {
-            onSelectAnswer(option)
+    func getButtonStyle(id: String) -> HanvestButtonStyle {
+        if selectedButtonID == id {
+            return .filled(isDisabled: false)
         }
+        return .bordered(isDisabled: false)
     }
-    
-    private func determineButtonStyle(option: String) -> HanvestButtonMultipleChoiceIsChecked {
-        switch option {
-            case correctAnswer:
-                return .isChecked(checkedCondition: true)
-            case wrongAnswer:
-                return .isChecked(checkedCondition: false)
-            default:
-                if correctAnswer != nil {
-                    return .isNotChecked(checkedCondition: false)
-                } else {
-                    return .isNotChecked(checkedCondition: true)
-                }
-        }
-    }
+
 }
 
 #Preview {
