@@ -36,7 +36,7 @@ struct HanvestButtonDefault: View {
                     if iconPosition == .leading, let image = image {
                         image
                             .foregroundStyle(style.fontColor)
-                            .padding(.leading, 8)
+                            .padding(.leading, 6)
                             .accessibilityHidden(true)
                     }
                     
@@ -51,7 +51,7 @@ struct HanvestButtonDefault: View {
                     if iconPosition == .trailing, let image = image {
                         image
                             .foregroundStyle(style.fontColor)
-                            .padding(.trailing, 8)
+                            .padding(.trailing, 6)
                             .accessibilityHidden(true)
                     }
                 })
