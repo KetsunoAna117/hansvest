@@ -17,7 +17,7 @@ struct HanvestSimulationView: View {
         ZStack {
             if let userData = userDataViewModel.userData {
                 VStack {
-                    VStack {
+                    VStack(spacing: 0) {
                         HanvestStockOptionList(
                             selectedStockID: $simulationViewModel.selectedStockID,
                             simulationStockList: simulationViewModel.stockList,
@@ -33,12 +33,11 @@ struct HanvestSimulationView: View {
                             userData: $userDataViewModel.userData,
                             viewmodel: simulationViewModel
                         )
-                        .padding(.top, 12)
-                        
-                        Divider()
-                            .padding(.top, -6)
+                        .safeAreaPadding(.vertical, 12)
                         
                         VStack {
+                            Divider()
+                            
                             HStack(spacing: 12) {
                                 HanvestButtonDefault(
                                     size: .medium,
@@ -63,8 +62,8 @@ struct HanvestSimulationView: View {
                                         )
                                     }
                             }
+                            .padding(.horizontal, 20)
                         }
-                        .padding(.horizontal, 20)
                         .padding(.bottom, 13)
                         
                         Divider()
