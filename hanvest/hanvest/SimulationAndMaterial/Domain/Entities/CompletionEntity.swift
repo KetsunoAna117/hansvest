@@ -32,7 +32,7 @@ enum CompletionEntityType: String, Codable, CaseIterable {
                 moduleID: "basicInvestmentModule",
                 badgeName: "Basvestment",
                 badgeImageName: "badge-basic-investment",
-                achievedAfterCompleting: "Basic Investment Module",
+                achievedAfterCompleting: "BasicInvestment Module",
                 bonusMoney: 1000000
             )
         case .liabilitiesVsAssetModule:
@@ -40,7 +40,7 @@ enum CompletionEntityType: String, Codable, CaseIterable {
                 moduleID: "liabilitiesVsAssetModule",
                 badgeName: "LvA",
                 badgeImageName: "badge-liabilities-vs-asset",
-                achievedAfterCompleting: "Liabilities Vs Asset Module",
+                achievedAfterCompleting: "LiabilitiesVsAsset Module",
                 bonusMoney: 1000000
             )
         case .riskAndReturnModule:
@@ -48,7 +48,7 @@ enum CompletionEntityType: String, Codable, CaseIterable {
                 moduleID: "riskAndReturnModule",
                 badgeName: "Risk Analyzer",
                 badgeImageName: "badge-risk-and-return",
-                achievedAfterCompleting: "Risk And Return Module",
+                achievedAfterCompleting: "RiskAndReturn Module",
                 bonusMoney: 1000000
             )
         case .stockRegulatorModule:
@@ -56,7 +56,7 @@ enum CompletionEntityType: String, Codable, CaseIterable {
                 moduleID: "stockRegulatorModule",
                 badgeName: "Profile Hunter",
                 badgeImageName: "badge-stock-regulator",
-                achievedAfterCompleting: "Stock Regulator Module",
+                achievedAfterCompleting: "StockRegulator Module",
                 bonusMoney: 1000000
             )
         case .fundamentalModule:
@@ -88,7 +88,7 @@ enum CompletionEntityType: String, Codable, CaseIterable {
                 moduleID: "macroEconomicsModule",
                 badgeName: "MacroEconomics",
                 badgeImageName: "badge-macro-economics",
-                achievedAfterCompleting: "Macro Economics Module",
+                achievedAfterCompleting: "MacroEconomics Module",
                 bonusMoney: 1000000
             )
         }
