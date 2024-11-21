@@ -5,12 +5,11 @@
 //  Created by Hans Arthur Cupiterson on 13/11/24.
 //
 
-import Foundation
-
 struct ReusableModuleEvaluationEntity: HanvestModuleContent {
     var id: String
     
     var question: String
+    var imageName: String?
     var choices: [String]
     var correctAnswerIdx: Int
 }
