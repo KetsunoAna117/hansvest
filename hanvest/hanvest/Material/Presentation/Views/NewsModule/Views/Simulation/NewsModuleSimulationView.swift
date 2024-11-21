@@ -16,7 +16,7 @@ struct NewsModuleSimulationView: View {
     
     var body: some View {
         VStack {
-            VStack {
+            VStack(spacing: 0) {
                 HanvestStockOptionList(
                     selectedStockID: $simulationViewModel.selectedStockID,
                     simulationStockList: simulationViewModel.stockList,
@@ -38,6 +38,7 @@ struct NewsModuleSimulationView: View {
                                     initialPrice: $simulationViewModel.displayActiveStockInitialPrice,
                                     currentPrice: $simulationViewModel.displayActiveStockCurrentPrice
                                 )
+                                .padding(.top, 12)
                                 
                                 HanvestStockPriceChart(
                                     viewmodel: HanvestProductPriceChartViewModel(
@@ -52,6 +53,7 @@ struct NewsModuleSimulationView: View {
                                 )
                                 
                                 StockCompanyProfileInformation(desc: selectedStock.stockDescription)
+                                    .padding(.bottom, 12)
                                 
                             }
                         }
@@ -63,13 +65,11 @@ struct NewsModuleSimulationView: View {
                     }
                     .padding(.horizontal, 20)
                 }
-                .padding(.top, 12)
-                
-                Divider()
-                    .padding(.top, -6)
                 
                 // Button
                 VStack {
+                    Divider()
+                    
                     HStack(spacing: 12) {
                         HanvestButtonDefault(
                             size: .medium,
@@ -100,8 +100,8 @@ struct NewsModuleSimulationView: View {
                                 )
                             }
                     }
+                    .padding(.horizontal, 20)
                 }
-                .padding(.horizontal, 20)
                 .padding(.bottom, 13)
                 
                 Divider()
