@@ -13,7 +13,7 @@ struct HanvestMaterialScreenView: View {
     @StateObject private var viewmodel: ModuleJourneyViewModel = .init()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             ModuleJourneyView(router: router, viewModel: viewmodel)
                 .showCase(
                     order: MainViewTipData.moduleIntro.index,

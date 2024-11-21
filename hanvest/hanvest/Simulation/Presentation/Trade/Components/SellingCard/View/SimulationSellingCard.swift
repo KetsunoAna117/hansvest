@@ -40,6 +40,7 @@ struct SimulationSellingCard: View {
                 
                 HStack{
                     HanvestSlider(value: $viewModel.stockSellLot, minimum: 0, maximum: viewModel.maximumStockSellLot())
+                        .padding(.trailing, 12)
                     
                     Spacer()
                     
