@@ -15,7 +15,7 @@ struct ReusableMultipleChoiceContainer: View {
     @State private var userPressSubmitButton: Bool = false
     
     var body: some View {
-        VStack(spacing: 48) {
+        VStack(spacing: (!userPressSubmitButton) ? 48 : 0) {
             VStack(spacing: 24) {
                 Text(data.question)
                     .font(.nunito(.title2, .regular))
