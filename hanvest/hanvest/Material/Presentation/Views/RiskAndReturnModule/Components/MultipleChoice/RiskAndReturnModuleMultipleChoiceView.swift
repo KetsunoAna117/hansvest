@@ -32,30 +32,35 @@ struct RiskAndReturnModuleMultipleChoiceView: View {
             }
             .multilineTextAlignment(.center)
             
-            ForEach(Array(options.enumerated()), id: \.element) { index, option in
-                VStack(spacing: 0) {
-                    HanvestButtonMultipleChoiceBehavior(
-                        selectedButtonID: $selectedButtonID,
-                        id: "Item: \(index)",
-                        title: option,
-                        action: {
-                            removeMoneyBalance()
-                            onSelectAnswer(option)
-                        }
-                    )
-                }
-                .font(.nunito(.body))
-                .frame(maxWidth: .infinity)
-                .multilineTextAlignment(.center)
+            ForEach(options, id: \.self) { option in
+                HanvestButtonDefault(
+                    style: getButtonStyle(id: option),
+                    title: option,
+                    action: {
+                        self.selectedButtonID = option
+                        removeMoneyBalance()
+                        onSelectAnswer(option)
+                    }
+                )
             }
+            
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(question) question page")
     }
     
     private func removeMoneyBalance() {
         if moneyBalance != 0 {
             moneyBalance = 0
         }
+    }
+    
+    private func getButtonStyle(id: String) -> HanvestButtonStyle {
+        if selectedButtonID == id {
+            return .filled(isDisabled: false)
+        }
+        return .bordered(isDisabled: false)
     }
     
 }

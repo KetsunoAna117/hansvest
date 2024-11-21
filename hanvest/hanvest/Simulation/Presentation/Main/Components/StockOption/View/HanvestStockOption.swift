@@ -9,7 +9,8 @@ struct HanvestStockOption: View {
     // Bind to the parent selection
     @Binding var selectedStockID: String
     
-    @State var state: HanvestStockOptionDefaultState = .unselected
+    // Styling variable (initialized before)
+    @State private var style: HanvestStockOptionButtonStyle = .defaultColor
     
     // Button Content
     var id: String
@@ -17,41 +18,39 @@ struct HanvestStockOption: View {
     var action: () -> Void
     
     var body: some View {
-        ZStack {
-            Image(self.state == .unselected ? "\(imageName)_INACTIVE" : "\(imageName)_ACTIVE")
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .shadow(
-                    color: (self.state == .unselected ? .mineShaft700 : .clear),
-                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
-                )
-        }
-        .frame(maxWidth: WIDTH, maxHeight: HEIGHT)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.clear)
+        Button(
+            action: {
+                HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+                HanvestHapticManager.hapticNotif(type: .success)
+
+                if self.selectedStockID != self.id {
+                    self.selectedStockID = self.id
+                    action()
+                }
+                
+            }, label: {
+                ZStack {
+                    Image(self.selectedStockID == self.id ? "\(imageName)_ACTIVE" : "\(imageName)_INACTIVE")
+                        .resizable()
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+            }
         )
-        .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-        .onTapGesture {
-            HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
-            HanvestHapticManager.hapticNotif(type: .success)
-            
-            if selectedStockID != id {
-                self.selectedStockID = self.id
-                state = .selected
-                action()
-            }
+        .buttonStyle(HanvestStockOptionButtonType(imageName: imageName, style: style))
+        .onChange(of: selectedStockID) { _, newValue in
+            setStockOptionButtonShadowColor()
         }
-        .onChange(of: selectedStockID) { oldValue, newValue in
-            if newValue != id {
-                state = .unselected
-            }
+        .onAppear {
+            setStockOptionButtonShadowColor()
         }
     }
     
-    func getPressedStatus() -> Bool {
-        return state == .selected
+    private func setStockOptionButtonShadowColor() {
+        if (self.selectedStockID == self.id) {
+            self.style = HanvestStockOptionButtonStyle.allCases.first(where: { $0.stockName == imageName }) ?? .defaultColor
+        } else {
+            self.style = .defaultColor
+        }
     }
     
 }
@@ -62,7 +61,6 @@ struct HanvestStockOption: View {
     VStack {
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            state: .selected,
             id: "Stock-1",
             imageName: "Amazon-logo"
         ) {
@@ -71,7 +69,6 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            state: .unselected,
             id: "Stock-2",
             imageName: "BBRI-logo"
         ) {
@@ -80,7 +77,6 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            state: .unselected,
             id: "Stock-3",
             imageName: "Apple-logo"
         ) {
@@ -89,7 +85,6 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            state: .unselected,
             id: "Stock-4",
             imageName: "BBCA-logo"
         ) {
@@ -98,7 +93,6 @@ struct HanvestStockOption: View {
         
         HanvestStockOption(
             selectedStockID: $selectedStockOption,
-            state: .unselected,
             id: "Stock-5",
             imageName: "GOTO-logo"
         ) {
