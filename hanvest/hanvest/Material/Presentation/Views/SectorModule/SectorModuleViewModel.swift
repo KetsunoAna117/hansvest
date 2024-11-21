@@ -90,9 +90,9 @@ class SectorModuleViewModel: ReusableContentViewModels {
                 id: "sector-8",
                 question: "What is one benefit of the IDX sector-based classification system for investors?",
                 choices: [
-                    "It limits trading hours based on sector.",
-                    "It reduces volatility across the entire stock market.s",
-                    "It provides a detailed breakdown of companies’ financials.",
+                    "It limits trading hours based on sector",
+                    "It reduces volatility across the entire stock markets",
+                    "It provides a detailed breakdown of companies’ financials",
                     "It allows investors to analyze trends and make comparisons"
                 ],
                 correctAnswerIdx: 4

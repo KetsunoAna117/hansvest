@@ -48,7 +48,7 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
                 question: "Which of the following is true about stocks and bonds?",
                 choices: [
                     "Stocks provide ownership of  company, while bonds represent a loan to issuer",
-                    "Stocks have fixed returns, while bonds are subject to market fluctuations."
+                    "Stocks have fixed returns, while bonds are subject to market fluctuations"
                 ],
                 correctAnswerIdx: 1
             ),
@@ -66,8 +66,8 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
                 id: "stock-regulator-6",
                 question: "Which of the following is true about stock market?",
                 choices: [
-                    "They facilitate the acquisition of funds for company expansion and innovation.",
-                    "They provide guaranteed returns for all investments."
+                    "They facilitate the acquisition of funds for company expansion and innovation",
+                    "They provide guaranteed returns for all investments"
                 ],
                 correctAnswerIdx: 1
             ),
@@ -86,9 +86,9 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
                 question: "What is the function of these organizations?",
                 imageName: "kpei-logo",
                 choices: [
-                    "A platform for buying and selling securities.",
+                    "A platform for buying and selling securities",
                     "clearing stock exchange settlements",
-                    "Ensures efficient transactions under Indonesian law."
+                    "Ensures efficient transactions under Indonesian law"
                 ],
                 correctAnswerIdx: 2
             ),
@@ -97,9 +97,9 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
                 question: "What is the function of these organizations?",
                 imageName: "IDX-logo",
                 choices: [
-                    "A platform for buying and selling securities.",
+                    "A platform for buying and selling securities",
                     "clearing stock exchange settlements",
-                    "Ensures efficient transactions under Indonesian law."
+                    "Ensures efficient transactions under Indonesian law"
                 ],
                 correctAnswerIdx: 1
             ),
@@ -108,9 +108,9 @@ class StockRegulatorModuleViewModel: ReusableContentViewModels {
                 question: "What is the function of these organizations?",
                 imageName: "ksei-logo",
                 choices: [
-                    "A platform for buying and selling securities.",
+                    "A platform for buying and selling securities",
                     "clearing stock exchange settlements",
-                    "Ensures efficient transactions under Indonesian law."
+                    "Ensures efficient transactions under Indonesian law"
                 ],
                 correctAnswerIdx: 3
             ),

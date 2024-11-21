@@ -36,10 +36,10 @@ enum RiskProfileQuestionsAndOptionsPageContent: Int, CaseIterable {
         switch self {
             case .page1:
                 [
-                    "Yes, I’m completely new.",
-                    "I’ve done some research.",
-                    "I’ve invested a little, but I’m still learning.",
-                    "I’ve Invested and understand how it work."
+                    "Yes, I’m completely new",
+                    "I’ve done some research",
+                    "I’ve invested a little, but I’m still learning",
+                    "I’ve Invested and understand how it work"
                 ]
             case .page2:
                 [
@@ -57,9 +57,9 @@ enum RiskProfileQuestionsAndOptionsPageContent: Int, CaseIterable {
                 ]
             case .page4:
                 [
-                    "Preserve capital with minimal risk.",
-                    "Earn steady income with moderate risk.",
-                    "Grow wealth over time with some risk.",
+                    "Preserve capital with minimal risk",
+                    "Earn steady income with moderate risk",
+                    "Grow wealth over time with some risk",
                     "Maximize profit despite high risk involved"
                 ]
             case .page5:
