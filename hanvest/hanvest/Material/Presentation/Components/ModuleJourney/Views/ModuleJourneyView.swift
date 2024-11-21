@@ -10,11 +10,6 @@ import SwiftUI
 struct ModuleJourneyView: View {
     let router: any AppRouterProtocol
     
-    // Constant
-    let maxModulesVisible: Int = 6
-    let eachModuleNumberHeight: CGFloat = 100
-    let moduleSpacing: CGFloat = 4
-    
     // View Model
     @ObservedObject var viewModel: ModuleJourneyViewModel
     
@@ -28,8 +23,9 @@ struct ModuleJourneyView: View {
                         if moduleNumber == 2 {
                             Image("hanvest-app-mascot")
                                 .resizable()
-                                .frame(width: 79, height: 106)
-                                .padding(.trailing, 157.94)
+                                .frame(width: 78, height: 106)
+                            
+                            Spacer()
                         }
                         
                         HanvestModuleNumberButton(
@@ -65,12 +61,10 @@ struct ModuleJourneyView: View {
         let positionInCycle = number % 4
         
         switch positionInCycle {
-            case 1, 3:
-                return .center
-            case 2:
-                return .trailing
             case 0:
                 return .leading
+            case 2:
+                return .trailing
             default:
                 return .center
         }
