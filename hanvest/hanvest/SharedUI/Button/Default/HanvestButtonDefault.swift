@@ -36,7 +36,8 @@ struct HanvestButtonDefault: View {
                     if iconPosition == .leading, let image = image {
                         image
                             .foregroundStyle(style.fontColor)
-                            .padding(.leading, 16)
+                            .padding(.leading, 8)
+                            .accessibilityHidden(true)
                     }
                     
                     Text(title)
@@ -44,12 +45,14 @@ struct HanvestButtonDefault: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .font(.nunito(.body))
                         .padding(.horizontal, size.textHorizontalPadding)
+                        .accessibilityHidden(true)
                     
                     // If the icon position is trailing, place the image first
                     if iconPosition == .trailing, let image = image {
                         image
                             .foregroundStyle(style.fontColor)
-                            .padding(.trailing, 16)
+                            .padding(.trailing, 8)
+                            .accessibilityHidden(true)
                     }
                 })
             }
@@ -96,8 +99,8 @@ struct HanvestButtonDefault: View {
                 size: .large,
                 style: .filled(isDisabled: isDisabled),
                 iconPosition: .leading,
-                title: "Button",
-                image: Image(systemName: "person.fill"),
+                title: "it reduces volatility across the entire stock market",
+                image: Image(systemName: "xmark"),
                 action: {
                     debugPrint("Button Pressed!")
                 }
