@@ -39,9 +39,9 @@ struct SimulationBuyingCard: View {
                 
                 HStack{
                     HanvestSlider(value: $viewModel.stockBuyLot, minimum: 0, maximum: viewModel.maximumStockBuyLot())
+                        .padding(.trailing, 12)
                     
                     Spacer()
-                    
                     
                     Text("\(viewModel.calculateStockBuyAmountPercentage()) %")
                         .font(.nunito(.body, .regular))
