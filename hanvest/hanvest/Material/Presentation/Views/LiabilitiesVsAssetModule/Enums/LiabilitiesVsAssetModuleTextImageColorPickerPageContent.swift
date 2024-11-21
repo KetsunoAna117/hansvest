@@ -13,7 +13,7 @@ enum LiabilitiesVsAssetModuleTextImageColorPickerPageContent: Int {
     var title: String {
         switch self {
             case .page04:
-                "Now choose the color you want"
+                "Now choose the color that you want for your iphone"
         }
     }
     
@@ -24,10 +24,4 @@ enum LiabilitiesVsAssetModuleTextImageColorPickerPageContent: Int {
         }
     }
     
-    var customSpacing: CGFloat {
-        switch self {
-            case .page04:
-                98
-        }
-    }
 }
