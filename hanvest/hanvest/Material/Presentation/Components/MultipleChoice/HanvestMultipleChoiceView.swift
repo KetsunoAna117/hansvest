@@ -47,7 +47,7 @@ struct HanvestMultipleChoiceView: View {
         .accessibilityLabel("\(question) question page")
     }
     
-    func getButtonStyle(id: String) -> HanvestButtonStyle {
+    private func getButtonStyle(id: String) -> HanvestButtonStyle {
         if selectedButtonID == id {
             return .filled(isDisabled: false)
         }
