@@ -29,10 +29,6 @@ struct HanvestStockOptionButtonType: ButtonStyle {
                     )
                 
             )
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.clear)
-            )
             .offset(y: configuration.isPressed ? SHADOW_OFFSET : 0)
             .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: configuration.isPressed)
     }

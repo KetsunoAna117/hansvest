@@ -16,6 +16,8 @@ struct LiabilitiesVsAssetModuleRadioButtonType: ButtonStyle {
     var state: HanvestButtonState
     
     func makeBody(configuration: Configuration) -> some View {
+        let pressedStatus: Bool = (configuration.isPressed || state == .pressed)
+        
         configuration.label
             .frame(maxWidth: WIDTH, maxHeight: HEIGHT)
             .overlay(
@@ -26,7 +28,7 @@ struct LiabilitiesVsAssetModuleRadioButtonType: ButtonStyle {
                         .overlay(
                             RoundedRectangle(cornerRadius: 100)
                             .inset(by: 1)
-                            .stroke((configuration.isPressed || state == .pressed) ? Color.seagull600 : Color.clear, lineWidth: 2)
+                            .stroke(pressedStatus ? Color.seagull600 : Color.clear, lineWidth: 2)
                         )
                     
                     Circle()
@@ -35,7 +37,7 @@ struct LiabilitiesVsAssetModuleRadioButtonType: ButtonStyle {
                         .overlay(
                             RoundedRectangle(cornerRadius: 100)
                                 .inset(by: 2)
-                                .stroke((configuration.isPressed || state == .pressed) ? Color.seagull50 : Color.clear, lineWidth: 4)
+                                .stroke(pressedStatus ? Color.seagull50 : Color.clear, lineWidth: 4)
                         )
                 }
             )
