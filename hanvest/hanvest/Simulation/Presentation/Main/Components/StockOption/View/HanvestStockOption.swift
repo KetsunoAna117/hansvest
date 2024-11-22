@@ -1,11 +1,6 @@
 import SwiftUI
 
 struct HanvestStockOption: View {
-    // Constant
-    let SHADOW_OFFSET: CGFloat = 5
-    let WIDTH: CGFloat = 75
-    let HEIGHT: CGFloat = 75
-    
     // Bind to the parent selection
     @Binding var selectedStockID: String
     
