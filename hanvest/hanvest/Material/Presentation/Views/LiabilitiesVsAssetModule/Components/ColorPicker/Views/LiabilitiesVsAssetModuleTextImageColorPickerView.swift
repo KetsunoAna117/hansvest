@@ -32,8 +32,8 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
                 HStack(spacing: 24) {
                     ForEach(LiabilitiesVsAssetModuleColorOptions.allCases, id: \.self) { option in
                         LiabilitiesVsAssetModuleColorPickerRadioButton(
-                            radioButtonStyle: option,
-                            radioButtonState: getRadioButtonState(id: option.colorDescription),
+                            style: option,
+                            state: getRadioButtonState(id: option.colorDescription),
                             action: {
                                 self.selectedButtonID = option.colorDescription
                                 onSelectAnswer(option.colorDescription)

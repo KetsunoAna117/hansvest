@@ -42,7 +42,9 @@ struct ReusableInformationContainer: View {
             HanvestButtonDefault(
                 title: buttonLabel,
                 action: {
-                    onContinueButtonAction()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        onContinueButtonAction()
+                    }
                 }
             )
             .padding(.bottom, 54)

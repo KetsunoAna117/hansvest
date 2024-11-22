@@ -9,10 +9,10 @@ import SwiftUI
 
 struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
     // Constant
-    let radioButtonStyle: LiabilitiesVsAssetModuleColorOptions
+    let style: LiabilitiesVsAssetModuleColorOptions
     
     // Radio Behavior
-    var radioButtonState: HanvestButtonState = .unpressed
+    var state: HanvestButtonState = .unpressed
     var action: () -> Void
     
     var body: some View {
@@ -23,12 +23,11 @@ struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
             action()
         } label: {
             Circle()
-                .fill(Color(radioButtonStyle.colorOptions))
-                .frame(width: 60, height: 60)
+                .fill(Color(style.colorOptions))
         }
-        .buttonStyle(LiabilitiesVsAssetModuleRadioButtonType(state: radioButtonState))
+        .buttonStyle(LiabilitiesVsAssetModuleRadioButtonType(state: state))
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(radioButtonStyle.colorDescription) color")
+        .accessibilityLabel("\(style.colorDescription) color")
     }
 }
 
@@ -39,8 +38,8 @@ struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
     HStack(spacing: 24) {
         ForEach(colorOptions, id: \.self) { option in
             LiabilitiesVsAssetModuleColorPickerRadioButton(
-                radioButtonStyle: option,
-                radioButtonState: .pressed,
+                style: option,
+                state: .pressed,
                 action: {}
             )
         }

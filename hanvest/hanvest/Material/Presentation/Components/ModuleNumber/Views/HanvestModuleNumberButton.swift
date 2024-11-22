@@ -8,12 +8,6 @@
 import SwiftUI
 
 struct HanvestModuleNumberButton: View {
-    // Constants
-    let SHADOW_OFFSET: CGFloat = 5
-    
-    var initialState: HanvestModuleNumberDefaultState = .unpressed
-    @State private var state: HanvestModuleNumberDefaultState = .unpressed
-    
     // Styling variable
     var style: HanvestModuleNumberDefaultStyle = .current
     
@@ -30,46 +24,39 @@ struct HanvestModuleNumberButton: View {
         }
     }
     
+    // State to prevent rapid multiple actions
+    @State private var state: HanvestButtonState = .pressed
+    
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(style.backgroundColor)
-                .shadow(
-                    color: getPressedStatus() ? .clear : style.shadowColor,
-                    radius: getPressedStatus() ? 0 : 0, x: 0, y: getPressedStatus() ? 0 : SHADOW_OFFSET
-                )
-                
-            imageOrNumberViewBuilder
-                .font(.nunito(.largeTitle, .bold))
-                .foregroundStyle(.mineShaft50)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-        }
-        .frame(maxWidth: 80, maxHeight: 80)
-        .offset(y: getPressedStatus() ? SHADOW_OFFSET : 0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-        .onTapGesture {
-            if self.style != .next {
-                self.state = .pressed
+        Button {
+            if state == .pressed {
+                state = .unpressed
                 
                 HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
                 HanvestHapticManager.hapticNotif(type: .success)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                    self.state = .unpressed
-                    action()
-                })
+                action()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    state = .pressed
+                }
+            }
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(style.backgroundColor)
+                    
+                imageOrNumberViewBuilder
+                    .font(.nunito(.largeTitle, .bold))
+                    .foregroundStyle(.mineShaft50)
             }
         }
-        .onAppear {
-            self.state = self.initialState
-        }
+        .buttonStyle(HanvestModuleNumberType(style: style))
+        .disabled(style == .next || state == .unpressed)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Module \(number ?? 0)")
     }
-    
-    func getPressedStatus() -> Bool {
-        return state == .pressed
-    }
+
 }
 
 
@@ -81,7 +68,6 @@ struct HanvestModuleNumberButton: View {
     
     VStack {
         HanvestModuleNumberButton(
-            initialState: .unpressed,
             style: .done,
             number: 1, action: {
                 debugPrint("Hello World!")
