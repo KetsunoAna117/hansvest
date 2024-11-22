@@ -26,7 +26,7 @@ struct HanvestButtonType: ButtonStyle {
                     .fill(style.backgroundColor)
                     .shadow(
                         color: configuration.isPressed ? .clear : style.shadowColor,
-                        radius: configuration.isPressed ? 0 : 0,
+                        radius: 0,
                         x: 0,
                         y: configuration.isPressed ? 0 : SHADOW_OFFSET // Shadow changes when pressed
                     )

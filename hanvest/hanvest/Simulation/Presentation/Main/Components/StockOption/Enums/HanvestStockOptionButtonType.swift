@@ -12,7 +12,6 @@ struct HanvestStockOptionButtonType: ButtonStyle {
     let SHADOW_OFFSET: CGFloat = 5
     let WIDTH: CGFloat = 75
     let HEIGHT: CGFloat = 75
-    let imageName: String
     
     var style: HanvestStockOptionButtonStyle
     
@@ -20,9 +19,8 @@ struct HanvestStockOptionButtonType: ButtonStyle {
         configuration.label
             .frame(maxWidth: WIDTH, maxHeight: HEIGHT)
             .background(
-                Image(configuration.isPressed ? "\(imageName)_INACTIVE" : "\(imageName)_ACTIVE")
-                    .resizable()
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.mineShaft700)
                     .shadow(
                         color: configuration.isPressed ? .clear : style.shadowColor,
                         radius: 0,

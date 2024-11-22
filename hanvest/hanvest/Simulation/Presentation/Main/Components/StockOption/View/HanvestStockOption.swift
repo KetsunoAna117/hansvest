@@ -36,7 +36,7 @@ struct HanvestStockOption: View {
                 }
             }
         )
-        .buttonStyle(HanvestStockOptionButtonType(imageName: imageName, style: style))
+        .buttonStyle(HanvestStockOptionButtonType(style: style))
         .onChange(of: selectedStockID) { _, newValue in
             setStockOptionButtonShadowColor()
         }

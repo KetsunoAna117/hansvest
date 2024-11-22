@@ -13,6 +13,7 @@ enum HanvestStockOptionButtonStyle: CaseIterable {
     case GOMM
     case BBSU
     case TEJA
+    case GOTE
     case defaultColor
     
     var stockName: String {
@@ -26,6 +27,7 @@ enum HanvestStockOptionButtonStyle: CaseIterable {
             case .GOMM: return .GOMM
             case .BBSU: return .BBSU
             case .TEJA: return .TEJA
+            case .GOTE: return .GOTE
             case .defaultColor: return .mineShaft700
         }
     }
