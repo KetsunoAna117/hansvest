@@ -37,6 +37,6 @@ struct HanvestButtonType: ButtonStyle {
                     .stroke(style.borderColor, lineWidth: 0.5) // Default stroke
             )
             .offset(y: configuration.isPressed ? SHADOW_OFFSET : 0) // Button moves down by 4 points when pressed
-            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: configuration.isPressed)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: (configuration.isPressed || !configuration.isPressed))
     }
 }

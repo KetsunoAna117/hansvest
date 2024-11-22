@@ -30,7 +30,7 @@ struct HanvestStockOptionButtonType: ButtonStyle {
                 
             )
             .offset(y: configuration.isPressed ? SHADOW_OFFSET : 0)
-            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: configuration.isPressed)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: (configuration.isPressed || !configuration.isPressed))
     }
     
 }

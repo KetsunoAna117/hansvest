@@ -41,6 +41,6 @@ struct LiabilitiesVsAssetModuleRadioButtonType: ButtonStyle {
                         )
                 }
             )
-            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: configuration.isPressed)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: (configuration.isPressed || !configuration.isPressed))
     }
 }
