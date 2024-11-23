@@ -26,17 +26,16 @@ enum LiabilitiesVsAssetModuleColorOptions: CaseIterable {
         }
     }
     
-    // only for checkIsDisabled at liabilitiesVsAsset View only, not really important
     var colorDescription: String {
         switch self {
             case .beige:
-                return "Beige"
+                return "beige"
             case .sandpaper:
-                return "Sandpaper"
+                return "sandpaper"
             case .semiWhite:
-                return "SemiWhite"
+                return "white"
             case .spaceGray:
-                return "SpaceGray"
+                return "spaceGray"
         }
     }
 }

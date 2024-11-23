@@ -5,7 +5,6 @@
 //  Created by Hans Arthur Cupiterson on 15/10/24.
 //
 
-import Foundation
 import SwiftUI
 
 enum HanvestNewsButtonState {
