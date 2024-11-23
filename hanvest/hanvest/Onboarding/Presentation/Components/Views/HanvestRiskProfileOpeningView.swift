@@ -23,7 +23,8 @@ struct HanvestRiskProfileOpeningView: View {
             
             Image("onboarding-hanvest-app-logo")
                 .resizable()
-                .frame(width: 173, height: 173.5)
+                .frame(width: 173, height: 173)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .frame(maxWidth: .infinity)
         .multilineTextAlignment(.center)
