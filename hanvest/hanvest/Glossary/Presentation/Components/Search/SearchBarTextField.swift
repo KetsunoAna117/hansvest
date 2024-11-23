@@ -13,8 +13,7 @@ struct SearchTextFieldGlossary: View {
     
     var body: some View {
         
-        HStack(alignment:.center){
-            Spacer()
+        HStack(spacing: 24){
             TextField("Search", text: $searchString)
                 .padding(8)
                 .background(Color.fillTertiary)
@@ -24,13 +23,13 @@ struct SearchTextFieldGlossary: View {
                 searchString = ""
                 self.router.pop()
             }) {
-                
                 Image(systemName: "x.circle.fill")
                     .resizable()
                     .accentColor(Color.secondary)
                     .frame(width: 26,height: 26)
             }
-            Spacer()
         }
+        .padding(.horizontal, 4)
+        .padding(.top, 8)
     }
 }
