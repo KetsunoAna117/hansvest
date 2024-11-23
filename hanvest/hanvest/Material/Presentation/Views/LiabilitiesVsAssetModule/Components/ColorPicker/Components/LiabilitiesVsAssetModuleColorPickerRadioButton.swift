@@ -9,66 +9,25 @@ import SwiftUI
 
 struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
     // Constant
-    let radioButtonColor: Color
-    
-    // Button content
-    var id: String = UUID().uuidString
+    let style: LiabilitiesVsAssetModuleColorOptions
     
     // Radio Behavior
-    @State private var state: HanvestButtonState = .unpressed
-    @Binding var selectedButtonID: String
+    var state: HanvestButtonState = .unpressed
     var action: () -> Void
     
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color(radioButtonColor))
-                .frame(width: 60, height: 60)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 100)
-                    .inset(by: 1)
-                    .stroke(getPressedStatus() ? Color.seagull600 : Color.clear, lineWidth: 2)
-                )
-            
-            Circle()
-                .fill(Color(radioButtonColor))
-                .frame(width: 56, height: 56)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 100)
-                    .inset(by: 2)
-                    .stroke(getPressedStatus() ? Color.seagull50 : Color.clear, lineWidth: 4)
-                )
-        }
-        .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.3), value: self.state)
-        .onTapGesture {
-            if self.selectedButtonID != self.id {
-                self.selectedButtonID = self.id
-                action()
-            }
-            
+        Button {
             HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
+            HanvestHapticManager.hapticNotif(type: .success)
+            
+            action()
+        } label: {
+            Circle()
+                .fill(Color(style.colorOptions))
         }
-        .onLongPressGesture(minimumDuration: 0.1, perform: {
-            if self.selectedButtonID != self.id {
-                self.selectedButtonID = self.id
-                action()
-            }
-        }, onPressingChanged: { isPressing in
-            withAnimation {
-                self.state = .pressed
-            }
-        })
-        .onChange(of: selectedButtonID, { _, newValue in
-            if newValue != self.id {
-                self.state = .unpressed
-            }
-        })
+        .buttonStyle(LiabilitiesVsAssetModuleRadioButtonType(state: state))
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("color option")
-    }
-    
-    func getPressedStatus() -> Bool {
-        return state == .pressed
+        .accessibilityLabel("\(style.colorDescription) color")
     }
 }
 
@@ -79,8 +38,8 @@ struct LiabilitiesVsAssetModuleColorPickerRadioButton: View {
     HStack(spacing: 24) {
         ForEach(colorOptions, id: \.self) { option in
             LiabilitiesVsAssetModuleColorPickerRadioButton(
-                radioButtonColor: option.colorOptions,
-                selectedButtonID: $selectedButtonID,
+                style: option,
+                state: .pressed,
                 action: {}
             )
         }

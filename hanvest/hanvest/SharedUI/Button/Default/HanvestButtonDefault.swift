@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-struct HanvestButtonDefault: View {
-    // Constants
-    let SHADOW_OFFSET: CGFloat = 5
-    
+struct HanvestButtonDefault: View {    
     // Styling Variable (Initialized Before)
     var size: HanvestButtonSize = .large
     var style: HanvestButtonStyle = .filled(isDisabled: false)
@@ -21,14 +18,23 @@ struct HanvestButtonDefault: View {
     var image: Image?
     var action: () -> Void
     
+    // State to prevent rapid multiple actions
+    @State private var state: HanvestButtonState = .pressed
+    
     var body: some View {
         Button(
             action: {
-                if self.style.isDisabled == false {
+                if self.style.isDisabled == false && state == .pressed {
+                    state = .unpressed
+                    
                     HanvestSoundFXManager.playSound(soundFX: HanvestSoundFX.click)
                     HanvestHapticManager.hapticNotif(type: .success)
     
                     action()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        state = .pressed
+                    }
                 }
             }, label: {
                 ZStack(alignment: iconPosition.alignment, content: {
@@ -58,7 +64,7 @@ struct HanvestButtonDefault: View {
             }
         )
         .buttonStyle(HanvestButtonType(size: size, style: style))
-        .disabled(style.isDisabled)
+        .disabled(style.isDisabled || state == .unpressed)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityLabelString())
     }

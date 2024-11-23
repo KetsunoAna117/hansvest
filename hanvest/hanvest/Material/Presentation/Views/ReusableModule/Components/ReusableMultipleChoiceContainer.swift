@@ -48,8 +48,10 @@ struct ReusableMultipleChoiceContainer: View {
                     HanvestConfirmationFeedbackView(
                         state: .correct,
                         action: {
-                            resetData()
-                            onContinueButtonAction()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                resetData()
+                                onContinueButtonAction()
+                            }
                         }
                     )
                 }
@@ -57,8 +59,10 @@ struct ReusableMultipleChoiceContainer: View {
                     HanvestConfirmationFeedbackView(
                         state: .incorrect,
                         action: {
-                            resetData()
-                            onContinueButtonAction()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                resetData()
+                                onContinueButtonAction()
+                            }
                         }
                     )
                 }
@@ -70,7 +74,9 @@ struct ReusableMultipleChoiceContainer: View {
                     ),
                     title: "Continue",
                     action: {
-                        self.userPressSubmitButton = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self.userPressSubmitButton = true
+                        }
                     }
                 )
                 .padding(.horizontal, 20)

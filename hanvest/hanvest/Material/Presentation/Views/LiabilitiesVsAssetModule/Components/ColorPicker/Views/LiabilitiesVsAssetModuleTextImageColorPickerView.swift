@@ -16,7 +16,7 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
     var needColorPicker: Bool?
     var onSelectAnswer: ((String) -> Void)
     
-    @State private var selectedButtonID = ""
+    @State private var selectedButtonID: String = ""
     
     var body: some View {
         VStack(spacing: 24) {
@@ -32,12 +32,11 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
                 HStack(spacing: 24) {
                     ForEach(LiabilitiesVsAssetModuleColorOptions.allCases, id: \.self) { option in
                         LiabilitiesVsAssetModuleColorPickerRadioButton(
-                            radioButtonColor: option.colorOptions,
-                            selectedButtonID: $selectedButtonID,
+                            style: option,
+                            state: getRadioButtonState(id: option.colorDescription),
                             action: {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    onSelectAnswer(option.colorDescription)
-                                }
+                                self.selectedButtonID = option.colorDescription
+                                onSelectAnswer(option.colorDescription)
                             }
                         )
                     }
@@ -47,6 +46,14 @@ struct LiabilitiesVsAssetModuleTextImageColorPickerView: View {
         }
         .frame(maxWidth: .infinity)
     }
+    
+    private func getRadioButtonState(id: String) -> HanvestButtonState {
+        if selectedButtonID == id {
+            return .pressed
+        }
+        return .unpressed
+    }
+    
 }
 
 #Preview {
