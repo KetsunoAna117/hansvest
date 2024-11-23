@@ -13,7 +13,7 @@ struct SearchView: View {
     @StateObject private var searchViewModel: SearchViewModel = .init()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 24) {
             SearchTextFieldGlossary(
                 router: router,
                 searchString: $searchViewModel.searchString
@@ -46,9 +46,10 @@ struct SearchView: View {
                         
                     }
                 }
-                .padding()
+                .padding(.horizontal, 4)
             }
         }
+        .padding(.horizontal, 20)
         .onAppear() {
             searchViewModel.setup(viewModel: glossaryViewModel)
         }
